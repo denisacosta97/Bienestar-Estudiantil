@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/back_card_container"
+    android:orientation="vertical"
+    android:layout_width="@dimen/width_cred"
+    android:layout_height="@dimen/height_card"
+    android:background="@drawable/card_color_round_rect_pink">
+
+    <LinearLayout
+        android:gravity="center"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/ic_user"
+            android:id="@+id/imgIcon" />
+
+    </LinearLayout>
+
+</LinearLayout>

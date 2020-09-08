@@ -1,0 +1,29 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/front_card_container"
+    android:layout_width="@dimen/width_cred"
+    android:layout_height="@dimen/height_card"
+    android:background="@drawable/card_color_round_rect_default"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_marginTop="150dp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_card"
+            android:src="@drawable/curve" />
+
+        <LinearLayout
+            android:id="@+id/containerCard"
+            android:orientation="vertical"
+            android:layout_width="@dimen/width_cred"
+            android:layout_height="@dimen/height_card">
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+</RelativeLayout>

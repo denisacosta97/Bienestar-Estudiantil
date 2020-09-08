@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.unse.bienestar.estudiantil">
+
+    <uses-feature android:name="android.hardware.location.gps" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".Vistas.Activities.Gestion.GestionNoticias.ListadoNoticiasActivity" />
+        <activity android:name=".Vistas.Activities.Gestion.GestionNoticias.AddNoticiaActivity" />
+        <activity android:name=".Vistas.Activities.Gestion.GestionNoticiasActivity" />
+        <activity android:name=".Vistas.Activities.Polideportivo.GestionReservasInst.InfoReservaInstActivity" />
+        <activity android:name=".Vistas.Activities.Polideportivo.GestionReservasInst.ListadoReservasActivity" />
+       <activity android:name=".Vistas.Activities.Polideportivo.GestionReservasCanchas.ReservasCanchasActivity" />
+        <activity android:name=".Vistas.Activities.Polideportivo.GestionReservasInst.GestionReservasInstActivity" />
+        <activity android:name=".Vistas.Activities.Polideportivo.GestionReservasCanchas.GestionReservasCanchasActivity" />
+        <activity android:name=".Vistas.Activities.Polideportivo.CanchasSelectActivity" />
+        <activity android:name=".Vistas.Activities.Polideportivo.CanchasActivity" />
+
+        <activity android:name=".Vistas.Activities.Transporte.RecorridoRealActivity" />
+        <activity android:name=".Vistas.Activities.Transporte.GestionTransporte.PerfilRecorridoActivity" />
+        <activity android:name=".Vistas.Activities.Transporte.RecorridoActivity" />
+        <activity android:name=".Vistas.Activities.Deportes.GestionDeportes.AddTorneoActivity" />
+        <activity android:name=".Vistas.Activities.TermsActivity" />
+        <activity android:name=".Vistas.Activities.Deportes.GestionDeportes.InfoProfesorActivity" />
+        <activity android:name=".Vistas.Activities.AboutActivity" />
+        <activity android:name=".Vistas.Activities.Perfil.CambiarContraseniaActivity" />
+        <activity android:name=".Vistas.Activities.Perfil.RecuperarContraseniaActivity" />
+        <activity android:name=".Vistas.Activities.Deportes.GestionDeportes.Inscripciones.ListaInscriptosActivity" />
+        <activity android:name=".Vistas.Activities.Deportes.GestionDeportes.Inscripciones.InscripcionesActivity" />
+        <activity android:name=".Vistas.Activities.Perfil.ProfilePictureActivity" />
+        <activity android:name=".Vistas.Activities.Comedor.MainGestionComedor" />
+       <activity android:name=".Vistas.Activities.PerfilBecasActivity" />
+        <activity android:name=".Vistas.Activities.Becas.InfoBecasActivity" />
+        <activity
+            android:name=".Vistas.Activities.Perfil.ArchivosActivity"
+            android:label="Gestión de archivos" />
+        <activity android:name=".Vistas.Activities.NoticiaLectorActivity" />
+        <activity android:name=".Vistas.BarcodeActivity" />
+        <activity android:name=".Vistas.Activities.Deportes.PerfilDeporteActivity" />
+        <activity android:name=".Vistas.Activities.Deportes.RegistroDeporteActivity" />
+        <activity
+            android:name=".Vistas.Activities.Perfil.InfoUsuarioActivity"
+            android:label="Información" />
+        <activity
+            android:name=".Vistas.Activities.Perfil.PerfilActivity"
+            android:label="Perfil" />
+        <activity
+            android:name=".Vistas.Activities.Polideportivo.ConfirmarReservaActivity"
+            android:label="Confirmar Reserva" />
+        <activity android:name=".Vistas.Activities.Inicio.LoginWelcomeActivity" />
+        <activity android:name=".Vistas.Activities.Inicio.LoginActivity" />
+        <activity
+            android:name=".Vistas.Activities.AsistenciaActivity"
+            android:label="Asistencia" />
+        <activity
+            android:name=".Vistas.Activities.Polideportivo.ReservaEspacioActivity"
+            android:label="Realizar Reserva" />
+        <activity android:name=".Vistas.Activities.Perfil.TiposCredencialesActivity" />
+        <activity
+            android:name=".Vistas.Activities.Inicio.MainActivity"
+            android:label="@string/app_name" />
+        <activity android:name=".Vistas.Activities.Inicio.SlideWelcomeActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Vistas.Activities.Inicio.RegisterActivity" />
+        <activity android:name=".Vistas.Activities.Inicio.SplashScreenActivity" />
+        <activity
+            android:name=".Vistas.Activities.Polideportivo.EspaciosActivity"
+            android:label="Espacios Disponibles" />
+        <activity
+            android:name=".Vistas.Activities.Polideportivo.RequisitosReservasActivity"
+            android:label="Requisitos de Reservas" />
+        <activity
+            android:name=".Vistas.Activities.Polideportivo.GestionReservasInst.GestionReservasActivity"
+            android:label="Gestión de Reservas" />
+        <activity
+            android:name=".Vistas.Activities.Deportes.FuncionesProfesor.FuncionesProfesorActivity"
+            android:label="Gestión de Profesor" />
+        <activity
+            android:name=".Vistas.Activities.Deportes.FuncionesProfesor.ListadoAlumnosActivity"
+            android:label="Listado de Alumnos" />
+        <activity
+            android:name=".Vistas.Activities.Gestion.GestionSistemaActivity"
+            android:label="Gestión de Sistema" />
+        <activity
+            android:name=".Vistas.Activities.Gestion.EstadisticasActivity"
+            android:label="Estadisticas" />
+        <activity
+            android:name=".Vistas.Activities.Becas.TurnosActivity"
+            android:label="Turnos" />
+        <activity android:name=".Vistas.Activities.Becas.TipoTurnosActivity" />
+        <activity android:name=".Vistas.Activities.Becas.SelectorFechaActivity" />
+        <activity android:name=".Vistas.Activities.Becas.SelectorReceptoresActivity" />
+        <activity android:name=".Vistas.Activities.Becas.ResumenTurnoActivity" />
+        <activity android:name=".Vistas.Activities.Perfil.ConfiguracionesActivities" />
+        <activity android:name=".Vistas.Activities.Perfil.ListaCredencialesActivity" />
+        <activity android:name=".Vistas.Activities.Perfil.TarjetaCredencialActivity" />
+        <activity android:name=".Vistas.Activities.Perfil.CropImageActivity" />
+        <activity android:name=".Vistas.Activities.Polideportivo.CalendarReservasActivity" />
+        <activity android:name=".Vistas.Activities.Polideportivo.SelectInstActivity" />
+        <activity android:name=".Vistas.Activities.Perfil.InscripcionesActivity" />
+        <activity android:name=".Vistas.Activities.Deportes.ModificarInscripcionDeporteActivity" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.unse.bienestarestudiantil.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+    </application>
+
+</manifest>

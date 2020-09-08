@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="@color/colorGrey"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/toolbar_trans" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_margin="10dp"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Aquí puedes visualizar las gestiones que tienes habilitadas"
+            android:textSize="18sp"
+            android:textColor="@color/blackTextColor"
+            android:fontFamily="@font/montserrat_regular"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginTop="10dp"
+            android:id="@+id/recycler"
+            android:layout_width="match_parent"
+            tools:listitem="@layout/item_opciones"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Vistas.Activities.Inicio.LoginWelcomeActivity"
+    android:background="@drawable/img_unse2"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black_alpha_40"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txtWelcome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="¡Buenas noches!"
+                android:textColor="@color/whiteTextColor"
+                android:textSize="35sp"
+                android:gravity="center"
+                android:fontFamily="@font/montserrat_black"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bienvenido/a a la aplicación del \nComedor Universitario."
+                android:textSize="18sp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:textColor="@color/whiteTextColor"
+                android:gravity="center"
+                android:fontFamily="@font/montserrat_regular"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="150dp"
+            android:translationX="-120dp"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/inisesion"
+                android:layout_width="300dp"
+                android:layout_height="60dp"
+                android:layout_margin="10dp"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:background="@drawable/corners_rounded_green"
+                android:text="                        Iniciar sesión"
+                android:textSize="16sp"
+                android:drawableRight="@drawable/flecha_derecha"
+                android:fontFamily="@font/montserrat_black"/>
+
+            <Button
+                android:id="@+id/visit"
+                android:layout_width="300dp"
+                android:layout_height="60dp"
+                android:layout_margin="10dp"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:background="@drawable/corners_rounded_green"
+                android:text="               Visitante"
+                android:textSize="16sp"
+                android:drawableRight="@drawable/flecha_derecha"
+                android:fontFamily="@font/montserrat_black"/>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="250dp"
+                android:layout_height="200dp"
+                android:src="@drawable/ic_logo_bienestar_01"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

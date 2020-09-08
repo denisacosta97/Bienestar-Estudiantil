@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clickable="true"
+    android:focusableInTouchMode="true"
+    android:fillViewport="true"
+    android:background="@drawable/img_unse2"
+    android:focusable="true">
+
+    <RelativeLayout
+        android:id="@+id/nestedLogin"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txtWelcome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="¡Buenas noches!"
+                android:textColor="@color/whiteTextColor"
+                android:textSize="35sp"
+                android:gravity="center"
+                android:fontFamily="@font/montserrat_black"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bienvenido/a a la aplicación del \nComedor Universitario."
+                android:textSize="18sp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:textColor="@color/whiteTextColor"
+                android:gravity="center"
+                android:fontFamily="@font/montserrat_regular"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_margin="20dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_logo_bienestar_01" />
+
+            <EditText
+                android:id="@+id/edtUser"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/edit_text_logreg"
+                android:hint="DNI"
+                android:textSize="18sp"
+                android:inputType="number"
+                android:padding="10dp"
+                android:fontFamily="@font/montserrat_regular"/>
+
+            <EditText
+                android:id="@+id/edtPass"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edit_text_logreg"
+                android:hint="Contraseña"
+                android:textSize="18sp"
+                android:inputType="textPassword"
+                android:padding="10dp"
+                android:fontFamily="@font/montserrat_regular"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_marginTop="20dp">
+
+                <Button
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:id="@+id/sesionOn"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:text="Iniciar sesión"
+                    android:textStyle="bold"
+                    android:padding="12dp"
+                    android:textColor="@color/colorWhite"
+                    android:background="@drawable/button_border"
+                    android:layout_margin="5dp"
+                    android:fontFamily="@font/montserrat_black"/>
+
+                <TextView
+                    android:id="@+id/register"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    android:padding="10dp"
+                    android:text="Registrarme"
+                    android:textColor="@color/whiteTextColor"
+                    android:layout_marginTop="5dp"
+                    android:onClick="onClick"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:fontFamily="@font/montserrat_black"/>
+
+                <TextView
+                    android:id="@+id/txtPassMissed"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="16sp"
+                    android:text="¿Olvidaste tu contraseña?"
+                    android:textColor="@color/whiteTextColor"
+                    android:layout_marginTop="5dp"
+                    android:padding="10dp"
+                    android:onClick="onClick"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:fontFamily="@font/montserrat_regular"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:background="@color/black_alpha_40"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:layout_weight="0.5"
+                android:padding="12dp"
+                app:srcCompat="@drawable/ic_logo_bienestar_02" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center"
+                android:layout_weight="0.5"
+                android:paddingTop="5dp"
+                android:tint="@color/whiteTextColor"
+                app:srcCompat="@drawable/logo_unse" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</androidx.core.widget.NestedScrollView>

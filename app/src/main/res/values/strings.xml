@@ -1,0 +1,224 @@
+<resources>
+    <array name="material_calendar_months_array">
+        <item>Enero</item>
+        <item>Febrero</item>
+        <item>Marzo</item>
+        <item>Abril</item>
+        <item>Mayo</item>
+        <item>Junio</item>
+        <item>Julio</item>
+        <item>Augosto</item>
+        <item>Septiembre</item>
+        <item>Octubre</item>
+        <item>Noviembre</item>
+        <item>Deciembre</item>
+    </array>
+    <integer name="card_name_len">25</integer>
+    <string name="app_name">Bienestar Estudiantil - UNSE</string>
+    <string name="app_name_shor">Bienestar Estudiantil</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+
+    <string name="nav_header_desc">Navigation header</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_tools">Tools</string>
+    <string name="menu_share">Share</string>
+
+    <string name="menu_send">Send</string>
+    <string name="next">SIGUIENTE</string>
+
+    <string name="start">COMENZAR</string>
+
+    <string name="title_activity_profile">Profile</string>
+    <string name="txtDeportesFrag">La UNSE considera que el deporte es un componente fundamental en la formación de sus estudiantes. El deporte es salud, ocupación del tiempo libre, afán de superación y socialización.\n\n
+        El área de deportes es la encargada de programar y coordinar las diversas actividades con el fin de facilitar a los estudiantes los medios necesarios para la práctica deportiva.\n\n
+        Cada año se programan ligas deportivas en  las disciplinas de básquet, fútbol, rugby, voleibol y ajedrez. También para aprender o seguir desarrollando las competencias deportivas se ofrece la formación y el entrenamiento en voleibol masculino y femenino, rugby masculino y femenino, cestobol, hockey y fútbol femenino.\n\n
+        En algunas disciplinas deportivas se forman los equipos representativos que participan en las ligas provinciales. También, la UNSE participa de los Juegos deportivos nacionales que se realizan cada dos años en distintas universidades del país.\n\n
+        Por inscripciones a cualquiera de los deportes, puedes realizarlo mediante la aplicación donde tendrás toda la información y también puedes comunicarte por teléfono o por mail para más información.\n\n
+
+ </string>
+
+    <string name="txtReserva">Elige una fecha para ver la disponibilidad de %s</string>
+    <string name="txtAfiliados">1. Constancia de descuento del área personal.\n2. Recibo SADAIC en caso de fiestas o eventos.\n3. Recibo Calidad de Vida en caso de fiestas y eventos.\n4. Recibo oficial de Tesoría.</string>
+    <string name="txtdocnodoc">1. Constancia de empleado y/o área que presta servicio.\n2. Recibo SADAIC en caso de fiestas o eventos.\n3. Recibo Calidad de Vida en caso de fiestas y eventos.\n4. Recibo oficial de Tesoría.</string>
+    <string name="txtalumnegre">1. Constancia de alumno regular y en caso de egresados se elevará una nota solicitando su confirmación como tal.\n2. Recibo SADAIC en caso de fiestas o eventos.\n3. Recibo Calidad de Vida en caso de fiestas y eventos.\n4. Recibo oficial de Tesoría.</string>
+    <string name="txtpartic">1. Fotocopia del DNI.\n2. Recibo SADAIC en caso de fiestas o eventos.\n3. Recibo Calidad de Vida en caso de fiestas y eventos.\n4. Recibo oficial de Tesoría.</string>
+    <string name="camposVacios">Hay campos vacios, por favor completalos</string>
+    <string name="noNumero">%s debe ser un número</string>
+    <string name="noAlturaPeso">La altura o el peso tienen formato incorrecto</string>
+    <string name="redesSociales">Facebook o Instagram tienen un formato incorrecto</string>
+    <string name="noActividadCompleta">Debe completar información sobre la actividad que realiza</string>
+    <string name="errorInternoAdmin">Error interno, contacta al Administrador</string>
+    <string name="actualizado">¡Actualizado!</string>
+    <string name="actualizadoError">¡Error al actualizar!</string>
+    <string name="camposInvalidos">Existen campos inválidos, reintente</string>
+    <string name="tokenInvalido">No tiene autorización para procesar la tarea</string>
+    <string name="tokenInexistente">Necesita de un token para operar en el sistema</string>
+    <string name="noData">No existen datos</string>
+    <string name="servidorOff">Error de conexión o servidor fuera de rango</string>
+    <string name="errorLocation">Error al obtener ubicación</string>
+    <string name="elegirIntensidad">Debe elegir la intensidad de su actividad</string>
+    <string name="noActualizableForm">No se puede actualizar, el formulario ya fue presentado</string>
+    <string name="noExiste">Registro inexistente</string>
+    <string name="noCambioContrasenia">No se puedo recuperar la clave, contacta al Administrador</string>
+    <string name="cuentaInexistente">Los datos no coinciden con ninguna cuenta</string>
+    <string name="errorCredencialToken">Error al crear credenciales del usuario, reintente</string>
+    <string name="usuarioExiste">Ya existe un usuario con el DNI ingresado, prueba con otro</string>
+    <string name="errorCrearUsuario">Error interno al intentar registrarte</string>
+    <string name="contraseniaActualInvalida">La contraseña actual ingresada es inválida</string>
+    <string name="noCredenciales">No posee credenciales de este tipo</string>
+    <string name="inscripcionExitosa">¡Inscripción realizada!</string>
+    <string name="inscripcionErronea">Error al inscribirse, intente nuevamente</string>
+    <string name="deportesSinConvocatoria">El deporte no tiene convocatoria vigente</string>
+    <string name="deporteCerroConvocatoria">El deporte cerró su convocatoria</string>
+    <string name="deporteYaInscripto">Ya estas inscripto en la actividad</string>
+    <string name="noConexion">Para visualizar el elemento debe estar conectado a Internet</string>
+    <string name="usuarioListError">Error al obtener usuarios intente nuevamente</string>
+    <string name="usuarioListVacio">No existe ningún usuario</string>
+    <string name="tituloListaUsuarios">Lista de Usuarios</string>
+    <string name="usuarioNoExiste">No existe el usuario solicitado</string>
+    <string name="legajoInvalido">Número de legajo inválido. Ej: 12345/10</string>
+    <string name="camposIncompletos">Por favor, complete los campos</string>
+    <string name="anioIngesoNoValido">El año de ingreso no es válido</string>
+    <string name="perfilActualizado">¡Perfil actualizado!</string>
+    <string name="fotoPerfilError">No se pudo actualizar su foto de perfil</string>
+    <string name="fotoPerfilExito">¡Foto actualizada!</string>
+    <string name="cambioPrimeroGuardar">Primero debe guardar los cambios</string>
+    <string name="noSelectImagen">No se seleccionó ninguna imagen</string>
+    <string name="imagenErrorCrop">No se puedo recortar la imagen, intente nuevamente</string>
+    <string name="cambioNoGuardado">¡No se guardaron cambios!</string>
+    <string name="imagenErrorLoad">No se pudo cargar la imagen solicitada</string>
+    <string name="imagenNoLoad">No se pudo cargar la imagen, reintente</string>
+    <string name="usuarioDeshabilitado">¡Usuario deshabilidado!</string>
+    <string name="usuarioHabilitado">¡Usuario habilitado!</string>
+    <string name="usuarioEliminar">¿Seguro que desea dar de %s al usuario %s %s ?</string>
+    <string name="noticiaEliminar">¿Seguro que desea dar de %s la noticia?</string>
+    <string name="btnAlta">DAR DE ALTA</string>
+    <string name="btnBaja">DAR DE BAJA</string>
+    <string name="advertencia">¡Advertencia!</string>
+    <string name="contraseniaMinimo">La contraseña debe tener mínimo de 4 caracteres</string>
+    <string name="contraseniaNoIguales">Las contraseñas no son identicas</string>
+    <string name="presionaDeNuevo">Presiona de nuevo para salir</string>
+    <string name="usuarioNoRegistro">Error al crear el usuario</string>
+    <string name="errorDNI">Error al obtener los datos del DNI</string>
+    <string name="iniciarSesionConf">Inicia sesión para confirmar</string>
+    <string name="fotoPerfilRecordatorio">¡Recuerda subir una foto luego!</string>
+    <string name="usuarioRegistrado">¡Registrado!</string>
+    <string name="campoVacio">El campo no puede ser vacío</string>
+    <string name="dniInvalido">Número de DNI inválido</string>
+    <string name="campoNoGrande">El campo debe tener al menos tres carácteres</string>
+    <string name="fechaInvalida">La fecha no tiene un formato válido</string>
+    <string name="numeroTelInvalido">El número debe tener al menos 8 dígitos</string>
+    <string name="emailInvalido">El email no es válido</string>
+    <string name="domicilioInvalido">Debe contener al menos una letra y un número</string>
+    <string name="campoNoFormato">El campo solo admite letras</string>
+    <string name="contraseniaActualizada">¡Contraseña actualizada!</string>
+    <string name="documentoNoCompletado">Error al completar el documento</string>
+    <string name="inscripcionNoCarga">Error al obtener la inscripcion. ¿Desea volver a intentarlo?</string>
+    <string name="estadoActualizado">¡Estado actualizado!</string>
+    <string name="numeroNoValido">Valor númerico no valido</string>
+    <string name="errorCrearCredencial">¡Error al crear la credencial!</string>
+    <string name="credencialCreada">¡Credencial creada!\nVuelve a ingresar para visualizarla</string>
+    <string name="permisosActualizados">¡Permisos actualizados!</string>
+    <string name="permisosAlgunosNo">¡Algunos permisos no se actualizaron!</string>
+    <string name="primeroBuscar">¡Primero debe buscar un usuario!</string>
+    <string name="usuarioPermisosOn">El usuario ya posee permisos</string>
+    <string name="mensajeDenegado">Esta función sólo están disponibles para usuarios registrados, si desea utilizarlas por favor regístrese.</string>
+    <string name="itemSistema">Gestión del Sistema</string>
+    <string name="itemPerfil">Perfil</string>
+    <string name="itemNosotros">Sobre nosotros</string>
+    <string name="itemContacto">Contactos</string>
+    <string name="itemCondiciones">Términos y condiciones</string>
+    <string name="sesionIniciada">¡Sesión iniciada!</string>
+    <string name="usuarioInvalido">Usuario o contraseña inválidos</string>
+    <string name="usuarioInhabilitado">Usuario deshabilitado, contacta al Administrador</string>
+    <string name="regularidadVigente">El alumno ya posee una regularidad ese año</string>
+    <string name="regularidadNoAgregada">Regularidad no agregada</string>
+    <string name="regularidadAgregada">¡Regularidad otorgada!</string>
+    <string name="anioInvalido">¡Debe ingresar un año válido!</string>
+    <string name="regularidadActualizada">¡Regularidad actualizada!</string>
+    <string name="regularidadNoCambiada">¡Error al cambiar!</string>
+    <string name="archivosError">Error al obtener archivos, intente nuevamente</string>
+    <string name="archivosVacio">No existen archivos</string>
+    <string name="tituloArchivos">Gestión de Archivos</string>
+    <string name="archivoNoSeleccionado">Archivo no seleccionado</string>
+    <string name="archivoSeleecionError">No se elegió ningun archivo</string>
+    <string name="archivoSubido">¡Archivo subido!</string>
+    <string name="archivoError">¡Error al cargar archivo!</string>
+    <string name="nombreVacio">Debe elegir un nombre</string>
+    <string name="archivoGrande">El archivo es demasiado grande</string>
+    <string name="archivoActualizado">¡Archivo actualizado!</string>
+    <string name="tituloArchivosNuevo">Nuevo Archivo</string>
+    <string name="archivoNoAbrir">No hay aplicaciones disponibles para archivos %s</string>
+    <string name="archivoEliminado">El archivo fue eliminado durante el proceso, reintente</string>
+    <string name="credencialActualizada">¡Credencial actualizada!</string>
+    <string name="sociosError">Error al obtener socios intente nuevamente</string>
+    <string name="sociosVacio">No existe ningún socio</string>
+    <string name="familiarCambiabo">¡Vinculo actualizado!</string>
+    <string name="familiarAgregado">¡Familiar agregado!</string>
+    <string name="suscripcionInvalida">La suscripcion elegida no está disponible</string>
+    <string name="suscripcionInscripto">El socio ya está inscripto en ese año</string>
+    <string name="primeroBuscarSuscrip">Primero debe buscar un año</string>
+    <string name="suscripcionNoExiste">No existen suscripciones en ese año</string>
+
+    <!--  Calendario  -->
+
+    <string name="torneoEliminado">Torneo eliminado</string>
+    <string name="material_calendar_monday">L</string>
+    <string name="material_calendar_tuesday">M</string>
+    <string name="material_calendar_wednesday">M</string>
+    <string name="material_calendar_thursday">J</string>
+    <string name="material_calendar_friday">V</string>
+    <string name="material_calendar_saturday">S</string>
+
+    <string name="material_calendar_sunday">D</string>
+
+    <string name="mision0">Desarrollar acciones orientadas a la mejora de la calidad de vida en relación a la actividad universitaria, contribuyendo al acceso, permanencia y egreso, el esparcimiento, la orientación y la información de los estudiantes.</string>
+    <string name="mision1">La estructura funcional de la Secretaría se conforma con las siguientes Áreas de gestión que abarca el Bienestar Universitario: Becas, Salud, Deportes, Bienestar, Accesibilidad, Servicios de Salud, Complejo Polideportivo y Residencia Universitaria.</string>
+    <string name="vision">Ser un área que diseñe e implemente proyectos, programas y acciones, innovadoras y sostenibles orientadas a las problemáticas, necesidades, intereses y expectativas de los estudiantes que contribuyan a su formación integral y al ejercicio de la ciudadanía que les permita lograr su realización personal y social.</string>
+    <string name="usuarioYaAgregado">¡El usuario ya fue agregado!</string>
+    <string name="choferNoAgregado">¡Error al registrar chofer!</string>
+    <string name="choferAgregado">¡Chofer agregado!</string>
+    <string name="choferError">¡Error el obtener datos del chofer!</string>
+    <string name="choferActualizado">¡Chofer actualizado!</string>
+    <string name="choferErrorActualizar">¡Error al actualizar el chofer!</string>
+    <string name="choferNoServicio">¡No posee servicios!</string>
+    <string name="servicioError">¡Error al cargar el servicio!</string>
+    <string name="serviciosNoHay">¡No existen datos disponibles!</string>
+    <string name="servicioFinalizar">¿Esta seguro que desea finalizar el servicio?</string>
+    <string name="servicioFinalizarAntiguo">Está a punto a finalizar un servicio previo</string>
+    <string name="errorConexion">¡Revise su conexión a internet!</string>
+    <string name="ajustesInvalidos">¡Ajuste del GPS inválido!</string>
+    <string name="posicionError">¡Error al actualizar GPS!</string>
+    <string name="primeroFecha">¡Primero elija una fecha!</string>
+
+    <string name="reservaOk">¡Fecha y hora libre!\n¿Desea reservar?</string>
+    <string name="errorImagenLoad">¡Error al cargar imagen!</string>
+    <string name="noticiaError">¡Error al subir la noticia!</string>
+    <string name="noticiaAgregada">¡Noticias agregada!</string>
+    <string name="categoriaElegir">¡Debe elegir una categoría!</string>
+    <string name="noticiaListError">Error al obtener noticias, intente nuevamente</string>
+    <string name="noticiaListVacio">No hay noticias</string>
+    <string name="noticiaNoExiste">¡Noticia inexistente!</string>
+    <string name="tituloNoticias">Lista noticias</string>
+    <string name="noticiaActualizada">¡Noticia actualizada!</string>
+   <string name="noticiaActualizarError">¡Error al actualizar la noticia!</string>
+    <string name="noticiaDeshabilitado">¡Noticia desactivada!</string>
+    <string name="noticiaHabilitado">¡Noticia activada!</string>
+    <string name="btnHabilitar">HABILITAR</string>
+    <string name="btnDeshabilitar">DESHABILITAR</string>
+    <string name="noAsignado">NO ASIGNADO</string>
+    <string name="usuarioNoAlumno">No eres alumno, se rellena con campos por defecto</string>
+    <string name="inscripcionYaRegistrada">¡Ya existe una inscripción anterior!</string>
+    <string name="credencialesListError">Error al obtener las inscripciones, por favor intenta nuevamente</string>
+    <string name="credencialesListVacia">No existe ninguna inscripcion realizada a un deporte o beca</string>
+
+</resources>
+

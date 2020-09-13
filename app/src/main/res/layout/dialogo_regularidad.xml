@@ -51,7 +51,7 @@
                 android:fontFamily="@font/montserrat_regular"
                 android:textSize="16sp"
                 android:gravity="center"
-                android:text="Para añadir una regularidad, ingrese el año de la misma" />
+                android:text="@string/alert6" />
 
             <EditText
                 android:id="@+id/edtBuscar"

@@ -104,7 +104,7 @@
                         android:layout_height="wrap_content"
                         android:text="$25"
                         android:layout_margin="5dp"
-                        android:textSize="22sp"
+                        android:textSize="24sp"
                         android:textColor="@color/colorMoney"
                         android:textStyle="bold"
                         android:fontFamily="@font/montserrat_black"/>

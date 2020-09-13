@@ -12,16 +12,13 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <include
-            layout="@layout/toolbar_trans"/>
+        <include layout="@layout/toolbar_trans" />
 
         <androidx.cardview.widget.CardView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:elevation="2sp"
             app:cardCornerRadius="10dp"
-            android:translationY="-60dp"
             android:outlineAmbientShadowColor="@color/colorGrey2"
             android:outlineSpotShadowColor="@color/colorGrey2"
             card_view:backgroundTint="@color/colorWhite">
@@ -37,6 +34,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="BECA COMEDOR"
+                    android:textColor="@color/blackTextColor"
                     android:textSize="26sp"
                     android:gravity="center"
                     android:fontFamily="@font/montserrat_black"/>
@@ -44,6 +42,7 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     android:layout_marginTop="10dp"
                     android:orientation="horizontal">
 
@@ -67,6 +66,7 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     android:orientation="horizontal">
 
                     <TextView
@@ -90,6 +90,7 @@
                     android:layout_width="60dp"
                     android:layout_height="12dp"
                     android:layout_gravity="center"
+                    android:visibility="gone"
                     android:layout_marginTop="15dp"
                     android:backgroundTint="@color/colorPrimaryDark"
                     android:background="@drawable/corners_rounded_green"/>
@@ -97,6 +98,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     android:text="Descripción"
                     android:textSize="20sp"
                     android:gravity="center"
@@ -106,6 +108,65 @@
                     android:id="@+id/txtDesc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_gravity="center_horizontal|center"
+                    android:textColor="@color/blackTextColor"
+                    android:text="12/04/2020"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/montserrat_regular"/>
+
+                <View
+                    android:layout_width="60dp"
+                    android:layout_height="12dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="15dp"
+                    android:backgroundTint="@color/colorPrimaryDark"
+                    android:background="@drawable/corners_rounded_green"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Requisitos generales"
+                    android:textColor="@color/blackTextColor"
+                    android:textSize="20sp"
+                    android:gravity="center"
+                    android:fontFamily="@font/montserrat_black"/>
+
+                <TextView
+                    android:id="@+id/txtReqGeneral"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_gravity="center_horizontal|center"
+                    android:textColor="@color/blackTextColor"
+                    android:text="12/04/2020"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/montserrat_regular"/>
+
+                <View
+                    android:layout_width="60dp"
+                    android:layout_height="12dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="15dp"
+                    android:backgroundTint="@color/colorPrimaryDark"
+                    android:background="@drawable/corners_rounded_green"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Requisitos académicos"
+                    android:textColor="@color/blackTextColor"
+                    android:textSize="20sp"
+                    android:gravity="center"
+                    android:fontFamily="@font/montserrat_black"/>
+
+                <TextView
+                    android:id="@+id/txtReqAcad"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_gravity="center_horizontal|center"
+                    android:textColor="@color/blackTextColor"
                     android:text="12/04/2020"
                     android:textSize="18sp"
                     android:fontFamily="@font/montserrat_regular"/>
@@ -122,6 +183,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Documentación"
+                    android:textColor="@color/blackTextColor"
                     android:textSize="20sp"
                     android:gravity="center"
                     android:fontFamily="@font/montserrat_black"/>
@@ -136,7 +198,7 @@
                         android:id="@+id/imgvPdf"
                         android:layout_width="60dp"
                         android:layout_height="60dp"
-                        android:src="@drawable/ic_pdf"/>
+                        app:srcCompat="@drawable/ic_pdf"/>
 
                     <TextView
                         android:id="@+id/txtPdf"

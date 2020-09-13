@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:id="@+id/layout"
     android:foreground="?attr/selectableItemBackground"
@@ -70,11 +71,12 @@
 
             <ImageView
                 android:layout_marginStart="3dp"
-                android:src="@drawable/ic_chek"
+                app:srcCompat="@drawable/ic_chek"
                 android:id="@+id/switchCred"
                 android:visibility="gone"
                 android:layout_width="35dp"
-                android:layout_height="35dp" />
+                android:layout_height="35dp"
+                android:layout_marginLeft="3dp" />
 
         </LinearLayout>
 
@@ -91,7 +93,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:layout_weight="0.5"
-                android:src="@drawable/ic_pdf"/>
+                app:srcCompat="@drawable/ic_pdf"/>
 
             <TextView
                 android:layout_width="match_parent"

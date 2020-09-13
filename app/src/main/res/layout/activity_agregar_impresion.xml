@@ -23,6 +23,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="5dp"
                 android:text="Nueva impresión"
+                android:textColor="@color/blackTextColor"
                 android:textAlignment="center"
                 android:fontFamily="@font/montserrat_black"
                 android:textSize="30sp"/>
@@ -115,7 +116,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Dejar vacío en caso de no ser necesaria una descripción."
+                    android:text="@string/alert0"
                     android:fontFamily="@font/montserrat_regular"
                     android:textSize="12dp"
                     android:textColor="@color/blackTextColor"/>

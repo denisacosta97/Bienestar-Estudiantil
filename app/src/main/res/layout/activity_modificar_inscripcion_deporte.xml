@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -39,6 +40,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
+                            android:textColor="@color/blackTextColor"
                             android:fontFamily="@font/montserrat_black"
                             android:textSize="20sp"
                             android:text="Inscripcion #1" />
@@ -48,7 +50,7 @@
                             android:layout_marginTop="10dp"
                             android:layout_width="110dp"
                             android:layout_height="110dp"
-                            android:src="@drawable/ic_zapatilla"
+                            app:srcCompat="@drawable/ic_zapatilla"
                             app:civ_border_color="#FFFFFF"
                             app:civ_border_width="2dp" />
 
@@ -57,6 +59,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
+                            android:textColor="@color/blackTextColor"
                             android:fontFamily="@font/montserrat_black"
                             android:textSize="24sp"
                             android:text="Deporte" />
@@ -86,7 +89,7 @@
                             android:id="@+id/fab"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/ic_edit_"
+                            app:srcCompat="@drawable/ic_edit_"
                             app:backgroundTint="@color/colorPrimaryDark"
                             android:layout_gravity="end" />
 
@@ -120,6 +123,7 @@
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:layout_gravity="center"
+                                            android:textColor="@color/blackTextColor"
                                             android:fontFamily="@font/montserrat_black"
                                             android:text="INFORMACIÓN"
                                             android:textSize="16sp" />
@@ -150,8 +154,8 @@
                                                     android:layout_height="wrap_content"
                                                     android:layout_marginLeft="10dp"
                                                     android:layout_marginRight="10dp"
-                                                    android:textColor="@color/colorGrey2"
                                                     android:text="DNI:"
+                                                    android:textColor="@color/blackTextColor"
                                                     android:textSize="16sp"
                                                     android:fontFamily="@font/montserrat_black"/>
 
@@ -197,8 +201,8 @@
                                                     android:layout_height="wrap_content"
                                                     android:layout_marginLeft="10dp"
                                                     android:layout_marginRight="10dp"
-                                                    android:textColor="@color/colorGrey2"
                                                     android:text="Nombre:"
+                                                    android:textColor="@color/blackTextColor"
                                                     android:textSize="16sp"
                                                     android:fontFamily="@font/montserrat_black"/>
 
@@ -242,9 +246,9 @@
                                                     android:layout_height="wrap_content"
                                                     android:layout_marginLeft="10dp"
                                                     android:layout_marginRight="10dp"
-                                                    android:textColor="@color/colorGrey2"
                                                     android:text="Apellido:"
                                                     android:textSize="16sp"
+                                                    android:textColor="@color/blackTextColor"
                                                     android:fontFamily="@font/montserrat_black"/>
 
                                                 <EditText
@@ -287,8 +291,8 @@
                                                     android:layout_height="wrap_content"
                                                     android:layout_marginLeft="10dp"
                                                     android:layout_marginRight="10dp"
-                                                    android:textColor="@color/colorGrey2"
                                                     android:text="Edad:"
+                                                    android:textColor="@color/blackTextColor"
                                                     android:textSize="16sp"
                                                     android:fontFamily="@font/montserrat_black"/>
 
@@ -332,7 +336,7 @@
                                                     android:layout_height="wrap_content"
                                                     android:layout_marginLeft="10dp"
                                                     android:layout_marginRight="10dp"
-                                                    android:textColor="@color/colorGrey2"
+                                                    android:textColor="@color/blackTextColor"
                                                     android:text="Fecha de Nacimiento:"
                                                     android:textSize="16sp"
                                                     android:fontFamily="@font/montserrat_black"/>
@@ -377,8 +381,7 @@
                                                     android:layout_height="wrap_content"
                                                     android:layout_marginLeft="10dp"
                                                     android:layout_marginRight="10dp"
-                                                    android:textColor="@color/colorGrey2"
-                                                    android:text="Domicilio:"
+                                                    android:textColor="@color/blackTextColor"                                                    android:text="Domicilio:"
                                                     android:textSize="16sp"
                                                     android:fontFamily="@font/montserrat_black"/>
 
@@ -422,8 +425,7 @@
                                                     android:layout_height="wrap_content"
                                                     android:layout_marginLeft="10dp"
                                                     android:layout_marginRight="10dp"
-                                                    android:textColor="@color/colorGrey2"
-                                                    android:text="Barrio:"
+                                                    android:textColor="@color/blackTextColor"                                                    android:text="Barrio:"
                                                     android:textSize="16sp"
                                                     android:fontFamily="@font/montserrat_black"/>
 
@@ -466,8 +468,7 @@
                                                     android:layout_height="wrap_content"
                                                     android:layout_marginLeft="10dp"
                                                     android:layout_marginRight="10dp"
-                                                    android:textColor="@color/colorGrey2"
-                                                    android:text="Localidad:"
+                                                    android:textColor="@color/blackTextColor"                                                    android:text="Localidad:"
                                                     android:textSize="16sp"
                                                     android:fontFamily="@font/montserrat_black"/>
 
@@ -510,8 +511,7 @@
                                                     android:layout_height="wrap_content"
                                                     android:layout_marginLeft="10dp"
                                                     android:layout_marginRight="10dp"
-                                                    android:textColor="@color/colorGrey2"
-                                                    android:text="Provincia:"
+                                                    android:textColor="@color/blackTextColor"                                                    android:text="Provincia:"
                                                     android:textSize="16sp"
                                                     android:fontFamily="@font/montserrat_black"/>
 
@@ -554,7 +554,7 @@
                                                     android:layout_height="wrap_content"
                                                     android:layout_marginLeft="10dp"
                                                     android:layout_marginRight="10dp"
-                                                    android:textColor="@color/colorGrey2"
+                                                    android:textColor="@color/blackTextColor"
                                                     android:text="País:"
                                                     android:textSize="16sp"
                                                     android:fontFamily="@font/montserrat_black"/>
@@ -598,7 +598,7 @@
                                                     android:layout_height="wrap_content"
                                                     android:layout_marginLeft="10dp"
                                                     android:layout_marginRight="10dp"
-                                                    android:textColor="@color/colorGrey2"
+                                                    android:textColor="@color/blackTextColor"
                                                     android:text="Email:"
                                                     android:textSize="16sp"
                                                     android:fontFamily="@font/montserrat_black"/>
@@ -637,13 +637,13 @@
                                                 android:layout_width="match_parent"
                                                 android:layout_height="wrap_content"
                                                 android:orientation="horizontal">
-
+                                                android:textColor="@color/blackTextColor"
                                                 <TextView
                                                     android:layout_width="wrap_content"
                                                     android:layout_height="wrap_content"
                                                     android:layout_marginLeft="10dp"
                                                     android:layout_marginRight="10dp"
-                                                    android:textColor="@color/colorGrey2"
+                                                    android:textColor="@color/blackTextColor"
                                                     android:text="Facultad:"
                                                     android:textSize="16sp"
                                                     android:fontFamily="@font/montserrat_black"/>
@@ -688,7 +688,7 @@
                                                     android:layout_height="wrap_content"
                                                     android:layout_marginLeft="10dp"
                                                     android:layout_marginRight="10dp"
-                                                    android:textColor="@color/colorGrey2"
+                                                    android:textColor="@color/blackTextColor"
                                                     android:textStyle="bold"
                                                     android:text="Carrera:"
                                                     android:textSize="16sp"
@@ -735,7 +735,7 @@
                                                     android:layout_height="wrap_content"
                                                     android:layout_marginLeft="10dp"
                                                     android:layout_marginRight="10dp"
-                                                    android:textColor="@color/colorGrey2"
+                                                    android:textColor="@color/blackTextColor"
                                                     android:text="Legajo:"
                                                     android:textSize="16sp"
                                                     android:fontFamily="@font/montserrat_black"/>
@@ -781,7 +781,7 @@
                                                     android:layout_height="wrap_content"
                                                     android:layout_marginLeft="10dp"
                                                     android:layout_marginRight="10dp"
-                                                    android:textColor="@color/colorGrey2"
+                                                    android:textColor="@color/blackTextColor"
                                                     android:text="Año ingreso:"
                                                     android:textSize="16sp"
                                                     android:fontFamily="@font/montserrat_black"/>
@@ -826,7 +826,7 @@
                                                     android:layout_height="wrap_content"
                                                     android:layout_marginLeft="10dp"
                                                     android:layout_marginRight="10dp"
-                                                    android:textColor="@color/colorGrey2"
+                                                    android:textColor="@color/blackTextColor"
                                                     android:text="Cantidad Materias:"
                                                     android:textSize="16sp"
                                                     android:fontFamily="@font/montserrat_black"/>
@@ -870,7 +870,7 @@
                                                     android:layout_height="wrap_content"
                                                     android:layout_marginLeft="10dp"
                                                     android:layout_marginRight="10dp"
-                                                    android:textColor="@color/colorGrey2"
+                                                    android:textColor="@color/blackTextColor"
                                                     android:text="Facebook:"
                                                     android:textSize="16sp"
                                                     android:fontFamily="@font/montserrat_black"/>
@@ -914,7 +914,7 @@
                                                     android:layout_height="wrap_content"
                                                     android:layout_marginLeft="10dp"
                                                     android:layout_marginRight="10dp"
-                                                    android:textColor="@color/colorGrey2"
+                                                    android:textColor="@color/blackTextColor"
                                                     android:text="Instagram:"
                                                     android:textSize="16sp"
                                                     android:fontFamily="@font/montserrat_black"/>
@@ -958,7 +958,7 @@
                                                     android:layout_height="wrap_content"
                                                     android:layout_marginLeft="10dp"
                                                     android:layout_marginRight="10dp"
-                                                    android:textColor="@color/colorGrey2"
+                                                    android:textColor="@color/blackTextColor"
                                                     android:text="Peso (kg):"
                                                     android:textSize="16sp"
                                                     android:fontFamily="@font/montserrat_black"/>
@@ -1002,7 +1002,7 @@
                                                     android:layout_height="wrap_content"
                                                     android:layout_marginLeft="10dp"
                                                     android:layout_marginRight="10dp"
-                                                    android:textColor="@color/colorGrey2"
+                                                    android:textColor="@color/blackTextColor"
                                                     android:text="Altura (cm):"
                                                     android:textSize="16sp"
                                                     android:fontFamily="@font/montserrat_black"/>
@@ -1047,7 +1047,7 @@
                                                     android:layout_height="wrap_content"
                                                     android:layout_marginLeft="10dp"
                                                     android:layout_marginRight="10dp"
-                                                    android:textColor="@color/colorGrey2"
+                                                    android:textColor="@color/blackTextColor"
                                                     android:textStyle="bold"
                                                     android:text="Indice de Masa Corporal (IMC):"
                                                     android:textSize="14sp"
@@ -1093,7 +1093,7 @@
                                                     android:layout_height="wrap_content"
                                                     android:layout_marginLeft="10dp"
                                                     android:layout_marginRight="10dp"
-                                                    android:textColor="@color/colorGrey2"
+                                                    android:textColor="@color/blackTextColor"
                                                     android:textStyle="bold"
                                                     android:text="Estado:"
                                                     android:textSize="14sp"
@@ -1140,7 +1140,7 @@
                                                     android:layout_height="wrap_content"
                                                     android:layout_marginLeft="10dp"
                                                     android:layout_marginRight="10dp"
-                                                    android:textColor="@color/colorGrey2"
+                                                    android:textColor="@color/blackTextColor"
                                                     android:text="Telefono:"
                                                     android:textSize="16sp"
                                                     android:fontFamily="@font/montserrat_black"/>
@@ -1184,7 +1184,7 @@
                                                     android:layout_height="wrap_content"
                                                     android:layout_marginLeft="10dp"
                                                     android:layout_marginRight="10dp"
-                                                    android:textColor="@color/colorGrey2"
+                                                    android:textColor="@color/blackTextColor"
                                                     android:text="¿WhatsApp?:"
                                                     android:textSize="16sp"
                                                     android:fontFamily="@font/montserrat_black"/>
@@ -1227,7 +1227,7 @@
                                                     android:layout_height="wrap_content"
                                                     android:text="¿Realizó o realiza actividad física?"
                                                     android:layout_weight="0.6"
-                                                    android:textColor="@color/colorGrey2"
+                                                    android:textColor="@color/blackTextColor"
                                                     android:textSize="16sp"
                                                     android:fontFamily="@font/montserrat_black"/>
 
@@ -1287,7 +1287,7 @@
                                                         android:layout_height="match_parent"
                                                         android:layout_marginLeft="10dp"
                                                         android:layout_marginRight="10dp"
-                                                        android:textColor="@color/colorGrey2"
+                                                        android:textColor="@color/blackTextColor"
                                                         android:text="¿Cuáles?"
                                                         android:textSize="16sp"
                                                         android:fontFamily="@font/montserrat_black"/>
@@ -1330,9 +1330,10 @@
                                                     android:layout_marginTop="10dp"
                                                     android:layout_marginStart="5dp"
                                                     android:text="Intensidad:"
-                                                    android:textColor="@color/colorGrey2"
+                                                    android:textColor="@color/blackTextColor"
                                                     android:textSize="16sp"
-                                                    android:fontFamily="@font/montserrat_black"/>
+                                                    android:fontFamily="@font/montserrat_black"
+                                                    android:layout_marginLeft="5dp" />
 
                                                 <LinearLayout
                                                     android:layout_width="match_parent"
@@ -1391,7 +1392,7 @@
                                                     android:layout_height="wrap_content"
                                                     android:layout_marginLeft="10dp"
                                                     android:layout_marginRight="10dp"
-                                                    android:textColor="@color/colorGrey2"
+                                                    android:textColor="@color/blackTextColor"
                                                     android:text="Lugar donde\nrealizó la actividad:"
                                                     android:textSize="16sp"
                                                     android:fontFamily="@font/montserrat_black"/>
@@ -1440,7 +1441,7 @@
                                                 android:layout_height="wrap_content"
                                                 android:layout_marginLeft="10dp"
                                                 android:layout_marginRight="10dp"
-                                                android:textColor="@color/colorGrey2"
+                                                android:textColor="@color/blackTextColor"
                                                 android:text="Objetivo:"
                                                 android:textSize="16sp"
                                                 android:fontFamily="@font/montserrat_black"/>
@@ -1456,7 +1457,8 @@
                                                 android:padding="10dp"
                                                 android:fontFamily="@font/montserrat_black"
                                                 android:layout_marginEnd="5dp"
-                                                android:background="@color/transparente" />
+                                                android:background="@color/transparente"
+                                                android:layout_marginRight="5dp" />
                                         </LinearLayout>
 
                                         <View
@@ -1551,7 +1553,7 @@
                                                 android:layout_height="wrap_content"
                                                 android:layout_marginLeft="10dp"
                                                 android:layout_marginRight="10dp"
-                                                android:textColor="@color/colorGrey2"
+                                                android:textColor="@color/blackTextColor"
                                                 android:text="Fecha Inscripción:"
                                                 android:textSize="16sp"
                                                 android:fontFamily="@font/montserrat_black"/>
@@ -1595,7 +1597,7 @@
                                                 android:layout_height="wrap_content"
                                                 android:layout_marginLeft="10dp"
                                                 android:layout_marginRight="10dp"
-                                                android:textColor="@color/colorGrey2"
+                                                android:textColor="@color/blackTextColor"
                                                 android:text="Fecha Modificación:"
                                                 android:textSize="16sp"
                                                 android:fontFamily="@font/montserrat_black"/>

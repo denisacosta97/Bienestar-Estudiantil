@@ -28,8 +28,9 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="5dp"
                     android:text="Reserva"
+                    android:textColor="@color/blackTextColor"
                     android:textAlignment="center"
-                    android:textSize="46sp"
+                    android:textSize="42sp"
                     android:fontFamily="@font/montserrat_black"/>
 
                 <TextView
@@ -37,6 +38,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
+                    android:textColor="@color/blackTextColor"
                     android:text="Para confirmar la reserva, debes presentarte con los siguientes papeles:"
                     android:textSize="16sp"
                     android:fontFamily="@font/montserrat_regular"/>
@@ -119,7 +121,6 @@
                     android:background="@drawable/edit_text_logreg"
                     android:clickable="true"
                     android:focusable="false"
-                    android:hint=""
                     android:inputType="text"
                     android:maxLines="1"
                     android:padding="5dp"
@@ -142,7 +143,6 @@
                     android:layout_height="50dp"
                     android:background="@drawable/edit_text_logreg"
                     android:focusable="false"
-                    android:hint=""
                     android:inputType="text"
                     android:padding="5dp"
                     android:layout_margin="5dp"
@@ -164,7 +164,6 @@
                     android:layout_height="50dp"
                     android:background="@drawable/edit_text_logreg"
                     android:focusable="false"
-                    android:hint=""
                     android:inputType="text"
                     android:padding="5dp"
                     android:layout_margin="5dp"

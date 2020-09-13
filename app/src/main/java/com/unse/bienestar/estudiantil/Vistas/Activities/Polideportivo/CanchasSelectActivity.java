@@ -1,5 +1,6 @@
 package com.unse.bienestar.estudiantil.Vistas.Activities.Polideportivo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,8 +13,10 @@ import android.widget.TextView;
 import com.unse.bienestar.estudiantil.Herramientas.Almacenamiento.PreferenceManager;
 import com.unse.bienestar.estudiantil.Herramientas.Utils;
 import com.unse.bienestar.estudiantil.Herramientas.Validador;
+import com.unse.bienestar.estudiantil.Interfaces.YesNoDialogListener;
 import com.unse.bienestar.estudiantil.Modelos.ReservaCancha;
 import com.unse.bienestar.estudiantil.R;
+import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoGeneral;
 
 import java.util.Date;
 
@@ -56,8 +59,9 @@ public class CanchasSelectActivity extends AppCompatActivity implements View.OnC
             public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
                 spinnerCat.setSelection(position);
                 float precio = calcularPrecio(position);
-                txtPrecio.setText(String.valueOf(precio));
-            }
+                String p = String.valueOf(precio);
+                txtPrecio.setText("$" + p);
+        }
 
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
@@ -133,6 +137,31 @@ public class CanchasSelectActivity extends AppCompatActivity implements View.OnC
         return precioTotal;
     }
 
+    private void showDialogs() {
+        DialogoGeneral.Builder builder = new DialogoGeneral.Builder(getApplicationContext())
+                .setDescripcion(getString(R.string.generalFunciones))
+                .setIcono(R.drawable.ic_enojado)
+                .setTipo(DialogoGeneral.TIPO_ACEPTAR).setListener(new YesNoDialogListener() {
+                    @Override
+                    public void yes() {
+
+                    }
+
+                    @Override
+                    public void no() {
+
+                    }
+
+                    @Override
+                    public void aceptar() {
+
+                    }
+                });
+        final DialogoGeneral mensaje = builder.build();
+        mensaje.setCancelable(false);
+        mensaje.show(getSupportFragmentManager(), "dialog_error");
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -143,7 +172,8 @@ public class CanchasSelectActivity extends AppCompatActivity implements View.OnC
                 finish();
                 break;
             case R.id.btnReservar:
-                save();
+                showDialogs();
+                //save();
                 break;
         }
     }

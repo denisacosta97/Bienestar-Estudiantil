@@ -55,7 +55,7 @@
                         android:textColor="@color/whiteTextColor"
                         android:text="AREA COMEDOR"
                         android:fontFamily="@font/montserrat_black"
-                        android:textSize="16sp"/>
+                        android:textSize="14sp"/>
 
                 </LinearLayout>
 

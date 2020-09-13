@@ -75,7 +75,6 @@
 
                         </LinearLayout>
 
-
                         <TextView
                             android:id="@+id/txtServicios"
                             android:layout_width="match_parent"
@@ -86,7 +85,6 @@
                             android:textColor="@color/blackTextColor"
                             android:layout_margin="5dp"
                             android:fontFamily="@font/montserrat_black"/>
-
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -172,7 +170,8 @@
                                 android:layout_marginStart="10dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal">
+                                android:orientation="horizontal"
+                                android:layout_marginLeft="10dp">
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -250,13 +249,11 @@
                         android:layout_margin="5dp"
                         android:fontFamily="@font/montserrat_black"/>
 
-
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recycler"
                         android:layout_margin="3dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
-
 
                 </LinearLayout>
 
@@ -267,9 +264,7 @@
                 android:layout_height="5dp"
                 android:background="@color/transparente" />
 
-
         </LinearLayout>
-
 
     </LinearLayout>
 

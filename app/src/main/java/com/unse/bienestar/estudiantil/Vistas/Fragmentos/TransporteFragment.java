@@ -20,6 +20,7 @@ import com.unse.bienestar.estudiantil.Herramientas.RecyclerListener.ItemClickSup
 import com.unse.bienestar.estudiantil.Herramientas.Utils;
 import com.unse.bienestar.estudiantil.Herramientas.VolleySingleton;
 import com.unse.bienestar.estudiantil.Interfaces.OnClickOptionListener;
+import com.unse.bienestar.estudiantil.Interfaces.YesNoDialogListener;
 import com.unse.bienestar.estudiantil.Modelos.Opciones;
 import com.unse.bienestar.estudiantil.Modelos.Punto;
 import com.unse.bienestar.estudiantil.Modelos.Recorrido;
@@ -28,6 +29,7 @@ import com.unse.bienestar.estudiantil.R;
 import com.unse.bienestar.estudiantil.Vistas.Activities.Transporte.RecorridoActivity;
 import com.unse.bienestar.estudiantil.Vistas.Activities.Transporte.RecorridoRealActivity;
 import com.unse.bienestar.estudiantil.Vistas.Adaptadores.RecorridoAdapter;
+import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoGeneral;
 import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoOpciones;
 import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoProcesamiento;
 
@@ -186,18 +188,45 @@ public class TransporteFragment extends Fragment implements View.OnClickListener
 
     }
 
+    private void showDialogs() {
+        DialogoGeneral.Builder builder = new DialogoGeneral.Builder(getContext())
+                .setDescripcion(getString(R.string.generalFunciones))
+                .setIcono(R.drawable.ic_enojado)
+                .setTipo(DialogoGeneral.TIPO_ACEPTAR).setListener(new YesNoDialogListener() {
+                    @Override
+                    public void yes() {
+
+                    }
+
+                    @Override
+                    public void no() {
+
+                    }
+
+                    @Override
+                    public void aceptar() {
+
+                    }
+                });
+        final DialogoGeneral mensaje = builder.build();
+        mensaje.setCancelable(false);
+        mensaje.show(getFragmentManager(), "dialog_error");
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.cardServicios:
-                getServicios();
+                //getServicios();
+                showDialogs();
                 break;
             case R.id.cardScanner:
-                int gps = checkGPS();
+                showDialogs();
+                /*int gps = checkGPS();
                 if(gps == 1){
                     scanQR();
                 } else
-                    Toast.makeText(mContext, "GPS deshabilitado", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "GPS deshabilitado", Toast.LENGTH_SHORT).show();*/
                 break;
         }
     }

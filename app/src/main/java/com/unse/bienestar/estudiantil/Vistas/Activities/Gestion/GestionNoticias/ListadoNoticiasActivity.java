@@ -309,7 +309,6 @@ public class ListadoNoticiasActivity extends AppCompatActivity
         mLayoutError = findViewById(R.id.layoutError);
     }
 
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {

@@ -46,12 +46,13 @@
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_margin="0dp"
-                        android:src="@drawable/ic_buscar"
-                        android:tint="@color/colorPrimary" />
+                        app:srcCompat="@drawable/ic_buscar"
+                        app:tint="@color/colorPrimary" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/til_buscar"
                         android:gravity="center"
+                        android:layout_gravity="center"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:errorTextAppearance="@style/Error">
@@ -61,6 +62,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="Buscar"
+                            android:layout_gravity="center"
                             android:inputType="number"
                             android:singleLine="true"
                             android:background="@null"
@@ -104,8 +106,9 @@
                     android:gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/blackTextColor"
                     android:textStyle="bold"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:fontFamily="@font/montserrat_black"
                     android:text="Busque un usuario para ver información" />
 
@@ -148,6 +151,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="Nombre y apellido: "
+                                    android:textColor="@color/blackTextColor"
                                     android:textSize="16sp"
                                     android:fontFamily="@font/montserrat_black"/>
 
@@ -170,6 +174,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="DNI: "
+                                    android:textColor="@color/blackTextColor"
                                     android:textStyle="bold"
                                     android:textSize="16sp"
                                     android:fontFamily="@font/montserrat_black"/>
@@ -192,11 +197,10 @@
                             android:layout_height="wrap_content"
                             android:textSize="24sp"
                             android:gravity="center"
+                            android:textColor="@color/blackTextColor"
                             android:text="Viajes realizados"
-                            android:textColor="@color/colorTextDefault"
                             android:layout_margin="10dp"
                             android:fontFamily="@font/montserrat_black"/>
-
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recycler"

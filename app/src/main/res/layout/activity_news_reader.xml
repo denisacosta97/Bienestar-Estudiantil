@@ -84,8 +84,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:textSize="18sp"
-                android:text="El próximo 13 de noviembre se llevarán a cabo elecciones en nuestra Universidad, para Consejeros Directivos y Superiores, además los Estudiantes deberán elegir integrantes al Centro de Estudiantes de cada Facultad.\n\nEn nuestro programa radial Armonía Exacta, Álvaro Martínez en representación del CEFCET (Centro de Estudiantes de la Facultad de Cs. Exactas y Tecnologías), explicó cómo son las elecciones para el Claustro Estudiantil.\n\n
-                En una misma jornada, los estudiantes deben elegir: Delegados de carrera que integrarán el CEFCET; la Comisión Directiva del CEFCET; los Consejeros Directivos y Consejeros Superiores. Usualmente los Delegados y la Comisión, se votan en una sola boleta en la misma mesa, en el 1º piso del pabellón de aulas de nuestra Facultad. Para el caso de Consejeros, se votan con boletas diferentes, en mesas separadas en el 2º piso; hay que tener en cuenta que son Consejos distintos, por tanto candidatos para cada ámbito."
+                android:text="@string/lorem"
                 android:fontFamily="@font/montserrat_regular"/>
 
         </LinearLayout>

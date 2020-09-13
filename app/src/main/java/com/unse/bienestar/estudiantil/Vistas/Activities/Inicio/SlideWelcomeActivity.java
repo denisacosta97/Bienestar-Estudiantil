@@ -1,12 +1,10 @@
 package com.unse.bienestar.estudiantil.Vistas.Activities.Inicio;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
@@ -17,24 +15,16 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.transition.Transition;
 import com.unse.bienestar.estudiantil.Herramientas.Almacenamiento.PreferenceManager;
-import com.unse.bienestar.estudiantil.Herramientas.FontChangeUtil;
-import com.unse.bienestar.estudiantil.Herramientas.Utils;
 import com.unse.bienestar.estudiantil.R;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.ActivityCompat;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
-
-import static com.unse.bienestar.estudiantil.Herramientas.Utils.PERMISSION_ALL;
 
 public class SlideWelcomeActivity extends AppCompatActivity {
 
@@ -45,6 +35,7 @@ public class SlideWelcomeActivity extends AppCompatActivity {
     private int[] layouts;
     private Button btnNext;
     private PreferenceManager prefManager;
+    private TextView txtTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,15 +51,20 @@ public class SlideWelcomeActivity extends AppCompatActivity {
             }
             setContentView(R.layout.activity_welcome);
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+            AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
 
             viewPager = findViewById(R.id.view_pager);
             dotsLayout = findViewById(R.id.layoutBars);
             btnNext = findViewById(R.id.next);
+            txtTitle = findViewById(R.id.txtTitulo);
 
             layouts = new int[]{
                     R.layout.intro_screen1,
                     R.layout.intro_screen2,
-                    R.layout.intro_screen3};
+                    R.layout.intro_screen3,
+                    R.layout.intro_screen4,
+                    R.layout.intro_screen5
+            };
 
             addBottomDots(0);
 
@@ -90,9 +86,6 @@ public class SlideWelcomeActivity extends AppCompatActivity {
                 }
             });
         }
-
-        FontChangeUtil fontChanger = new FontChangeUtil(getAssets(), Utils.MONSERRAT);
-        fontChanger.replaceFonts((ViewGroup)findViewById(android.R.id.content));
 
     }
 
@@ -117,12 +110,12 @@ public class SlideWelcomeActivity extends AppCompatActivity {
             dots[i] = new TextView(this);
             dots[i].setText(Html.fromHtml("¯"));
             dots[i].setTextSize(60);
-            dots[i].setTextColor(getResources().getColor(R.color.colorPrimary));
+            dots[i].setTextColor(getResources().getColor(R.color.colorGrey2));
             dotsLayout.addView(dots[i]);
         }
 
         if (dots.length > 0)
-            dots[currentPage].setTextColor(getResources().getColor(R.color.colorAccent));
+            dots[currentPage].setTextColor(getResources().getColor(R.color.whiteTextColor));
     }
 
     private int getItem(int i) {
@@ -142,9 +135,11 @@ public class SlideWelcomeActivity extends AppCompatActivity {
             addBottomDots(position);
 
             if (position == layouts.length - 1) {
-                btnNext.setText(getString(R.string.start));
+                btnNext.setText("COMENZAR");
+                btnNext.setTextColor(getResources().getColor(R.color.whiteTextColor));
             } else {
-                btnNext.setText(getString(R.string.next));
+                btnNext.setText("SIGUIENTE");
+                btnNext.setTextColor(getResources().getColor(R.color.whiteTextColor));
             }
         }
 
@@ -180,21 +175,12 @@ public class SlideWelcomeActivity extends AppCompatActivity {
             View view = layoutInflater.inflate(layouts[position], container, false);
             container.addView(view);
 
-//            FontChangeUtil fontChanger = new FontChangeUtil(container.getContext().getAssets(), "product_sans_regular.ttf");
-//            fontChanger.replaceFonts((ViewGroup) view);
-
-            onPageSelected(position);
-
-            switch (position) {
-                case 3:
-                    loadPermiso();
-                    break;
-            }
+            //onPageSelected(position);
 
             return view;
         }
 
-        public void onPageSelected(int pos) {
+       /* public void onPageSelected(int pos) {
             switch (pos) {
                 case 0:
                     //cargar el background en slide1
@@ -235,7 +221,7 @@ public class SlideWelcomeActivity extends AppCompatActivity {
                             });
                     break;
             }
-        }
+        }*/
 
         @Override
         public int getCount() {
@@ -255,7 +241,7 @@ public class SlideWelcomeActivity extends AppCompatActivity {
         }
     }
 
-    private void loadPermiso() {
+    /*private void loadPermiso() {
         String[] PERMISSIONS = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
         if (!hasPermissions(getApplicationContext(), PERMISSIONS)) {
             ActivityCompat.requestPermissions(SlideWelcomeActivity.this, PERMISSIONS, PERMISSION_ALL);
@@ -271,6 +257,6 @@ public class SlideWelcomeActivity extends AppCompatActivity {
                 //No me interesa si acepto o no, total luego lo obligare.
             }
         }
-    }
+    }*/
 
 }

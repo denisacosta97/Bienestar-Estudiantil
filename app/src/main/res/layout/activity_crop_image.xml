@@ -54,7 +54,7 @@
                 android:layout_gravity="center"
                 android:layout_weight="0.3"
                 android:padding="10dp"
-                android:src="@drawable/ic_rotate" />
+                app:srcCompat="@drawable/ic_rotate" />
 
             <TextView
                 android:id="@+id/txtOk"

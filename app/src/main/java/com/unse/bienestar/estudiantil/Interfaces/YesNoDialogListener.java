@@ -5,4 +5,6 @@ public interface YesNoDialogListener {
     void yes();
 
     void no();
+
+    void aceptar();
 }

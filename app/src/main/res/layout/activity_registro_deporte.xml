@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -17,6 +18,7 @@
             android:layout_height="wrap_content"
             android:text="Registro"
             android:textSize="26sp"
+            android:textColor="@color/blackTextColor"
             android:gravity="center"
             android:layout_marginRight="15dp"
             android:layout_marginLeft="15dp"
@@ -32,6 +34,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Subir foto"
+                android:textColor="@color/blackTextColor"
                 android:textSize="16sp"
                 android:layout_marginLeft="15dp"
                 android:fontFamily="@font/montserrat_black"/>
@@ -53,7 +56,7 @@
                         android:layout_width="150dp"
                         android:layout_height="150dp"
                         android:layout_centerInParent="true"
-                        android:src="@drawable/ic_usuario"/>
+                        app:srcCompat="@drawable/ic_usuario"/>
 
                 </RelativeLayout>
 
@@ -62,8 +65,9 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Sube una foto del rostro en un fondo blanco, sin anteojos, pelo en la cara o algo que pueda obstruir la foto del rostro completo. Ten en cuenta que esta foto podría usarse para trámites importantes, razón por la que debe ser una foto formal."
+                android:text="@string/alert4"
                 android:textSize="16sp"
+                android:textColor="@color/blackTextColor"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:fontFamily="@font/montserrat_regular"/>
@@ -489,6 +493,7 @@
                     android:layout_weight="0.6"
                     android:textStyle="bold"
                     android:textSize="16sp"
+                    android:textColor="@color/blackTextColor"
                     android:fontFamily="@font/montserrat_black"/>
 
                 <CheckBox
@@ -539,6 +544,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="20dp"
                     android:text="Intensidad:"
+                    android:textColor="@color/blackTextColor"
                     android:textStyle="bold"
                     android:textSize="16sp"
                     android:fontFamily="@font/montserrat_black"/>

@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorGrey"
     android:orientation="vertical"
     android:gravity="center">
     
-    <com.unse.bienestarestudiantil.Herramientas.Credencial.CredencialView
+    <com.unse.bienestar.estudiantil.Herramientas.Credencial.CredencialView
         android:layout_width="wrap_content"
         android:id="@+id/credencial"
         android:layout_height="wrap_content">
 
-    </com.unse.bienestarestudiantil.Herramientas.Credencial.CredencialView>
+    </com.unse.bienestar.estudiantil.Herramientas.Credencial.CredencialView>
 
     <Button
         android:layout_width="150dp"

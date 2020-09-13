@@ -19,7 +19,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16dp"
+                android:textSize="16sp"
                 android:text="Seleccione el turno:"
                 android:fontFamily="@font/montserrat_black"
                 android:textColor="@color/blackTextColor"/>
@@ -57,7 +57,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16dp"
+                android:textSize="16sp"
                 android:text="Seleccione la cancha:"
                 android:fontFamily="@font/montserrat_black"
                 android:textColor="@color/blackTextColor"/>
@@ -66,15 +66,17 @@
                 android:id="@+id/spinnerCancha"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="10dp"
                 android:layout_gravity="center"
-                android:background="@android:color/transparent"
                 android:gravity="center"
-                android:spinnerMode="dropdown" />
+                android:spinnerMode="dropdown"
+                android:fontFamily="@font/montserrat_regular" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16dp"
+                android:textSize="16sp"
                 android:text="Seleccione la hora:"
                 android:fontFamily="@font/montserrat_black"
                 android:textColor="@color/blackTextColor"/>
@@ -83,16 +85,18 @@
                 android:id="@+id/spinnerHora"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="10dp"
                 android:layout_gravity="center"
-                android:background="@android:color/transparent"
                 android:gravity="center"
-                android:spinnerMode="dropdown" />
+                android:spinnerMode="dropdown"
+                android:fontFamily="@font/montserrat_regular"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Seleccione la fecha:"
-                android:textSize="16dp"
+                android:textSize="16sp"
                 android:fontFamily="@font/montserrat_black"
                 android:textColor="@color/blackTextColor"/>
 

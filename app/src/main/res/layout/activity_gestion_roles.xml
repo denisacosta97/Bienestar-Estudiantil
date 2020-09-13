@@ -46,8 +46,8 @@
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_margin="5dp"
-                        android:src="@drawable/ic_buscar"
-                        android:tint="@color/colorPrimary" />
+                        app:srcCompat="@drawable/ic_buscar"
+                        app:tint="@color/colorPrimary" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/til_buscar"
@@ -85,7 +85,7 @@
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_margin="16dp"
-        android:src="@drawable/ic_mas"
+        app:srcCompat="@drawable/ic_mas"
         android:layout_gravity="bottom|end"
         app:layout_anchorGravity="bottom|right|end"
         android:layout_height="wrap_content" />

@@ -59,6 +59,7 @@
                 android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_margin="5dp"
+                android:textColor="@color/blackTextColor"
                 android:id="@+id/txtAnio"
                 android:fontFamily="@font/montserrat_black"
                 android:layout_height="wrap_content" />

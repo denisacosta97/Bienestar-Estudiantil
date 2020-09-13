@@ -23,7 +23,7 @@
             <ImageView
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@drawable/ic_reservas_dia" />
+                app:srcCompat="@drawable/ic_reservas_dia" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -58,10 +58,10 @@
 
                     <ImageView
                         android:id="@+id/imgIcon"
-                        android:tint="@color/colorPrimary"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        android:src="@drawable/ic_foto_usuario" />
+                        app:srcCompat="@drawable/ic_foto_usuario"
+                        app:tint="@color/colorPrimary" />
 
                     <LinearLayout
                         android:layout_marginLeft="10dp"
@@ -102,6 +102,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="DNI: "
+                        android:textColor="@color/blackTextColor"
                         android:textSize="16sp"
                         android:fontFamily="@font/montserrat_black"/>
 
@@ -124,6 +125,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Nombre y apellido: "
+                        android:textColor="@color/blackTextColor"
                         android:textSize="16sp"
                         android:fontFamily="@font/montserrat_black"/>
 

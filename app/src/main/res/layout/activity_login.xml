@@ -35,7 +35,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Bienvenido/a a la aplicación del \nComedor Universitario."
+                android:text="@string/welcome"
                 android:textSize="18sp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
@@ -56,7 +56,7 @@
                 android:layout_width="200dp"
                 android:layout_height="200dp"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_logo_bienestar_01" />
+                app:srcCompat="@drawable/ic_logo_bienestar_01" />
 
             <EditText
                 android:id="@+id/edtUser"
@@ -139,7 +139,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="60dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
@@ -148,20 +148,19 @@
 
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="100dp"
-                android:layout_gravity="center"
-                android:layout_weight="0.5"
-                android:padding="12dp"
-                app:srcCompat="@drawable/ic_logo_bienestar_02" />
-
-            <ImageView
-                android:layout_width="0dp"
                 android:layout_height="80dp"
                 android:layout_gravity="center"
                 android:layout_weight="0.5"
+                android:padding="12dp"
+                app:srcCompat="@drawable/ic_logo_bienestar_01" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:layout_weight="0.5"
                 android:paddingTop="5dp"
-                android:tint="@color/whiteTextColor"
-                app:srcCompat="@drawable/logo_unse" />
+                app:srcCompat="@drawable/logo_unse_white" />
 
         </LinearLayout>
 

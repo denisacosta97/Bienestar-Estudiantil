@@ -236,6 +236,11 @@ public class ModificarInscripcionDeporteActivity extends AppCompatActivity imple
                     public void no() {
                         finish();
                     }
+
+                    @Override
+                    public void aceptar() {
+
+                    }
                 })
                 .setTipo(DialogoGeneral.TIPO_SI_NO);
         final DialogoGeneral mensaje = builder.build();

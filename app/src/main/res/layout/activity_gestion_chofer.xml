@@ -64,7 +64,8 @@
                 android:layout_alignParentEnd="true"
                 android:tint="@color/whiteTextColor"
                 android:layout_gravity="end|bottom"
-                app:srcCompat="@drawable/ic_mas"/>
+                app:srcCompat="@drawable/ic_mas"
+                android:layout_alignParentRight="true" />
 
         </RelativeLayout>
 

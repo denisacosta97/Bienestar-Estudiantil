@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -26,7 +27,7 @@
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:src="@drawable/logo_deportes" />
+                    android:src="@drawable/logo_poli_deportes_white" />
 
             </LinearLayout>
 
@@ -46,7 +47,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:text="Mirá todos los deportes que tenemos disponibles: "
-            android:textSize="14sp"
+            android:textSize="16sp"
+            android:textColor="@color/blackTextColor"
             android:textStyle="bold"
             android:fontFamily="@font/montserrat_regular"/>
 
@@ -69,7 +71,7 @@
                 android:padding="10dp"
                 android:layout_width="140dp"
                 android:layout_height="140dp"
-                android:src="@drawable/ic_error" />
+                app:srcCompat="@drawable/ic_error" />
 
             <TextView
                 android:id="@+id/txtError"
@@ -92,96 +94,6 @@
                 android:background="@drawable/button_border"
                 android:text="REINTENTAR">
             </Button>
-
-        </LinearLayout>
-
-        <View
-            android:layout_width="60dp"
-            android:layout_height="12dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="15dp"
-            android:backgroundTint="@color/colorPrimaryDark"
-            android:background="@drawable/corners_rounded_green"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_gravity="center"
-            android:text="Información"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:fontFamily="@font/montserrat_black"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:text="Horarios de atención: "
-                android:textSize="14sp"
-                android:fontFamily="@font/montserrat_black"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="08:00hs a 13:30hs - 17:00hs a 20:30hs."
-                android:textSize="14sp"
-                android:fontFamily="@font/montserrat_regular"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:text="Teléfono: "
-                android:textSize="14sp"
-                android:fontFamily="@font/montserrat_black"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="4509525"
-                android:textSize="14sp"
-                android:fontFamily="@font/montserrat_regular"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:text="e-Mail: "
-                android:textSize="14sp"
-                android:fontFamily="@font/montserrat_black"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="bienestar@unse.edu.ar"
-                android:textSize="14sp"
-                android:fontFamily="@font/montserrat_regular"/>
 
         </LinearLayout>
 

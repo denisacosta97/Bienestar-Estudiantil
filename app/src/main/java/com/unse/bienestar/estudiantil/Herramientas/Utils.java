@@ -167,6 +167,7 @@ public class Utils {
     public static final String MONTSERRAT_BOLD = "Montserrat-Black.ttf";
 
     public static final String BECA_NAME = "dato_deporte";
+    public static final String SERVICIO_NAME = "servicio_deporte";
     public static final String BARCODE = "dato_barcode";
     public static final String TORNEO = "dato_torneo";
     public static final String NOTICIA = "dato_noticias";
@@ -282,7 +283,7 @@ public class Utils {
 
     public static final String URL_ELIMINAR_RECORRIDO = "https://" + IP + "/transporte/recorrido/eliminarRecorrido.php";
     public static final String URL_GET_RECORRIDO = "https://" + IP + "/transporte/recorrido/getRecorrido.php";
-    public static final String URL_GET_RECORRIDOS = "https://" + IP + "/transporte/recorrido/getRecorridos.php";
+    public static final String URL_GET_RECORRIDOS = "https://bienestar.unse.edu.ar/transporte/recorrido/getRecorridos.php";
     public static final String URL_RECORRIDOS = "https://" + IP + "/transporte/recorrido/recorridos.json";
 
     public static final String URL_FINALIZAR_SERVICIO = "https://" + IP + "/transporte/servicio/finalizarServicio.php";

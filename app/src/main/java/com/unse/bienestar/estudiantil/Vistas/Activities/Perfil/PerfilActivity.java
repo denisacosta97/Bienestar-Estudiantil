@@ -88,13 +88,13 @@ public class PerfilActivity extends AppCompatActivity implements View.OnClickLis
         loadInfo();
 
         mList = new ArrayList<>();
-        mList.add(new Opciones(LinearLayout.VERTICAL, true, 1, "Mis Datos", R.drawable.ic_data, R.color.colorWhite, R.color.colorTextDefault, 12));
-        mList.add(new Opciones(LinearLayout.VERTICAL, true, 3, "Credenciales", R.drawable.ic_credencial, R.color.colorWhite, R.color.colorTextDefault, 12));
-        mList.add(new Opciones(LinearLayout.VERTICAL, true, 4, "Gestión de Archivos", R.drawable.ic_pdf, R.color.colorWhite, R.color.colorTextDefault, 12));
-        mList.add(new Opciones(LinearLayout.VERTICAL, false, 5, "¿Mensajes?", R.drawable.ic_msg, R.color.colorWhite, R.color.colorTextDefault, 12));
-        mList.add(new Opciones(LinearLayout.VERTICAL, true, 7, "Inscripciones", R.drawable.ic_inscipcion, R.color.colorWhite, R.color.colorTextDefault, 12));
-        mList.add(new Opciones(LinearLayout.VERTICAL, true, 2, "Configuraciones", R.drawable.ic_settings, R.color.colorWhite, R.color.colorTextDefault, 12));
-        mList.add(new Opciones(LinearLayout.VERTICAL, true, 6, "Cerrar Sesión", R.drawable.ic_cerrar_e, R.color.colorWhite, R.color.colorTextDefault, 12));
+        mList.add(new Opciones(LinearLayout.VERTICAL, true, 1, "Mis Datos", R.drawable.ic_data, R.color.colorWhite, R.color.blackTextColor, 12));
+        mList.add(new Opciones(LinearLayout.VERTICAL, true, 3, "Credenciales", R.drawable.ic_credencial, R.color.colorWhite, R.color.blackTextColor, 12));
+        mList.add(new Opciones(LinearLayout.VERTICAL, true, 4, "Gestión de Archivos", R.drawable.ic_pdf, R.color.colorWhite, R.color.blackTextColor, 12));
+        mList.add(new Opciones(LinearLayout.VERTICAL, false, 5, "¿Mensajes?", R.drawable.ic_msg, R.color.colorWhite, R.color.blackTextColor, 12));
+        mList.add(new Opciones(LinearLayout.VERTICAL, true, 7, "Inscripciones", R.drawable.ic_inscipcion, R.color.colorWhite, R.color.blackTextColor, 12));
+        mList.add(new Opciones(LinearLayout.VERTICAL, true, 2, "Configuraciones", R.drawable.ic_settings, R.color.colorWhite, R.color.blackTextColor, 12));
+        mList.add(new Opciones(LinearLayout.VERTICAL, true, 6, "Cerrar Sesión", R.drawable.ic_cerrar_e, R.color.colorWhite, R.color.blackTextColor, 12));
 
         mAdapter = new OpcionesAdapter(mList, getApplicationContext(),1);
 
@@ -105,9 +105,9 @@ public class PerfilActivity extends AppCompatActivity implements View.OnClickLis
         mRecyclerViewFunciones.setAdapter(mAdapter);
 
         mListActividades = new ArrayList<>();
-        mListActividades.add(new Opciones(LinearLayout.VERTICAL, false, 1, "Reservas", R.drawable.ic_reservas, R.color.colorWhite, R.color.colorTextDefault, 12));
-        mListActividades.add(new Opciones(LinearLayout.VERTICAL, false, 2, "Historia Clínica", R.drawable.ic_historia_clinica, R.color.colorWhite, R.color.colorTextDefault, 12));
-        mListActividades.add(new Opciones(LinearLayout.VERTICAL, false, 3, "Historial de Turnos", R.drawable.ic_turnos, R.color.colorWhite, R.color.colorTextDefault, 12));
+        mListActividades.add(new Opciones(LinearLayout.VERTICAL, false, 1, "Reservas", R.drawable.ic_reservas, R.color.colorWhite, R.color.blackTextColor, 12));
+        mListActividades.add(new Opciones(LinearLayout.VERTICAL, false, 2, "Historia Clínica", R.drawable.ic_historia_clinica, R.color.colorWhite, R.color.blackTextColor, 12));
+        mListActividades.add(new Opciones(LinearLayout.VERTICAL, false, 3, "Historial de Turnos", R.drawable.ic_turnos, R.color.colorWhite, R.color.blackTextColor, 12));
 
 
         mAdapterActividades = new OpcionesAdapter(mListActividades, getApplicationContext(),1);
@@ -239,6 +239,11 @@ public class PerfilActivity extends AppCompatActivity implements View.OnClickLis
                     public void no() {
 
                     }
+
+                    @Override
+                    public void aceptar() {
+
+                    }
                 })
                 .setTipo(DialogoGeneral.TIPO_ACEPTAR);
         DialogoGeneral dialogoGeneral = builder.build();
@@ -292,6 +297,11 @@ public class PerfilActivity extends AppCompatActivity implements View.OnClickLis
 
                     @Override
                     public void no() {
+                    }
+
+                    @Override
+                    public void aceptar() {
+
                     }
                 })
                 .setTipo(DialogoGeneral.TIPO_SI_NO);

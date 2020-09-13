@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="17dp"
-            android:src="@drawable/ic_mas"/>
+            app:srcCompat="@drawable/ic_mas"/>
 
     </LinearLayout>
 

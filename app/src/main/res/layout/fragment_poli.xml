@@ -17,7 +17,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="La Universidad Nacional de Santiago del Estero cuenta con un extenso polideportivo donde se desarrollan un gran numero de actividades."
+            android:textColor="@color/blackTextColor"
+            android:text="@string/info_poli"
             android:textSize="16sp"
             android:fontFamily="@font/montserrat_regular"/>
 
@@ -42,11 +43,11 @@
                     android:src="@drawable/imgborrar2"
                     android:layout_marginLeft="100dp"/>
 
-                <ImageView
-                    android:layout_width="300dp"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/shape_triangle"
-                    android:layout_marginLeft="-56dp" />
+<!--                <ImageView-->
+<!--                    android:layout_width="300dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:src="@drawable/shape_triangle"-->
+<!--                    android:layout_marginLeft="-56dp" />-->
 
                 <TextView
                     android:layout_width="match_parent"
@@ -61,7 +62,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="Aquí podrás ver\ninformación con\nrespecto a las piletas."
+                    android:text="@string/info_poli2"
                     android:layout_margin="10dp"
                     android:gravity="center|left"
                     android:textSize="12dp"
@@ -102,16 +103,22 @@
 
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:scaleType="centerCrop"
                     android:src="@drawable/imgborrar1"
                     android:layout_marginLeft="100dp"/>
 
-                <ImageView
-                    android:layout_width="300dp"
+                <LinearLayout
+                    android:layout_width="190dp"
                     android:layout_height="match_parent"
-                    android:src="@drawable/shape_triangle"
-                    android:layout_marginLeft="-56dp" />
+                    android:orientation="vertical"
+                    android:background="@color/colorPrimaryDark"></LinearLayout>
+
+<!--                <ImageView-->
+<!--                    android:layout_width="300dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:src="@drawable/shape_triangle"-->
+<!--                    android:layout_marginLeft="-56dp" />-->
 
                 <TextView
                     android:layout_width="match_parent"
@@ -128,7 +135,7 @@
                     android:text="Aquí podrás\nreservar un\nquincho o el SUM\npara eventos y\nla cancha de\nfútbol 11."
                     android:layout_margin="10dp"
                     android:gravity="center|left"
-                    android:textSize="16dp"
+                    android:textSize="16sp"
                     android:textColor="@color/whiteTextColor"
                     android:fontFamily="@font/montserrat_regular"/>
 

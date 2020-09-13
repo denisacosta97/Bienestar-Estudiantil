@@ -33,7 +33,8 @@
                 android:layout_gravity="center"
                 app:srcCompat="@drawable/ic_error"
                 android:layout_marginStart="10dp"
-                tools:ignore="VectorDrawableCompat" />
+                tools:ignore="VectorDrawableCompat"
+                android:layout_marginLeft="10dp" />
 
             <TextView
                 android:id="@+id/text"

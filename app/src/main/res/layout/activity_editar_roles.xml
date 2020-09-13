@@ -40,7 +40,7 @@
                         <de.hdodenhof.circleimageview.CircleImageView
                             android:id="@+id/imgIcon"
                             android:layout_width="100dp"
-                            android:src="@drawable/ic_user"
+                            app:srcCompat="@drawable/ic_user"
                             app:civ_border_color="#FFFFFF"
                             app:civ_border_width="2dp"
                             android:layout_height="100dp" />

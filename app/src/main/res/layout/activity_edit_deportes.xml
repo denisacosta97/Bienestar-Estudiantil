@@ -17,7 +17,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_margin="10dp"
-            android:src="@drawable/ic_flecha_atras"/>
+            app:srcCompat="@drawable/ic_flecha_atras"/>
 
         <ImageView
             android:id="@+id/imgvIcon"
@@ -26,7 +26,7 @@
             android:layout_gravity="center"
             android:translationY="10dp"
             android:elevation="4sp"
-            android:src="@drawable/ic_ciber" />
+            app:srcCompat="@drawable/ic_ciber" />
 
         <androidx.cardview.widget.CardView
             android:layout_width="fill_parent"
@@ -59,6 +59,7 @@
                         android:gravity="center"
                         android:textStyle="bold"
                         android:layout_marginTop="45dp"
+                        android:textColor="@color/blackTextColor"
                         android:textSize="45sp"
                         android:fontFamily="@font/montserrat_black"/>
 
@@ -76,6 +77,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:textColor="@color/blackTextColor"
                                 android:textSize="16sp"
                                 android:text="Entrenador/a: "
                                 android:fontFamily="@font/montserrat_black"/>
@@ -104,6 +106,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Días: "
+                                android:textColor="@color/blackTextColor"
                                 android:textSize="16sp"
                                 android:fontFamily="@font/montserrat_black"/>
 
@@ -132,6 +135,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="Horarios: "
                                 android:textSize="16sp"
+                                android:textColor="@color/blackTextColor"
                                 android:fontFamily="@font/montserrat_black"/>
 
                             <EditText
@@ -159,6 +163,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="Lugar de entrenamiento:"
                                 android:textSize="16sp"
+                                android:textColor="@color/blackTextColor"
                                 android:fontFamily="@font/montserrat_black"/>
 
                             <EditText

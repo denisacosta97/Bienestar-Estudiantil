@@ -1,6 +1,8 @@
 package com.unse.bienestar.estudiantil.Vistas.Fragmentos;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +18,7 @@ import androidx.fragment.app.Fragment;
 public class BecasFragment extends Fragment implements View.OnClickListener {
 
     View view;
-    CardView cardTurnos, cardInfo;
+    CardView cardTurnos, cardInfo, cardInsta;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -32,11 +34,32 @@ public class BecasFragment extends Fragment implements View.OnClickListener {
     private void loadListener() {
         cardTurnos.setOnClickListener(this);
         cardInfo.setOnClickListener(this);
+        cardInsta.setOnClickListener(this);
     }
 
     private void loadViews() {
         cardTurnos = view.findViewById(R.id.cardTurnos);
         cardInfo = view.findViewById(R.id.card_infoBecas);
+        cardInsta = view.findViewById(R.id.btnInsta);
+    }
+
+    public static Intent newInstagramProfileIntent(PackageManager pm, String url) {
+        final Intent intent = new Intent(Intent.ACTION_VIEW);
+        //final String username = url.substring(url.lastIndexOf("/") + 1);
+        intent.setData(Uri.parse(url));
+        //intent.setPackage("com.instagram.android");
+        /*try {
+            if (pm.getPackageInfo("com.instagram.android", 0) != null) {
+                if (url.endsWith("/")) {
+                    url = url.substring(0, url.length() - 1);
+                }
+
+            }
+        } catch (PackageManager.NameNotFoundException ignored) {
+
+        }*/
+        //intent.setData(Uri.parse(url));
+        return intent;
     }
 
     @Override
@@ -47,6 +70,11 @@ public class BecasFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.card_infoBecas:
                 startActivity(new Intent(getContext(), InfoBecasActivity.class));
+                break;
+            case R.id.btnInsta:
+                String url = "https://www.instagram.com/becas_unse/";
+                Intent openInsta = newInstagramProfileIntent(getActivity().getPackageManager(), url);
+                startActivity(openInsta);
                 break;
         }
     }

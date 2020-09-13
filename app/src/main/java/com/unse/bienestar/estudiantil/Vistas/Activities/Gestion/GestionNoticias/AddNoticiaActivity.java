@@ -201,6 +201,11 @@ public class AddNoticiaActivity extends AppCompatActivity implements View.OnClic
                     public void no() {
 
                     }
+
+                    @Override
+                    public void aceptar() {
+
+                    }
                 })
                 .setIcono(R.drawable.ic_advertencia)
                 .setTipo(DialogoGeneral.TIPO_SI_NO);

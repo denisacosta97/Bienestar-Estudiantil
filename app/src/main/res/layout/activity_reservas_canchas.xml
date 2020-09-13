@@ -39,8 +39,8 @@
                         android:id="@+id/imgvIconDeporte"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:src="@drawable/ic_buscar"
-                        android:tint="@color/colorSelect"/>
+                        app:srcCompat="@drawable/ic_buscar"
+                        app:tint="@color/colorSelect" />
 
                 </LinearLayout>
 

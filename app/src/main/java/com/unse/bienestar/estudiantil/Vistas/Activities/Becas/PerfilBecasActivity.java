@@ -1,7 +1,8 @@
-package com.unse.bienestar.estudiantil.Vistas.Activities;
+package com.unse.bienestar.estudiantil.Vistas.Activities.Becas;
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.unse.bienestar.estudiantil.Herramientas.Utils;
@@ -13,7 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class PerfilBecasActivity extends AppCompatActivity {
 
     InfoBecas mInfoBecas;
-    TextView nameBeca, fechaIni, fechaFin, desc, pdf;
+    TextView nameBeca, reqGeneral, reqAcad, desc, pdf;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,12 +37,19 @@ public class PerfilBecasActivity extends AppCompatActivity {
             finish();
         }
 
+        setToolbar();
+    }
+
+    private void setToolbar() {
+        ((TextView) findViewById(R.id.txtTitulo)).setText("Información de Becas");
+        ((TextView) findViewById(R.id.txtTitulo)).setTextColor(getResources().getColor(R.color.colorAccent));
+        Utils.changeColorDrawable(((ImageView) findViewById(R.id.imgFlecha)), getApplicationContext(), R.color.colorAccent);
     }
 
     private void loadData() {
         nameBeca.setText(mInfoBecas.getNameBeca());
-        fechaIni.setText(mInfoBecas.getFechaInicio());
-        fechaFin.setText(mInfoBecas.getFechaFin());
+        reqAcad.setText(mInfoBecas.getReqAcad());
+        reqGeneral.setText(mInfoBecas.getReqGeneral());
         desc.setText(mInfoBecas.getDesc());
         pdf.setText(mInfoBecas.getPdf());
     }
@@ -52,8 +60,8 @@ public class PerfilBecasActivity extends AppCompatActivity {
 
     private void loadViews() {
         nameBeca = findViewById(R.id.txtNameBeca);
-        fechaIni = findViewById(R.id.txtFechaIni);
-        fechaFin = findViewById(R.id.txtFechaFin);
+        reqGeneral = findViewById(R.id.txtReqGeneral);
+        reqAcad = findViewById(R.id.txtReqAcad);
         desc = findViewById(R.id.txtDesc);
         pdf = findViewById(R.id.txtPdf);
 

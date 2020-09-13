@@ -174,6 +174,11 @@ public class ArchivosActivity extends AppCompatActivity implements View.OnClickL
                             public void no() {
                                 openFile(archivo);
                             }
+
+                            @Override
+                            public void aceptar() {
+
+                            }
                         })
                         .setIcono(R.drawable.ic_find)
                         .setTipo(DialogoGeneral.TIPO_LIBRE)
@@ -211,10 +216,20 @@ public class ArchivosActivity extends AppCompatActivity implements View.OnClickL
                             public void no() {
 
                             }
+
+                            @Override
+                            public void aceptar() {
+
+                            }
                         })
                         .setTipo(DialogoGeneral.TIPO_ACEPTAR);
                 DialogoGeneral dialogoGeneral = builder.build();
                 dialogoGeneral.show(getSupportFragmentManager(), "dialog_pdf");
+            }
+
+            @Override
+            public void aceptar() {
+
             }
         }, getSupportFragmentManager());
         loadInfoPDF.execute();
@@ -254,6 +269,11 @@ public class ArchivosActivity extends AppCompatActivity implements View.OnClickL
                             public void no() {
 
                             }
+
+                            @Override
+                            public void aceptar() {
+
+                            }
                         })
                         .setTipo(DialogoGeneral.TIPO_ACEPTAR);
                 DialogoGeneral dialogoGeneral = builder.build();
@@ -276,6 +296,11 @@ public class ArchivosActivity extends AppCompatActivity implements View.OnClickL
             @Override
             public void no() {
                 Utils.showToast(getApplicationContext(), "Error!");
+            }
+
+            @Override
+            public void aceptar() {
+
             }
         }, true);
         String URL = String.format("%s%s", Utils.URL_ARCHIVOS, archivo.getNombreArchivo());

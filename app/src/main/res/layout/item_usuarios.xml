@@ -30,7 +30,7 @@
                 android:id="@+id/imgIcon"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@drawable/ic_user" />
+                app:srcCompat="@drawable/ic_user" />
 
             <LinearLayout
                 android:layout_marginLeft="10dp"
@@ -72,7 +72,7 @@
                 android:id="@+id/imgIconRol"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@drawable/ic_search" />
+                app:srcCompat="@drawable/ic_search" />
 
         </LinearLayout>
 

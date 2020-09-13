@@ -27,7 +27,7 @@
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_candado"
+                app:srcCompat="@drawable/ic_candado"
                 android:layout_marginBottom="20dp"/>
 
             <TextView
@@ -75,6 +75,7 @@
                         android:inputType="textPassword"
                         android:padding="10dp"
                         android:fontFamily="@font/montserrat_regular"/>
+
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -125,15 +126,17 @@
 
                     <Button
                         android:id="@+id/btnCambiar"
-                        android:layout_width="250dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="16sp"
-                        android:text="Cambiar"
-                        android:textColor="@color/whiteTextColor"
-                        android:textStyle="bold"
-                        android:backgroundTint="@color/colorPrimaryDark"
-                        android:background="@drawable/corners_rounded_green"
-                        android:layout_margin="5dp"
+                        android:background="@drawable/button_border"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginBottom="30dp"
+                        android:layout_centerInParent="true"
+                        android:textSize="18sp"
+                        android:textColor="@android:color/white"
+                        android:text="Guardar"
                         android:fontFamily="@font/montserrat_black"/>
 
                     <TextView

@@ -81,15 +81,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <com.google.android.material.floatingactionbutton.FloatingActionButton
-                            android:layout_margin="15dp"
-                            android:id="@+id/fab"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_edit_"
-                            app:backgroundTint="@color/colorPrimaryDark"
-                            android:layout_gravity="end" />
-
                         <LinearLayout
                             android:orientation="vertical"
                             android:layout_margin="5dp"
@@ -113,8 +104,17 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:background="@color/colorGrey"
-                                        android:orientation="horizontal"
+                                        android:orientation="vertical"
                                         android:padding="10dp">
+
+                                        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                                            android:layout_margin="15dp"
+                                            android:id="@+id/fab"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:src="@drawable/ic_edit_"
+                                            app:backgroundTint="@color/colorPrimaryDark"
+                                            android:layout_gravity="center" />
 
                                         <TextView
                                             android:layout_width="match_parent"
@@ -1058,12 +1058,14 @@
                                                     android:layout_width="match_parent"
                                                     android:layout_height="wrap_content"
                                                     android:inputType="text"
-                                                    android:textSize="14sp"
+                                                    android:textSize="16sp"
+                                                    android:padding="10dp"
+                                                    android:fontFamily="@font/montserrat_black"
+                                                    android:layout_marginEnd="5dp"
                                                     android:text="1234"
                                                     android:textStyle="bold"
                                                     android:textColor="@color/colorTextDefault"
-                                                    android:padding="10dp"
-                                                    android:background="@color/transparente" />
+                                                    android:background="@color/transparente"/>
                                             </LinearLayout>
 
                                             <View
@@ -1104,11 +1106,13 @@
                                                     android:layout_width="match_parent"
                                                     android:layout_height="wrap_content"
                                                     android:inputType="text"
-                                                    android:textSize="14sp"
+                                                    android:textSize="16sp"
+                                                    android:padding="10dp"
+                                                    android:fontFamily="@font/montserrat_black"
+                                                    android:layout_marginEnd="5dp"
                                                     android:text="1234"
                                                     android:textStyle="bold"
                                                     android:textColor="@color/colorTextDefault"
-                                                    android:padding="10dp"
                                                     android:background="@color/transparente" />
                                             </LinearLayout>
 
@@ -1296,15 +1300,17 @@
                                                         android:layout_marginTop="5dp"
                                                         android:id="@+id/edtxPreg2"
                                                         android:layout_width="wrap_content"
-                                                        android:layout_height="50dp"
-                                                        android:hint="ABCDE"
-                                                        android:layout_weight="1"
+                                                        android:inputType="text"
+                                                        android:text="ABDEFGHI"
+                                                        android:textColor="@color/colorTextDefault"
                                                         android:padding="10dp"
-                                                        android:inputType="textCapSentences|text"
+                                                        android:layout_marginEnd="5dp"
+                                                        android:background="@color/transparente"
+                                                        android:layout_height="50dp"
+                                                        android:layout_weight="1"
                                                         android:textCursorDrawable="@drawable/color_cursor"
-                                                        android:background="@drawable/edit_text_logreg"
                                                         android:textSize="16sp"
-                                                        android:fontFamily="@font/montserrat_regular"/>
+                                                        android:fontFamily="@font/montserrat_black"/>
 
                                                 </LinearLayout>
 
@@ -1401,14 +1407,16 @@
                                                     android:layout_width="0dp"
                                                     android:layout_height="wrap_content"
                                                     android:layout_weight="1"
-                                                    android:hint="Lugar donde realizó la actividad"
+                                                    android:inputType="text"
+                                                    android:text="ABDEFGHI"
+                                                    android:textColor="@color/colorTextDefault"
+                                                    android:padding="10dp"
+                                                    android:fontFamily="@font/montserrat_black"
+                                                    android:layout_marginEnd="5dp"
+                                                    android:background="@color/transparente"
                                                     android:layout_margin="5dp"
-                                                    android:padding="16dp"
-                                                    android:inputType="textCapSentences|text"
                                                     android:textCursorDrawable="@drawable/color_cursor"
-                                                    android:background="@drawable/edit_text_logreg"
-                                                    android:textSize="15sp"
-                                                    android:fontFamily="@font/montserrat_regular"/>
+                                                    android:textSize="15sp"/>
 
                                             </LinearLayout>
 
@@ -1482,7 +1490,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:visibility="gone"
+                    android:visibility="visible"
                     android:id="@+id/latAdmin"
                     android:layout_marginTop="-10dp"
                     android:layout_marginStart="3dp"
@@ -1740,7 +1748,7 @@
                     android:background="@color/transparente" />
 
                 <LinearLayout
-                    android:visibility="gone"
+                    android:visibility="visible"
                     android:id="@+id/latCredencial"
                     android:layout_marginTop="-10dp"
                     android:layout_marginStart="3dp"
@@ -1791,10 +1799,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content">
 
-                                    <androidx.recyclerview.widget.RecyclerView
-                                        android:id="@+id/recycler"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content" />
+                                    <include layout="@layout/item_credenciales" />
 
                                 </LinearLayout>
 

@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -20,13 +21,15 @@ import com.unse.bienestar.estudiantil.Herramientas.Almacenamiento.PreferenceMana
 import com.unse.bienestar.estudiantil.Herramientas.Utils;
 import com.unse.bienestar.estudiantil.Herramientas.VolleySingleton;
 import com.unse.bienestar.estudiantil.Interfaces.OnClickListenerAdapter;
-import com.unse.bienestar.estudiantil.Modelos.Credencial;
-import com.unse.bienestar.estudiantil.Modelos.CredencialSocio;
+import com.unse.bienestar.estudiantil.Modelos.CredencialDeporte;
 import com.unse.bienestar.estudiantil.Modelos.Regularidad;
 import com.unse.bienestar.estudiantil.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -45,7 +48,7 @@ public class DialogoActivarDesactivar extends DialogFragment {
     DialogoProcesamiento dialog;
     FragmentManager mFragmentManager;
     Regularidad mRegularidad;
-    Credencial mCredencial;
+    Object mCredencial;
     int position, idUsuario;
     boolean isActive = false;
     OnClickListenerAdapter mOnClickListenerAdapter;
@@ -75,12 +78,13 @@ public class DialogoActivarDesactivar extends DialogFragment {
     }
 
 
-    public Credencial getCredencial() {
+    public Object getCredencial() {
         return mCredencial;
+
     }
 
-    public void setCredencial(Credencial credencial) {
-        mCredencial = credencial;
+    public void setCredencial(CredencialDeporte credencial) {
+        mCredencial = (CredencialDeporte) credencial;
     }
 
     public Regularidad getRegularidad() {
@@ -89,6 +93,15 @@ public class DialogoActivarDesactivar extends DialogFragment {
 
     public void setRegularidad(Regularidad regularidad) {
         mRegularidad = regularidad;
+    }
+
+    public CredencialDeporte getCredencialDeporte() {
+        try {
+            return (CredencialDeporte) mCredencial;
+        } catch (ClassCastException e) {
+        }
+        return null;
+
     }
 
     public int getPosition() {
@@ -151,13 +164,19 @@ public class DialogoActivarDesactivar extends DialogFragment {
     private void cambiar() {
         isActive = !isActive;
         PreferenceManager manager = new PreferenceManager(getContextDialog());
-        String key = manager.getValueString(Utils.TOKEN);
-        int id = manager.getValueInt(Utils.MY_ID);
-        String URL = mRegularidad != null ? String.format("%s?id=%s&key=%s&idU=%s&est=%s&idReg=%s", Utils.URL_REGULARIDAD_CAMBIAR,
-                id, key, getIdUsuario(), isActive ? 1 : 0, mRegularidad.getIdRegularidad())
-                : !(mCredencial instanceof CredencialSocio) ? String.format("%s?id=%s&key=%s&idC=%s&est=%s", Utils.URL_CREDENCIAL_CAMBIAR, id, key, mCredencial.getId(), isActive ? 1 : 0)
-                : String.format("%s?id=%s&key=%s&idC=%s&est=%s",Utils.URL_CREDENCIAL_SOCIO_CAMBIAR, id, key, ((CredencialSocio)mCredencial).getIdCredencialSocio(), isActive ? 1 : 0);
-        StringRequest request = new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
+        final String key = manager.getValueString(Utils.TOKEN);
+        final int id = manager.getValueInt(Utils.MY_ID);
+        String URL = mRegularidad != null ? Utils.URL_REGULARIDAD_CAMBIAR : Utils.URL_CREDENCIAL_CAMBIAR;
+                /*mRegularidad != null ?
+                        String.format("%s?id=%s&key=%s&idU=%s&est=%s&idReg=%s",
+                                Utils.URL_REGULARIDAD_CAMBIAR,
+                                id, key, getIdUsuario(), isActive ? 1 : 0, mRegularidad.getIdRegularidad())
+                        : !(mCredencial instanceof CredencialSocio) ?
+                        String.format("%s?id=%s&key=%s&idC=%s&est=%s",
+                                Utils.URL_CREDENCIAL_CAMBIAR, id, key, ((CredencialSocio) mCredencial).getId(), isActive ? 1 : 0)
+                        : String.format("%s?id=%s&key=%s&idC=%s&est=%s",
+                        Utils.URL_CREDENCIAL_SOCIO_CAMBIAR, id, key, ((CredencialSocio) mCredencial).getIdCredencialSocio(), isActive ? 1 : 0);*/
+        StringRequest request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 
@@ -174,7 +193,28 @@ public class DialogoActivarDesactivar extends DialogFragment {
                 dialog.dismiss();
 
             }
-        });
+        }) {
+            @Override
+            public String getBodyContentType() {
+                return "application/x-www-form-urlencoded; charset=UTF-8";
+            }
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String, String> datos = new HashMap<>();
+                datos.put("key", key);
+                datos.put("idU", String.valueOf(id));
+                datos.put("val", String.valueOf(isActive ? 1 : 0));
+                if (getCredencial() != null) {
+                    if (getCredencialDeporte() != null) {
+                        datos.put("ii", String.valueOf(getCredencialDeporte().getIdInscripcion()));
+                        datos.put("aa", String.valueOf(getCredencialDeporte().getIdTemporada()));
+                    }
+                }
+                //datos.put("iu", String.valueOf(getCredencialDeporte().getIdUsuario()));
+                return datos;
+            }
+        };
         //Abro dialogo para congelar pantalla
         dialog = new DialogoProcesamiento();
         dialog.setCancelable(false);
@@ -239,14 +279,16 @@ public class DialogoActivarDesactivar extends DialogFragment {
 
     private void loadData() {
         txtTituloPrin.setText(mRegularidad != null ? "Info Regularidad" : "Info Credencial");
-        isActive = mRegularidad != null ? mRegularidad.getValidez() == 1 : mCredencial.getValidez() == 1;
+        isActive = mRegularidad != null ? mRegularidad.getValidez() == 1 :
+                getCredencialDeporte().getValidez() == 1;
         txtTitulo.setText(mRegularidad != null ?
                 String.format("Regularidad #%s - %s", mRegularidad.getIdRegularidad(), mRegularidad.getAnio())
-                : mCredencial.getTitulo());
+                : String.format("%s - %s", getCredencialDeporte().getNombre(),
+                getCredencialDeporte().getIdTemporada()));
         updateReg(isActive);
         txtFecha.setText(Utils.getFechaFormat(mRegularidad != null ?
                 mRegularidad.getFechaOtorg()
-                : mCredencial.getFecha()));
+                : getCredencialDeporte().getFechaCreacion()));
 
 
     }

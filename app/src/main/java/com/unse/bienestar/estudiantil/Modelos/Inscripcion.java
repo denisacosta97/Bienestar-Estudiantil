@@ -1,15 +1,19 @@
 package com.unse.bienestar.estudiantil.Modelos;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Inscripcion {
+public class Inscripcion implements Parcelable {
 
     public static final int TIPO_BECA = 1;
     public static final int TIPO_DEPORTE = 2;
 
     public static final int COMPLETE = 1;
     public static final int PARCIAL = 2;
+    public static final int LOW = 3;
 
     private int idInscripcion;
     private int idEstado;
@@ -26,19 +30,18 @@ public class Inscripcion {
     private String fechaModificacion;
     private int disponible;
     private int validez;
-    private int idPregunta;
     private String cuales;
     private int intensidad;
     private String lugar;
 
-    private String nombreEstado;
-    private String titulo;
-    private int anio, idConvocatoria, tipo;
+    private String nombreEstado, nombreDeporte, titulo;
+    private int tipoInscripcion, idDeporte;
+
     //Inscripcion principal
     public Inscripcion(int idInscripcion, int idEstado, int idUsuario, int idTemporada, int wsp,
                        int cantMaterias, String facebook, String instagram, String objetivo,
                        String peso, String altura, String fechaRegistro, String fechaModificacion,
-                       int disponible, int validez, int idPregunta, String cuales, int intensidad,
+                       int disponible, int validez, String cuales, int intensidad,
                        String lugar) {
         this.idInscripcion = idInscripcion;
         this.idEstado = idEstado;
@@ -55,31 +58,75 @@ public class Inscripcion {
         this.fechaModificacion = fechaModificacion;
         this.disponible = disponible;
         this.validez = validez;
-        this.idPregunta = idPregunta;
         this.cuales = cuales;
         this.intensidad = intensidad;
         this.lugar = lugar;
     }
 
     //Inscripcion para el perfil, muestra inscripciones generales
-    public Inscripcion(int idInscripcion, String titulo, int anio, int validez, int tipo, String estado, String fechaRegistro) {
+    public Inscripcion(int idInscripcion, String titulo, int anio, int validez, int tipo,
+                       String estado, String fechaRegistro) {
         this.idInscripcion = idInscripcion;
         this.titulo = titulo;
         this.fechaRegistro = fechaRegistro;
-        this.anio = anio;
+        this.idTemporada = anio;
         this.validez = validez;
-        this.tipo = tipo;
+        this.tipoInscripcion = tipo;
         this.nombreEstado = estado;
     }
 
-    //Inscripcion reducida para listado
-    public Inscripcion(int idInscripcion, int idEstado, String nombreEstado, String titulo, int idUsuario, int tipo) {
-        this.idInscripcion = idInscripcion;
-        this.idEstado = idEstado;
-        this.nombreEstado = nombreEstado;
-        this.titulo = titulo;
-        this.idUsuario = idUsuario;
-        this.tipo = tipo;
+    protected Inscripcion(Parcel in) {
+        idInscripcion = in.readInt();
+        idEstado = in.readInt();
+        idUsuario = in.readInt();
+        idTemporada = in.readInt();
+        wsp = in.readInt();
+        cantMaterias = in.readInt();
+        facebook = in.readString();
+        instagram = in.readString();
+        objetivo = in.readString();
+        peso = in.readString();
+        altura = in.readString();
+        fechaRegistro = in.readString();
+        fechaModificacion = in.readString();
+        disponible = in.readInt();
+        validez = in.readInt();
+        cuales = in.readString();
+        intensidad = in.readInt();
+        lugar = in.readString();
+        nombreEstado = in.readString();
+        nombreDeporte = in.readString();
+        titulo = in.readString();
+        tipoInscripcion = in.readInt();
+        idDeporte = in.readInt();
+    }
+
+    public static final Creator<Inscripcion> CREATOR = new Creator<Inscripcion>() {
+        @Override
+        public Inscripcion createFromParcel(Parcel in) {
+            return new Inscripcion(in);
+        }
+
+        @Override
+        public Inscripcion[] newArray(int size) {
+            return new Inscripcion[size];
+        }
+    };
+
+    public int getIdDeporte() {
+        return idDeporte;
+    }
+
+    public String getNombreDeporte() {
+        return nombreDeporte;
+    }
+
+    public void setNombreDeporte(String nombreDeporte) {
+        this.nombreDeporte = nombreDeporte;
+    }
+
+    public void setIdDeporte(int idDeporte) {
+        this.idDeporte = idDeporte;
     }
 
     public int getIdInscripcion() {
@@ -202,14 +249,6 @@ public class Inscripcion {
         this.validez = validez;
     }
 
-    public int getIdPregunta() {
-        return idPregunta;
-    }
-
-    public void setIdPregunta(int idPregunta) {
-        this.idPregunta = idPregunta;
-    }
-
     public String getCuales() {
         return cuales;
     }
@@ -250,47 +289,33 @@ public class Inscripcion {
         this.titulo = titulo;
     }
 
-    public int getAnio() {
-        return anio;
-    }
-
-    public void setAnio(int anio) {
-        this.anio = anio;
-    }
-
-    public int getIdConvocatoria() {
-        return idConvocatoria;
-    }
-
-    public void setIdConvocatoria(int idConvocatoria) {
-        this.idConvocatoria = idConvocatoria;
-    }
 
     public int getTipo() {
-        return tipo;
+        return tipoInscripcion;
     }
 
     public void setTipo(int tipo) {
-        this.tipo = tipo;
+        this.tipoInscripcion = tipo;
     }
 
     public static Inscripcion mapper(JSONObject o, int tipo) {
         Inscripcion inscripcion = null;
         int idInscripcion, disponible, idEstado, idUsuario, idTemporada, wsp,
-                inten, cantMaterias, idPreguntas, validez;
+                inten, cantMaterias, validez;
         String facebook, instagram, objetivo, altura, peso, cuales, lugar, fechaRegistro, fechaModificacion;
-
         try {
             switch (tipo) {
                 case COMPLETE:
                     idEstado = Integer.parseInt(o.getString("estado"));
-                    idInscripcion = Integer.parseInt(o.getString("idInscripcion"));
-                    idUsuario = Integer.parseInt(o.getString("idUsuario"));
-                    idTemporada = Integer.parseInt(o.getString("idTemporada"));
-                    wsp = Integer.parseInt(o.getString("isWhatsapp"));
+                    int idDeporte = Integer.parseInt(o.getString("iddeporte"));
+                    String estadodescripcion = o.getString("estadodescripcion");
+                    String nombredeporte = o.getString("nombredeporte");
+                    idInscripcion = Integer.parseInt(o.getString("idinscripcion"));
+                    idUsuario = Integer.parseInt(o.getString("idusuario"));
+                    idTemporada = Integer.parseInt(o.getString("anio"));
+                    wsp = Integer.parseInt(o.getString("iswhatsapp"));
                     inten = Integer.parseInt(o.getString("intensidad"));
-                    cantMaterias = Integer.parseInt(o.getString("cantMaterias"));
-                    idPreguntas = Integer.parseInt(o.getString("idPregunta"));
+                    cantMaterias = Integer.parseInt(o.getString("cantmaterias"));
                     disponible = Integer.parseInt(o.getString("disponible"));
                     facebook = o.getString("facebook");
                     instagram = o.getString("instagram");
@@ -299,30 +324,81 @@ public class Inscripcion {
                     peso = o.getString("peso");
                     cuales = o.getString("cuales");
                     lugar = o.getString("lugar");
-                    fechaModificacion = o.getString("fechaModificacion");
-                    fechaRegistro = o.getString("fechaRegistro");
+                    fechaModificacion = o.getString("fechamodificacion");
+                    fechaRegistro = o.getString("fecharegistro");
                     validez = Integer.parseInt(o.getString("validez"));
                     inscripcion = new Inscripcion(idInscripcion, idEstado, idUsuario, idTemporada,
                             wsp, cantMaterias, facebook,
                             instagram, objetivo, peso, altura, fechaRegistro, fechaModificacion,
-                            disponible, validez, idPreguntas, cuales, inten, lugar);
+                            disponible, validez, cuales, inten, lugar);
+                    inscripcion.setNombreEstado(estadodescripcion);
+                    inscripcion.setIdDeporte(idDeporte);
+                    inscripcion.setNombreDeporte(nombredeporte);
                     break;
                 case PARCIAL:
                     int id = Integer.parseInt(o.getString("idinscripcion"));
                     idEstado = Integer.parseInt(o.getString("idestado"));
                     int anio = Integer.parseInt(o.getString("anio"));
                     String nombreDeporte = o.getString("nombredeporte");
-                     validez = Integer.parseInt(o.getString("validez"));fechaRegistro = o.getString("fecharegistro");
+                    validez = Integer.parseInt(o.getString("validez"));
+                    fechaRegistro = o.getString("fecharegistro");
                     String estado = o.getString("nombree");
 
                     inscripcion = new Inscripcion(id, nombreDeporte, anio,
                             validez, Inscripcion.TIPO_DEPORTE, estado, fechaRegistro);
                     inscripcion.setIdEstado(idEstado);
+                case LOW:
+                    idInscripcion = Integer.parseInt(o.getString("idinscripcion"));
+                    idEstado = Integer.parseInt(o.getString("idestado"));
+                    idUsuario = Integer.parseInt(o.getString("idusuario"));
+                    validez = Integer.parseInt(o.getString("validez"));
+                    fechaRegistro = o.getString("fecharegistro");
+                    estado = o.getString("nombree");
+                    String nombre = o.getString("nombre");
+                    String apellido = o.getString("apellido");
+
+                    inscripcion = new Inscripcion(idInscripcion, String.format("%s %s", nombre, apellido), 0,
+                            validez, Inscripcion.TIPO_DEPORTE, estado, fechaRegistro);
+                    inscripcion.setIdEstado(idEstado);
+                    inscripcion.setIdUsuario(idUsuario);
             }
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
         return inscripcion;
+    }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(idInscripcion);
+        dest.writeInt(idEstado);
+        dest.writeInt(idUsuario);
+        dest.writeInt(idTemporada);
+        dest.writeInt(wsp);
+        dest.writeInt(cantMaterias);
+        dest.writeString(facebook);
+        dest.writeString(instagram);
+        dest.writeString(objetivo);
+        dest.writeString(peso);
+        dest.writeString(altura);
+        dest.writeString(fechaRegistro);
+        dest.writeString(fechaModificacion);
+        dest.writeInt(disponible);
+        dest.writeInt(validez);
+        dest.writeString(cuales);
+        dest.writeInt(intensidad);
+        dest.writeString(lugar);
+        dest.writeString(nombreEstado);
+        dest.writeString(nombreDeporte);
+        dest.writeString(titulo);
+        dest.writeInt(tipoInscripcion);
+        dest.writeInt(idDeporte);
     }
 }

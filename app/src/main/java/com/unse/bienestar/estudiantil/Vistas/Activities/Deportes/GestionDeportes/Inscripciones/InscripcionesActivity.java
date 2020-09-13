@@ -5,7 +5,6 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -75,7 +74,7 @@ public class InscripcionesActivity extends AppCompatActivity implements View.OnC
         mTemporadas = new ArrayList<>();
         mList = new ArrayList<>();
         mListOficial = new ArrayList<>();
-        mLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayout.VERTICAL, false);
+        mLayoutManager = new LinearLayoutManager(getApplicationContext(), RecyclerView.VERTICAL, false);
         mFechasAdapter = new FechasAdapter(getApplicationContext(), mListOficial, FechasAdapter.TIPO_DEPORTES_INSCRIPCIONES);
         reciclerDeportes.setNestedScrollingEnabled(true);
         reciclerDeportes.setLayoutManager(mLayoutManager);
@@ -110,7 +109,7 @@ public class InscripcionesActivity extends AppCompatActivity implements View.OnC
                                     if (deporte != null) {
                                         int idDeporte = deporte.getIdDep();
                                         int anio = ((ItemDato) itemBase).getTemporada().getAnio();
-                                        int idTemporada = ((ItemDato) itemBase).getTemporada().getIdTemporada();
+                                        int idTemporada = ((ItemDato) itemBase).getTemporada().getAnio();
                                         String deporteName = deporte.getName();
                                         Intent i = new Intent(getApplicationContext(), ListaInscriptosActivity.class);
                                         i.putExtra(Utils.DEPORTE_ID, idDeporte);
@@ -129,12 +128,12 @@ public class InscripcionesActivity extends AppCompatActivity implements View.OnC
                         if (itemBase.getTipo() == ItemBase.TIPO_DATO) {
                             ItemDato itemDato = (ItemDato) itemBase;
                             String anio = buscarAnio(position);
-                            if (anio != null){
+                            if (anio != null) {
                                 Temporada temporada = buscarTemporada(Integer.parseInt(anio),
                                         Integer.parseInt(itemDato.getIdValue()));
                                 if (temporada != null) {
                                     int idDeporte = ((ItemDato) itemBase).getDeporte().getIdDep();
-                                    int idTemporada = temporada.getIdTemporada();
+                                    int idTemporada = temporada.getAnio();
                                     String deporteName = ((ItemDato) itemBase).getDeporte().getName();
                                     Intent i = new Intent(getApplicationContext(), ListaInscriptosActivity.class);
                                     i.putExtra(Utils.DEPORTE_ID, idDeporte);
@@ -144,7 +143,6 @@ public class InscripcionesActivity extends AppCompatActivity implements View.OnC
                                     startActivity(i);
                                 }
                             }
-
 
 
                         } else return;
@@ -171,8 +169,8 @@ public class InscripcionesActivity extends AppCompatActivity implements View.OnC
     }
 
     private Temporada buscarTemporada(int anio, int id) {
-        for (Temporada temporada : mTemporadas){
-            if (temporada.getAnio() == anio && temporada.getIdDeporte() == id){
+        for (Temporada temporada : mTemporadas) {
+            if (temporada.getAnio() == anio && temporada.getIdDeporte() == id) {
                 return temporada;
             }
         }
@@ -283,7 +281,7 @@ public class InscripcionesActivity extends AppCompatActivity implements View.OnC
         for (int j = 0; j < temporadas.length(); j++) {
             try {
                 JSONObject tem = temporadas.getJSONObject(j);
-                Temporada temporada = Temporada.mapper(tem);
+                Temporada temporada = Temporada.mapper(tem, Temporada.DEPORTE);
                 ItemDato dato = new ItemDato();
                 dato.setTemporada(temporada);
                 dato.setTipo(ItemDato.TIPO_TEMPORADA);

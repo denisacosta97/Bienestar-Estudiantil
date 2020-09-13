@@ -25,7 +25,7 @@ import org.json.JSONObject;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class PerfilDeporteActivity extends AppCompatActivity implements View.OnClickListener {
+public class InfoDeporteActivity extends AppCompatActivity implements View.OnClickListener {
 
     Deporte mDeporte;
     TextView txtHorario, txtDia, txtEntrenador, txtNombre;
@@ -138,7 +138,7 @@ public class PerfilDeporteActivity extends AppCompatActivity implements View.OnC
                     break;
                 case 1:
                     //Exito
-                    Intent i = new Intent(getApplicationContext(), RegistroDeporteActivity.class);
+                    Intent i = new Intent(getApplicationContext(), InscribirDeporteActivity.class);
                     i.putExtra(Utils.DEPORTE_NAME, mDeporte);
                     int anio = jsonObject.getInt("id");
                     i.putExtra(Utils.DEPORTE_TEMPORADA, anio);

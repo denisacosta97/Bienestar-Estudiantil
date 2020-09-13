@@ -21,12 +21,14 @@ import com.unse.bienestar.estudiantil.Herramientas.Almacenamiento.PreferenceMana
 import com.unse.bienestar.estudiantil.Herramientas.Credencial.CredencialView;
 import com.unse.bienestar.estudiantil.Herramientas.Credencial.OnSwipeTouchListener;
 import com.unse.bienestar.estudiantil.Herramientas.Utils;
-import com.unse.bienestar.estudiantil.Modelos.Credencial;
+import com.unse.bienestar.estudiantil.Modelos.Alumno;
 import com.unse.bienestar.estudiantil.Modelos.CredencialBeca;
 import com.unse.bienestar.estudiantil.Modelos.CredencialDeporte;
 import com.unse.bienestar.estudiantil.Modelos.CredencialSocio;
 import com.unse.bienestar.estudiantil.Modelos.CredencialTorneo;
 import com.unse.bienestar.estudiantil.R;
+
+import org.slf4j.helpers.Util;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -38,8 +40,9 @@ public class TarjetaCredencialActivity extends AppCompatActivity {
     Button btnAceptar;
     View mView;
     LinearLayout mLayout;
+    Alumno mAlumno;
 
-    Credencial mCredencial;
+    Object mCredencial;
     CredencialView mCredencialView;
 
     LinearLayout layDeporte;
@@ -60,14 +63,21 @@ public class TarjetaCredencialActivity extends AppCompatActivity {
         if (getIntent().getParcelableExtra(Utils.TIPO_CREDENCIAL_DATO) != null) {
             mCredencial = getIntent().getParcelableExtra(Utils.TIPO_CREDENCIAL_DATO);
         }
+        if (getIntent().getParcelableExtra(Utils.ALUMNO_NAME) != null) {
+            mAlumno = getIntent().getParcelableExtra(Utils.ALUMNO_NAME);
+        }
+        if (mCredencial != null) {
+            loadViews();
 
-        loadViews();
+            updateView();
 
-        updateView();
+            loadData();
 
-        loadData();
-
-        loadListener();
+            loadListener();
+        } else {
+            Utils.showToast(getApplicationContext(), getString(R.string.noData));
+            finish();
+        }
 
 
     }
@@ -76,6 +86,7 @@ public class TarjetaCredencialActivity extends AppCompatActivity {
         Bitmap bitmap = getBitmapFromView(mLayout);
         bitmap = Utils.resize(bitmap, 600, 375);
         FileStorageManager.saveBitmap(getApplicationContext(), Utils.FOLDER_CREDENCIALES, getFileName(), bitmap, true);
+        Utils.showToast(getApplicationContext(), getString(R.string.credencialGuardada));
     }
 
     private String getFileName() {
@@ -83,13 +94,17 @@ public class TarjetaCredencialActivity extends AppCompatActivity {
         int id = new PreferenceManager(getApplicationContext()).getValueInt(Utils.MY_ID);
         switch (tipo) {
             case 1:
-                return Utils.limpiarAcentos(String.format("B_%s_%s", mCredencial.getTitulo(), id)).toUpperCase().replaceAll(" - ", " ").replaceAll(" ","_")+".png";
+                return Utils.limpiarAcentos(String.format("B_%s_%s", " ", id)).toUpperCase().replaceAll(" - ",
+                        " ").replaceAll(" ", "_") + ".png";
             case 2:
-                return Utils.limpiarAcentos(String.format("D_%s_%s",  mCredencial.getTitulo(), id)).toUpperCase().replaceAll(" ", "_") + ".png";
+                return Utils.limpiarAcentos(String.format("D_%s_%s", ((CredencialDeporte) mCredencial).getNombre(), id))
+                        .toUpperCase().replaceAll(" ", "_") + ".png";
             case 3:
-                return Utils.limpiarAcentos(String.format("T_%s_%s", mCredencial.getTitulo(), id)).toUpperCase().replaceAll(" - ", " ").replaceAll(" ","_")+".png";
+                return Utils.limpiarAcentos(String.format("T_%s_%s", " ", id)).toUpperCase().replaceAll(" - ",
+                        " ").replaceAll(" ", "_") + ".png";
             case 4:
-                return Utils.limpiarAcentos(String.format("S_%s_%s", mCredencial.getTitulo(), id)).toUpperCase().replaceAll(" ", "_") + ".png";
+                return Utils.limpiarAcentos(String.format("S_%s_%s", " ", id)).toUpperCase().replaceAll(" ",
+                        "_") + ".png";
         }
         return "";
     }
@@ -201,14 +216,14 @@ public class TarjetaCredencialActivity extends AppCompatActivity {
         OnSwipeTouchListener.OnGestureListener gestureListener = new OnSwipeTouchListener.OnGestureListener() {
             @Override
             public void onSwipeRight() {
-                if (isBack)
-                    onMove();
+                //if (isBack)
+                    //onMove();
             }
 
             @Override
             public void onSwipeLeft() {
-                if (!isBack)
-                    onMove();
+               // if (!isBack)
+                    //onMove();
             }
 
             @Override
@@ -238,6 +253,8 @@ public class TarjetaCredencialActivity extends AppCompatActivity {
     private void loadData() {
         int id = new PreferenceManager(getApplicationContext()).getValueInt(Utils.MY_ID);
         String URL = String.format("%s%s.jpg", Utils.URL_USUARIO_IMAGE_LOAD, id);
+        Bitmap bitmap = FileStorageManager.getBitmap(getApplicationContext(), Utils.FOLDER,
+                String.format(Utils.PROFILE_PIC, id), false);
         switch (tipo) {
             case 1:
                 //Beca
@@ -258,12 +275,14 @@ public class TarjetaCredencialActivity extends AppCompatActivity {
                 mDeporte.setText(credencialDeporte.getNombre());
                 mApellido.setText(credencialDeporte.getApellido());
                 mNombre.setText(credencialDeporte.getNombre());
-                mNombreEquipo.setText(credencialDeporte.getDescripcion().equals("") ? "NO ASIGNADO" :
-                        credencialDeporte.getDescripcion().equals("null") ? "NO ASIGNADO" : credencialDeporte.getDescripcion());
+                mNombreEquipo.setText("NO ASIGNADO");
                 mAnio.setText(String.valueOf(credencialDeporte.getAnio()));
-                mLegajo.setText(String.valueOf(credencialDeporte.getLegajo()));
-                mFacultad.setText(credencialDeporte.getFacultad());
-                Glide.with(mFoto.getContext()).load(URL).apply(new RequestOptions().error(R.drawable.ic_user).diskCacheStrategy(DiskCacheStrategy.AUTOMATIC).placeholder(R.drawable.ic_user)).into(mFoto);
+                mLegajo.setText(String.valueOf(mAlumno != null ? mAlumno.getLegajo() : "NO ASIGNADO"));
+                mFacultad.setText(String.valueOf(mAlumno != null ? mAlumno.getFacultad() : "NO ASIGNADO"));
+                Glide.with(mFoto.getContext()).load(bitmap != null ? bitmap : URL)
+                        .apply(new RequestOptions().error(R.drawable.ic_user)
+                                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                .placeholder(R.drawable.ic_user)).into(mFoto);
                 break;
             case 3:
                 //Torneo

@@ -12,5 +12,5 @@
         android:top="0dp" />
     <solid
         android:angle="90"
-        android:color="@color/colorRed"/>
+        android:color="@color/colorAccent"/>
 </shape>

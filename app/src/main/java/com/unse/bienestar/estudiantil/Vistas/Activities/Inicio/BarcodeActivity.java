@@ -1,4 +1,4 @@
-package com.unse.bienestar.estudiantil.Vistas;
+package com.unse.bienestar.estudiantil.Vistas.Activities.Inicio;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -46,19 +46,18 @@ public class BarcodeActivity extends AppCompatActivity implements ZXingScannerVi
 
     @Override
     public void handleResult(Result rawResult) {
-       // AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        //builder.setTitle("Resultado  del scanner: ");
-        //builder.setMessage("Resultado "+rawResult.getText()+"\n"+"Formato "+rawResult.getBarcodeFormat());
-
         ArrayList<String> resultados = new ArrayList<>();
         Pattern regex = Pattern.compile("@([A-Z0-9\\/ ])*");
         Matcher matcher = regex.matcher(rawResult.getText());
         while (matcher.find()){
-            resultados.add(matcher.group(0).substring(1));
+            try {
+                resultados.add(matcher.group(0).substring(1));
+            }catch (Exception e){
+
+            }
+
         }
-
         mScannerView.resumeCameraPreview(this);
-
         Intent result = new Intent();
         result.putExtra(Utils.BARCODE, resultados);
         setResult(RESULT_OK, result);

@@ -96,11 +96,12 @@ public class Alumno extends Usuario implements Parcelable {
     public static Alumno mapper(JSONObject o, Usuario usuario) {
         Alumno alumno = new Alumno();
         try {
-            if (o.get("datos") != null) {
+            if (o.has("datos")) {
                 JSONObject object = o.getJSONObject("datos");
                 String carrera = object.getString("carrera");
                 String facultad = object.getString("facultad");
-                String anio = object.getString("anio");
+                String anio = object.has("anio") ? object.getString("anio")
+                        : object.has("anioingreso") ? object.getString("anioingreso") : "";
                 String legajo = object.getString("legajo");
                 int idRegularidad = Integer.parseInt(
                         object.getString("idregularidad"));

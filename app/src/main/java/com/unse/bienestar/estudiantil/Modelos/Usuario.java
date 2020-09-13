@@ -172,7 +172,7 @@ public class Usuario implements Parcelable {
                     telefono = object.getString("telefono");
                     nombre = object.getString("nombre");
                     apellido = object.getString("apellido");
-                    fechaNac = object.getString("fechaNac");
+                    fechaNac = object.getString("fechanac");
                     pais = object.getString("pais");
                     provincia = object.getString("provincia");
                     localidad = object.getString("localidad");

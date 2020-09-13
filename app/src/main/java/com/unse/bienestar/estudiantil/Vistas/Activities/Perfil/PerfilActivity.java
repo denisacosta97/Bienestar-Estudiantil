@@ -266,7 +266,7 @@ public class PerfilActivity extends AppCompatActivity implements View.OnClickLis
                 startActivity(new Intent(getApplicationContext(), ConfiguracionesActivities.class));
                 break;
             case 3:
-                startActivity(new Intent(getApplicationContext(), TiposCredencialesActivity.class));
+                startActivity(new Intent(getApplicationContext(), CredencialesActivity.class));
                 break;
             case 4:
                 startActivity(new Intent(getApplicationContext(), ArchivosActivity.class));

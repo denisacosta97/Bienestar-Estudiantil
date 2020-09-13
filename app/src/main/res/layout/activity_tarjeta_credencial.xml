@@ -5,13 +5,13 @@
     android:background="@color/colorGrey"
     android:orientation="vertical"
     android:gravity="center">
-    
-    <com.unse.bienestarestudiantil.Herramientas.Credencial.CredencialView
+
+    <com.unse.bienestar.estudiantil.Herramientas.Credencial.CredencialView
         android:layout_width="wrap_content"
         android:id="@+id/credencial"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"/>
 
-    </com.unse.bienestarestudiantil.Herramientas.Credencial.CredencialView>
+
 
     <Button
         android:layout_width="150dp"
@@ -19,7 +19,7 @@
         android:id="@+id/btnAceptar"
         android:textSize="18sp"
         android:textColor="@color/colorWhite"
-        android:text="GIRAR"
+        android:text="GUARDAR"
         android:fontFamily="@font/montserrat_black"
         android:background="@drawable/button_border" />
 

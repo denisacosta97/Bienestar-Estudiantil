@@ -42,19 +42,21 @@ public class InscripcionesAdapter extends RecyclerView.Adapter<InscripcionesAdap
     public void onBindViewHolder(@NonNull InscripcionViewHolder holder, int position) {
         Inscripcion inscripcion = mList.get(position);
 
-        holder.txtNumero.setText(String.format("# %s",inscripcion.getIdInscripcion()));
+        holder.txtNumero.setText(String.format("#%s", inscripcion.getIdInscripcion()));
         holder.txtNombre.setText(inscripcion.getTitulo());
         holder.txtDni.setText(String.valueOf(inscripcion.getIdUsuario()));
+        if (inscripcion.getIdUsuario() == 0)
+            holder.txtDni.setVisibility(View.GONE);
         holder.txtEstado.setText(inscripcion.getNombreEstado());
         int i = R.color.colorTextDefault;
         switch (inscripcion.getIdEstado()) {
-            case 1:
+            case 2:
                 i = R.color.colorGreen;
                 break;
-            case 2:
+            case 3:
                 i = R.color.colorRed;
                 break;
-            case 3:
+            case 1:
                 i = R.color.colorOrange;
                 break;
         }
@@ -85,6 +87,7 @@ public class InscripcionesAdapter extends RecyclerView.Adapter<InscripcionesAdap
         this.mList = list;
         this.mListCopia = new ArrayList<>();
         this.mListCopia.addAll(mList);
+        notifyDataSetChanged();
     }
 
     public void filtrar(String txt, int tipo) {

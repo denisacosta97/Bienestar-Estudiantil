@@ -37,7 +37,6 @@
         <activity android:name=".Vistas.Activities.Transporte.RecorridoActivity" />
         <activity android:name=".Vistas.Activities.Deportes.GestionDeportes.AddTorneoActivity" />
         <activity android:name=".Vistas.Activities.TermsActivity" />
-        <activity android:name=".Vistas.Activities.Deportes.GestionDeportes.InfoProfesorActivity" />
         <activity android:name=".Vistas.Activities.AboutActivity" />
         <activity android:name=".Vistas.Activities.Perfil.CambiarContraseniaActivity" />
         <activity android:name=".Vistas.Activities.Perfil.RecuperarContraseniaActivity" />
@@ -51,9 +50,9 @@
             android:name=".Vistas.Activities.Perfil.ArchivosActivity"
             android:label="Gestión de archivos" />
         <activity android:name=".Vistas.Activities.NoticiaLectorActivity" />
-        <activity android:name=".Vistas.BarcodeActivity" />
-        <activity android:name=".Vistas.Activities.Deportes.PerfilDeporteActivity" />
-        <activity android:name=".Vistas.Activities.Deportes.RegistroDeporteActivity" />
+        <activity android:name=".Vistas.Activities.Inicio.BarcodeActivity" />
+        <activity android:name=".Vistas.Activities.Deportes.InfoDeporteActivity" />
+        <activity android:name=".Vistas.Activities.Deportes.InscribirDeporteActivity" />
         <activity
             android:name=".Vistas.Activities.Perfil.InfoUsuarioActivity"
             android:label="Información" />
@@ -71,7 +70,7 @@
         <activity
             android:name=".Vistas.Activities.Polideportivo.ReservaEspacioActivity"
             android:label="Realizar Reserva" />
-        <activity android:name=".Vistas.Activities.Perfil.TiposCredencialesActivity" />
+        <activity android:name=".Vistas.Activities.Perfil.CredencialesActivity" />
         <activity
             android:name=".Vistas.Activities.Inicio.MainActivity"
             android:label="@string/app_name" />
@@ -119,7 +118,9 @@
         <activity android:name=".Vistas.Activities.Polideportivo.CalendarReservasActivity" />
         <activity android:name=".Vistas.Activities.Polideportivo.SelectInstActivity" />
         <activity android:name=".Vistas.Activities.Perfil.InscripcionesActivity" />
-        <activity android:name=".Vistas.Activities.Deportes.ModificarInscripcionDeporteActivity" />
+        <activity android:name=".Vistas.Activities.Deportes.ModificarInscripcionActivity" />
+        <activity android:name=".Vistas.Activities.Deportes.GestionDeportes.Inscripciones.InscripcionesTemporadasActivity" />
+        <activity android:name=".Vistas.Activities.Deportes.GestionDeportes.GestionDeportesActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

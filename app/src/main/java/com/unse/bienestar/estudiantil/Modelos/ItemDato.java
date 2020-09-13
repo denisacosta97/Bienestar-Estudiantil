@@ -24,7 +24,7 @@ public class ItemDato extends ItemBase {
     public String getTextValue() {
         switch (getTipoDato()) {
             case TIPO_INSCRIPCION:
-                return String.format("%s - %s", getInscripcion().getTitulo(), getInscripcion().getAnio());
+                return String.format("%s - %s", getInscripcion().getTitulo(), getInscripcion().getIdTemporada());
             case TIPO_TEMPORADA:
                 return String.valueOf(getTemporada().getAnio());
             case TIPO_DEPORTE:
@@ -56,7 +56,7 @@ public class ItemDato extends ItemBase {
         switch (getTipoDato()) {
             case TIPO_INSCRIPCION:
                 return String.format("%s/%s", getInscripcion().getIdInscripcion(), String.valueOf(
-                        getInscripcion().getAnio()
+                        getInscripcion().getIdTemporada()
                 ).substring(2));
             case TIPO_DEPORTE:
                 return String.format("%s", getDeporte().getIdDep());

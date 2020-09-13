@@ -81,6 +81,8 @@
     <string name="deporteYaInscripto">Ya estas inscripto en la actividad</string>
     <string name="noConexion">Para visualizar el elemento debe estar conectado a Internet</string>
     <string name="usuarioListError">Error al obtener usuarios intente nuevamente</string>
+    <string name="listError">Error al obtener %s intente nuevamente</string>
+    <string name="listVacio">No existen %s</string>
     <string name="usuarioListVacio">No existe ningún usuario</string>
     <string name="tituloListaUsuarios">Lista de Usuarios</string>
     <string name="usuarioNoExiste">No existe el usuario solicitado</string>
@@ -221,6 +223,11 @@
     <string name="inscripcionYaRegistrada">¡Ya existe una inscripción anterior!</string>
     <string name="credencialesListError">Error al obtener las inscripciones, por favor intenta nuevamente</string>
     <string name="credencialesListVacia">No existe ninguna inscripcion realizada a un deporte o beca</string>
+    <string name="activo">ACTIVO </string>
+    <string name="inactivo">INACTIVO </string>
+    <string name="credencialNo">NO HAY CREDENCIALES ASIGNADAS</string>
+    <string name="credencialNoDisponible">¡Credencial no disponible!</string>
+    <string name="credencialGuardada">¡Credencial guardada!</string>
 
     <string name="slide1">Esta es la nueva aplicación de la Secretaría de Bienestar Estudiantil perteneciente a la Universidad Nacional de Santiago del Estero.\n¡Ahora todas sus áreas en forma de aplicación!</string>
     <string name="slide2">Registrate en la aplicación y comenzá a interactuar con Bienestar Estudiantil de una nueva forma.</string>

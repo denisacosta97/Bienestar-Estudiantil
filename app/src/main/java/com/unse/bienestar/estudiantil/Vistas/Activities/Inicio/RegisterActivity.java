@@ -33,7 +33,6 @@ import com.unse.bienestar.estudiantil.Modelos.Categoria;
 import com.unse.bienestar.estudiantil.R;
 import com.unse.bienestar.estudiantil.Vistas.Activities.Perfil.UploadPictureActivity;
 import com.unse.bienestar.estudiantil.Vistas.Adaptadores.CategoriasAdapter;
-import com.unse.bienestar.estudiantil.Vistas.BarcodeActivity;
 import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoProcesamiento;
 import com.unse.bienestar.estudiantil.Vistas.Fragmentos.DatePickerFragment;
 

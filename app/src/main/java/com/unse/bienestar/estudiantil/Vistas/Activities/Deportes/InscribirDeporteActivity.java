@@ -34,7 +34,7 @@ import java.util.Map;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class RegistroDeporteActivity extends AppCompatActivity implements View.OnClickListener {
+public class InscribirDeporteActivity extends AppCompatActivity implements View.OnClickListener {
 
     Deporte mDeporte;
     EditText edtNombreDep, edtNombre, edtApellido, edtDni, edtEdad, edtFechaNac, edtDomicilio,

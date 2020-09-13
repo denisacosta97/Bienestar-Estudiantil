@@ -5,6 +5,7 @@ import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.unse.bienestar.estudiantil.Modelos.ItemBase;
@@ -100,6 +101,7 @@ public class FechasAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                     dateViewHolder.txtEstado.setVisibility(View.GONE);
                     dateViewHolder.txtTitulo.setText(dateItem.getTextValue());
                 }
+
                 break;
         }
 
@@ -109,12 +111,15 @@ public class FechasAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     //ViewHolder for date row item
     static class DateViewHolder extends RecyclerView.ViewHolder {
         private TextView txtTitulo, txtNroArchivo, txtEstado;
+        ImageView imgIcono;
 
         DateViewHolder(View v) {
             super(v);
-            txtTitulo = v.findViewById(R.id.txtTitulo);
+            txtTitulo = v.findViewById(R.id.txtDescripcion);
             txtNroArchivo = v.findViewById(R.id.txtId);
-            txtEstado = v.findViewById(R.id.idEstado);
+            txtEstado = v.findViewById(R.id.txtEstado);
+            imgIcono = v.findViewById(R.id.imgEstado);
+            imgIcono.setVisibility(View.GONE);
 
         }
     }

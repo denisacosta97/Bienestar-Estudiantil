@@ -16,11 +16,12 @@ import com.unse.bienestar.estudiantil.Herramientas.Almacenamiento.PreferenceMana
 import com.unse.bienestar.estudiantil.Herramientas.RecyclerListener.ItemClickSupport;
 import com.unse.bienestar.estudiantil.Herramientas.Utils;
 import com.unse.bienestar.estudiantil.Herramientas.VolleySingleton;
-import com.unse.bienestar.estudiantil.Modelos.Credencial;
+import com.unse.bienestar.estudiantil.Modelos.Alumno;
 import com.unse.bienestar.estudiantil.Modelos.CredencialBeca;
 import com.unse.bienestar.estudiantil.Modelos.CredencialDeporte;
 import com.unse.bienestar.estudiantil.Modelos.CredencialSocio;
 import com.unse.bienestar.estudiantil.Modelos.CredencialTorneo;
+import com.unse.bienestar.estudiantil.Modelos.Usuario;
 import com.unse.bienestar.estudiantil.R;
 import com.unse.bienestar.estudiantil.Vistas.Adaptadores.CredencialesAdapter;
 import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoProcesamiento;
@@ -42,8 +43,9 @@ public class ListaCredencialesActivity extends AppCompatActivity implements View
     RecyclerView mRecycler;
     RecyclerView.LayoutManager mManager;
     CredencialesAdapter mAdapter;
-    ArrayList<Credencial> mList;
+    ArrayList<Object> mList;
     ImageView btnBack;
+    Alumno alumno;
 
     DialogoProcesamiento dialog;
     LinearLayout latError, latVacio;
@@ -127,10 +129,7 @@ public class ListaCredencialesActivity extends AppCompatActivity implements View
         itemClickSupport.setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
             @Override
             public void onItemClick(RecyclerView parent, View view, int position, long id) {
-                if (mList.get(position).getValidez() != 0)
-                    procesarClick(position);
-                else
-                    Utils.showToast(getApplicationContext(), "La credencial no se encuentra vigente");
+                procesarClick(position);
             }
         });
     }
@@ -146,13 +145,13 @@ public class ListaCredencialesActivity extends AppCompatActivity implements View
     private void loadData() {
         mList = new ArrayList<>();
 
-        mAdapter = new CredencialesAdapter(mList, getApplicationContext(),false);
-
         mManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         mRecycler.setLayoutManager(mManager);
-        mRecycler.setAdapter(mAdapter);
 
-        loadCredenciales();
+        if (tipo == 2)
+            loadCredenciales();
+        else
+            updateView(0);
     }
 
     private void procesarClick(int id) {
@@ -167,9 +166,15 @@ public class ListaCredencialesActivity extends AppCompatActivity implements View
                 break;
             case 2:
                 CredencialDeporte deporte = (CredencialDeporte) mList.get(id);
+                if (deporte.getValidez() == 0) {
+                    Utils.showToast(getApplicationContext(), getString(R.string.credencialNoDisponible));
+                    break;
+
+                }
                 intent = new Intent(getApplicationContext(), TarjetaCredencialActivity.class);
                 intent.putExtra(Utils.TIPO_CREDENCIAL_DATO, deporte);
                 intent.putExtra(Utils.TIPO_CREDENCIAL, tipo);
+                intent.putExtra(Utils.ALUMNO_NAME, alumno);
                 startActivity(intent);
                 break;
             case 3:
@@ -201,7 +206,7 @@ public class ListaCredencialesActivity extends AppCompatActivity implements View
                 URL = String.format("%s?id=%s&key=%s", Utils.URL_BECAS_CREDENCIAL, id, key);
                 break;
             case 2:
-                URL = String.format("%s?id=%s&key=%s", Utils.URL_DEPORTE_CREDENCIAL, id, key);
+                URL = String.format("%s?idU=%s&key=%s&iu=%s", Utils.URL_CREDENCIAL_DEPORTE, id, key, id);
                 break;
             case 3:
                 URL = String.format("%s?id=%s&key=%s", Utils.URL_TORNEO_CREDENCIAL, id, key);
@@ -251,7 +256,7 @@ public class ListaCredencialesActivity extends AppCompatActivity implements View
                             loadInfoBeca(jsonObject.getJSONArray("mensaje"), jsonObject);
                             break;
                         case 2:
-                            loadInfoDeporte(jsonObject.getJSONArray("mensaje"), jsonObject);
+                            loadInfoDeporte(jsonObject);
                             break;
                         case 3:
                             loadInfoTorneo(jsonObject.getJSONArray("mensaje"));
@@ -432,46 +437,38 @@ public class ListaCredencialesActivity extends AppCompatActivity implements View
         }
     }
 
-    private void loadInfoDeporte(JSONArray mensaje, JSONObject obj) {
-        for (int i = 0; i < mensaje.length(); i++) {
+    private void loadInfoDeporte(JSONObject obj) {
+        if (obj.has("mensaje")) {
             try {
-                JSONObject object = mensaje.getJSONObject(i);
+                JSONArray mensaje = obj.getJSONArray("mensaje");
 
-                String nombre, descripcion = "", titulo, legajo = null, facultad = null;
-                int validez, anio, idTemporada, idDeporte, idCredencial, tipoUsuario;
+                for (int i = 0; i < mensaje.length(); i++) {
 
-                nombre = object.getString("nombre");
-                if (object.has("descripcion"))
-                    descripcion = object.getString("descripcion");
-                anio = Integer.parseInt(object.getString("anio"));
-                validez = Integer.parseInt(object.getString("validez"));
-                idTemporada = Integer.parseInt(object.getString("idTemporada"));
-                idDeporte = Integer.parseInt(object.getString("idDeporte"));
-                idCredencial = Integer.parseInt(object.getString("idCredencial"));
-                String nombreU = object.getString("nombre");
-                String apellido = object.getString("apellido");
-                titulo = String.format("%s %s", nombre, anio);
-                tipoUsuario = Integer.parseInt(object.getString("tipoUsuario"));
+                    JSONObject o = mensaje.getJSONObject(i);
 
-                if (tipoUsuario == 1) {
-                    JSONObject o = obj.getJSONObject("dato");
-                    legajo = o.getString("legajo");
-                    facultad = o.getString("facultad");
+                    CredencialDeporte credencialDeporte = CredencialDeporte.mapper(o, CredencialDeporte.COMPLETE);
+
+                    mList.add(credencialDeporte);
+
                 }
-
-                CredencialDeporte credencialDeporte = new CredencialDeporte(idCredencial, titulo,
-                        validez, idTemporada, idDeporte, anio, nombre, descripcion, nombreU, apellido, legajo, facultad);
-
-                mList.add(credencialDeporte);
-
+                if (obj.has("datos")) {
+                    Usuario usuario = new Usuario();
+                    alumno = Alumno.mapper(obj, usuario);
+                }
+                if (mList.size() > 0) {
+                    mAdapter = new CredencialesAdapter(mList, getApplicationContext(),
+                            false, CredencialesAdapter.DEPORTE);
+                    mRecycler.setAdapter(mAdapter);
+                } else {
+                    updateView(0);
+                }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
-            mAdapter.notifyDataSetChanged();
-
-
+        } else {
+            updateView(0);
         }
+
     }
 
 

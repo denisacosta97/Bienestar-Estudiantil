@@ -180,6 +180,8 @@ public class Utils {
     public static final int LIST_LEGAJO = 1;
     public static final int LIST_DNI = 2;
     public static final int LIST_NOMBRE = 3;
+    public static final String INSCRIPCION_ID = "inscripcion_id";
+    public static final String INSCRIPCION_ANIO = "anio_id";
 
 
     private static final String IP = "sis.bienestar.unse.edu.ar/api";
@@ -218,17 +220,20 @@ public class Utils {
     public static final String URL_DEPORTE_TEMPORADA = "https://" + IP + "/deportes/inscripcion/getTemporada.php";
     public static final String URL_DEPORTE_INSCRIPCION = "https://" + IP + "/deportes/inscripcion/insertar.php";
     public static final String URL_INSCRIPCIONES_GENERALES = "https://" + IP + "/becas/getInscripciones.php";
+    public static final String URL_INSCRIPCION_BY_ID = "https://" + IP + "/deportes/inscripcion/getInscripcion.php";
+    public static final String URL_INSCRIPCION_ACTUALIZAR = "https://" + IP + "/deportes/inscripcion/actualizar.php";
+    public static final String URL_INSCRIPCIONES_POR_DEPORTE = "https://" + IP + "/deportes/inscripcion/getInscriptosByDeporte.php";
+    public static final String URL_INSCRIPCIONES_TEMPORADA_DEPORTE = "https://" + IP + "/deportes/inscripcion/getTemporadaByEntrenador.php";
+    public static final String URL_INSCRIPCION_PARTICULAR_ELIMIAR = "https://" + IP + "/deportes/inscripcion/eliminar.php";
+    public static final String URL_INSCRIPCION_AGREGAR_CREDENCIAL = "https://" + IP + "/deportes/credencial/insertar.php";
+    public static final String URL_CREDENCIAL_CAMBIAR = "https://" + IP + "/deportes/credencial/eliminar.php";
+    public static final String URL_CREDENCIAL_DEPORTE = "https://" + IP + "/deportes/credencial/getCredencialByUser.php";
 
 
-    public static final String URL_DEPORTE_CREDENCIAL = "https://" + IP + "/deportes/getCredencial.php";
+
+
+
     public static final String URL_DEPORTE_BAJA = "https://" + IP + "/deportes/actualizarDeporte.php";
-    public static final String URL_INSCRIPCIONES_POR_DEPORTE = "https://" + IP + "/deportes/getInscriptos.php";
-
-    public static final String URL_INSCRIPCION_PARTICULAR = "https://" + IP + "/deportes/getInscripcion.php";
-    public static final String URL_INSCRIPCION_PARTICULAR_ELIMIAR = "https://" + IP + "/deportes/eliminarInscripcion.php";
-    public static final String URL_INSCRIPCION_ACTUALIZAR = "https://" + IP + "/deportes/actualizarInscripcion.php";
-    public static final String URL_INSCRIPCION_CARNET = "https://" + IP + "/deportes/insertarCredencial.php";
-    public static final String URL_CREDENCIAL_CAMBIAR = "https://" + IP + "/deportes/cambiarCredencial.php";
     public static final String URL_PROFES = "https://" + IP + "/deportes/getAllProfesores.php";
     public static final String URL_BECADOS = "https://" + IP + "/beca/getAllBecados.php";
     public static final String URL_ASISTENCIA = "https://" + IP + "/deportes/asistencia.php";

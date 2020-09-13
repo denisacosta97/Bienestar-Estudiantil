@@ -20,10 +20,12 @@ import com.unse.bienestar.estudiantil.Herramientas.Almacenamiento.PreferenceMana
 import com.unse.bienestar.estudiantil.Herramientas.RecyclerListener.ItemClickSupport;
 import com.unse.bienestar.estudiantil.Herramientas.Utils;
 import com.unse.bienestar.estudiantil.Herramientas.VolleySingleton;
+import com.unse.bienestar.estudiantil.Modelos.Alumno;
+import com.unse.bienestar.estudiantil.Modelos.CredencialDeporte;
 import com.unse.bienestar.estudiantil.Modelos.Inscripcion;
 import com.unse.bienestar.estudiantil.Modelos.Usuario;
 import com.unse.bienestar.estudiantil.R;
-import com.unse.bienestar.estudiantil.Vistas.Activities.Deportes.ModificarInscripcionDeporteActivity;
+import com.unse.bienestar.estudiantil.Vistas.Activities.Deportes.ModificarInscripcionActivity;
 import com.unse.bienestar.estudiantil.Vistas.Adaptadores.InscripcionesAdapter;
 import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoProcesamiento;
 
@@ -53,7 +55,7 @@ public class ListaInscriptosActivity extends AppCompatActivity implements View.O
     LinearLayout mLayoutError, mLayoutVacio;
     DialogoProcesamiento dialog;
 
-    int idDeporte = -1, anio = -1, idTemporada = -1;
+    int idDeporte = -1, anio = -1;
     String deporteName = null;
 
     @Override
@@ -74,8 +76,8 @@ public class ListaInscriptosActivity extends AppCompatActivity implements View.O
 
         loadListener();
 
-        loadInfo(R.drawable.ic_error, getString(R.string.usuarioListError),
-                R.drawable.ic_vacio, getString(R.string.usuarioListVacio));
+        loadInfo(R.drawable.ic_error, String.format(getString(R.string.listError), "inscripciones"),
+                R.drawable.ic_vacio, String.format(getString(R.string.listVacio), "inscripciones"));
 
     }
 
@@ -118,9 +120,6 @@ public class ListaInscriptosActivity extends AppCompatActivity implements View.O
         if (getIntent().getIntExtra(Utils.ANIO, -1) != -1) {
             anio = getIntent().getIntExtra(Utils.ANIO, -1);
         }
-        if (getIntent().getIntExtra(Utils.NAME_GENERAL, -1) != -1) {
-            idTemporada = getIntent().getIntExtra(Utils.NAME_GENERAL, -1);
-        }
         if (getIntent().getStringExtra(Utils.DEPORTE_NAME) != null) {
             deporteName = getIntent().getStringExtra(Utils.DEPORTE_NAME);
         }
@@ -140,11 +139,8 @@ public class ListaInscriptosActivity extends AppCompatActivity implements View.O
             @Override
             public void onItemClick(RecyclerView parent, View view, int position, long id) {
                 Inscripcion inscripcion = mInscripcions.get(position);
-                if (inscripcion != null){
-                    Intent intent = new Intent(getApplicationContext(), ModificarInscripcionDeporteActivity.class);
-                    intent.putExtra(Utils.IS_ADMIN_MODE, true);
-                    intent.putExtra(Utils.CREDENCIAL, inscripcion.getIdInscripcion());
-                    startActivity(intent);
+                if (inscripcion != null) {
+                    openInscripcion(inscripcion);
                 }
             }
         });
@@ -165,6 +161,97 @@ public class ListaInscriptosActivity extends AppCompatActivity implements View.O
             }
         });
 
+
+    }
+
+    private void openInscripcion(Inscripcion inscripcion) {
+        PreferenceManager manager = new PreferenceManager(getApplicationContext());
+        String key = manager.getValueString(Utils.TOKEN);
+        int id = manager.getValueInt(Utils.MY_ID);
+        String URL = String.format("%s?idU=%s&key=%s&ii=%s&aa=%s", Utils.URL_INSCRIPCION_BY_ID, id, key,
+                inscripcion.getIdInscripcion(),
+                anio);
+        StringRequest request = new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                procesarRespuestaInscripcion(response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+                Utils.showToast(getApplicationContext(), getString(R.string.servidorOff));
+                dialog.dismiss();
+
+            }
+        });
+        //Abro dialogo para congelar pantalla
+        dialog = new DialogoProcesamiento();
+        dialog.setCancelable(false);
+        dialog.show(getSupportFragmentManager(), "dialog_process");
+        VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
+    }
+
+    private void procesarRespuestaInscripcion(String response) {
+        try {
+            dialog.dismiss();
+            JSONObject jsonObject = new JSONObject(response);
+            int estado = jsonObject.getInt("estado");
+            switch (estado) {
+                case -1:
+                    Utils.showToast(getApplicationContext(), getString(R.string.errorInternoAdmin));
+                    break;
+                case 1:
+                    //Exito
+                    loadInfoInscripcion(jsonObject);
+                    break;
+                case 2:
+                    Utils.showToast(getApplicationContext(), getString(R.string.noData));
+                    break;
+                case 3:
+                    Utils.showToast(getApplicationContext(), getString(R.string.tokenInvalido));
+                    break;
+                case 4:
+                    Utils.showToast(getApplicationContext(), getString(R.string.camposInvalidos));
+                    break;
+                case 100:
+                    //No autorizado
+                    Utils.showToast(getApplicationContext(), getString(R.string.tokenInexistente));
+                    break;
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Utils.showToast(getApplicationContext(), getString(R.string.errorInternoAdmin));
+        }
+    }
+
+    private void loadInfoInscripcion(JSONObject jsonObject) {
+        try {
+            if (jsonObject.has("mensaje") && jsonObject.has("cred")) {
+
+                JSONObject o = jsonObject.getJSONObject("mensaje");
+
+                Inscripcion mInscripcion = Inscripcion.mapper(o, Inscripcion.COMPLETE);
+                Usuario mUsuario = Usuario.mapper(o, Usuario.MEDIUM);
+                Alumno alumno = jsonObject.has("datos") ? Alumno.mapper(jsonObject, mUsuario) : null;
+                CredencialDeporte credencialDeporte = (jsonObject.has("cred") &&
+                        !(jsonObject.get("cred") instanceof Boolean))
+                        ? CredencialDeporte.mapper(jsonObject.getJSONObject("cred"), CredencialDeporte.MEDIUM) : null;
+
+                Intent intent = new Intent(getApplicationContext(), ModificarInscripcionActivity.class);
+                intent.putExtra(Utils.INSCRIPCION_ID, mInscripcion);
+                intent.putExtra(Utils.USER_INFO, mUsuario);
+                intent.putExtra(Utils.ALUMNO_NAME, alumno);
+                intent.putExtra(Utils.IS_ADMIN_MODE, true);
+                intent.putExtra(Utils.CREDENCIAL, credencialDeporte);
+                startActivity(intent);
+
+
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -191,7 +278,8 @@ public class ListaInscriptosActivity extends AppCompatActivity implements View.O
         PreferenceManager manager = new PreferenceManager(getApplicationContext());
         String key = manager.getValueString(Utils.TOKEN);
         int id = manager.getValueInt(Utils.MY_ID);
-        String URL = String.format("%s?key=%s&id=%s&idT=%s", Utils.URL_INSCRIPCIONES_POR_DEPORTE, key, id, idTemporada);
+        String URL = String.format("%s?key=%s&idU=%s&it=%s&id=%s",
+                Utils.URL_INSCRIPCIONES_POR_DEPORTE, key, id, anio, idDeporte);
         StringRequest request = new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -223,8 +311,7 @@ public class ListaInscriptosActivity extends AppCompatActivity implements View.O
             switch (estado) {
                 case 1:
                     //Exito
-                    JSONArray jsonArray = jsonObject.getJSONArray("mensaje");
-                    loadInfo(jsonArray);
+                    loadInfo(jsonObject);
                     break;
                 case 2:
                     Utils.showToast(getApplicationContext(), getString(R.string.noData));
@@ -244,33 +331,39 @@ public class ListaInscriptosActivity extends AppCompatActivity implements View.O
 
         } catch (JSONException e) {
             e.printStackTrace();
-            Utils.showToast(getApplicationContext(), "Error desconocido, contacta al Administrador");
+            Utils.showToast(getApplicationContext(), getString(R.string.errorInternoAdmin));
         }
     }
 
-    private void loadInfo(JSONArray jsonArray) {
-        for (int i = 0; i < jsonArray.length(); i++) {
-            JSONObject j = null;
+    private void loadInfo(JSONObject jsonObject) {
+        if (jsonObject.has("mensaje")) {
+
             try {
-                j = jsonArray.getJSONObject(i);
-                Usuario usuario = Usuario.mapper(j, Usuario.BASIC);
+                JSONArray datos = jsonObject.getJSONArray("mensaje");
+                for (int i = 0; i < datos.length(); i++) {
 
-                int idIns = Integer.parseInt(j.getString("idInscripcion"));
-                int idEstado = Integer.parseInt(j.getString("idEstado"));
-                String estado = j.getString("descripcion");
+                    JSONObject j = datos.getJSONObject(i);
 
-                Inscripcion inscripcion = new Inscripcion(idIns, idEstado, estado,
-                        String.format("%s %s", usuario.getNombre(), usuario.getApellido()), usuario.getIdUsuario(), usuario.getTipoUsuario());
+                    Inscripcion inscripcion = Inscripcion.mapper(j, Inscripcion.LOW);
 
-                mInscripcions.add(inscripcion);
+                    mInscripcions.add(inscripcion);
+                }
+                if (mInscripcions.size() > 0) {
+                    mAdapter.setList(mInscripcions);
+                    updateView(1);
+                } else {
+                    updateView(0);
+                }
 
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+
+        } else {
+            updateView(0);
         }
-        mAdapter.setList(mInscripcions);
-        updateView(1);
-        mAdapter.notifyDataSetChanged();
+
+
     }
 
     @Override

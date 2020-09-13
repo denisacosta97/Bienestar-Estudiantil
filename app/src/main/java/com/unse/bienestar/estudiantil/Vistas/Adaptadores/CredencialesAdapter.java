@@ -5,12 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.unse.bienestar.estudiantil.Interfaces.OnClickListenerAdapter;
-import com.unse.bienestar.estudiantil.Modelos.Credencial;
+import com.unse.bienestar.estudiantil.Modelos.CredencialDeporte;
 import com.unse.bienestar.estudiantil.R;
 
 import java.util.ArrayList;
@@ -18,14 +17,15 @@ import java.util.ArrayList;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import static android.view.View.GONE;
-
 public class CredencialesAdapter extends RecyclerView.Adapter<CredencialesAdapter.CredencialViewHolder> {
 
-    private ArrayList<Credencial> mArchivos;
+    private ArrayList<Object> mArchivos;
     private Context context;
     private boolean isInscripcion = false;
     private OnClickListenerAdapter mOnClickListenerAdapter;
+    private int tipo;
+
+    public static final int DEPORTE = 1;
 
     public OnClickListenerAdapter getOnClickListenerAdapter() {
         return mOnClickListenerAdapter;
@@ -35,10 +35,11 @@ public class CredencialesAdapter extends RecyclerView.Adapter<CredencialesAdapte
         mOnClickListenerAdapter = onClickListenerAdapter;
     }
 
-    public CredencialesAdapter(ArrayList<Credencial> list, Context ctx, boolean isInscripcion) {
+    public CredencialesAdapter(ArrayList<Object> list, Context ctx, boolean isInscripcion, int tipo) {
         this.mArchivos = list;
         this.context = ctx;
         this.isInscripcion = isInscripcion;
+        this.tipo = tipo;
     }
 
     @NonNull
@@ -53,7 +54,7 @@ public class CredencialesAdapter extends RecyclerView.Adapter<CredencialesAdapte
         return new CredencialesAdapter.CredencialViewHolder(view, mOnClickListenerAdapter);
     }
 
-    public void setList(ArrayList<Credencial> credencials){
+    public void setList(ArrayList<Object> credencials) {
         this.mArchivos = credencials;
         notifyDataSetChanged();
     }
@@ -62,44 +63,47 @@ public class CredencialesAdapter extends RecyclerView.Adapter<CredencialesAdapte
     public void onBindViewHolder(@NonNull final CredencialesAdapter.CredencialViewHolder holder, int position) {
 
         if (mArchivos.size() != 0) {
-            Credencial credencial = mArchivos.get(position);
-            if (!isInscripcion) {
-                holder.mNumArchivo.setText(String.valueOf(position + 1));
-                holder.txtTitulo.setText(credencial.getTitulo());
-                holder.txtEstado.setVisibility(GONE);
-                if (credencial.getValidez() == 0) {
-                    holder.mLayout.setEnabled(false);
-                    holder.txtTitulo.setEnabled(false);
-                    holder.mPdf.setEnabled(false);
-                    holder.mNumArchivo.setEnabled(false);
-                } else {
-                    holder.mLayout.setEnabled(true);
-                }
-            } else {
-                holder.txtEstado.setVisibility(GONE);
-                holder.mSwitch.setVisibility(View.VISIBLE);
-                holder.mNumArchivo.setVisibility(GONE);
-                holder.txtTitulo.setText(credencial.getTitulo());
-                if (credencial.getValidez() == 0) {
-                    Glide.with(holder.mSwitch.getContext()).load(R.drawable.ic_error).into(holder.mSwitch);
-                    //holder.mSwitch.setBackground(context.getResources().getDrawable(R.drawable.ic_error));
-                    //holder.txtEstado.setText("DESACTIVADO");
-                } else {
-                    Glide.with(holder.mSwitch.getContext()).load(R.drawable.ic_chek).into(holder.mSwitch);
-                    //holder.mSwitch.setBackground(context.getResources().getDrawable(R.drawable.ic_chek));
-                    //holder.txtEstado.setText("ACTIVADO");
-                }
+            switch (tipo) {
+                case DEPORTE:
+                    CredencialDeporte credencial = getItem(position, DEPORTE);
+                    holder.mNumArchivo.setText(String.format("%s/%s", credencial.getIdInscripcion(), String.valueOf(
+                            credencial.getAnio()
+                    ).substring(2)));
+                    holder.txtTitulo.setText(String.format("%s %s", credencial.getNombre(),
+                            String.valueOf(credencial.getAnio()).substring(2)));
+                    if (credencial.getValidez() == 0) {
+                        Glide.with(holder.imgIcono.getContext()).load(R.drawable.ic_error).into(holder.imgIcono);
+                    } else {
+                        Glide.with(holder.imgIcono.getContext()).load(R.drawable.ic_chek).into(holder.imgIcono);
+                    }
+                    holder.txtEstado.setVisibility(View.GONE);
+                    break;
             }
-        }else{
+
+            if (!isInscripcion) {
+
+            } else {
+
+            }
+        } else {
             holder.txtTitulo.setText("CREDENCIALES NO ASIGNADAS");
         }
 
 
     }
 
+    private CredencialDeporte getItem(int position, int tipo) {
+        switch (tipo) {
+            case DEPORTE:
+                return (CredencialDeporte) mArchivos.get(position);
+
+        }
+        return null;
+    }
+
     @Override
     public long getItemId(int position) {
-        return mArchivos.get(position).getId();
+        return 0;
     }
 
     @Override
@@ -110,33 +114,16 @@ public class CredencialesAdapter extends RecyclerView.Adapter<CredencialesAdapte
     static class CredencialViewHolder extends RecyclerView.ViewHolder {
 
         TextView txtTitulo, mNumArchivo, txtEstado;
-        LinearLayout mPdf;
-        LinearLayout mLayout;
-        ImageView mSwitch;
-        OnClickListenerAdapter listener;
+        ImageView imgIcono;
+
 
         CredencialViewHolder(View itemView, final OnClickListenerAdapter listene) {
             super(itemView);
 
-            mNumArchivo = itemView.findViewById(R.id.txtNroArchivo);
-            txtTitulo = itemView.findViewById(R.id.txtTitulo);
-            mPdf = itemView.findViewById(R.id.imgIcon);
-            txtEstado = itemView.findViewById(R.id.idEstado);
-            mLayout = itemView.findViewById(R.id.layout);
-            mSwitch = itemView.findViewById(R.id.switchCred);
-
-            this.listener = listene;
-
-           /* if (mSwitch != null){
-                mSwitch.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (listener != null){
-                            listener.onClick(getAdapterPosition());
-                        }
-                    }
-                });
-            }*/
+            mNumArchivo = itemView.findViewById(R.id.txtId);
+            txtTitulo = itemView.findViewById(R.id.txtDescripcion);
+            imgIcono = itemView.findViewById(R.id.imgEstado);
+            txtEstado = itemView.findViewById(R.id.txtEstado);
 
 
         }

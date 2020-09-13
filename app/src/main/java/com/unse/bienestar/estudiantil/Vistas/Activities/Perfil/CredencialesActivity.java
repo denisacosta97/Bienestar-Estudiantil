@@ -20,16 +20,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class TiposCredencialesActivity extends AppCompatActivity implements View.OnClickListener {
+public class CredencialesActivity extends AppCompatActivity implements View.OnClickListener {
 
     RecyclerView mRecyclerView;
     RecyclerView.LayoutManager mLayoutManager;
     ArrayList<Opciones> mList;
     OpcionesAdapter mAdapter;
     ImageView btnBack;
-
-    TextView mDeporte, mApellido, mNombre, mFacultad, mLegajo, mNombreEquipo, mAnio;
-    ImageView mFoto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

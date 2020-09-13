@@ -23,7 +23,7 @@ import com.unse.bienestar.estudiantil.Herramientas.Utils;
 import com.unse.bienestar.estudiantil.Herramientas.VolleySingleton;
 import com.unse.bienestar.estudiantil.Modelos.Deporte;
 import com.unse.bienestar.estudiantil.R;
-import com.unse.bienestar.estudiantil.Vistas.Activities.Deportes.PerfilDeporteActivity;
+import com.unse.bienestar.estudiantil.Vistas.Activities.Deportes.InfoDeporteActivity;
 import com.unse.bienestar.estudiantil.Vistas.Adaptadores.DeportesAdapter;
 import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoProcesamiento;
 
@@ -77,7 +77,7 @@ public class DeportesFragment extends Fragment {
         itemClickSupport.setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
             @Override
             public void onItemClick(RecyclerView parent, View view, int position, long id) {
-                Intent i = new Intent(getContext(), PerfilDeporteActivity.class);
+                Intent i = new Intent(getContext(), InfoDeporteActivity.class);
                 i.putExtra(Utils.DEPORTE_NAME, mDeportes.get(position));
                 startActivity(i);
             }

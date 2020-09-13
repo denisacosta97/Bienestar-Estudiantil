@@ -17,12 +17,15 @@ import com.unse.bienestar.estudiantil.Herramientas.Almacenamiento.PreferenceMana
 import com.unse.bienestar.estudiantil.Herramientas.RecyclerListener.ItemClickSupport;
 import com.unse.bienestar.estudiantil.Herramientas.Utils;
 import com.unse.bienestar.estudiantil.Herramientas.VolleySingleton;
+import com.unse.bienestar.estudiantil.Modelos.Alumno;
+import com.unse.bienestar.estudiantil.Modelos.CredencialDeporte;
 import com.unse.bienestar.estudiantil.Modelos.Inscripcion;
 import com.unse.bienestar.estudiantil.Modelos.ItemBase;
 import com.unse.bienestar.estudiantil.Modelos.ItemDato;
 import com.unse.bienestar.estudiantil.Modelos.ItemFecha;
+import com.unse.bienestar.estudiantil.Modelos.Usuario;
 import com.unse.bienestar.estudiantil.R;
-import com.unse.bienestar.estudiantil.Vistas.Activities.Deportes.ModificarInscripcionDeporteActivity;
+import com.unse.bienestar.estudiantil.Vistas.Activities.Deportes.ModificarInscripcionActivity;
 import com.unse.bienestar.estudiantil.Vistas.Adaptadores.FechasAdapter;
 import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoProcesamiento;
 
@@ -95,7 +98,7 @@ public class InscripcionesActivity extends AppCompatActivity implements View.OnC
     private void procesarClick(int position) {
         Intent intent = null;
         ItemBase itemBase = mListOficial.get(position);
-        if (itemBase instanceof ItemDato){
+        if (itemBase instanceof ItemDato) {
             ItemDato itemDato = (ItemDato) itemBase;
             switch (itemDato.getInscripcion().getTipo()) {
                 case Inscripcion.TIPO_BECA:
@@ -105,13 +108,99 @@ public class InscripcionesActivity extends AppCompatActivity implements View.OnC
                     //startActivity(intent);
                     break;
                 case Inscripcion.TIPO_DEPORTE:
-                    //openInscripcion();
-                    int id2 = itemDato.getInscripcion().getIdInscripcion();
-                    intent = new Intent(getApplicationContext(), ModificarInscripcionDeporteActivity.class);
-                    intent.putExtra(Utils.CREDENCIAL, id2);
-                    startActivity(intent);
+                    openInscripcion(itemDato.getInscripcion());
                     break;
             }
+        }
+
+    }
+
+    private void openInscripcion(Inscripcion inscripcion) {
+        PreferenceManager manager = new PreferenceManager(getApplicationContext());
+        String key = manager.getValueString(Utils.TOKEN);
+        int id = manager.getValueInt(Utils.MY_ID);
+        String URL = String.format("%s?idU=%s&key=%s&ii=%s&aa=%s", Utils.URL_INSCRIPCION_BY_ID, id, key,
+                inscripcion.getIdInscripcion(),
+                inscripcion.getIdTemporada());
+        StringRequest request = new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                procesarRespuestaInscripcion(response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+                Utils.showToast(getApplicationContext(), getString(R.string.servidorOff));
+                dialog.dismiss();
+
+            }
+        });
+        //Abro dialogo para congelar pantalla
+        dialog = new DialogoProcesamiento();
+        dialog.setCancelable(false);
+        dialog.show(getSupportFragmentManager(), "dialog_process");
+        VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
+    }
+
+    private void procesarRespuestaInscripcion(String response) {
+        try {
+            dialog.dismiss();
+            JSONObject jsonObject = new JSONObject(response);
+            int estado = jsonObject.getInt("estado");
+            switch (estado) {
+                case -1:
+                    Utils.showToast(getApplicationContext(), getString(R.string.errorInternoAdmin));
+                    break;
+                case 1:
+                    //Exito
+                    loadInfoInscripcion(jsonObject);
+                    break;
+                case 2:
+                    Utils.showToast(getApplicationContext(), getString(R.string.noData));
+                    break;
+                case 3:
+                    Utils.showToast(getApplicationContext(), getString(R.string.tokenInvalido));
+                    break;
+                case 4:
+                    Utils.showToast(getApplicationContext(), getString(R.string.camposInvalidos));
+                    break;
+                case 100:
+                    //No autorizado
+                    Utils.showToast(getApplicationContext(), getString(R.string.tokenInexistente));
+                    break;
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Utils.showToast(getApplicationContext(), getString(R.string.errorInternoAdmin));
+        }
+    }
+
+    private void loadInfoInscripcion(JSONObject jsonObject) {
+        try {
+            if (jsonObject.has("mensaje") && jsonObject.has("cred")) {
+
+                JSONObject o = jsonObject.getJSONObject("mensaje");
+
+                Inscripcion mInscripcion = Inscripcion.mapper(o, Inscripcion.COMPLETE);
+                Usuario mUsuario = Usuario.mapper(o, Usuario.MEDIUM);
+                Alumno alumno = jsonObject.has("datos") ? Alumno.mapper(jsonObject, mUsuario) : null;
+                CredencialDeporte credencialDeporte = (jsonObject.has("cred") &&
+                        !(jsonObject.get("cred") instanceof Boolean))
+                        ? CredencialDeporte.mapper(jsonObject.getJSONObject("cred"), CredencialDeporte.MEDIUM) : null;
+
+                Intent intent = new Intent(getApplicationContext(), ModificarInscripcionActivity.class);
+                intent.putExtra(Utils.INSCRIPCION_ID, mInscripcion);
+                intent.putExtra(Utils.USER_INFO, mUsuario);
+                intent.putExtra(Utils.ALUMNO_NAME, alumno);
+                intent.putExtra(Utils.CREDENCIAL, credencialDeporte);
+                startActivity(intent);
+
+
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
 
     }
@@ -207,7 +296,7 @@ public class InscripcionesActivity extends AppCompatActivity implements View.OnC
     private void loadInfo(JSONObject jsonObject) {
         try {
 
-            if (jsonObject.has("deportes")){
+            if (jsonObject.has("deportes")) {
 
                 JSONArray jsonArray = jsonObject.getJSONArray("deportes");
 
@@ -345,7 +434,7 @@ public class InscripcionesActivity extends AppCompatActivity implements View.OnC
 
             ItemDato itemDatoReserva = (ItemDato) dato;
 
-            String key = String.valueOf(itemDatoReserva.getInscripcion().getAnio());
+            String key = String.valueOf(itemDatoReserva.getInscripcion().getIdTemporada());
 
             if (groupedHashMap.containsKey(key)) {
                 groupedHashMap.get(key).add(dato);

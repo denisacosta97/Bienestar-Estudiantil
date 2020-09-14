@@ -245,6 +245,7 @@
     <string name="alert7">Actualmente el Comedor Universitario está funcionando de manera independiente en otra aplicación.</string>
     <string name="alert8">ERROR AL OBTENER CREDENCIALES, POR FAVOR INTENTA NUEVAMENTE.</string>
     <string name="alert9">NO POSEE NINGUNA CREDENCIAL DEPORTIVA, PRIMERO DEBE REGISTRARSE EN UN DEPORTE.</string>
+    <string name="alert10">Si usas aplicaciones para liberar memoria en tú celular, es posible que los archivos .pdf también se borren.</string>
 
     <string name="espacios0">Aquí podrás reservar\nuna cancha por\nhora.</string>
     <string name="espacios1">Aquí podrás reservar\ntanto el SUM como\nalguno de los\nquinchos.</string>
@@ -253,6 +254,10 @@
     <string name="info_ciber">El Ciber Estudiantil cuenta con 12 máquinas en funcionamiento para los diversos usos de ofimática que se les puede dar.</string>
     <string name="info_poli">La Universidad Nacional de Santiago del Estero cuenta con un extenso polideportivo donde se desarrollan un gran numero de actividades.</string>
     <string name="info_poli2">Aquí podrás ver\ninformación con\nrespecto a las piletas.</string>
+
+    <string name="info_residencia">La Residencia Universitaria de la Universidad Nacional de Santiago del Estero que está bajo la responsabilidad de la Secretaría de Bienestar Estudiantil, es una beca para estudiantes de bajos recursos para promover y garantizar la iniciación y continuación de los estudios universitarios, de aquellos estudiantes con recursos económicos insuficientes y cuya residencia se encuentre a una distancia no menor a 75km de la Universidad y que demuestren un nivel académico satisfactorio.</string>
+    <string name="info_residencia2">Con la capacidad de alojar hasta a 94 alumnos en sus 32 habitaciones, la Residencia fue una de las grandes apuestas por parte de la Secretaría de Bienestar Estudiantil.\nDebido a la situación que se está viviendo en la provincia, esta sección estará deshabilitada.</string>
+
 
     <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
 

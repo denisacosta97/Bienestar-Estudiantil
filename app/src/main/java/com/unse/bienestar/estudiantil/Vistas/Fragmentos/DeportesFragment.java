@@ -47,7 +47,7 @@ public class DeportesFragment extends Fragment {
     DeportesAdapter mDeportesAdapter;
     DialogoProcesamiento dialog;
     FragmentManager mFragmentManager;
-    LinearLayout layoutFondo, latError;
+    LinearLayout latError;
     Context mContext;
     Button btnError;
 
@@ -87,18 +87,10 @@ public class DeportesFragment extends Fragment {
     private void loadViews() {
         btnError = view.findViewById(R.id.btnError);
         latError = view.findViewById(R.id.layoutError);
-        layoutFondo = view.findViewById(R.id.backgroundDep);
         reciclerDeportes = view.findViewById(R.id.recyclerDeportes);
     }
 
     private void loadData() {
-        Glide.with(this).load(R.drawable.imgdeportes)
-                .into(new SimpleTarget<Drawable>() {
-                    @Override
-                    public void onResourceReady(Drawable resource, Transition<? super Drawable> transition) {
-                        layoutFondo.setBackground(resource);
-                    }
-                });
         mLayoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
         reciclerDeportes.setNestedScrollingEnabled(true);
         reciclerDeportes.setLayoutManager(mLayoutManager);

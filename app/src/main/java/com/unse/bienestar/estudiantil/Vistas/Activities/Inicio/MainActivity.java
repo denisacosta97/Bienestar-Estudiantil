@@ -52,6 +52,7 @@ import com.unse.bienestar.estudiantil.Vistas.Fragmentos.ComedorFragment;
 import com.unse.bienestar.estudiantil.Vistas.Fragmentos.DeportesFragment;
 import com.unse.bienestar.estudiantil.Vistas.Fragmentos.InicioFragmento;
 import com.unse.bienestar.estudiantil.Vistas.Fragmentos.PoliFragment;
+import com.unse.bienestar.estudiantil.Vistas.Fragmentos.ResidenciaFragment;
 import com.unse.bienestar.estudiantil.Vistas.Fragmentos.TransporteFragment;
 import com.unse.bienestar.estudiantil.Vistas.Fragmentos.UPAFragment;
 
@@ -344,6 +345,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.item_comedor:
                 fragmentoGenerico = new ComedorFragment();
+                break;
+            case R.id.item_resi:
+                fragmentoGenerico = new ResidenciaFragment();
                 break;
             case R.id.item_perfil:
                 startActivity(new Intent(MainActivity.this, PerfilActivity.class));

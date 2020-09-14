@@ -102,7 +102,7 @@ public class ArchivosActivity extends AppCompatActivity implements View.OnClickL
         loadArchivos();
 
         mArchivosAdapter = new ArchivosAdapter(mArchivos, this);
-        mLayoutManager = new LinearLayoutManager(this, LinearLayout.VERTICAL, false);
+        mLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         mRecyclerAsistencia.setNestedScrollingEnabled(true);
         mRecyclerAsistencia.setLayoutManager(mLayoutManager);
         mRecyclerAsistencia.setHasFixedSize(true);

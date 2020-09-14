@@ -1,5 +1,6 @@
 package com.unse.bienestar.estudiantil.Vistas.Activities.Transporte;
 
+import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.location.Criteria;
@@ -59,6 +60,7 @@ public class RecorridoRealActivity extends AppCompatActivity implements OnMapRea
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recorrido_real);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         if (getIntent().getParcelableExtra(Utils.PUNTO) != null) {
             mPuntos = getIntent().getParcelableExtra(Utils.PUNTO);

@@ -33,7 +33,6 @@ public class RecuperarContraseniaActivity extends AppCompatActivity implements V
     ImageView imgBack;
     EditText edtxMail, edtDNI;
     TextView txtTengoClave;
-
     DialogoProcesamiento dialog;
 
     @Override

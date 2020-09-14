@@ -21,6 +21,7 @@ public class PerfilServicioActivity extends AppCompatActivity implements View.On
     ServiciosUPA mServicio;
     Button btnTurno;
     TextView txtName, txtNameDoc, txtDia, txtHorarios, txtDesc;
+    ImageView imgIcono;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +69,7 @@ public class PerfilServicioActivity extends AppCompatActivity implements View.On
 
     private void loadListener() {
         btnTurno.setOnClickListener(this);
-        btnTurno.setOnClickListener(this);
+        imgIcono.setOnClickListener(this);
     }
 
     private void loadViews() {
@@ -78,6 +79,7 @@ public class PerfilServicioActivity extends AppCompatActivity implements View.On
         txtDia = findViewById(R.id.txtDia);
         txtHorarios = findViewById(R.id.txtHorarios);
         txtDesc = findViewById(R.id.txtDesc);
+        imgIcono = findViewById(R.id.imgFlecha);
 
     }
 
@@ -112,7 +114,7 @@ public class PerfilServicioActivity extends AppCompatActivity implements View.On
             case R.id.btnTurno:
                 showDialogs();
                 break;
-            case R.id.btnBack:
+            case R.id.imgFlecha:
                 onBackPressed();
                 break;
         }

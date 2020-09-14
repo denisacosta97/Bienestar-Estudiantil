@@ -2,6 +2,7 @@ package com.unse.bienestar.estudiantil.Vistas.Activities.Becas;
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -11,10 +12,11 @@ import com.unse.bienestar.estudiantil.R;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class PerfilBecasActivity extends AppCompatActivity {
+public class PerfilBecasActivity extends AppCompatActivity implements View.OnClickListener {
 
     InfoBecas mInfoBecas;
     TextView nameBeca, reqGeneral, reqAcad, desc, pdf;
+    ImageView imgIcono;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +57,7 @@ public class PerfilBecasActivity extends AppCompatActivity {
     }
 
     private void loadListener() {
-
+        imgIcono.setOnClickListener(this);
     }
 
     private void loadViews() {
@@ -64,21 +66,17 @@ public class PerfilBecasActivity extends AppCompatActivity {
         reqAcad = findViewById(R.id.txtReqAcad);
         desc = findViewById(R.id.txtDesc);
         pdf = findViewById(R.id.txtPdf);
+        imgIcono = findViewById(R.id.imgFlecha);
 
     }
 
-//    @Override
-//    public void onClick(View v) {
-//        switch (v.getId()){
-//            case R.id.btnRegisterDep:
-//                Intent i = new Intent(getApplicationContext(), RegistroDeporteActivity.class);
-//                i.putExtra(Utils.DEPORTE_NAME, mDeporte);
-//                startActivity(i);
-//                break;
-//            case R.id.btnBack:
-//                onBackPressed();
-//                break;
-//        }
-//
-//    }
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.imgFlecha:
+                onBackPressed();
+                break;
+        }
+
+    }
 }

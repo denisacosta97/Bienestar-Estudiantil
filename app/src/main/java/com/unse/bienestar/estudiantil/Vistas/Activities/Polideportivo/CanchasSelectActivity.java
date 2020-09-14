@@ -1,6 +1,7 @@
 package com.unse.bienestar.estudiantil.Vistas.Activities.Polideportivo;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -36,6 +37,7 @@ public class CanchasSelectActivity extends AppCompatActivity implements View.OnC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_canchas_select);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         if (getIntent().getParcelableExtra(Utils.CANCHA) != null) {
             reservaCancha = getIntent().getParcelableExtra(Utils.CANCHA);

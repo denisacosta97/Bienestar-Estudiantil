@@ -27,7 +27,7 @@
                 <ImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:src="@drawable/ic_ingreso" />
+                    app:srcCompat="@drawable/ic_ingreso" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -160,10 +160,7 @@
                             app:srcCompat="@drawable/ic_add"
                             />
 
-
                     </FrameLayout>
-
-
 
                     <Button
                         android:id="@+id/btnGuardar"
@@ -207,7 +204,6 @@
                         android:textStyle="bold"
                         android:background="@drawable/button_border"
                         android:layout_margin="5dp"/>
-
 
                 </LinearLayout>
 

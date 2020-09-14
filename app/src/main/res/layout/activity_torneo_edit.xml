@@ -22,7 +22,7 @@
             android:layout_gravity="center"
             android:translationY="10dp"
             android:elevation="4sp"
-            android:src="@drawable/ic_cup" />
+            app:srcCompat="@drawable/ic_cup" />
 
         <androidx.cardview.widget.CardView
             android:layout_width="fill_parent"
@@ -55,9 +55,9 @@
                         android:textSize="45sp"
                         android:gravity="center"
                         android:text="Torneo JUR"
+                        android:textColor="@color/blackTextColor"
                         android:layout_marginTop="45dp"
                         android:textStyle="bold"
-                        android:textColor="@color/colorTextDefault"
                         android:padding="10dp"
                         android:background="@color/transparente"
                         android:fontFamily="@font/montserrat_black"/>
@@ -77,6 +77,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Lugar: "
+                                android:textColor="@color/blackTextColor"
                                 android:textSize="16sp"
                                 android:fontFamily="@font/montserrat_black"/>
 
@@ -104,6 +105,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Fecha de inicio: "
+                                android:textColor="@color/blackTextColor"
                                 android:textStyle="bold"
                                 android:textSize="16sp"
                                 android:fontFamily="@font/montserrat_black"/>
@@ -131,6 +133,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Fecha de fin: "
+                                android:textColor="@color/blackTextColor"
                                 android:textSize="16sp"
                                 android:fontFamily="@font/montserrat_black"/>
 
@@ -157,6 +160,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Descripción: "
+                                android:textColor="@color/blackTextColor"
                                 android:textSize="16sp"
                                 android:fontFamily="@font/montserrat_black"/>
 

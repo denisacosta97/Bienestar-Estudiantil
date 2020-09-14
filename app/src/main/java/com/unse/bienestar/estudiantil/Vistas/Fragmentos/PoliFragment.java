@@ -10,14 +10,12 @@ import android.widget.Button;
 import com.unse.bienestar.estudiantil.R;
 import com.unse.bienestar.estudiantil.Vistas.Activities.Polideportivo.EspaciosActivity;
 
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 public class PoliFragment extends Fragment {
 
     View view;
-    Button btnReservas, btnCanchas;
-    CardView cardOne;
+    Button btnReservas;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

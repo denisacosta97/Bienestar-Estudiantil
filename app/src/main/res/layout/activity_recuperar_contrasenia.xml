@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_gravity="center"
     android:background="@drawable/img_unse2"
@@ -16,7 +17,31 @@
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                app:srcCompat="@drawable/ic_error"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Servicio momentáneamente suspendido."
+                android:gravity="center"
+                android:textSize="30sp"
+                android:textColor="@color/whiteTextColor"
+                android:fontFamily="@font/montserrat_black"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:visibility="gone"
             android:layout_gravity="center"
             android:layout_margin="20dp"
             android:orientation="vertical"
@@ -27,12 +52,12 @@
                 android:layout_height="120dp"
                 android:layout_gravity="center"
                 android:layout_marginBottom="20dp"
-                android:src="@drawable/ic_candado" />
+                app:srcCompat="@drawable/ic_candado" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Te enviaremos un mensaje a la casilla de correo indicada con tu nueva contraseña."
+                android:text="@string/alert3"
                 android:padding="10dp"
                 android:textColor="@color/colorWhite"
                 android:textSize="18sp"
@@ -82,8 +107,7 @@
                         android:layout_width="250dp"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
-                        android:background="@drawable/corners_rounded_green"
-                        android:backgroundTint="@color/colorPrimaryDark"
+                        android:background="@drawable/button_border"
                         android:fontFamily="@font/montserrat_black"
                         android:text="Enviar"
                         android:textColor="@color/whiteTextColor"

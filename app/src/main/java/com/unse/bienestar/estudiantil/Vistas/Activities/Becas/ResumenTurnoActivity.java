@@ -17,7 +17,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.unse.bienestar.estudiantil.Herramientas.Utils;
+import com.unse.bienestar.estudiantil.Interfaces.YesNoDialogListener;
 import com.unse.bienestar.estudiantil.R;
+import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoGeneral;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -188,11 +190,37 @@ public class ResumenTurnoActivity extends AppCompatActivity implements View.OnCl
         return (int) getResources().getDimension(R.dimen.width);
     }
 
+    private void showDialogs() {
+        DialogoGeneral.Builder builder = new DialogoGeneral.Builder(getApplicationContext())
+                .setDescripcion(getString(R.string.generalFunciones))
+                .setIcono(R.drawable.ic_enojado)
+                .setTipo(DialogoGeneral.TIPO_ACEPTAR).setListener(new YesNoDialogListener() {
+                    @Override
+                    public void yes() {
+
+                    }
+
+                    @Override
+                    public void no() {
+
+                    }
+
+                    @Override
+                    public void aceptar() {
+
+                    }
+                });
+        final DialogoGeneral mensaje = builder.build();
+        mensaje.setCancelable(false);
+        mensaje.show(getSupportFragmentManager(), "dialog_error");
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.singBtn:
-                load(v);
+                showDialogs();
+                //load(v);
                 break;
         }
     }

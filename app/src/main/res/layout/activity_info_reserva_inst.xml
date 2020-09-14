@@ -22,7 +22,7 @@
             android:layout_gravity="center"
             android:translationY="10dp"
             android:elevation="4sp"
-            android:src="@drawable/ic_reservas" />
+            app:srcCompat="@drawable/ic_reservas" />
 
         <androidx.cardview.widget.CardView
             android:layout_width="fill_parent"
@@ -365,7 +365,7 @@
                         <ImageView
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:src="@drawable/ic_error"/>
+                            app:srcCompat="@drawable/ic_error"/>
 
                         <TextView
                             android:layout_width="match_parent"

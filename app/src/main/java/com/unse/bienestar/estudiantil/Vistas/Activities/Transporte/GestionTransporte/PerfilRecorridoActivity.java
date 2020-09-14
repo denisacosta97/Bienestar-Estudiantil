@@ -1,5 +1,6 @@
 package com.unse.bienestar.estudiantil.Vistas.Activities.Transporte.GestionTransporte;
 
+import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
@@ -68,6 +69,7 @@ public class PerfilRecorridoActivity extends AppCompatActivity implements OnMapR
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil_recorrido);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         if (getIntent().getParcelableExtra(Utils.RECORRIDO) != null) {
             mRecorridos = getIntent().getParcelableExtra(Utils.RECORRIDO);

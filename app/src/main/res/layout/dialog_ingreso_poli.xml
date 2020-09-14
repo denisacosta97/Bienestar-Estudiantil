@@ -21,7 +21,7 @@
             <ImageView
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@drawable/ic_ingreso" />
+                app:srcCompat="@drawable/ic_ingreso" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -56,10 +56,10 @@
 
                     <ImageView
                         android:id="@+id/imgIcon"
-                        android:tint="@color/colorPrimary"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        android:src="@drawable/ic_foto_usuario" />
+                        app:srcCompat="@drawable/ic_foto_usuario"
+                        app:tint="@color/colorPrimary" />
 
                     <LinearLayout
                         android:layout_marginLeft="10dp"
@@ -126,7 +126,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:backgroundTint="@color/colorAccent"
-                                android:src="@drawable/ic_menos" />
+                                app:srcCompat="@drawable/ic_menos" />
 
                             <TextView
                                 android:id="@+id/txtCantidadMay"
@@ -143,10 +143,10 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:backgroundTint="@color/colorAccent"
-                                android:src="@drawable/ic_mas" />
-
+                                app:srcCompat="@drawable/ic_mas" />
 
                         </LinearLayout>
+
                     </LinearLayout>
 
                     <LinearLayout
@@ -177,7 +177,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:backgroundTint="@color/colorAccent"
-                                android:src="@drawable/ic_menos" />
+                                app:srcCompat="@drawable/ic_menos" />
 
                             <TextView
                                 android:id="@+id/txtCantidadMen"
@@ -194,14 +194,13 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:backgroundTint="@color/colorAccent"
-                                android:src="@drawable/ic_mas" />
-
+                                app:srcCompat="@drawable/ic_mas" />
 
                         </LinearLayout>
+
                     </LinearLayout>
 
                 </LinearLayout>
-
 
             </LinearLayout>
 

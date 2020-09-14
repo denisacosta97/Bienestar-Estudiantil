@@ -1,6 +1,5 @@
 package com.unse.bienestar.estudiantil.Vistas.Activities.Transporte;
 
-import android.Manifest;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
@@ -67,6 +66,7 @@ public class RecorridoActivity extends AppCompatActivity implements OnMapReadyCa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recorrido);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         if (getIntent().getParcelableExtra(Utils.RECORRIDO) != null) {
             mRecorridos = getIntent().getParcelableExtra(Utils.RECORRIDO);

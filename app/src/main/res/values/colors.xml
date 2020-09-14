@@ -16,6 +16,7 @@
     <color name="transparente">#00E7E7E7</color>
     <color name="blackTransparente">#5B000000</color>
     <color name="blackTransparente2">#22000000</color>
+    <color name="whiteTransparente">#40FFFFFF</color>
 
     <!--Colores varios-->
     <color name="colorGreen">#32AC37</color>
@@ -61,5 +62,13 @@
     <color name="text_shadow">#999999</color>
     <color name="semi_white">#D1D1D1</color>
     <color name="colorOrange2">#DF291B</color>
+
+    <!--  Facultades  -->
+
+    <color name="forestales">#2b5a2c</color>
+    <color name="exactas">#024979</color>
+    <color name="agro">#b70101</color>
+    <color name="human">#003252</color>
+    <color name="medicina">#89a23f</color>
 
 </resources>

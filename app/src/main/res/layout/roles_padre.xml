@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -15,7 +16,7 @@
             android:layout_gravity="center"
             android:layout_width="36dp"
             android:layout_height="36dp"
-            android:src="@drawable/ic_keyboard_arrow" />
+            app:srcCompat="@drawable/ic_keyboard_arrow" />
 
         <TextView
             android:id="@+id/text"
@@ -27,15 +28,16 @@
             android:textColor="@color/blackTextColor"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
             android:textSize="16sp"
-            android:fontFamily="@font/montserrat_black" />
+            android:fontFamily="@font/montserrat_black"
+            android:layout_marginLeft="10dp" />
 
         <CheckBox
             android:layout_marginStart="15dp"
             android:id="@+id/checkbox"
             android:layout_gravity="center"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp" />
 
     </LinearLayout>
 
@@ -43,6 +45,5 @@
         android:layout_width="match_parent"
         android:layout_height="0.75dp"
         android:background="@color/colorGrey2" />
-
 
 </LinearLayout>

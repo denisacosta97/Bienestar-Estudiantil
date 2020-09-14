@@ -14,7 +14,7 @@
         <item>Deciembre</item>
     </array>
     <integer name="card_name_len">25</integer>
-    <string name="app_name">Bienestar Estudiantil - UNSE</string>
+    <string name="app_name">Bienestar Estudiantil</string>
     <string name="app_name_shor">Bienestar Estudiantil</string>
     <string name="title_activity_main2">Main2Activity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -134,7 +134,7 @@
     <string name="usuarioPermisosOn">El usuario ya posee permisos</string>
     <string name="mensajeDenegado">Esta función sólo están disponibles para usuarios registrados, si desea utilizarlas por favor regístrese.</string>
     <string name="itemSistema">Gestión del Sistema</string>
-    <string name="itemPerfil">Perfil</string>
+    <string name="itemPerfil">Mi Perfil</string>
     <string name="itemNosotros">Sobre nosotros</string>
     <string name="itemContacto">Contactos</string>
     <string name="itemCondiciones">Términos y condiciones</string>
@@ -201,6 +201,8 @@
     <string name="posicionError">¡Error al actualizar GPS!</string>
     <string name="primeroFecha">¡Primero elija una fecha!</string>
 
+
+    <string name="generalFunciones">Debido a la situación actual, no es posible realizar esta acción... por ahora.</string>
     <string name="reservaOk">¡Fecha y hora libre!\n¿Desea reservar?</string>
     <string name="errorImagenLoad">¡Error al cargar imagen!</string>
     <string name="noticiaError">¡Error al subir la noticia!</string>
@@ -211,7 +213,7 @@
     <string name="noticiaNoExiste">¡Noticia inexistente!</string>
     <string name="tituloNoticias">Lista noticias</string>
     <string name="noticiaActualizada">¡Noticia actualizada!</string>
-   <string name="noticiaActualizarError">¡Error al actualizar la noticia!</string>
+    <string name="noticiaActualizarError">¡Error al actualizar la noticia!</string>
     <string name="noticiaDeshabilitado">¡Noticia desactivada!</string>
     <string name="noticiaHabilitado">¡Noticia activada!</string>
     <string name="btnHabilitar">HABILITAR</string>
@@ -229,6 +231,207 @@
     <string name="recorridoError">¡Error al cargar el recorrido!</string>
     <string name="primeroRegistrar">¡No disponible en modo visita!</string>
     <string name="noDisponible">¡No disponible durante la cuarentena!</string>
+
+    <string name="slide1">Esta es la nueva aplicación de la Secretaría de Bienestar Estudiantil perteneciente a la Universidad Nacional de Santiago del Estero.\n¡Ahora todas sus áreas en forma de aplicación!</string>
+    <string name="slide2">Registrate en la aplicación y comenzá a interactuar con Bienestar Estudiantil de una nueva forma.</string>
+    <string name="slide3">Dentro de la aplicación se encuentran múltiples opciones, por ejemplo, desde la inscripción a un deporte hasta la reserva de un quincho en el predio del Polideportivo y más...</string>
+    <string name="slide4">Formularios de inscripción, credenciales, turnos y demás cosas que podrás tener en la aplicación.</string>
+    <string name="slide5">Podrás ver noticias generales de la Universidad y sobre todo lo que pasa dentro de Bienestar Estudiantil.</string>
+
+    <string name="alert0">Dejar vacío en caso de no ser necesaria una descripción.</string>
+    <string name="alert1">Si usas aplicaciones para liberar memoria en tú celular, es posible que los archivos .pdf también se borren.</string>
+    <string name="alert2">Aquí puedes visualizar las gestiones que tienes habilitadas.</string>
+    <string name="alert3">Te enviaremos un mensaje a la casilla de correo indicada con tu nueva contraseña.</string>
+    <string name="alert4">Sube una foto del rostro en un fondo blanco, sin anteojos, pelo en la cara o algo que pueda obstruir la foto del rostro completo. Ten en cuenta que esta foto podría usarse para trámites importantes, razón por la que debe ser una foto formal.</string>
+    <string name="alert5">Regístrate para poder realizar tus trámites dentro de Bienestar Estudiantíl. Tienes la opción de escanear el código QR de tu DNI para autocompletar datos.</string>
+    <string name="alert6">Para añadir una regularidad, ingrese el año de la misma</string>
+    <string name="alert7">Actualmente el Comedor Universitario está funcionando de manera independiente en otra aplicación.</string>
+    <string name="alert8">ERROR AL OBTENER CREDENCIALES, POR FAVOR INTENTA NUEVAMENTE.</string>
+    <string name="alert9">NO POSEE NINGUNA CREDENCIAL DEPORTIVA, PRIMERO DEBE REGISTRARSE EN UN DEPORTE.</string>
+    <string name="alert10">Si usas aplicaciones para liberar memoria en tú celular, es posible que los archivos .pdf también se borren.</string>
+
+    <string name="espacios0">Aquí podrás reservar\nuna cancha por\nhora.</string>
+    <string name="espacios1">Aquí podrás reservar\ntanto el SUM como\nalguno de los\nquinchos.</string>
+    <string name="welcome">Bienvenido/a a la aplicación de la Secretaría de Bienestar Estudiantil.</string>
+    <string name="up_photo">La necesitarás para tus credenciales virtuales y además ayudarás al personal de Bienestar Estudiantil a identificarte.</string>
+    <string name="info_ciber">El Ciber Estudiantil cuenta con 12 máquinas en funcionamiento para los diversos usos de ofimática que se les puede dar.</string>
+    <string name="info_poli">La Universidad Nacional de Santiago del Estero cuenta con un extenso polideportivo donde se desarrollan un gran numero de actividades.</string>
+    <string name="info_poli2">Aquí podrás ver\ninformación con\nrespecto a las piletas.</string>
+
+    <string name="info_residencia">La Residencia Universitaria de la Universidad Nacional de Santiago del Estero que está bajo la responsabilidad de la Secretaría de Bienestar Estudiantil, es una beca para estudiantes de bajos recursos para promover y garantizar la iniciación y continuación de los estudios universitarios, de aquellos estudiantes con recursos económicos insuficientes y cuya residencia se encuentre a una distancia no menor a 75km de la Universidad y que demuestren un nivel académico satisfactorio.</string>
+    <string name="info_residencia2">Con la capacidad de alojar hasta a 94 alumnos en sus 32 habitaciones, la Residencia fue una de las grandes apuestas por parte de la Secretaría de Bienestar Estudiantil.\nDebido a la situación que se está viviendo en la provincia, esta sección estará deshabilitada.</string>
+
+
+    <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
+
+    <!--  Información de becas  -->
+
+    <!--  Beca Comedor  -->
+    <string name="desc0">Servicio de almuerzo para los estudiantes de la UNSE, tiene por finalidad cubrir una necesidad inmediata y a la vez fomentar un ambiente de camaradería, solidaridad y respeto entre los estudiantes.\n\nBeneficiarios\nAlumnos Ingresantes y Reinscriptos (Renovantes o no).\nEl beneficio establece las siguientes categorías:\n a) Beca Completa Comedor Universitario (cobertura del 100 % por parte de la Universidad)\n
+        b) Beca Parcial Comedor Universitario. (Aporte del 30% por parte de los alumnos y 70% por parte de la Universidad, del precio fijado por el concesionario correspondiente).</string>
+    <string name="reqGen0">a) Fotocopia de DNI del postulante y todo el grupo familiar conviviente.\nb) Certificación negativa de la ANSES del postulante y de todo el grupo familiar mayores de 18 años.\n
+        c) Constancia de ingresos del grupo familiar conviviente.\n
+        • Fotocopia de recibo de haberes de las personas que trabajan en relación de dependencia, jubilados y/o pensionados. (serán válidos aquellos recibos que fueran hasta de 2 meses anteriores a la fecha de presentación)\n
+        • Para trabajadores independientes o informales, declaración jurada expedida por la seccional policial, donde conste la actividad que realiza la persona y el monto mensual que percibe por dicha actividad.\n
+        • Para monotributistas: constancia de inscripción en la AFIP donde figure la categoría de monotributo a la que pertenece y declaración jurada emitida por la seccional policial donde conste la actividad que realiza como monotributista y cuanto percibe por esa actividad.\n
+        • Si la/s Persona/s son beneficiarias de un Plan Social por ejemplo AUH puede presentar fotocopia de la tarjeta de cobro y un ticket de últimos movimientos donde figura el monto que percibe como beneficiario del plan o bien declaración jurada emitida por la seccional policial donde conste el nombre del plan social del cual es beneficiario y el monto mensual que percibe.\n
+        d) En caso de que el estudiante posea alguna discapacidad, certificado que acredite tal situación por los organismos oficiales, conforme al sistema de protección integral establecido por la Ley 22.431.\n
+        e) Si el postulante tuviera hijos, debe presentar una copia del Acta de nacimiento de los mismos\n
+        f).Si el postulante no conviviera con sus progenitores o con uno de ellos, deberá presentar copia de la sentencia de divorcio si correspondiere o una Declaración jurada que conste la desvinculacion económica de dicho progenitor.\n
+        g) Constancia de Certificado Analítico de materias aprobadas expedido por la Sección Alumnos de la Facultad a la que pertenece el solicitante y Constancia de Alumno Regular.\n
+        h) Comprobante con el número de cuenta activa del banco Santander Río. En caso de no contar con cuenta bancaria, podrá gestionar más adelante.</string>
+    <string name="reqAcad0">Para Beca Completa Comedor Universitario:\n\n
+        Académicos\n
+        a. Ingresantes\n
+        i. Para acceder a la beca deberán presentar Certificado de Alumno Regular de la Carrera.\n
+        ii.Los alumnos, para mantener la beca, deberán presentar posterior al receso invernal un control académico en el que conste haber regularizado las materias cuatrimestrales, de al menos (2) dos asignaturas correspondientes al primer año de la Carrera y/o aprobado trabajos prácticos y/o parciales de las asignaturas anuales.\n\n
+        b. Reinscriptos\n
+        Para los alumnos reinscriptos deberán acreditar 2 (dos) Asignaturas  aprobadas en los Turnos de exámenes de Febrero a Diciembre del año anterior al período en el que solicitó el beneficio.\n\n
+
+        Para Beca Parcial Comedor Universitario:\n\n
+        a. Ingresantes\n
+        i. Para acceder a las becas deberán presentar Certificado de Alumno Regular de la Carrera.\n
+        ii. Los alumnos ingresantes, para mantener la beca, deberán presentar posterior al receso invernal un control académico en el que conste haber regularizado las materias cuatrimestrales, de al menos (2) dos asignaturas correspondientes al primer año de la Carrera y/o aprobado trabajos prácticos y/o parciales de las asignaturas anuales.\n\n
+        b. Reinscriptos\n
+        Los alumnos reinscriptos que sean beneficiarios de la Beca Parcial deberán acreditar 1 (una) Asignatura Aprobada en los Turnos de exámenes de Febrero a Diciembre del año anterior al período en que solicitó el beneficio.</string>
+
+    <!--  Beca ESTÍMULO AL DEPORTE  -->
+    <string name="desc1">Es un aporte económico que tiene como finalidad favorecer la formación integral de los estudiantes de la UNSE facilitando el acceso a un espacio de integración y formación a través del deporte.\n
+        Podrán solicitar la Beca Estimulo al Deporte aquellos alumnos regulares ingresantes o reinscriptos que cursen carreras con modalidad presencial de la UNSE. Se destaquen en la práctica de un deporte y participen en equipos de competición pertenecientes a nuestra Universidad, y practiquen de manera responsable alguna de las actividades y/o disciplinas deportivas que desarrolla la Secretaría de Bienestar Estudiantil, en la modalidad formativa.\n\n
+        Beneficiarios\n
+        Alumnos ingresantes y Reinscriptos (Renovantes o no).</string>
+    <string name="reqGen1">a) Fotocopia de DNI del postulante y todo el grupo familiar conviviente.\n
+        b) Certificación negativa de la ANSES del postulante y de todo el grupo familiar mayores de 18 años.\n
+        c) Constancia de ingresos del grupo familiar conviviente.\n
+        • Fotocopia de recibo de haberes de las personas que trabajan en relación de dependencia, jubilados y/o pensionados. (serán válidos aquellos recibos que fueran hasta de 2 meses anteriores a la fecha de presentación)\n
+        • Para trabajadores independientes o informales, declaración jurada expedida por la seccional policial, donde conste la actividad que realiza la persona y el monto mensual que percibe por dicha actividad.\n
+        • Para monotributistas: constancia de inscripción en la AFIP (se puede obtener Aqui) donde figure la categoría de monotributo a la que pertenece y declaración jurada emitida por la seccional policial donde conste la actividad que realiza como monotributista y cuanto percibe por esa actividad.\n
+        • Si la/s Persona/s son beneficiarias de un Plan Social por ejemplo AUH puede presentar fotocopia de la tarjeta de cobro y un ticket de últimos movimientos donde figura el monto que percibe como beneficiario del plan o bien declaración jurada emitida por la seccional policial donde conste el nombre del plan social del cual es beneficiario y el monto mensual que percibe.\n
+        d) En caso de que el estudiante posea alguna discapacidad, certificado que acredite tal situación por los organismos oficiales, conforme al sistema de protección integral establecido por la Ley 22.431.\n
+        e) Si el postulante tuviera hijos, debe presentar una copia del Acta de nacimiento de los mismos.\n
+        f).Si el postulante no conviviera con sus progenitores o con uno de ellos, deberá presentar copia de la sentencia de divorcio si correspondiere o una Declaración jurada que conste la desvinculacion económica de dicho progenitor.\n
+        g) Constancia de Certificado Analítico de materias aprobadas expedido por la Sección Alumnos de la Facultad a la que pertenece el solicitante y Constancia de Alumno Regular.\n
+        h) Comprobante con el número de cuenta activa del banco Santanderrio. En caso de no contar con cuenta bancaria, podrá gestionar más adelante.</string>
+    <string name="reqAcad1">a) Certificado médico de aptitud física expedido por el Servicio de Salud Estudiantil de la Secretaría de Bienestar Estudiantil.\n
+        b) Certificación de inscripción en la práctica deportiva expedida por Secretaría de Bienestar Estudiantil.\n
+        c) Plan semanal de práctica deportiva expedido por el Área de Deportes de la Secretaría de Bienestar Estudiantil.</string>
+
+    <!--  Beca Movilidad  -->
+    <string name="desc2">Aporte económico, destinado a solventar el gasto de pasajes de transporte urbano de los estudiantes. Tiene como objetivo otorgar un apoyo económico a los estudiantes de la UNSE procedentes del conurbano Santiago - La Banda y Áreas de influencia para el traslado desde sus lugares de residencia hasta la sede de la Universidad donde cursan su carrera.\nBeneficiarios:\nAlumnos Ingresantes y Reinscriptos (Renovantes o no).</string>
+    <string name="reqGen2">a) Fotocopia de DNI del postulante y todo el grupo familiar conviviente.\nb) Certificación negativa de la ANSES del postulante y de todo el grupo familiar mayores de 18 años.\nc) Constancia de ingresos del grupo familiar conviviente.\n
+        • Fotocopia de recibo de haberes de las personas que trabajan en relación de dependencia, jubilados y/o pensionados. (serán válidos aquellos recibos que fueran hasta de 2 meses anteriores a la fecha de presentación)\n
+        • Para trabajadores independientes o informales, declaración jurada expedida por la seccional policial, donde conste la actividad que realiza la persona y el monto mensual que percibe por dicha actividad.\n
+        • Para monotributistas: constancia de inscripción en la AFIP donde figure la categoría de monotributo a la que pertenece y declaración jurada emitida por la seccional policial donde conste la actividad que realiza como monotributista y cuanto percibe por esa actividad.\n
+        • Si la/s Persona/s son beneficiarias de un Plan Social por ejemplo AUH puede presentar fotocopia de la tarjeta de cobro y un ticket de últimos movimientos donde figura el monto que percibe como beneficiario del plan o bien declaración jurada emitida por la seccional policial donde conste el nombre del plan social del cual es beneficiario y el monto mensual que percibe.\nd) En caso de que el estudiante posea alguna discapacidad, certificado que acredite tal situación por los organismos oficiales, conforme al sistema de protección integral establecido por la Ley 22.431.\n
+        e) Si el postulante tuviera hijos, debe presentar una copia del Acta de nacimiento de los mismos.\nf).Si el postulante no conviviera con sus progenitores o con uno de ellos, deberá presentar copia de la sentencia de divorcio si correspondiere o una Declaración jurada que conste la desvinculacion económica de dicho progenitor.\n
+        g) Constancia de Certificado Analítico de materias aprobadas expedido por la Sección Alumnos de la Facultad a la que pertenece el solicitante y Constancia de Alumno Regular.\n
+        h) Comprobante con el número de cuenta activa del banco Santander Río. En caso de no contar con cuenta bancaria, podrá gestionar más adelante.</string>
+    <string name="reqAcad2">- Residan a una distancia no menor a 3 km. de sus lugares de residencia hasta la sede de la Universidad donde cursan su carrera.\nLos estudiantes con discapacidad deberán presentar la constancia de asistencia de al menos 1 asignatura por cuatrimestre.\n
+        Haber Aprobado al menos 1 (una) asignatura entre los turnos de febrero a diciembre de 2018.\n
+        Certificado de Residencia</string>
+
+    <!--  Beca Residencia  -->
+    <string name="desc3">Consiste en una plaza para el estudiante en la Residencia Universitaria de la UNSE y tiene como finalidad promover y garantizar la iniciación y continuación de los estudios universitarios, de aquellos estudiantes con recursos económicos insuficientes y cuya residencia se encuentre a una distancia no menor a 75 (setenta y cinco) km de la Universidad y que demuestren un nivel académico satisfactorio.\n\n
+        Beneficiarios:\n
+        Alumnos Ingresantes y Reinscriptos (Renovantes o no)</string>
+    <string name="reqGen3">a) Fotocopia de DNI del postulante y todo el grupo familiar conviviente.\n
+        b) Certificación negativa de la ANSES del postulante y de todo el grupo familiar mayores de 18 años.\n
+        c) Constancia de ingresos del grupo familiar conviviente.\n
+        • Fotocopia de recibo de haberes de las personas que trabajan en relación de dependencia, jubilados y/o pensionados. (serán válidos aquellos recibos que fueran hasta de 2 meses anteriores a la fecha de presentación)\n
+        • Para trabajadores independientes o informales, declaración jurada expedida por la seccional policial, donde conste la actividad que realiza la persona y el monto mensual que percibe por dicha actividad.\n
+        • Para monotributistas: constancia de inscripción en la AFIP (se puede obtener Aqui) donde figure la categoría de monotributo a la que pertenece y declaración jurada emitida por la seccional policial donde conste la actividad que realiza como monotributista y cuanto percibe por esa actividad.\n
+        • Si la/s Persona/s son beneficiarias de un Plan Social por ejemplo AUH puede presentar fotocopia de la tarjeta de cobro y un ticket de últimos movimientos donde figura el monto que percibe como beneficiario del plan o bien declaración jurada emitida por la seccional policial donde conste el nombre del plan social del cual es beneficiario y el monto mensual que percibe.\n
+        d) En caso de que el estudiante posea alguna discapacidad, certificado que acredite tal situación por los organismos oficiales, conforme al sistema de protección integral establecido por la Ley 22.431.\n
+        e) Si el postulante tuviera hijos, debe presentar una copia del Acta de nacimiento de los mismos\n
+        f).Si el postulante no conviviera con sus progenitores o con uno de ellos, deberá presentar copia de la sentencia de divorcio si correspondiere o una Declaración jurada que conste la desvinculacion económica de dicho progenitor.\n
+        g) Constancia de Certificado Analítico de materias aprobadas expedido por la Sección Alumnos de la Facultad a la que pertenece el solicitante y Constancia de Alumno Regular.\n
+        h) Comprobante con el número de cuenta activa del banco Santanderrio. En caso de no contar con cuenta bancaria, podrá gestionar más adelante.</string>
+    <string name="reqAcad3">- Residir a una distancia no menor a los 75 (setenta y  cinco) km de la Universidad.\n
+        - Ser del interior de nuestra provincia o de otras provincias.\n
+        - No haber obtenido un título de Educación Superior.\n
+        - Poseer al momento de la inscripción la edad máxima de 27 años.\n
+        - Certificado de residencia.\n
+        - Certificado de salud donde conste patologías y/o tratamientos necesarios, según se establece en el Reglamento General de Funcionamiento Interno de la Residencia Universitaria\n
+        - Certificado de antecedentes penales.\n
+        - Para la renovación deberá adjuntar el informe del comportamiento manifestado durante su estadía, expedida por el Área de la Secretaría de Bienestar Estudiantil que corresponda.</string>
+
+    <!--  Beca Finalización de Estudios de Grado  -->
+    <string name="desc4">Es un aporte económico destinado a los estudiantes del último año de las Carreras de Grado de las Unidades  Académicas de la UNSE que adeuden entre 2 a 4 materias para finalizar sus estudios o 2 materias y hayan iniciado el trámite  de presentación del Trabajo Final o Tesis.\n
+        Tiene como objetivo promover la graduación de los estudiantes y reducir la duración real de la Carrera.\n\n
+        Beneficiarios:\n
+        Alumnos Reinscriptos</string>
+    <string name="reqGen4">a) Fotocopia de DNI del postulante y todo el grupo familiar conviviente.\nb) Certificación negativa de la ANSES del postulante y de todo el grupo familiar mayores de 18 años.\nc) Constancia de ingresos del grupo familiar conviviente.\n
+        • Fotocopia de recibo de haberes de las personas que trabajan en relación de dependencia, jubilados y/o pensionados. (serán válidos aquellos recibos que fueran hasta de 2 meses anteriores a la fecha de presentación)\n
+        • Para trabajadores independientes o informales, declaración jurada expedida por la seccional policial, donde conste la actividad que realiza la persona y el monto mensual que percibe por dicha actividad.\n
+        • Para monotributistas: constancia de inscripción en la AFIP donde figure la categoría de monotributo a la que pertenece y declaración jurada emitida por la seccional policial donde conste la actividad que realiza como monotributista y cuanto percibe por esa actividad.\n
+        • Si la/s Persona/s son beneficiarias de un Plan Social por ejemplo AUH puede presentar fotocopia de la tarjeta de cobro y un ticket de últimos movimientos donde figura el monto que percibe como beneficiario del plan o bien declaración jurada emitida por la seccional policial donde conste el nombre del plan social del cual es beneficiario y el monto mensual que percibe.\nd) En caso de que el estudiante posea alguna discapacidad, certificado que acredite tal situación por los organismos oficiales, conforme al sistema de protección integral establecido por la Ley 22.431.\n
+        e) Si el postulante tuviera hijos, debe presentar una copia del Acta de nacimiento de los mismos.\n
+        f).Si el postulante no conviviera con sus progenitores o con uno de ellos, deberá presentar copia de la sentencia de divorcio si correspondiere o una Declaración jurada que conste la desvinculacion económica de dicho progenitor.\n
+        g) Constancia de Certificado Analítico de materias aprobadas expedido por la Sección Alumnos de la Facultad a la que pertenece el solicitante y Constancia de Alumno Regular.\n
+        h) Comprobante con el número de cuenta activa del banco Santander Río. En caso de no contar con cuenta bancaria, podrá gestionar más adelante.</string>
+    <string name="reqAcad4">- Estar cursando el último año de la Carrera de grado de modalidad presencial en la UNSE.\n
+        - Adeudar entre 2 a 4 materias para finalizar la carrera ó adeudar 2 materias y hayan iniciado el trámite  de presentación del Trabajo Final o Tesis.\n
+        - Constancia emitida por la Unidad Académica de haber iniciado el trámite de presentación de Trabajo Final o Tesis, en el caso que correspondiere.</string>
+
+    <!--  Beca APIP  -->
+    <string name="desc5">Es un aporte económico a la participación de estudiantes en experiencias relacionadas a tutoría con estudiantes aspirantes al ingreso y de los primeros años de las carreras de la UNSE.\n
+        Tiene como objetivo Realizar seguimiento y apoyo académico e institucional a los estudiantes que asisten al ingreso y/o cursan los primeros años de la carrera y, que facilite el acceso y permanencia de éstos en las diferentes Unidades Académicas de la Universidad Nacional de Santiago del Estero.\n\n
+        Beneficiarios:\n
+        Alumnos Reinscriptos</string>
+    <string name="reqGen5">a) Fotocopia de DNI del postulante y todo el grupo familiar conviviente.\nb) Certificación negativa de la ANSES del postulante y de todo el grupo familiar mayores de 18 años.\nc) Constancia de ingresos del grupo familiar conviviente.\n
+        • Fotocopia de recibo de haberes de las personas que trabajan en relación de dependencia, jubilados y/o pensionados. (serán válidos aquellos recibos que fueran hasta de 2 meses anteriores a la fecha de presentación)\n
+        • Para trabajadores independientes o informales, declaración jurada expedida por la seccional policial, donde conste la actividad que realiza la persona y el monto mensual que percibe por dicha actividad.\n
+        • Para monotributistas: constancia de inscripción en la AFIP donde figure la categoría de monotributo a la que pertenece y declaración jurada emitida por la seccional policial donde conste la actividad que realiza como monotributista y cuanto percibe por esa actividad.\n
+        • Si la/s Persona/s son beneficiarias de un Plan Social por ejemplo AUH puede presentar fotocopia de la tarjeta de cobro y un ticket de últimos movimientos donde figura el monto que percibe como beneficiario del plan o bien declaración jurada emitida por la seccional policial donde conste el nombre del plan social del cual es beneficiario y el monto mensual que percibe.\nd) En caso de que el estudiante posea alguna discapacidad, certificado que acredite tal situación por los organismos oficiales, conforme al sistema de protección integral establecido por la Ley 22.431.\n
+        e) Si el postulante tuviera hijos, debe presentar una copia del Acta de nacimiento de los mismos.\n
+        f).Si el postulante no conviviera con sus progenitores o con uno de ellos, deberá presentar copia de la sentencia de divorcio si correspondiere o una Declaración jurada que conste la desvinculacion económica de dicho progenitor.\n
+        g) Constancia de Certificado Analítico de materias aprobadas expedido por la Sección Alumnos de la Facultad a la que pertenece el solicitante y Constancia de Alumno Regular.\n
+        h) Comprobante con el número de cuenta activa del banco Santander Río. En caso de no contar con cuenta bancaria, podrá gestionar más adelante.</string>
+    <string name="reqAcad5">Tener aprobadas:\n
+        - Para carreras de grado, al menos el cuarenta por ciento (40%) de las asignaturas del plan de estudios de la Carrera que cursan.\n\n
+        - Para Carreras de pregrado, el 60% o más de las asignaturas del plan de estudios de la Carrera que cursan.\nHaber aprobado dos (2) materias del año académico  anterior.\n
+        Tener un promedio igual o mayor a 6 (seis) incluido aplazos.\n
+        Tener hasta 30 años.\n
+        Cumplir con el perfil establecido por cada Unidad Académica  para la  convocatoria.\n
+        En caso de renovación deberá acompañar a la documentación, informe de desempeño emitido por el coordinador de la beca y certificado por la Unidad Académica correspondiente.</string>
+
+    <!--  Beca Apoyo Económico  -->
+    <string name="desc6">Es una contribución monetaria al estudiante para cubrir los gastos originados en los estudios superiores.\n\n
+        Beneficiarios:\n
+        Alumnos Ingresantes y Reinscriptos (Renovantes o no).\n
+        Las becas de Apoyo Económico Comprenden 2 (dos) categorías.\n
+        •  Becas de Apoyo Económico Completa.\n
+        •  Medias Becas de Apoyo Económico.</string>
+    <string name="reqGen6">a) Fotocopia de DNI del postulante y todo el grupo familiar conviviente.\nb) Certificación negativa de la ANSES del postulante y de todo el grupo familiar mayores de 18 años.\nc) Constancia de ingresos del grupo familiar conviviente.\n
+        • Fotocopia de recibo de haberes de las personas que trabajan en relación de dependencia, jubilados y/o pensionados. (serán válidos aquellos recibos que fueran hasta de 2 meses anteriores a la fecha de presentación)\n
+        • Para trabajadores independientes o informales, declaración jurada expedida por la seccional policial, donde conste la actividad que realiza la persona y el monto mensual que percibe por dicha actividad.\n
+        • Para monotributistas: constancia de inscripción en la AFIP donde figure la categoría de monotributo a la que pertenece y declaración jurada emitida por la seccional policial donde conste la actividad que realiza como monotributista y cuanto percibe por esa actividad.\n
+        • Si la/s Persona/s son beneficiarias de un Plan Social por ejemplo AUH puede presentar fotocopia de la tarjeta de cobro y un ticket de últimos movimientos donde figura el monto que percibe como beneficiario del plan o bien declaración jurada emitida por la seccional policial donde conste el nombre del plan social del cual es beneficiario y el monto mensual que percibe.\nd) En caso de que el estudiante posea alguna discapacidad, certificado que acredite tal situación por los organismos oficiales, conforme al sistema de protección integral establecido por la Ley 22.431.\n
+        e) Si el postulante tuviera hijos, debe presentar una copia del Acta de nacimiento de los mismos.\n
+        f).Si el postulante no conviviera con sus progenitores o con uno de ellos, deberá presentar copia de la sentencia de divorcio si correspondiere o una Declaración jurada que conste la desvinculacion económica de dicho progenitor.\n
+        g) Constancia de Certificado Analítico de materias aprobadas expedido por la Sección Alumnos de la Facultad a la que pertenece el solicitante y Constancia de Alumno Regular.\n
+        h) Comprobante con el número de cuenta activa del banco Santander Río. En caso de no contar con cuenta bancaria, podrá gestionar más adelante.</string>
+    <string name="reqAcad6">Si cursan el primer año (en 2019) en la carrera, deberán:\n
+        - Haber aprobado dos (2) asignaturas ò\n
+        - Haber aprobado 1(una) asignatura y regularizado el 50% de las asignaturas de  primer año.\n\n
+        Si cursan desde el Segundo año de la carrera en adelante deberán acreditar tres (3) puntos por materias aprobadas en los turnos de febrero a diciembre del 2019.\n
+        Se asignarán 1,5 puntos a las materias anuales aprobadas y 1 punto a las asignaturas cuatrimestrales aprobadas.</string>
+
+    <!--  Beca Estimulo Académico  -->
+    <string name="desc7">Es un aporte económico como reconocimiento al esfuerzo y a la dedicación de los estudiantes ingresantes con mejor promedio, egresados de establecimientos de nivel medio de la Provincia de Santiago del Estero y los estudiantes reinscriptos a la UNSE, con el mejor promedio de su Facultad.</string>
+    <string name="reqGen7">a) Fotocopia de DNI del postulante y todo el grupo familiar conviviente.\nb) Certificación negativa de la ANSES del postulante y de todo el grupo familiar mayores de 18 años.\nc) Constancia de ingresos del grupo familiar conviviente.\n
+        • Fotocopia de recibo de haberes de las personas que trabajan en relación de dependencia, jubilados y/o pensionados. (serán válidos aquellos recibos que fueran hasta de 2 meses anteriores a la fecha de presentación)\n
+        • Para trabajadores independientes o informales, declaración jurada expedida por la seccional policial, donde conste la actividad que realiza la persona y el monto mensual que percibe por dicha actividad.\n
+        • Para monotributistas: constancia de inscripción en la AFIP donde figure la categoría de monotributo a la que pertenece y declaración jurada emitida por la seccional policial donde conste la actividad que realiza como monotributista y cuanto percibe por esa actividad.\n
+        • Si la/s Persona/s son beneficiarias de un Plan Social por ejemplo AUH puede presentar fotocopia de la tarjeta de cobro y un ticket de últimos movimientos donde figura el monto que percibe como beneficiario del plan o bien declaración jurada emitida por la seccional policial donde conste el nombre del plan social del cual es beneficiario y el monto mensual que percibe.\nd) En caso de que el estudiante posea alguna discapacidad, certificado que acredite tal situación por los organismos oficiales, conforme al sistema de protección integral establecido por la Ley 22.431.\n
+        e) Si el postulante tuviera hijos, debe presentar una copia del Acta de nacimiento de los mismos.\nf).Si el postulante no conviviera con sus progenitores o con uno de ellos, deberá presentar copia de la sentencia de divorcio si correspondiere o una Declaración jurada que conste la desvinculacion económica de dicho progenitor.\n
+        g) Constancia de Certificado Analítico de materias aprobadas expedido por la Sección Alumnos de la Facultad a la que pertenece el solicitante y Constancia de Alumno Regular.\n
+        h) Comprobante con el número de cuenta activa del banco Santander Río. En caso de no contar con cuenta bancaria, podrá gestionar más adelante.</string>
+    <string name="reqAcad7">Ingresantes\n
+        Certificado emitido por la institución de nivel secundario donde conste el orden de mérito y el promedio obtenido por el postulante, en el año inmediato anterior a la convocatoria.\n\n
+        Reinscriptos\n
+        Haber aprobado  el 75% de las Asignaturas  del Plan de Estudios\n
+        Acreditar el mejor promedio en su Facultad.</string>
 
 </resources>
 

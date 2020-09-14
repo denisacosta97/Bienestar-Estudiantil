@@ -53,6 +53,7 @@
                     android:textStyle="bold"
                     android:id="@+id/txtNombreUser"
                     android:layout_width="match_parent"
+                    android:textColor="@color/blackTextColor"
                     android:text="Denis Lionel Acosta"
                     android:fontFamily="@font/montserrat_black"
                     android:layout_height="wrap_content" />
@@ -62,6 +63,7 @@
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:id="@+id/txtDni"
+                    android:textColor="@color/blackTextColor"
                     android:layout_width="match_parent"
                     android:text="40657677"
                     android:fontFamily="@font/montserrat_regular"
@@ -71,6 +73,7 @@
                     android:gravity="center"
                     android:textSize="16sp"
                     android:textStyle="italic"
+                    android:textColor="@color/blackTextColor"
                     android:id="@+id/txtCuerpo"
                     android:layout_width="match_parent"
                     android:text="FCM"
@@ -109,9 +112,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         android:layout_margin="10dp"
+                        android:textColor="@color/blackTextColor"
                         android:background="@null"
                         android:fontFamily="@font/montserrat_regular"
-                        android:textColor="@color/colorTextDefault"
                         android:layout_gravity="center"
                         android:hint="DNI"
                         android:textStyle="bold"
@@ -168,8 +171,6 @@
 
         </LinearLayout>
 
-
     </LinearLayout>
-
 
 </androidx.cardview.widget.CardView>

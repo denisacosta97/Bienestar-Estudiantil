@@ -25,7 +25,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_launcher_foreground" />
+                app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -57,10 +57,10 @@
                 <TextView
                     android:id="@+id/txtCuerpo"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="70dp"
                     android:layout_marginTop="5dp"
                     android:textColor="@color/blackTextColor"
-                    android:text="Lorem ipsum dolor sit amet consectetur adipiscing, elit velit porttitor nunc integer cubilia, per placerat nec leo habitasse."
+                    android:text="@string/lorem"
                     android:textSize="14sp"
                     android:fontFamily="@font/montserrat_regular"/>
 
@@ -70,6 +70,8 @@
                     android:layout_height="wrap_content"
                     android:padding="5dp"
                     android:gravity="end"
+                    android:textColor="@color/blackTextColor"
+                    android:fontFamily="@font/montserrat_regular"
                     android:text="06/03/2019 - 11:42hs"
                     android:textSize="11sp" />
 

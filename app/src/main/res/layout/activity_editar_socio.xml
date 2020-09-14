@@ -40,7 +40,7 @@
                         <de.hdodenhof.circleimageview.CircleImageView
                             android:id="@+id/imgIcon"
                             android:layout_width="100dp"
-                            android:src="@drawable/ic_user"
+                            app:srcCompat="@drawable/ic_user"
                             app:civ_border_color="#FFFFFF"
                             app:civ_border_width="2dp"
                             android:layout_height="100dp" />
@@ -66,8 +66,6 @@
                             android:textStyle="bold"
                             android:textColor="@color/colorWhite" />
 
-
-
                     </LinearLayout>
 
                     <LinearLayout
@@ -76,7 +74,6 @@
                         android:orientation="vertical"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
-
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -124,7 +121,6 @@
 
                         </LinearLayout>
 
-
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -171,9 +167,6 @@
 
                         </LinearLayout>
 
-
-
-
                         <Button
                             android:layout_marginTop="10dp"
                             android:id="@+id/btnAceptar"
@@ -191,13 +184,9 @@
                             android:layout_height="10dp"
                             android:background="@color/colorWhite" />
 
-
                     </LinearLayout>
 
-
                 </LinearLayout>
-
-
 
             </androidx.cardview.widget.CardView>
 
@@ -240,13 +229,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-
                         <androidx.recyclerview.widget.RecyclerView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="3dp"
                             android:id="@+id/recyclerHijos" />
-
 
                         <Button
                             android:layout_marginTop="5dp"
@@ -265,13 +252,9 @@
                             android:layout_height="10dp"
                             android:background="@color/colorWhite" />
 
-
                     </LinearLayout>
 
-
                 </LinearLayout>
-
-
 
             </androidx.cardview.widget.CardView>
 
@@ -314,13 +297,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-
                         <androidx.recyclerview.widget.RecyclerView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:id="@+id/recyclerCredenciales" />
-
 
                         <Button
                             android:layout_marginTop="5dp"

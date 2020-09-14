@@ -2,6 +2,7 @@ package com.unse.bienestar.estudiantil.Vistas.Activities.Polideportivo;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -42,6 +43,7 @@ public class CanchasActivity extends AppCompatActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_canchas);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         setToolbar();
 
@@ -183,6 +185,11 @@ public class CanchasActivity extends AppCompatActivity implements View.OnClickLi
                     @Override
                     public void no() {
                         finish();
+                    }
+
+                    @Override
+                    public void aceptar() {
+
                     }
                 })
                 .setTipo(DialogoGeneral.TIPO_SI_NO);

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -92,7 +93,8 @@
                         android:textSize="20sp"
                         android:textStyle="bold"
                         android:fontFamily="@font/montserrat_black"
-                        android:textColor="@color/colorWhite" />
+                        android:textColor="@color/colorWhite"
+                        android:layout_marginLeft="5dp" />
 
                     <androidx.appcompat.widget.SwitchCompat
                         android:layout_marginStart="15dp"
@@ -100,7 +102,9 @@
                         android:layout_marginEnd="6dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/switchCred" />
+                        android:id="@+id/switchCred"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="6dp" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -129,7 +133,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:src="@drawable/ic_find" />
+                    app:srcCompat="@drawable/ic_find" />
 
                 <TextView
                     android:layout_marginTop="5dp"
@@ -180,7 +184,8 @@
                         android:textStyle="bold"
                         android:fontFamily="@font/montserrat_regular"
                         android:textColor="@color/blackTextColor"
-                        android:text="jejejeej.rgergerrgregrgreregrergerpdf" />
+                        android:text="jejejeej.rgergerrgregrgreregrergerpdf"
+                        android:layout_marginLeft="20dp" />
 
                 </LinearLayout>
 
@@ -215,7 +220,8 @@
                         android:fontFamily="@font/montserrat_regular"
                         android:textStyle="bold"
                         android:textColor="@color/blackTextColor"
-                        android:text=" 0000 KB" />
+                        android:text=" 0000 KB"
+                        android:layout_marginLeft="20dp" />
 
                 </LinearLayout>
 
@@ -250,7 +256,8 @@
                         android:textStyle="bold"
                         android:fontFamily="@font/montserrat_regular"
                         android:textColor="@color/colorGreyDark"
-                        android:text="PDF" />
+                        android:text="PDF"
+                        android:layout_marginLeft="20dp" />
 
                 </LinearLayout>
 

@@ -1,5 +1,6 @@
 package com.unse.bienestar.estudiantil.Vistas.Activities.Polideportivo.GestionReservasInst;
 
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -49,6 +50,7 @@ public class InfoReservaInstActivity extends AppCompatActivity implements View.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_reserva_inst);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         if (getIntent().getParcelableExtra(Utils.RESERVA) != null) {
             reservaEspacio = getIntent().getParcelableExtra(Utils.RESERVA);

@@ -22,7 +22,7 @@
             android:layout_gravity="center"
             android:translationY="10dp"
             android:elevation="4sp"
-            android:src="@drawable/ic_user" />
+            app:srcCompat="@drawable/ic_user" />
 
         <androidx.cardview.widget.CardView
             android:layout_width="fill_parent"
@@ -65,6 +65,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:textColor="@color/blackTextColor"
                                 android:text="Nombre y Apellido: "
                                 android:textSize="16sp"
                                 android:fontFamily="@font/montserrat_black"/>
@@ -87,6 +88,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:textColor="@color/blackTextColor"
                                 android:text="D.N.I.: "
                                 android:textSize="16sp"
                                 android:fontFamily="@font/montserrat_black"/>
@@ -110,6 +112,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Fecha de Nacimiento: "
+                                android:textColor="@color/blackTextColor"
                                 android:textSize="16sp"
                                 android:fontFamily="@font/montserrat_black"/>
 
@@ -132,6 +135,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Fecha de Ingreso: "
+                                android:textColor="@color/blackTextColor"
                                 android:textSize="16sp"
                                 android:fontFamily="@font/montserrat_black"/>
 
@@ -155,6 +159,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Fecha de Modificación: "
+                                android:textColor="@color/blackTextColor"
                                 android:textSize="16sp"
                                 android:fontFamily="@font/montserrat_black"/>
 
@@ -177,9 +182,9 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Cantidad de Servicios"
+                                android:textColor="@color/blackTextColor"
                                 android:textSize="16sp"
                                 android:fontFamily="@font/montserrat_black"/>
-
 
                         </LinearLayout>
 
@@ -191,7 +196,8 @@
                             android:layout_height="wrap_content"
                             android:textSize="16sp"
                             android:text="Recorrido 1 - Cantidad X"
-                            android:fontFamily="@font/montserrat_regular"/>
+                            android:fontFamily="@font/montserrat_regular"
+                            android:layout_marginLeft="10dp" />
 
                         <LinearLayout
                             android:layout_marginTop="4dp"
@@ -203,15 +209,13 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Temporadas"
+                                android:textColor="@color/blackTextColor"
                                 android:textSize="16sp"
                                 android:fontFamily="@font/montserrat_black"/>
-
 
                         </LinearLayout>
 
                     </LinearLayout>
-
-
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:layout_marginTop="10dp"

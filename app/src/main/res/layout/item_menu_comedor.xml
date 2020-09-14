@@ -26,12 +26,15 @@
                 android:layout_height="100dp"
                 android:orientation="vertical"
                 android:gravity="center"
+                android:layout_gravity="center"
                 android:background="@drawable/cabecera_comedor">
 
                 <TextView
                     android:id="@+id/txtTitulo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
                     android:text="Menú Comedor Universitario"
                     android:textColor="@color/colorWhite"
                     android:textSize="20sp"
@@ -42,6 +45,8 @@
                     android:layout_height="wrap_content"
                     android:text="Semana del 23 al 27 de Septiembre"
                     android:textColor="@color/colorWhite"
+                    android:layout_gravity="center"
+                    android:gravity="center"
                     android:textSize="16sp"
                     android:textStyle="italic"
                     android:fontFamily="@font/montserrat_regular"/>

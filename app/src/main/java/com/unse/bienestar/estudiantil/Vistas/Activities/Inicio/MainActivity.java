@@ -51,7 +51,9 @@ import com.unse.bienestar.estudiantil.Vistas.Fragmentos.ComedorFragment;
 import com.unse.bienestar.estudiantil.Vistas.Fragmentos.DeportesFragment;
 import com.unse.bienestar.estudiantil.Vistas.Fragmentos.InicioFragmento;
 import com.unse.bienestar.estudiantil.Vistas.Fragmentos.PoliFragment;
+import com.unse.bienestar.estudiantil.Vistas.Fragmentos.ResidenciaFragment;
 import com.unse.bienestar.estudiantil.Vistas.Fragmentos.TransporteFragment;
+import com.unse.bienestar.estudiantil.Vistas.Fragmentos.UPAFragment;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -123,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
         ids.put(getString(R.string.itemSistema), R.id.item_sistema);
         ids.put(getString(R.string.itemNosotros), R.id.item_about);
         ids.put(getString(R.string.itemCondiciones), R.id.item_terminos);
-        ids.put(getString(R.string.itemContacto), R.id.item_contactos);
+        //ids.put(getString(R.string.itemContacto), R.id.item_contactos);
         mRolViewModel = new RolViewModel(getApplicationContext());
         manager = new PreferenceManager(getApplicationContext());
         mUsuarioViewModel = new UsuarioViewModel(getApplicationContext());
@@ -261,6 +263,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.item_poli:
                 fragmentoGenerico = new PoliFragment();
                 break;
+            case R.id.item_upa:
+                fragmentoGenerico = new UPAFragment();
+                break;
             case R.id.item_ciber:
                 fragmentoGenerico = new CiberFragment();
                 ((CiberFragment) fragmentoGenerico).setActivity(MainActivity.this);
@@ -268,13 +273,15 @@ public class MainActivity extends AppCompatActivity {
             case R.id.item_deporte:
                 fragmentoGenerico = new DeportesFragment(getSupportFragmentManager(), getApplicationContext());
                 break;
-
             case R.id.item_transporte:
                 fragmentoGenerico = new TransporteFragment(getApplicationContext(), getSupportFragmentManager());
                 ((TransporteFragment) fragmentoGenerico).setActivity(MainActivity.this);
                 break;
             case R.id.item_comedor:
                 fragmentoGenerico = new ComedorFragment();
+                break;
+            case R.id.item_resi:
+                fragmentoGenerico = new ResidenciaFragment();
                 break;
             case R.id.item_perfil:
                 startActivity(new Intent(MainActivity.this, PerfilActivity.class));

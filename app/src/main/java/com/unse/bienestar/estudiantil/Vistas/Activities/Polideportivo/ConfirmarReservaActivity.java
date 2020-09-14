@@ -15,9 +15,11 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.unse.bienestar.estudiantil.Herramientas.RecyclerListener.ItemClickSupport;
+import com.unse.bienestar.estudiantil.Interfaces.YesNoDialogListener;
 import com.unse.bienestar.estudiantil.Modelos.Espacio;
 import com.unse.bienestar.estudiantil.R;
 import com.unse.bienestar.estudiantil.Vistas.Adaptadores.EspaciosAdapter;
+import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoGeneral;
 import com.unse.bienestar.estudiantil.Vistas.Fragmentos.DatePickerFragment;
 
 import java.util.ArrayList;
@@ -179,6 +181,31 @@ public class ConfirmarReservaActivity extends AppCompatActivity implements View.
         timePickerDialog.show();
     }
 
+    private void showDialogs() {
+        DialogoGeneral.Builder builder = new DialogoGeneral.Builder(getApplicationContext())
+                .setDescripcion(getString(R.string.generalFunciones))
+                .setIcono(R.drawable.ic_enojado)
+                .setTipo(DialogoGeneral.TIPO_ACEPTAR).setListener(new YesNoDialogListener() {
+                    @Override
+                    public void yes() {
+
+                    }
+
+                    @Override
+                    public void no() {
+
+                    }
+
+                    @Override
+                    public void aceptar() {
+
+                    }
+                });
+        final DialogoGeneral mensaje = builder.build();
+        mensaje.setCancelable(false);
+        mensaje.show(getSupportFragmentManager(), "dialog_error");
+    }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()){
@@ -189,7 +216,8 @@ public class ConfirmarReservaActivity extends AppCompatActivity implements View.
                 onBackPressed();
                 break;
             case R.id.btnReservaF:
-                Toast.makeText(this, "FALTA LA FUNCIÓN GG", Toast.LENGTH_SHORT).show();
+                showDialogs();
+                //Toast.makeText(this, "FALTA LA FUNCIÓN GG", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.btnRequisitos:
                 startActivity(new Intent(ConfirmarReservaActivity.this, RequisitosReservasActivity.class));

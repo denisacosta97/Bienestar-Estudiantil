@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.VideoView;
 
 import com.android.volley.Request;
@@ -36,12 +37,15 @@ import org.json.JSONObject;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.Calendar;
+
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     Button mInicio;
     ImageView btnBack;
     DialogoProcesamiento dialog;
     EditText edtUser, edtPass;
+    TextView txtWelcome;
     VideoView mVideoView;
     UsuarioViewModel mUsuarioViewModel;
     int dniNumber = 0;
@@ -58,6 +62,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         loadData();
 
+        changeTextWelcome();
+
+    }
+
+    public void changeTextWelcome() {
+        Calendar c = Calendar.getInstance();
+        int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
+
+        if (timeOfDay >= 6 && timeOfDay <= 12) {
+            txtWelcome.setText("¡Buen día!");
+        } else if (timeOfDay >= 13 && timeOfDay <= 19) {
+            txtWelcome.setText("¡Buenas tardes!");
+        } else if (timeOfDay >= 20)
+            txtWelcome.setText("¡Buenas noches!");
     }
 
     private void loadData() {
@@ -92,6 +110,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mVideoView = findViewById(R.id.videoView);
         edtPass = findViewById(R.id.edtPass);
         edtUser = findViewById(R.id.edtUser);
+        txtWelcome = findViewById(R.id.txtWelcome);
     }
 
 

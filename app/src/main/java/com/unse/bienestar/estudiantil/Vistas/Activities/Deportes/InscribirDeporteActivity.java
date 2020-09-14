@@ -8,6 +8,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -71,6 +72,14 @@ public class InscribirDeporteActivity extends AppCompatActivity implements View.
 
         loadData();
 
+        setToolbar();
+
+    }
+
+    private void setToolbar() {
+        ((TextView) findViewById(R.id.txtTitulo)).setText("Registrarme");
+        ((TextView) findViewById(R.id.txtTitulo)).setTextColor(getResources().getColor(R.color.colorAccent));
+        Utils.changeColorDrawable(((ImageView) findViewById(R.id.imgFlecha)), getApplicationContext(), R.color.colorAccent);
     }
 
     private void loadListener() {
@@ -185,7 +194,7 @@ public class InscribirDeporteActivity extends AppCompatActivity implements View.
             case R.id.btnregister:
                 register();
                 break;
-            case R.id.btnBack:
+            case R.id.imgFlecha:
                 onBackPressed();
                 break;
             case R.id.chbxBaja:

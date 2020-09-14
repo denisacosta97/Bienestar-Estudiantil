@@ -32,9 +32,6 @@ public class InfoBecasAdapter extends RecyclerView.Adapter<InfoBecasAdapter.Even
     public InfoBecasAdapter.EventosViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_info_becas, parent, false);
 
-        FontChangeUtil fontChanger = new FontChangeUtil(context.getAssets(), "Montserrat-Regular.ttf");
-        fontChanger.replaceFonts((ViewGroup) view);
-
         return new InfoBecasAdapter.EventosViewHolder(view);
     }
 

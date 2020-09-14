@@ -245,6 +245,9 @@ public class DialogoGeneral extends DialogFragment implements View.OnClickListen
                     dismiss();
                 }
                 break;
+            case R.id.btnAceptar:
+                dismiss();
+                break;
         }
     }
 

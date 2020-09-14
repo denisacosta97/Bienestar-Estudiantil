@@ -36,7 +36,6 @@ public class CambiarContraseniaActivity extends AppCompatActivity implements Vie
     ImageView btnBack;
     TextView txtRecuperar;
     EditText edtActual, edtxNewPass, edtxRepass, edtDNI;
-
     DialogoProcesamiento dialog;
 
     @Override
@@ -46,17 +45,6 @@ public class CambiarContraseniaActivity extends AppCompatActivity implements Vie
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         setToolbar();
-
-        //layoutFondo = findViewById(R.id.backgroundlogin);
-
-        /*Glide.with(this).load(R.drawable.img_unse2)
-                .into(new SimpleTarget<Drawable>() {
-                    @Override
-                    public void onResourceReady(Drawable resource, Transition<? super Drawable> transition) {
-                        layoutFondo.setBackground(resource);
-                    }
-                });*/
-
 
         loadViews();
 
@@ -185,6 +173,11 @@ public class CambiarContraseniaActivity extends AppCompatActivity implements Vie
 
                                 @Override
                                 public void no() {
+
+                                }
+
+                                @Override
+                                public void aceptar() {
 
                                 }
                             })

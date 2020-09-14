@@ -1,17 +1,18 @@
 package com.unse.bienestar.estudiantil.Vistas.Fragmentos;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.zxing.integration.android.IntentIntegrator;
+import com.unse.bienestar.estudiantil.Interfaces.YesNoDialogListener;
 import com.unse.bienestar.estudiantil.Herramientas.Almacenamiento.PreferenceManager;
 import com.unse.bienestar.estudiantil.Herramientas.Utils;
 import com.unse.bienestar.estudiantil.R;
 import com.unse.bienestar.estudiantil.Vistas.Activities.Inicio.MainActivity;
+import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoGeneral;
 
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;

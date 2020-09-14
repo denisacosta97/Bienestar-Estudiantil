@@ -176,7 +176,8 @@
                     android:textColor="@color/colorAccent"
                     android:textSize="20sp"
                     android:fontFamily="@font/montserrat_black"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:gravity="center_horizontal" />
 
                 <FrameLayout
                     android:layout_marginTop="20dp"

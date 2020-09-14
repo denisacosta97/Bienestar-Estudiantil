@@ -30,7 +30,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Fuera de servicio"
-                    android:textColor="@color/colorGreyDark"
+                    android:textColor="@color/blackTextColor"
                     android:gravity="center"
                     android:textSize="20sp"
                     android:fontFamily="@font/montserrat_black"/>
@@ -182,13 +182,14 @@
                         <ImageView
                             android:layout_width="60dp"
                             android:layout_height="60dp"
-                            android:src="@drawable/ic_transporte" />
+                            app:srcCompat="@drawable/ic_transporte" />
 
                         <LinearLayout
                             android:layout_marginStart="10dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:layout_marginLeft="10dp">
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -268,9 +269,12 @@
                         android:layout_marginEnd="5dp"
                         android:textStyle="bold"
                         android:padding="5dp"
+                        android:fontFamily="@font/montserrat_regular"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Ultima actualizacion: 12/12/2020 12:43:45" />
+                        android:text="Ultima actualizacion: 12/12/2020 12:43:45"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginRight="5dp" />
 
                 </androidx.cardview.widget.CardView>
 
@@ -279,7 +283,6 @@
                     android:name="com.google.android.gms.maps.SupportMapFragment"
                     android:layout_width="match_parent"
                     android:layout_height="300dp" />
-
 
             </RelativeLayout>
 

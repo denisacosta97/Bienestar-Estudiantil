@@ -1,5 +1,6 @@
 package com.unse.bienestar.estudiantil.Vistas.Activities.Perfil;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -33,6 +34,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -413,8 +416,8 @@ public class ListaCredencialesActivity extends AppCompatActivity implements View
     }
 
     private void loadInfo(int iconError, String text, int iconVacio, String vacio) {
-        (findViewById(R.id.imgIconError)).setBackground(getResources().getDrawable(iconError));
-        (findViewById(R.id.imgIconVacio)).setBackground(getResources().getDrawable(iconVacio));
+        (findViewById(R.id.imgIconError)).setBackground(AppCompatResources.getDrawable(getApplicationContext(), iconError));
+        (findViewById(R.id.imgIconVacio)).setBackground(AppCompatResources.getDrawable(getApplicationContext(), iconVacio));
         ((TextView) findViewById(R.id.txtError)).setText(text);
         ((TextView) findViewById(R.id.txtVacio)).setText(vacio);
         (findViewById(R.id.btnError)).setOnClickListener(this);

@@ -68,7 +68,7 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
                                 android:text="Nicole Mariel Ollea Alliende"
-                                android:textColor="@color/colorTextDefault"
+                                android:textColor="@color/blackTextColor"
                                 android:textSize="20sp"
                                 android:fontFamily="@font/montserrat_black"
                                 android:textStyle="bold" />
@@ -81,7 +81,7 @@
                                 android:gravity="center"
                                 android:padding="4dp"
                                 android:text="Licenciatura en Sistemas de Información"
-                                android:textColor="@color/colorTextDefault"
+                                android:textColor="@color/blackTextColor"
                                 android:textSize="16sp" />
 
                             <TextView
@@ -91,7 +91,7 @@
                                 android:fontFamily="@font/montserrat_regular"
                                 android:gravity="center"
                                 android:text="FCEyT"
-                                android:textColor="@color/colorTextDefault"
+                                android:textColor="@color/blackTextColor"
                                 android:textSize="14sp"
                                 android:textStyle="bold" />
 
@@ -106,7 +106,7 @@
                     android:layout_width="120dp"
                     android:layout_gravity="center|top"
                     android:layout_height="120dp"
-                    android:src="@drawable/ic_user"
+                    app:srcCompat="@drawable/ic_user"
                     app:civ_border_color="#FFFFFF"
                     app:civ_border_width="6dp" />
 

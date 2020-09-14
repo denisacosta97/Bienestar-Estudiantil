@@ -1,29 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    android:id="@+id/three"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark">
-
-    <ImageView
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:src="@drawable/user"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/imageView" />
+    android:paddingBottom="100dp"
+    android:paddingTop="80dp"
+    android:background="@color/agro">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/txtTitulo"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="LOREM IMSUN"
-        android:textColor="@android:color/white"
-        android:textSize="50dp"
-        android:textStyle="bold"
-        android:layout_below="@+id/imageView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="32dp"
+        android:text="¿QUÉ HAY EN LA APP?"
+        android:gravity="center"
+        android:textSize="24sp"
+        android:textColor="@color/whiteTextColor"
         android:fontFamily="@font/montserrat_black"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:translationY="25dp"
+        android:background="@drawable/corners_rounded_green">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TODAS LAS ÁREAS EN UN SOLO LUGAR"
+            android:textColor="@android:color/black"
+            android:textSize="20dp"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:layout_below="@+id/imageView"
+            android:layout_alignParentTop="true"
+            android:layout_margin="20dp"
+            android:fontFamily="@font/montserrat_black"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/slide3"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:layout_below="@+id/imageView"
+            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="20dp"
+            android:fontFamily="@font/montserrat_regular"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:paddingBottom="5dp"
+            app:srcCompat="@drawable/ic_logo_bienestar_01" />
+
+    </RelativeLayout>
 
 </RelativeLayout>

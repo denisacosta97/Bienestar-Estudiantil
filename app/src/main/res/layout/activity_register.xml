@@ -18,6 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="REGISTRO"
+            android:textColor="@color/blackTextColor"
             android:textAlignment="center"
             android:textSize="26sp"
             android:layout_gravity="center"
@@ -28,7 +29,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Regístrate para poder realizar tus trámites dentro de Bienestar Estudiantíl. Tienes la opción de escanear el código QR de tu DNI para autocompletar datos."
+            android:textColor="@color/blackTextColor"
+            android:text="@string/alert5"
             android:textSize="16sp"
             android:layout_marginRight="15dp"
             android:layout_marginLeft="15dp"
@@ -37,6 +39,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/blackTextColor"
             android:text="Escanear DNI"
             android:textSize="18sp"
             android:layout_marginTop="20dp"
@@ -51,7 +54,7 @@
             android:layout_height="120dp"
             android:scaleType="centerInside"
             android:adjustViewBounds="true"
-            android:src="@drawable/ic_barcode_dni"
+            app:srcCompat="@drawable/ic_barcode_dni"
             android:background="@color/transparente"
             android:layout_gravity="center"/>
 
@@ -329,9 +332,6 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilContra"
                 android:layout_width="match_parent"
-                app:passwordToggleEnabled="true"
-                app:passwordToggleDrawable="@drawable/ic_pass_toggle"
-                app:passwordToggleTint="@color/colorTextDefault"
                 android:layout_height="wrap_content">
 
                 <EditText
@@ -353,9 +353,6 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilRecontra"
-                app:passwordToggleEnabled="true"
-                app:passwordToggleDrawable="@drawable/ic_pass_toggle"
-                app:passwordToggleTint="@color/colorTextDefault"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 

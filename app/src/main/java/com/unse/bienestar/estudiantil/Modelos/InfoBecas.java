@@ -6,9 +6,10 @@ import android.os.Parcelable;
 public class InfoBecas implements Parcelable {
 
     private int id, icon;
-    private String nameBeca, desc, fechaInicio, fechaFin, pdf;
+    private String nameBeca, desc, fechaInicio, fechaFin, pdf, reqAcad, reqGeneral;
 
-    public InfoBecas(int id, int icon, String nameBeca, String desc, String fechaInicio, String fechaFin, String pdf) {
+    public InfoBecas(int id, int icon, String nameBeca, String desc, String fechaInicio,
+                     String fechaFin, String pdf, String reqAcad, String reqGeneral) {
         this.id = id;
         this.icon = icon;
         this.nameBeca = nameBeca;
@@ -16,6 +17,19 @@ public class InfoBecas implements Parcelable {
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
         this.pdf = pdf;
+        this.reqAcad = reqAcad;
+        this.reqGeneral = reqGeneral;
+    }
+
+    public InfoBecas(int id, int icon, String nameBeca, String desc, String pdf, String reqAcad,
+                     String reqGeneral) {
+        this.id = id;
+        this.icon = icon;
+        this.nameBeca = nameBeca;
+        this.desc = desc;
+        this.pdf = pdf;
+        this.reqAcad = reqAcad;
+        this.reqGeneral = reqGeneral;
     }
 
     public InfoBecas() {
@@ -26,6 +40,8 @@ public class InfoBecas implements Parcelable {
         this.fechaInicio = "";
         this.fechaFin = "";
         this.pdf = "";
+        this.reqAcad = "";
+        this.reqGeneral = "";
     }
 
     protected InfoBecas(Parcel in) {
@@ -36,6 +52,8 @@ public class InfoBecas implements Parcelable {
         fechaInicio = in.readString();
         fechaFin = in.readString();
         pdf = in.readString();
+        reqAcad = in.readString();
+        reqGeneral = in.readString();
     }
 
     public static final Creator<InfoBecas> CREATOR = new Creator<InfoBecas>() {
@@ -106,6 +124,22 @@ public class InfoBecas implements Parcelable {
         this.pdf = pdf;
     }
 
+    public String getReqAcad() {
+        return reqAcad;
+    }
+
+    public void setReqAcad(String reqAcad) {
+        this.reqAcad = reqAcad;
+    }
+
+    public String getReqGeneral() {
+        return reqGeneral;
+    }
+
+    public void setReqGeneral(String reqGeneral) {
+        this.reqGeneral = reqGeneral;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -120,5 +154,7 @@ public class InfoBecas implements Parcelable {
         dest.writeString(fechaInicio);
         dest.writeString(fechaFin);
         dest.writeString(pdf);
+        dest.writeString(reqAcad);
+        dest.writeString(reqGeneral);
     }
 }

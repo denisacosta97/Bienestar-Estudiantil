@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="100dp"
+    android:paddingTop="80dp"
+    android:background="@color/human">
+
+    <TextView
+        android:id="@+id/txtTitulo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="NOTICIAS"
+        android:gravity="center"
+        android:textSize="24sp"
+        android:textColor="@color/whiteTextColor"
+        android:fontFamily="@font/montserrat_black"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:translationY="25dp"
+        android:background="@drawable/corners_rounded_green">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="MANTENETE AL DÍA CON TODO LO QUE PASA"
+            android:layout_weight="0.1"
+            android:textColor="@android:color/black"
+            android:textSize="20dp"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:layout_below="@+id/imageView"
+            android:layout_alignParentTop="true"
+            android:layout_margin="20dp"
+            android:fontFamily="@font/montserrat_black"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/slide5"
+            android:textColor="@android:color/black"
+            android:textSize="18dp"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:layout_below="@+id/imageView"
+            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="20dp"
+            android:fontFamily="@font/montserrat_regular"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:paddingBottom="5dp"
+            app:srcCompat="@drawable/ic_logo_bienestar_01"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

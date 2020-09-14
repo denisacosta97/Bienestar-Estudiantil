@@ -22,7 +22,7 @@
                 <ImageView
                     android:id="@+id/imgFlecha"
                     android:layout_width="24dp"
-                    android:src="@drawable/ic_flecha_atras"
+                    app:srcCompat="@drawable/ic_flecha_atras"
                     android:focusable="true"
                     android:clickable="true"
                     android:foreground="?attr/selectableItemBackground"

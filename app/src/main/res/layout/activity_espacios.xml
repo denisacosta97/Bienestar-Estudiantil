@@ -38,16 +38,23 @@
 
                         <ImageView
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:scaleType="centerCrop"
                             android:src="@drawable/cancha"
                             android:layout_marginLeft="100dp"/>
 
-                        <ImageView
-                            android:layout_width="300dp"
+
+                        <LinearLayout
+                            android:layout_width="190dp"
                             android:layout_height="match_parent"
-                            android:src="@drawable/shape_triangle"
-                            android:layout_marginLeft="-56dp" />
+                            android:orientation="vertical"
+                            android:background="@color/colorPrimaryDark"></LinearLayout>
+
+<!--                        <ImageView-->
+<!--                            android:layout_width="300dp"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:src="@drawable/shape_triangle"-->
+<!--                            android:layout_marginLeft="-56dp" />-->
 
                         <TextView
                             android:layout_width="match_parent"
@@ -61,7 +68,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:text="Aquí podrás reservar\nuna cancha por\nhora."
+                            android:text="@string/espacios0"
                             android:layout_margin="10dp"
                             android:gravity="center|left"
                             android:textSize="14sp"
@@ -100,16 +107,23 @@
 
                         <ImageView
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:scaleType="centerCrop"
                             android:src="@drawable/imgborrar1"
                             android:layout_marginLeft="100dp"/>
 
-                        <ImageView
-                            android:layout_width="300dp"
+
+                        <LinearLayout
+                            android:layout_width="190dp"
                             android:layout_height="match_parent"
-                            android:src="@drawable/shape_triangle"
-                            android:layout_marginLeft="-56dp" />
+                            android:orientation="vertical"
+                            android:background="@color/colorPrimaryDark"></LinearLayout>
+
+<!--                        <ImageView-->
+<!--                            android:layout_width="300dp"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:src="@drawable/shape_triangle"-->
+<!--                            android:layout_marginLeft="-56dp" />-->
 
                         <TextView
                             android:layout_width="match_parent"
@@ -123,7 +137,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:text="Aquí podrás reservar\ntanto el SUM como\nalguno de los\nquinchos."
+                            android:text="@string/espacios1"
                             android:layout_margin="10dp"
                             android:paddingTop="20dp"
                             android:gravity="center|left"

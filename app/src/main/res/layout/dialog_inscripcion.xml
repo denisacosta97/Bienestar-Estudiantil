@@ -47,6 +47,7 @@
                     android:id="@+id/txtTitulo2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/blackTextColor"
                     android:textStyle="bold"
                     android:gravity="center"
                     android:textSize="20sp"
@@ -69,7 +70,7 @@
                         android:textColor="@color/blackTextColor"
                         android:textStyle="bold"
                         android:text="Año:"
-                        android:textSize="14sp"
+                        android:textSize="16sp"
                         android:fontFamily="@font/montserrat_black"/>
 
                     <TextView
@@ -101,7 +102,7 @@
                         android:textColor="@color/blackTextColor"
                         android:textStyle="bold"
                         android:text="Fecha \Registro:"
-                        android:textSize="14sp"
+                        android:textSize="16sp"
                         android:fontFamily="@font/montserrat_black"/>
 
                     <TextView
@@ -130,7 +131,6 @@
                     android:fontFamily="@font/montserrat_black"
                     android:text="Estado" />
 
-
                 <Spinner
                     android:padding="5dp"
                     android:id="@+id/spinner1"
@@ -138,9 +138,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:background="@drawable/border_spinner" />
-
-
-
 
                 <LinearLayout
                     android:layout_marginTop="10dp"
@@ -179,7 +176,6 @@
                             android:id="@+id/switchCred" />
                     </LinearLayout>
 
-
                 </LinearLayout>
 
                 <LinearLayout
@@ -213,7 +209,8 @@
                         android:background="@drawable/button_border"
                         android:textColor="@color/colorWhite"
                         android:textStyle="bold"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        android:layout_marginLeft="10dp" />
 
                 </LinearLayout>
 

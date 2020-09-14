@@ -191,36 +191,36 @@ public class InfoUsuarioActivity extends AppCompatActivity implements View.OnCli
                         case 0:
                             //FAyA
                             carreraAdapter = new ArrayAdapter<String>(getApplicationContext(),
-                                    android.R.layout.simple_spinner_item, faya);
-                            carreraAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                    R.layout.style_spinner, faya);
+                            carreraAdapter.setDropDownViewResource(R.layout.style_spinner);
                             spinnerCarrera.setAdapter(carreraAdapter);
                             break;
                         case 1:
                             //FCEyT
                             carreraAdapter = new ArrayAdapter<String>(getApplicationContext(),
-                                    android.R.layout.simple_spinner_item, fceyt);
-                            carreraAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                    R.layout.style_spinner, fceyt);
+                            carreraAdapter.setDropDownViewResource(R.layout.style_spinner);
                             spinnerCarrera.setAdapter(carreraAdapter);
                             break;
                         case 2:
                             //FCF
                             carreraAdapter = new ArrayAdapter<String>(getApplicationContext(),
-                                    android.R.layout.simple_spinner_item, fcf);
-                            carreraAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                    R.layout.style_spinner, fcf);
+                            carreraAdapter.setDropDownViewResource(R.layout.style_spinner);
                             spinnerCarrera.setAdapter(carreraAdapter);
                             break;
                         case 3:
                             //FCM
                             carreraAdapter = new ArrayAdapter<String>(getApplicationContext(),
-                                    android.R.layout.simple_spinner_item, fcm);
-                            carreraAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                    R.layout.style_spinner, fcm);
+                            carreraAdapter.setDropDownViewResource(R.layout.style_spinner);
                             spinnerCarrera.setAdapter(carreraAdapter);
                             break;
                         case 4:
                             //FHyCS
                             carreraAdapter = new ArrayAdapter<String>(getApplicationContext(),
-                                    android.R.layout.simple_spinner_item, fhcys);
-                            carreraAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                    R.layout.style_spinner, fhcys);
+                            carreraAdapter.setDropDownViewResource(R.layout.style_spinner);
                             spinnerCarrera.setAdapter(carreraAdapter);
                             break;
                     }
@@ -627,6 +627,11 @@ public class InfoUsuarioActivity extends AppCompatActivity implements View.OnCli
 
                     @Override
                     public void no() {
+
+                    }
+
+                    @Override
+                    public void aceptar() {
 
                     }
                 })

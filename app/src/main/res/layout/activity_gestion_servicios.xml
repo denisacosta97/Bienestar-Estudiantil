@@ -10,6 +10,7 @@
         android:layout_height="wrap_content">
 
         <include layout="@layout/toolbar_trans" />
+
         <LinearLayout
             android:orientation="vertical"
             android:layout_margin="10dp"
@@ -29,6 +30,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Elegir fecha : "
+                    android:textColor="@color/blackTextColor"
                     android:textSize="16sp"
                     android:fontFamily="@font/montserrat_black"/>
 
@@ -40,7 +42,8 @@
                     android:text="NO FECHA"
                     android:textSize="16sp"
                     android:textStyle="bold"
-                    android:fontFamily="@font/montserrat_regular"/>
+                    android:fontFamily="@font/montserrat_regular"
+                    android:layout_marginLeft="10dp" />
 
             </LinearLayout>
 
@@ -109,10 +112,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
-
                 </LinearLayout>
-
-
 
                 <LinearLayout
                     android:layout_marginTop="10dp"
@@ -135,6 +135,7 @@
                         android:textSize="20sp"
                         android:textStyle="bold"
                         android:padding="5dp"
+                        android:textColor="@color/blackTextColor"
                         android:fontFamily="@font/montserrat_black"
                         android:text="NO EXISTEN SERVICIOS EN ESTA FECHA" />
 
@@ -142,8 +143,8 @@
 
             </LinearLayout>
 
-
         </LinearLayout>
 
     </LinearLayout>
+
 </androidx.core.widget.NestedScrollView>

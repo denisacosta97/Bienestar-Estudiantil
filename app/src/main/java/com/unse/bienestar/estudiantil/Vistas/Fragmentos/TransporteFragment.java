@@ -20,6 +20,7 @@ import com.unse.bienestar.estudiantil.Herramientas.RecyclerListener.ItemClickSup
 import com.unse.bienestar.estudiantil.Herramientas.Utils;
 import com.unse.bienestar.estudiantil.Herramientas.VolleySingleton;
 import com.unse.bienestar.estudiantil.Interfaces.OnClickOptionListener;
+import com.unse.bienestar.estudiantil.Interfaces.YesNoDialogListener;
 import com.unse.bienestar.estudiantil.Modelos.Opciones;
 import com.unse.bienestar.estudiantil.Modelos.Punto;
 import com.unse.bienestar.estudiantil.Modelos.Recorrido;
@@ -28,6 +29,7 @@ import com.unse.bienestar.estudiantil.R;
 import com.unse.bienestar.estudiantil.Vistas.Activities.Transporte.RecorridoActivity;
 import com.unse.bienestar.estudiantil.Vistas.Activities.Transporte.RecorridoRealActivity;
 import com.unse.bienestar.estudiantil.Vistas.Adaptadores.RecorridoAdapter;
+import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoGeneral;
 import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoOpciones;
 import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoProcesamiento;
 

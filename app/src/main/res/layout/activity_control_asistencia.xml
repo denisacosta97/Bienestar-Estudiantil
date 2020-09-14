@@ -25,6 +25,7 @@
                 android:layout_height="wrap_content"
                 android:text="Seleccione un deporte:"
                 android:fontFamily="@font/montserrat_black"
+                android:textColor="@color/blackTextColor"
                 android:textSize="18sp"/>
 
             <androidx.recyclerview.widget.RecyclerView

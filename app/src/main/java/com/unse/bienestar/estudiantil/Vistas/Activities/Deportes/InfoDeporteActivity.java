@@ -55,6 +55,8 @@ public class InfoDeporteActivity extends AppCompatActivity implements View.OnCli
             finish();
         }
 
+        setToolbar();
+
     }
 
     private void loadData() {
@@ -84,6 +86,13 @@ public class InfoDeporteActivity extends AppCompatActivity implements View.OnCli
         btnBack = findViewById(R.id.imgFlecha);
     }
 
+    private void setToolbar() {
+        ((TextView) findViewById(R.id.txtTitulo)).setText("Información del Deporte");
+        ((TextView) findViewById(R.id.txtTitulo)).setTextColor(getResources().getColor(R.color.colorAccent));
+        Utils.changeColorDrawable(((ImageView) findViewById(R.id.imgFlecha)), getApplicationContext(), R.color.colorAccent);
+
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -95,7 +104,7 @@ public class InfoDeporteActivity extends AppCompatActivity implements View.OnCli
                 else
                     Utils.showToast(getApplicationContext(), getString(R.string.primeroRegistrar));
                 break;
-            case R.id.btnBack:
+            case R.id.imgFlecha:
                 onBackPressed();
                 break;
         }

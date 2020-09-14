@@ -20,7 +20,8 @@
             android:layout_marginRight="15dp"
             android:layout_marginTop="10dp"
             android:text="Área Becas"
-            android:textSize="36sp"
+            android:textColor="@color/blackTextColor"
+            android:textSize="28sp"
             android:textStyle="bold"
             android:fontFamily="@font/montserrat_black"/>
 
@@ -49,7 +50,7 @@
                         android:id="@+id/imgvIconDeporte"
                         android:layout_width="60dp"
                         android:layout_height="60dp"
-                        android:src="@drawable/ic_calendario" />
+                        app:srcCompat="@drawable/ic_calendario" />
 
                 </LinearLayout>
 
@@ -65,6 +66,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="TURNOS"
+                        android:textColor="@color/blackTextColor"
                         android:textSize="30sp"
                         android:textStyle="bold"
                         android:fontFamily="@font/montserrat_black"/>
@@ -101,7 +103,7 @@
                     <ImageView
                         android:layout_width="60dp"
                         android:layout_height="60dp"
-                        android:src="@drawable/ic_informacion" />
+                        app:srcCompat="@drawable/ic_informacion" />
 
                 </LinearLayout>
 
@@ -116,6 +118,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="INFORMACIÓN"
+                        android:textColor="@color/blackTextColor"
                         android:textSize="30sp"
                         android:textStyle="bold"
                         android:fontFamily="@font/montserrat_black"/>
@@ -139,9 +142,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
+            android:textColor="@color/blackTextColor"
             android:fontFamily="@font/montserrat_black"
             android:text="Información"
-            android:textSize="18sp" />
+            android:textSize="20sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -159,6 +163,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="10dp"
+                    android:textColor="@color/blackTextColor"
                     android:text="Horarios de atención: "
                     android:textSize="16sp"
                     android:fontFamily="@font/montserrat_black"/>
@@ -167,7 +172,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="08:00hs a 13:30hs - 17:00hs a 20:30hs."
+                    android:text="Sin horarios"
                     android:textSize="16sp"
                     android:fontFamily="@font/montserrat_regular"/>
 
@@ -183,6 +188,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="10dp"
+                    android:textColor="@color/blackTextColor"
                     android:text="Teléfono: "
                     android:textSize="16sp"
                     android:fontFamily="@font/montserrat_black"/>
@@ -191,7 +197,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="4509525"
+                    android:text="3854509519"
                     android:textSize="16sp"
                     android:fontFamily="@font/montserrat_regular"/>
 
@@ -207,6 +213,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="10dp"
+                    android:textColor="@color/blackTextColor"
                     android:text="e-Mail: "
                     android:textSize="16sp"
                     android:fontFamily="@font/montserrat_black"/>
@@ -216,7 +223,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:textIsSelectable="true"
-                    android:text="bienestar@unse.edu.ar"
+                    android:text="tehuelche@unse.edu.ar"
                     android:textSize="16sp"
                     android:fontFamily="@font/montserrat_regular"/>
 
@@ -252,7 +259,7 @@
                         <androidx.appcompat.widget.AppCompatImageView
                             android:layout_width="35dp"
                             android:layout_height="35dp"
-                            android:src="@drawable/ic_whatsapp" />
+                            app:srcCompat="@drawable/ic_whatsapp" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -288,7 +295,7 @@
                         <androidx.appcompat.widget.AppCompatImageView
                             android:layout_width="35dp"
                             android:layout_height="35dp"
-                            android:src="@drawable/ic_instagram" />
+                            app:srcCompat="@drawable/ic_instagram" />
 
                         <TextView
                             android:layout_width="wrap_content"

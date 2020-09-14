@@ -21,7 +21,7 @@
             android:layout_gravity="center"
             android:translationY="10dp"
             android:elevation="4sp"
-            android:src="@drawable/ic_ciber" />
+            app:srcCompat="@drawable/ic_ciber" />
 
         <androidx.cardview.widget.CardView
             android:layout_width="fill_parent"
@@ -51,6 +51,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Natación"
+                        android:textColor="@color/blackTextColor"
                         android:gravity="center"
                         android:textStyle="bold"
                         android:layout_marginTop="45dp"
@@ -72,6 +73,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Nombre y apellido: "
+                                android:textColor="@color/blackTextColor"
                                 android:textSize="16sp"
                                 android:fontFamily="@font/montserrat_black"/>
 
@@ -94,6 +96,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="D.N.I.: "
+                                android:textColor="@color/blackTextColor"
                                 android:textSize="16sp"
                                 android:fontFamily="@font/montserrat_black"/>
 
@@ -116,6 +119,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Fecha de nacimiento: "
+                                android:textColor="@color/blackTextColor"
                                 android:textSize="16sp"
                                 android:fontFamily="@font/montserrat_black"/>
 
@@ -138,6 +142,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Domicilio: "
+                                android:textColor="@color/blackTextColor"
                                 android:textSize="16sp"
                                 android:fontFamily="@font/montserrat_black"/>
 
@@ -160,6 +165,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Barrio: "
+                                android:textColor="@color/blackTextColor"
                                 android:textSize="16sp"
                                 android:fontFamily="@font/montserrat_black"/>
 
@@ -183,6 +189,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="Teléfono: "
                                 android:textSize="16sp"
+                                android:textColor="@color/blackTextColor"
                                 android:fontFamily="@font/montserrat_black"/>
 
                             <TextView
@@ -205,6 +212,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="Fecha de ingreso: "
                                 android:textSize="16sp"
+                                android:textColor="@color/blackTextColor"
                                 android:fontFamily="@font/montserrat_black"/>
 
                             <TextView

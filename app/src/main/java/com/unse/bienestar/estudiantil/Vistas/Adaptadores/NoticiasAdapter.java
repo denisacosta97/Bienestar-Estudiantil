@@ -62,8 +62,6 @@ public class NoticiasAdapter extends RecyclerView.Adapter<NoticiasAdapter.Notici
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_noticia_left, parent, false);
             else
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_noticias_right, parent, false);
-
-            Utils.setFont(context, (ViewGroup) view, Utils.MONSERRAT);
         }
 
         return new NoticiasViewHolder(view, tipo);

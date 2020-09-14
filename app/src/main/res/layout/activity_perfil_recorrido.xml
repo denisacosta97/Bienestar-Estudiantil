@@ -37,7 +37,8 @@
                 android:layout_width="120dp"
                 android:layout_height="50dp"
                 app:cardCornerRadius="10dp"
-                app:cardElevation="5dp">
+                app:cardElevation="5dp"
+                android:layout_marginRight="-10dp">
 
                 <LinearLayout
                     android:layout_gravity="center"
@@ -55,7 +56,8 @@
                         android:text="MOSTRAR"
                         android:fontFamily="@font/montserrat_black"
                         android:textColor="@color/colorWhite"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        android:layout_marginLeft="4dp" />
 
                 </LinearLayout>
 

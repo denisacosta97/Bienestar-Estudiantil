@@ -9,7 +9,6 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -73,7 +72,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import static android.view.Gravity.*;
+import static android.view.Gravity.LEFT;
+import static android.view.Gravity.START;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -264,7 +264,7 @@ public class MainActivity extends AppCompatActivity {
                 fragmentoGenerico = new PoliFragment();
                 break;
             case R.id.item_upa:
-                fragmentoGenerico = new UPAFragment();
+                fragmentoGenerico = new UPAFragment(getApplicationContext());
                 break;
             case R.id.item_ciber:
                 fragmentoGenerico = new CiberFragment();

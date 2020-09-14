@@ -100,7 +100,8 @@ public class ArchivosActivity extends AppCompatActivity implements View.OnClickL
         mArchivos = new ArrayList<>();
         mCategorias = new ArrayList<>();
 
-        loadArchivos();
+        //loadArchivos();
+        updateView(-1);
 
         mArchivosAdapter = new ArchivosAdapter(mArchivos, this);
         mLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);

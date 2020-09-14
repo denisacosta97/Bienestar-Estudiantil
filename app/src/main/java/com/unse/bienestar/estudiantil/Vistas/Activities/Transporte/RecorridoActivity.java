@@ -1,5 +1,7 @@
 package com.unse.bienestar.estudiantil.Vistas.Activities.Transporte;
 
+import android.Manifest;
+import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
@@ -40,7 +42,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Objects;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -126,7 +127,7 @@ public class RecorridoActivity extends AppCompatActivity implements OnMapReadyCa
             colorPolyline = 0;
 
         Criteria criteria = new Criteria();
-        LocationManager locationManager = (LocationManager) Objects.requireNonNull(getApplicationContext()).getSystemService(LOCATION_SERVICE);
+        LocationManager locationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
         if (locationManager != null && locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             if (Utils.isPermissionGranted(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION)
                     && Utils.isPermissionGranted(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION))

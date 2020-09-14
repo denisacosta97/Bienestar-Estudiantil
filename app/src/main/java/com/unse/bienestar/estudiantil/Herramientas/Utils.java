@@ -289,7 +289,6 @@ public class Utils {
     public static final String URL_ELIMINAR_RECORRIDO = "https://" + IP + "/transporte/recorrido/eliminarRecorrido.php";
     public static final String URL_GET_RECORRIDO = "https://" + IP + "/transporte/recorrido/getRecorrido.php";
     public static final String URL_GET_RECORRIDOS = "https://bienestar.unse.edu.ar/transporte/recorrido/getRecorridos.php";
-    public static final String URL_RECORRIDOS = "https://" + IP + "/transporte/recorrido/recorridos.json";
     public static final String URL_RECORRIDOS = "https://" + IP + "/transporte/recorrido/getRecorridos.php";
     public static final String URL_RECORRIDOS_DATOS = "https://" + IP + "/transporte/recorrido/recorridos.json";
 

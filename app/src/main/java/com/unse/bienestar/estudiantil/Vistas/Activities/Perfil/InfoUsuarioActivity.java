@@ -190,35 +190,35 @@ public class InfoUsuarioActivity extends AppCompatActivity implements View.OnCli
                     switch (position) {
                         case 0:
                             //FAyA
-                            carreraAdapter = new ArrayAdapter<String>(getApplicationContext(),
+                            carreraAdapter = new ArrayAdapter<>(getApplicationContext(),
                                     R.layout.style_spinner, faya);
                             carreraAdapter.setDropDownViewResource(R.layout.style_spinner);
                             spinnerCarrera.setAdapter(carreraAdapter);
                             break;
                         case 1:
                             //FCEyT
-                            carreraAdapter = new ArrayAdapter<String>(getApplicationContext(),
+                            carreraAdapter = new ArrayAdapter<>(getApplicationContext(),
                                     R.layout.style_spinner, fceyt);
                             carreraAdapter.setDropDownViewResource(R.layout.style_spinner);
                             spinnerCarrera.setAdapter(carreraAdapter);
                             break;
                         case 2:
                             //FCF
-                            carreraAdapter = new ArrayAdapter<String>(getApplicationContext(),
+                            carreraAdapter = new ArrayAdapter<>(getApplicationContext(),
                                     R.layout.style_spinner, fcf);
                             carreraAdapter.setDropDownViewResource(R.layout.style_spinner);
                             spinnerCarrera.setAdapter(carreraAdapter);
                             break;
                         case 3:
                             //FCM
-                            carreraAdapter = new ArrayAdapter<String>(getApplicationContext(),
+                            carreraAdapter = new ArrayAdapter<>(getApplicationContext(),
                                     R.layout.style_spinner, fcm);
                             carreraAdapter.setDropDownViewResource(R.layout.style_spinner);
                             spinnerCarrera.setAdapter(carreraAdapter);
                             break;
                         case 4:
                             //FHyCS
-                            carreraAdapter = new ArrayAdapter<String>(getApplicationContext(),
+                            carreraAdapter = new ArrayAdapter<>(getApplicationContext(),
                                     R.layout.style_spinner, fhcys);
                             carreraAdapter.setDropDownViewResource(R.layout.style_spinner);
                             spinnerCarrera.setAdapter(carreraAdapter);
@@ -414,7 +414,7 @@ public class InfoUsuarioActivity extends AppCompatActivity implements View.OnCli
             if (mUsuario.getTipoUsuario() != 5 || mUsuario.getTipoUsuario() != 3) {
                 //Alumnos
                 if (mUsuario.getTipoUsuario() == 1) {
-                    Alumno alumno = null;
+                    Alumno alumno;
                     //Si es modo Admin saco los datos del objeto
                     if (isAdminMode) {
                         edtLegajoAlu.setText(((Alumno) mUsuario).getLegajo());

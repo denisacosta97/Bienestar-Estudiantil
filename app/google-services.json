@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1052591731941",
+    "firebase_url": "https://bienestar-estudiantil-unse.firebaseio.com",
+    "project_id": "bienestar-estudiantil-unse",
+    "storage_bucket": "bienestar-estudiantil-unse.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1052591731941:android:e43d1e4a6c9b7cf30f500c",
+        "android_client_info": {
+          "package_name": "com.unse.bienestar.estudiantil"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1052591731941-bomf7kaafp4ilgbfk0da22128ru4rdpm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.unse.bienestar.estudiantil",
+            "certificate_hash": "4ffccae6b2953ee3be0e06afa28dab3d5b1cdc38"
+          }
+        },
+        {
+          "client_id": "1052591731941-lsrubqfmh3oqmdn3cqfkdsfb0fu8k031.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDhDGTx0maVwAaEbsb_jHq64eTBT8dx8iM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1052591731941-lsrubqfmh3oqmdn3cqfkdsfb0fu8k031.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

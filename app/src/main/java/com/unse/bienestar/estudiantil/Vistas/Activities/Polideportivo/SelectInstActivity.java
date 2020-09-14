@@ -65,7 +65,7 @@ public class SelectInstActivity extends AppCompatActivity implements View.OnClic
 
         marron.add(new Instalacion(1, 0, "Turno: 10hs a 19hs", R.drawable.ic_chek, "Libre", 0));
         marron.add(new Instalacion(1, 0, "Turno: 20hs a 05hs", R.drawable.ic_chek, "Libre", 1));
-        
+
         gris.add(new Instalacion(2, 0, "Turno: 10hs a 19hs", R.drawable.ic_chek, "Libre", 0));
         gris.add(new Instalacion(2, 0, "Turno: 20hs a 05hs", R.drawable.ic_chek, "Libre", 1));
 
@@ -83,12 +83,13 @@ public class SelectInstActivity extends AppCompatActivity implements View.OnClic
             public void onItemClick(RecyclerView parent, View view, int position, long id) {
                 Instalacion instalacion = sum.get(position);
                 instalacion.setInstalacion(0);
-                if (instalacion.getEstado() == 0){
-                    Intent i = new Intent(getApplicationContext(), ConfirmarReservaActivity.class);
+                if (instalacion.getEstado() == 0) {
+                    Utils.showToast(getApplicationContext(), getString(R.string.noDisponible));
+                    //Intent i = new Intent(getApplicationContext(), ConfirmarReservaActivity.class);
 //                    i.putExtra(Utils.NUM_INST, instalacion);
 //                    i.putExtra("fecha", fecha);
-                    startActivity(i);
-                }else{
+                    //startActivity(i);
+                } else {
                     Utils.showToast(getApplicationContext(), "¡Dia y horario ya reservado!");
                 }
 
@@ -108,12 +109,12 @@ public class SelectInstActivity extends AppCompatActivity implements View.OnClic
             public void onItemClick(RecyclerView parent, View view, int position, long id) {
                 Instalacion instalacion = gris.get(position);
                 instalacion.setInstalacion(2);
-                if (instalacion.getEstado() == 0){
+                if (instalacion.getEstado() == 0) {
                     Intent i = new Intent(getApplicationContext(), ConfirmarReservaActivity.class);
                     i.putExtra(Utils.NUM_INST, instalacion);
                     i.putExtra("fecha", fecha);
                     startActivity(i);
-                }else{
+                } else {
                     Utils.showToast(getApplicationContext(), "¡Dia y horario ya reservado!");
                 }
 
@@ -131,12 +132,12 @@ public class SelectInstActivity extends AppCompatActivity implements View.OnClic
             public void onItemClick(RecyclerView parent, View view, int position, long id) {
                 Instalacion instalacion = marron.get(position);
                 instalacion.setInstalacion(1);
-                if (instalacion.getEstado() == 0){
+                if (instalacion.getEstado() == 0) {
                     Intent i = new Intent(getApplicationContext(), ConfirmarReservaActivity.class);
 //                    i.putExtra(Utils.NUM_INST, instalacion);
 //                    i.putExtra("fecha", fecha);
                     startActivity(i);
-                }else{
+                } else {
                     Utils.showToast(getApplicationContext(), "¡Dia y horario ya reservado!");
                 }
 

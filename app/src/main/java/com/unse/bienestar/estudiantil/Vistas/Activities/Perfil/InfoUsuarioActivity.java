@@ -23,6 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -35,7 +36,6 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.unse.bienestar.estudiantil.Databases.AlumnoViewModel;
 import com.unse.bienestar.estudiantil.Databases.EgresadoViewModel;
 import com.unse.bienestar.estudiantil.Databases.ProfesorViewModel;
@@ -70,10 +70,14 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.fragment.app.FragmentManager;
@@ -81,7 +85,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import static android.provider.MediaStore.Images.Media;
+import static android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
 import static android.view.View.VISIBLE;
 import static com.unse.bienestar.estudiantil.Herramientas.Utils.facultad;
 import static com.unse.bienestar.estudiantil.Herramientas.Utils.faya;
@@ -95,7 +99,8 @@ public class InfoUsuarioActivity extends AppCompatActivity implements View.OnCli
     ImageView btnBack;
     CircleImageView imgUser;
     LinearLayout latGeneral, latAlumno, latProfesor, latEgresado, latAdmin, latUser, latRegularidades;
-    FloatingActionButton fabEditar, fabPic;
+    CardView fabEditar, fabPic;
+    AppCompatImageView imgEditar;
     EditText edtNombre, edtApellido, edtDNI, edtSexo, edtMail, edtProfesionProf, edtAnioIngresoProf,
             edtProfesionEgre, edtAnioEgresoEgre, edtAnioIngresoAlu, edtLegajoAlu, edtDomicilio,
             edtProvincia, edtTelefono, edtPais, edtLocalidad, edtBarrio, edtRegistro, edtModificacion,
@@ -109,6 +114,7 @@ public class InfoUsuarioActivity extends AppCompatActivity implements View.OnCli
     RecyclerView.LayoutManager mLayoutManager;
     RegularidadAdapter mRegularidadAdapter;
     ArrayList<Regularidad> mRegularidads;
+    HashMap<String, String> param;
 
 
     DialogoProcesamiento dialog;
@@ -155,14 +161,16 @@ public class InfoUsuarioActivity extends AppCompatActivity implements View.OnCli
             }
         }
         if (getIntent().getSerializableExtra(Utils.LIST_REGULARIDAD) != null) {
-            mRegularidads = (ArrayList<Regularidad>) getIntent().getSerializableExtra(Utils.LIST_REGULARIDAD);
+            mRegularidads = (ArrayList<Regularidad>)
+                    getIntent().getSerializableExtra(Utils.LIST_REGULARIDAD);
 
         }
     }
 
     private void setToolbar() {
         ((TextView) findViewById(R.id.txtTitulo)).setText("");
-        DrawableCompat.setTint(btnBack.getDrawable(), ContextCompat.getColor(getApplicationContext(), R.color.colorWhite));
+        DrawableCompat.setTint(btnBack.getDrawable(),
+                ContextCompat.getColor(getApplicationContext(), R.color.colorWhite));
     }
 
     private void loadListener() {
@@ -296,6 +304,7 @@ public class InfoUsuarioActivity extends AppCompatActivity implements View.OnCli
         edtBarrio = findViewById(R.id.edtBarrio);
         edtFechaNac = findViewById(R.id.edtFecha);
         fabEditar = findViewById(R.id.fab);
+        imgEditar = findViewById(R.id.imgEditar);
         fabPic = findViewById(R.id.fabPic);
         latGeneral = findViewById(R.id.layRango);
         latProfesor = findViewById(R.id.layProfesor);
@@ -342,11 +351,11 @@ public class InfoUsuarioActivity extends AppCompatActivity implements View.OnCli
         new Thread(new Runnable() {
             @Override
             public void run() {
-                facultadAdapter = new ArrayAdapter<String>(getApplicationContext(),
+                facultadAdapter = new ArrayAdapter<>(getApplicationContext(),
                         android.R.layout.simple_spinner_item, facultad);
                 facultadAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spinnerFacultad.setAdapter(facultadAdapter);
-                carreraAdapter = new ArrayAdapter<String>(getApplicationContext(),
+                carreraAdapter = new ArrayAdapter<>(getApplicationContext(),
                         android.R.layout.simple_spinner_item, faya);
                 carreraAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spinnerCarrera.setAdapter(carreraAdapter);
@@ -663,7 +672,7 @@ public class InfoUsuarioActivity extends AppCompatActivity implements View.OnCli
                     break;
                 case 1:
                     //Exito
-                    String texto = null;
+                    String texto;
                     if (validez == 0)
                         texto = getString(R.string.usuarioDeshabilitado);
                     else
@@ -695,7 +704,7 @@ public class InfoUsuarioActivity extends AppCompatActivity implements View.OnCli
     private void openGallery() {
         Intent getIntent = new Intent(Intent.ACTION_GET_CONTENT);
         getIntent.setType("image/*");
-        Intent pickIntent = new Intent(Intent.ACTION_PICK, Media.EXTERNAL_CONTENT_URI);
+        Intent pickIntent = new Intent(Intent.ACTION_PICK, EXTERNAL_CONTENT_URI);
         pickIntent.setType("image/*");
         Intent chooserIntent = Intent.createChooser(getIntent, "Seleccionar imagen");
         chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[]{pickIntent});
@@ -708,7 +717,7 @@ public class InfoUsuarioActivity extends AppCompatActivity implements View.OnCli
             case Utils.PICK_IMAGE:
                 if (resultCode == RESULT_OK) {
                     Uri uri = null;
-                    if (data.getData() != null) {
+                    if (data != null && data.getData() != null) {
                         uri = data.getData();
                         Intent intent = new Intent(getApplicationContext(), CropImageActivity.class);
                         intent.putExtra(Utils.URI_IMAGE, uri);
@@ -724,10 +733,10 @@ public class InfoUsuarioActivity extends AppCompatActivity implements View.OnCli
                 if (resultCode == RESULT_OK) {
                     Uri uri = null;
                     String name = null;
-                    if (data.getParcelableExtra(Utils.URI_IMAGE) != null) {
+                    if (data != null && data.getParcelableExtra(Utils.URI_IMAGE) != null) {
                         uri = data.getParcelableExtra(Utils.URI_IMAGE);
                     }
-                    if (data.getStringExtra(Utils.NAME_GENERAL) != null) {
+                    if (data != null && data.getStringExtra(Utils.NAME_GENERAL) != null) {
                         name = data.getStringExtra(Utils.NAME_GENERAL);
                     }
                     if (uri != null && name != null) {
@@ -869,7 +878,7 @@ public class InfoUsuarioActivity extends AppCompatActivity implements View.OnCli
 
     private void editMode(int mode) {
         if (mode != 0) {
-            fabEditar.setImageResource(R.drawable.ic_save);
+            Glide.with(imgEditar.getContext()).load(R.drawable.ic_save).into(imgEditar);
             edtFechaNac.setOnClickListener(this);
             spinnerFacultad.setEnabled(true);
             spinnerCarrera.setEnabled(true);
@@ -877,7 +886,7 @@ public class InfoUsuarioActivity extends AppCompatActivity implements View.OnCli
                 fabPic.setVisibility(VISIBLE);
             }
         } else {
-            fabEditar.setImageResource(R.drawable.ic_edit_);
+            Glide.with(imgEditar.getContext()).load(R.drawable.ic_edit_).into(imgEditar);
             edtFechaNac.setOnClickListener(null);
             spinnerFacultad.setEnabled(false);
             spinnerCarrera.setEnabled(false);
@@ -994,34 +1003,57 @@ public class InfoUsuarioActivity extends AppCompatActivity implements View.OnCli
                                 String barrio, String telefono, String sexo, String mail,
                                 int tipo, String carrera, String facultad, String anioIng,
                                 String legajo, String profesion, String anioEgreso, int regularidad) {
-        String resp = "";
-        String fechaModificacion = Utils.getFechaName(new Date(System.currentTimeMillis()));
-        if (tipo == Utils.TIPO_ALUMNO) {
-            resp = String.format(Utils.dataAlumno, dni, nombre, apellido, fecha, pais, provincia,
-                    localidad, domicilio, sexo, carrera, facultad,
-                    anioIng, legajo, tipo, mail, telefono, barrio, fechaModificacion, regularidad);
+        param = new HashMap<>();
+        param.put("idU", String.valueOf(dni));
+        param.put("nom", nombre);
+        param.put("ape", apellido);
+        param.put("fechan", fecha);
+        param.put("pais", pais);
+        param.put("prov", provincia);
+        param.put("local", localidad);
+        param.put("dom", domicilio);
+        param.put("sex", sexo);
+        param.put("tipo", String.valueOf(tipo));
+        param.put("mail", mail);
+        param.put("tel", telefono);
+        param.put("barr", barrio);
+        if (tipo == 1) {
+            /*resp = String.format(Utils.dataAlumno, dni, nombre, apellido, fecha, pais, provincia, localidad,
+                    domicilio, sexo, carrera, facultad, anioIng, legajo, tipo, mail, telefono,
+                    barrio, "", 0);*/
+            param.put("car", carrera);
+            param.put("fac", facultad);
+            param.put("anio", anioIng);
+            param.put("leg", legajo);
+            param.put("idReg", "0");
 
-        } else if (tipo == Utils.TIPO_PROFESOR) {
-            resp = String.format(Utils.dataProfesor, dni, nombre, apellido, fecha, pais, provincia,
+        } else if (tipo == 2) {
+            param.put("prof", profesion);
+            param.put("fechain", anioIng);
+            /*resp = String.format(Utils.dataProfesor, dni, nombre, apellido, fecha, pais, provincia,
                     localidad, domicilio, sexo, tipo, mail, telefono,
-                    profesion, anioIng, barrio, fechaModificacion);
+                    profesion, anioIng, barrio, "");*/
 
-        } else if (tipo == Utils.TIPO_EGRESADO) {
-            resp = String.format(Utils.dataEgresado, dni, nombre, apellido, fecha, pais, provincia,
+        } else if (tipo == 4) {
+            /*resp = String.format(Utils.dataEgresado, dni, nombre, apellido, fecha, pais, provincia,
                     localidad, domicilio, sexo, tipo, mail, telefono,
-                    profesion, anioEgreso, barrio, fechaModificacion);
+                    profesion, anioEgreso, barrio, "");*/
+            param.put("prof", profesion);
+            param.put("fechaeg", anioEgreso);
         } else {
-            resp = String.format(Utils.dataPartiNoDoc, dni, nombre, apellido, fecha, pais, provincia, localidad,
-                    domicilio, sexo, tipo, mail, telefono, barrio, fechaModificacion);
+           /* resp = String.format(Utils.dataPartiNoDoc, dni, nombre, apellido, fecha, pais, provincia, localidad,
+                    domicilio, sexo, tipo, mail, telefono, barrio, fecha);*/
         }
-        return resp;
+        param.put("pass", " ");
+        //resp = String.format("%s&key=%s&pass=%s", resp, key, contrasenia);
+        return "";
     }
 
     public void sendServer(String data) {
         PreferenceManager manager = new PreferenceManager(getApplicationContext());
-        String key = manager.getValueString(Utils.TOKEN);
-        int idLocal = manager.getValueInt(Utils.MY_ID);
-        String URL = String.format("%s%s&key=%s&id=%s", Utils.URL_USUARIO_ACTUALIZAR, data, key, idLocal);
+        final String key = manager.getValueString(Utils.TOKEN);
+        final int idLocal = manager.getValueInt(Utils.MY_ID);
+        String URL = String.format("%s", Utils.URL_USUARIO_ACTUALIZAR);
         StringRequest request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -1038,7 +1070,19 @@ public class InfoUsuarioActivity extends AppCompatActivity implements View.OnCli
                 dialog.dismiss();
 
             }
-        });
+        }) {
+            @Override
+            public String getBodyContentType() {
+                return "application/x-www-form-urlencoded; charset=UTF-8";
+            }
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                param.put("key", key);
+                param.put("id", String.valueOf(idLocal));
+                return param;
+            }
+        };
         //Abro dialogo para congelar pantalla
         dialog = new DialogoProcesamiento();
         dialog.setCancelable(false);

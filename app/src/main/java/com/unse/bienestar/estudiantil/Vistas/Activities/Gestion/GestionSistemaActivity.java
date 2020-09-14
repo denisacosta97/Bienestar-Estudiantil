@@ -8,14 +8,18 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.unse.bienestar.estudiantil.Databases.RolViewModel;
+import com.unse.bienestar.estudiantil.Herramientas.Almacenamiento.PreferenceManager;
 import com.unse.bienestar.estudiantil.Herramientas.RecyclerListener.ItemClickSupport;
 import com.unse.bienestar.estudiantil.Herramientas.Utils;
 import com.unse.bienestar.estudiantil.Modelos.Opciones;
+import com.unse.bienestar.estudiantil.Modelos.Rol;
 import com.unse.bienestar.estudiantil.R;
 import com.unse.bienestar.estudiantil.Vistas.Activities.Deportes.GestionDeportes.GestionDeportesActivity;
 import com.unse.bienestar.estudiantil.Vistas.Adaptadores.OpcionesAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -27,7 +31,8 @@ public class GestionSistemaActivity extends AppCompatActivity implements View.On
     RecyclerView.LayoutManager mLayoutManager;
     OpcionesAdapter mAdapter;
     ArrayList<Opciones> mOpciones, mOpcionesFinal;
-    ArrayList<String> ids;
+    RolViewModel mRolViewModel;
+    List<Rol> ids;
     ImageView imgIcono;
 
     @Override
@@ -98,9 +103,14 @@ public class GestionSistemaActivity extends AppCompatActivity implements View.On
     }
 
     private void loadData() {
+        PreferenceManager preferenceManager = new PreferenceManager(getApplicationContext());
+        int id = preferenceManager.getValueInt(Utils.MY_ID);
+        mRolViewModel = new RolViewModel(getApplicationContext());
         mOpciones = new ArrayList<>();
         mOpcionesFinal = new ArrayList<>();
-        ids = new ArrayList<>();
+
+        ids = mRolViewModel.getAllByUsuario(id);
+
 
         mOpciones.add(new Opciones(true, LinearLayout.HORIZONTAL, 1000, "Gestión de Usuarios", R.drawable.ic_user, R.color.colorPrimary));
         mOpciones.add(new Opciones(true, LinearLayout.HORIZONTAL, 1200, "Gestión de Socios", R.drawable.ic_socio, R.color.colorPrimary));
@@ -123,15 +133,17 @@ public class GestionSistemaActivity extends AppCompatActivity implements View.On
         mAdapter = new OpcionesAdapter(mOpcionesFinal, getApplicationContext(), 1);
         mRecyclerView.setAdapter(mAdapter);
 
-//        filtrarOpciones();
+       // filtrarOpciones();
 
         mAdapter.notifyDataSetChanged();
     }
 
     private void filtrarOpciones() {
         for (Opciones e : mOpciones) {
-            if (ids.contains(String.valueOf(e.getId())))
-                mOpcionesFinal.add(e);
+            for (Rol rol : ids) {
+                if (rol.getIdRol() == e.getId())
+                    mOpcionesFinal.add(e);
+            }
         }
     }
 

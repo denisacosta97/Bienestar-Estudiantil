@@ -43,6 +43,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.cardview.widget.CardView;
 
 public class ModificarInscripcionActivity extends AppCompatActivity implements View.OnClickListener, TextWatcher {
 
@@ -52,7 +54,9 @@ public class ModificarInscripcionActivity extends AppCompatActivity implements V
             edtIMC, edtIMCEstado;
     EditText[] campos, noEditables;
     CheckBox[] noCheck;
-    FloatingActionButton fabEditar;
+    //FloatingActionButton fabEditar;
+    CardView fabEditar;
+    AppCompatImageView imgEditar;
     CheckBox chIsWsp, echSiActividad, chNoActividad, chBaja, chMedia, chAlta;
     LinearLayout linearActividades, linearAdmin, linearCredencial, latIMC, latIMCEstado;
     TextView txtTitulo, txtDeporte, edtFechaNac, txtFechaIns, txtFechaModi;
@@ -396,6 +400,7 @@ public class ModificarInscripcionActivity extends AppCompatActivity implements V
         chAlta = findViewById(R.id.chbxContin);
         chMedia = findViewById(R.id.chbxMedia);
         fabEditar = findViewById(R.id.fab);
+        imgEditar = findViewById(R.id.imgEditar);
         chIsWsp = findViewById(R.id.chbxWhats);
         btnBajaAlta = findViewById(R.id.btnAltaBaja);
         btnCarnet = findViewById(R.id.btnCarnet);
@@ -430,6 +435,7 @@ public class ModificarInscripcionActivity extends AppCompatActivity implements V
                 generarCredencial();
                 break;
             case R.id.fab:
+            case R.id.imgEditar:
                 edit();
                 break;
             case R.id.imgFlecha:
@@ -478,10 +484,10 @@ public class ModificarInscripcionActivity extends AppCompatActivity implements V
                 isEdit = true;
                 if (isWsp) {
                     isWsp = false;
-                    chIsWsp.setChecked(isWsp);
+                    chIsWsp.setChecked(false);
                 } else {
                     isWsp = true;
-                    chIsWsp.setChecked(isWsp);
+                    chIsWsp.setChecked(true);
                 }
                 break;
             case R.id.layout:
@@ -547,7 +553,7 @@ public class ModificarInscripcionActivity extends AppCompatActivity implements V
                 HashMap<String, String> datos = new HashMap<>();
                 datos.put("key", token);
                 datos.put("idU", String.valueOf(id));
-                datos.put("iu", String.valueOf(id));
+                datos.put("iu", String.valueOf(mInscripcion.getIdUsuario()));
                 datos.put("ii", String.valueOf(mInscripcion.getIdInscripcion()));
                 datos.put("aa", String.valueOf(mInscripcion.getIdTemporada()));
                 return datos;
@@ -798,7 +804,7 @@ public class ModificarInscripcionActivity extends AppCompatActivity implements V
             protected Map<String, String> getParams() throws AuthFailureError {
                 datos.put("key", token);
                 datos.put("idU", String.valueOf(id));
-                datos.put("iu", String.valueOf(id));
+                datos.put("iu", String.valueOf(mInscripcion.getIdUsuario()));
                 if (isAdmin) {
                     datos.put("ie", String.valueOf(id));
                     datos.put("ad", "1");
@@ -816,9 +822,9 @@ public class ModificarInscripcionActivity extends AppCompatActivity implements V
 
     private void editMode(int mode) {
         if (mode != 0) {
-            fabEditar.setImageResource(R.drawable.ic_save);
+            Glide.with(imgEditar.getContext()).load(R.drawable.ic_save).into(imgEditar);
         } else {
-            fabEditar.setImageResource(R.drawable.ic_edit_);
+            Glide.with(imgEditar.getContext()).load(R.drawable.ic_edit_).into(imgEditar);
         }
 
         for (EditText e2 : noEditables) {

@@ -193,7 +193,7 @@
     <string name="choferErrorActualizar">¡Error al actualizar el chofer!</string>
     <string name="choferNoServicio">¡No posee servicios!</string>
     <string name="servicioError">¡Error al cargar el servicio!</string>
-    <string name="serviciosNoHay">¡No existen datos disponibles!</string>
+    <string name="serviciosNoHay">¡No existen servicios disponibles!</string>
     <string name="servicioFinalizar">¿Esta seguro que desea finalizar el servicio?</string>
     <string name="servicioFinalizarAntiguo">Está a punto a finalizar un servicio previo</string>
     <string name="errorConexion">¡Revise su conexión a internet!</string>
@@ -226,6 +226,9 @@
     <string name="credencialNo">NO HAY CREDENCIALES ASIGNADAS</string>
     <string name="credencialNoDisponible">¡Credencial no disponible!</string>
     <string name="credencialGuardada">¡Credencial guardada!</string>
+    <string name="recorridoError">¡Error al cargar el recorrido!</string>
+    <string name="primeroRegistrar">¡No disponible en modo visita!</string>
+    <string name="noDisponible">¡No disponible durante la cuarentena!</string>
 
 </resources>
 

@@ -26,6 +26,7 @@
             android:layout_height="match_parent">
 
             <androidx.cardview.widget.CardView
+                android:visibility="gone"
                 app:cardBackgroundColor="@color/colorPrimaryDark"
                 android:layout_gravity="end"
                 android:clickable="true"

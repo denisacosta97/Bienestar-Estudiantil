@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.unse.bienestar.estudiantil.Herramientas.Almacenamiento.PreferenceManager;
 import com.unse.bienestar.estudiantil.Herramientas.Utils;
 import com.unse.bienestar.estudiantil.R;
 
@@ -50,22 +51,29 @@ public class EspaciosActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-        Intent i = new Intent(getApplicationContext(), ReservaEspacioActivity.class);;
-        switch (v.getId()){
+        PreferenceManager manager = new PreferenceManager(getApplicationContext());
+        boolean isLogin = manager.getValue(Utils.IS_LOGIN);
+        switch (v.getId()) {
             case R.id.layCancha:
-//                i.putExtra(Utils.DATA_RESERVA, Utils.TIPO_CANCHA);
-//                startActivity(i);
-                startActivity(new Intent(getApplicationContext(), CanchasActivity.class));
+                if (isLogin)
+                    Utils.showToast(getApplicationContext(), getString(R.string.noDisponible));
+                else Utils.showToast(
+
+                        getApplicationContext(), getString(R.string.primeroRegistrar));
+                //startActivity(new Intent(getApplicationContext(), CanchasActivity.class));
                 break;
             case R.id.laySalon:
-//                i.putExtra(Utils.DATA_RESERVA, Utils.TIPO_QUINCHO);
-//                startActivity(i);
-                startActivity(new Intent(getApplicationContext(), CalendarReservasActivity.class));
+                if (isLogin)
+                    startActivity(new Intent(getApplicationContext(), CalendarReservasActivity.class));
+                else Utils.showToast(
+
+                        getApplicationContext(), getString(R.string.primeroRegistrar));
                 break;
             case R.id.imgFlecha:
                 onBackPressed();
                 break;
         }
+
 
     }
 }

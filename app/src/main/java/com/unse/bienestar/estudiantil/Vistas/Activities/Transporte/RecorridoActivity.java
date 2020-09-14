@@ -1,5 +1,6 @@
 package com.unse.bienestar.estudiantil.Vistas.Activities.Transporte;
 
+import android.Manifest;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
@@ -90,8 +91,6 @@ public class RecorridoActivity extends AppCompatActivity implements OnMapReadyCa
 
     private void loadData() {
         points = new ArrayList<LatLng>();
-
-        id = 0;
         assert mapFragment != null;
         mapFragment.getMapAsync(this);
 
@@ -129,7 +128,9 @@ public class RecorridoActivity extends AppCompatActivity implements OnMapReadyCa
         Criteria criteria = new Criteria();
         LocationManager locationManager = (LocationManager) Objects.requireNonNull(getApplicationContext()).getSystemService(LOCATION_SERVICE);
         if (locationManager != null && locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            map.setMyLocationEnabled(true);
+            if (Utils.isPermissionGranted(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION)
+                    && Utils.isPermissionGranted(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION))
+                map.setMyLocationEnabled(true);
         }
         String provider = locationManager != null ? locationManager.getBestProvider(criteria, true) : null;
         LatLng sde = null;
@@ -151,7 +152,7 @@ public class RecorridoActivity extends AppCompatActivity implements OnMapReadyCa
         PreferenceManager manager = new PreferenceManager(getApplicationContext());
         String key = manager.getValueString(Utils.TOKEN);
         int id = manager.getValueInt(Utils.MY_ID);
-        String URL = String.format("%s?idU=%s&key=%s", Utils.URL_RECORRIDOS, id, key);
+        String URL = String.format("%s", Utils.URL_RECORRIDOS_DATOS);
         StringRequest request = new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -161,9 +162,7 @@ public class RecorridoActivity extends AppCompatActivity implements OnMapReadyCa
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
-                //mProgressBar.setVisibility(View.GONE);
-                Utils.showCustomToast(RecorridoActivity.this, getApplicationContext(),
-                        getString(R.string.servidorOff), R.drawable.ic_error);
+                Utils.showToast(getApplicationContext(), getString(R.string.servidorOff));
                 dialog.dismiss();
 
             }
@@ -176,15 +175,15 @@ public class RecorridoActivity extends AppCompatActivity implements OnMapReadyCa
     }
 
     private void procesarRespuesta(String response) {
-
-        dialog.dismiss();
-        JSONObject jsonObject = null;
         try {
-            jsonObject = new JSONObject(response);
+            dialog.dismiss();
+            JSONObject jsonObject = new JSONObject(response);
+            loadInfo(jsonObject, mRecorridos.getIdRecorrido());
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        loadInfo(jsonObject, mRecorridos.getIdRecorrido());
+
 
     }
 
@@ -193,7 +192,7 @@ public class RecorridoActivity extends AppCompatActivity implements OnMapReadyCa
             JSONObject recorridos = jsonObject.getJSONObject("recorridos");
             JSONObject par = jsonObject.getJSONObject("paradas");
             JSONArray puntos = null, puntitos = null;
-            switch (idRecorrido){
+            switch (idRecorrido) {
                 case 1:
                     JSONObject up = recorridos.getJSONObject("1");
                     puntos = up.getJSONArray("p");
@@ -254,6 +253,8 @@ public class RecorridoActivity extends AppCompatActivity implements OnMapReadyCa
                 paradas.add(p);
             }
 
+            loadPuntos();
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -268,16 +269,13 @@ public class RecorridoActivity extends AppCompatActivity implements OnMapReadyCa
         else
             polylineOptions.color(Color.BLACK);
 
-        if (mPuntos.size() > 0) {
+        if (mPuntos != null && mPuntos.size() > 0) {
             convertToLatLong(mPuntos);
             polylineOptions.width(10);
             polylineOptions.addAll(points);
-            //polylineOptions.endCap(new CustomCap(BitmapDescriptorFactory.fromResource(R.drawable.ic_circle_arrow1), 16));
             map.addPolyline(polylineOptions);
         } else {
-
-            Utils.showCustomToast(RecorridoActivity.this, getApplicationContext(),
-                    "Error we", R.drawable.ic_error);
+            Utils.showToast(getApplicationContext(), getString(R.string.recorridoError));
         }
 
         //Inicio
@@ -310,7 +308,7 @@ public class RecorridoActivity extends AppCompatActivity implements OnMapReadyCa
 
     private void convertToLatLong(ArrayList<Punto> puntos) {
         LatLng pnto = null;
-        for (int i = 0; i < puntos.size() ; i++) {
+        for (int i = 0; i < puntos.size(); i++) {
             pnto = new LatLng(puntos.get(i).getLatitud(), puntos.get(i).getLongitud());
             points.add(pnto);
         }
@@ -374,14 +372,18 @@ public class RecorridoActivity extends AppCompatActivity implements OnMapReadyCa
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnida:
-                map.clear();
-                loadPoints(colorPolyline);
-                loadParadas();
+                loadPuntos();
                 break;
             case R.id.imgFlecha:
                 onBackPressed();
                 break;
         }
 
+    }
+
+    private void loadPuntos() {
+        map.clear();
+        loadPoints(colorPolyline);
+        loadParadas();
     }
 }

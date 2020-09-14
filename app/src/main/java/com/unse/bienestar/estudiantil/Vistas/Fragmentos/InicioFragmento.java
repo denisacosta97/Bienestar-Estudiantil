@@ -60,6 +60,11 @@ public class InicioFragmento extends Fragment {
         // Metodo necesario
     }
 
+    public InicioFragmento(Context context, FragmentManager fragmentManager) {
+        mContext = context;
+        mFragmentManager = fragmentManager;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //Crea la vista de Inicio
@@ -89,11 +94,10 @@ public class InicioFragmento extends Fragment {
         loadInfo();
 
         mListNoticias = new ArrayList<>();
-        mNoticiasAdapter = new NoticiasAdapter(mListNoticias, getContext(), 0);
+
         mLayoutManager2 = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
         recyclerNoticias.setLayoutManager(mLayoutManager2);
 
-        recyclerNoticias.setAdapter(mNoticiasAdapter);
         recyclerNoticias.setNestedScrollingEnabled(false);
 
         ItemClickSupport itemClickSupport2 = ItemClickSupport.addTo(recyclerNoticias);
@@ -201,10 +205,10 @@ public class InicioFragmento extends Fragment {
 
                 }
                 if (mListNoticias.size() >0){
+                    mNoticiasAdapter = new NoticiasAdapter(mListNoticias, getContext(), 0);
+                    recyclerNoticias.setAdapter(mNoticiasAdapter);
                     recyclerCategorias.setVisibility(View.VISIBLE);
                 }
-                mNoticiasAdapter.setList(mListNoticias);
-                //updateView(1);
 
 
             }

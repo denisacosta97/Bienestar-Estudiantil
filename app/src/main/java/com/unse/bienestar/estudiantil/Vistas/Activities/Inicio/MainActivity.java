@@ -45,7 +45,6 @@ import com.unse.bienestar.estudiantil.Vistas.Activities.Gestion.GestionSistemaAc
 import com.unse.bienestar.estudiantil.Vistas.Activities.Perfil.PerfilActivity;
 import com.unse.bienestar.estudiantil.Vistas.Activities.TermsActivity;
 import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoProcesamiento;
-import com.unse.bienestar.estudiantil.Vistas.Fragmentos.AccesoDenegadoFragment;
 import com.unse.bienestar.estudiantil.Vistas.Fragmentos.BecasFragment;
 import com.unse.bienestar.estudiantil.Vistas.Fragmentos.CiberFragment;
 import com.unse.bienestar.estudiantil.Vistas.Fragmentos.ComedorFragment;
@@ -60,7 +59,6 @@ import org.json.JSONObject;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -73,11 +71,12 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import static android.view.Gravity.*;
+
 public class MainActivity extends AppCompatActivity {
 
     DrawerLayout drawerLayout;
     NavigationView navigationView;
-    //SlidingLayout mSlidingLayout;
     PreferenceManager manager;
     DialogoProcesamiento dialog;
     UsuarioViewModel mUsuarioViewModel;
@@ -85,16 +84,10 @@ public class MainActivity extends AppCompatActivity {
     Toolbar mToolbar;
     View headerView;
     Fragment mFragment;
-    int itemSelecionado = -1, idUser = 0;
+    int idUser = 0;
     ImageView imgPerfil, imgBienestar;
     TextView txtNombre;
     HashMap<String, Integer> ids;
-    //ItemDrawerAdapter mAdapter;
-    //ArrayList<ItemDrawer> mItemDrawers;
-    //RecyclerView.LayoutManager mLayoutManager;
-    //RecyclerView mRecyclerView;
-    //LinearLayout mLayout;
-    //boolean isOpen = false;
     Double lat, lon;
     public Boolean isReady = false, qrCiber = false;
     String pat = "", idR = "";
@@ -111,8 +104,6 @@ public class MainActivity extends AppCompatActivity {
 
         loadData();
 
-        //openDrawer();
-
         loadListener();
 
         checkUser();
@@ -122,28 +113,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadListener() {
-       /* ItemClickSupport itemClickSupport = ItemClickSupport.addTo(mRecyclerView);
-        itemClickSupport.setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
-            @Override
-            public void onItemClick(RecyclerView parent, View view, int position, long id) {
-                resetItem();
-                mItemDrawers.get(position).setSelect(true);
-                processClick(position, (int) id);
-                mAdapter.notifyDataSetChanged();
-                openDrawer();
-            }
-        });*/
     }
-
-   /* private void resetItem() {
-        for (ItemDrawer itemDrawer : mItemDrawers) {
-            itemDrawer.setSelect(false);
-        }
-    }
-
-    private void processClick(int position, int id) {
-        seleccionarItem(id, position);
-    }*/
 
 
     private void loadData() {
@@ -157,32 +127,9 @@ public class MainActivity extends AppCompatActivity {
         mRolViewModel = new RolViewModel(getApplicationContext());
         manager = new PreferenceManager(getApplicationContext());
         mUsuarioViewModel = new UsuarioViewModel(getApplicationContext());
-      /*  mItemDrawers = new ArrayList<>();
-        mItemDrawers.add(new ItemDrawer(R.id.item_inicio, "Inicio", R.drawable.ic_home, true, ItemDrawer.TIPO_OPCION));
-        mItemDrawers.add(new ItemDrawer(R.id.item_poli, "Polideportivo", R.drawable.ic_poli, false, ItemDrawer.TIPO_OPCION));
-        mItemDrawers.add(new ItemDrawer(R.id.item_deporte, "Deportes", R.drawable.ic_deportes, false, ItemDrawer.TIPO_OPCION));
-        //mItemDrawers.add(new ItemDrawer(4, "UPA", R.drawable.ic_upa, true, ItemDrawer.TIPO_OPCION));
-        //mItemDrawers.add(new ItemDrawer(5, "Área Becas", R.drawable.ic_becas, true, ItemDrawer.TIPO_OPCION));
-        //mItemDrawers.add(new ItemDrawer(6, "Ciber", R.drawable.ic_ciber, true, ItemDrawer.TIPO_OPCION));
-        //mItemDrawers.add(new ItemDrawer(7, "Transporte", R.drawable.ic_transporte, true, ItemDrawer.TIPO_OPCION));
-        //mItemDrawers.add(new ItemDrawer(8, "Residencia", R.drawable.ic_residencia, true, ItemDrawer.TIPO_OPCION));
-        //mItemDrawers.add(new ItemDrawer(9, "Comedor", R.drawable.ic_menu_comedor, true, ItemDrawer.TIPO_OPCION));
-        mItemDrawers.add(new ItemDrawer(R.id.item_sistema, "Gestión del Sistema", R.drawable.ic_settings, false, ItemDrawer.TIPO_OPCION));
-        mItemDrawers.add(new ItemDrawer(R.id.item_perfil, "Perfil", R.drawable.ic_user, false, ItemDrawer.TIPO_OPCION));
-        mItemDrawers.add(new ItemDrawer(R.id.item_about, "Sobre nosotros", R.drawable.ic_b_bienestar, false, ItemDrawer.TIPO_OPCION));
-        mItemDrawers.add(new ItemDrawer(R.id.item_contactos, "Contactos", R.drawable.ic_informacion, false, ItemDrawer.TIPO_OPCION));
-        mItemDrawers.add(new ItemDrawer(R.id.item_terminos, "Términos y condiciones", R.drawable.ic_terms, false, ItemDrawer.TIPO_OPCION));
-        mAdapter = new ItemDrawerAdapter(mItemDrawers, getApplicationContext());
-        mLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.setAdapter(mAdapter);*/
     }
 
     private void loadViews() {
-        //mRecyclerView = findViewById(R.id.recycler);
-        //mLayout = findViewById(R.id.drawer);
-        //mSlidingLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
         drawerLayout = findViewById(R.id.drawer_layout);
         mToolbar = findViewById(R.id.toolbar);
@@ -194,7 +141,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void comprobarNavigationView() {
-        //seleccionarItem(R.id.item_inicio, 0);
         if (navigationView != null) {
             prepararDrawer(navigationView);
             seleccionarItem(navigationView.getMenu().getItem(0));
@@ -284,43 +230,33 @@ public class MainActivity extends AppCompatActivity {
             imgBienestar.setImageResource(R.drawable.ic_logo_bienestar_01);
             txtNombre.setText(getText(R.string.app_name_shor).toString().toUpperCase());
         }
-        updateMenu();
+        updateMenu(isLogin);
 
     }
 
-    private void updateMenu() {
+    private void updateMenu(boolean isLogin) {
         Menu menu = navigationView.getMenu();
         MenuItem item = menu.findItem(R.id.item_sistema);
         Rol rol = mRolViewModel.getByPermission(10);
         if (rol == null) {
             item.setVisible(false);
         }
-        /*int position = 0, i = 0;
-        for (ItemDrawer itemDrawer : mItemDrawers) {
-            if (itemDrawer.getId() == R.id.item_sistema) {
-                position = i;
-                break;
-            }
-            i++;
+        item = menu.findItem(R.id.item_perfil);
+        if (!isLogin) {
+            item.setVisible(false);
         }
-        if (rol == null) {
-            mItemDrawers.remove(position);
-            mAdapter.notifyDataSetChanged();
-        }*/
     }
 
-    private void seleccionarItem(MenuItem itemDrawer/*int itemDrawer, int position*/) {
+    private void seleccionarItem(MenuItem itemDrawer) {
         Fragment fragmentoGenerico = null;
         FragmentManager fragmentManager = getSupportFragmentManager();
 
         switch (itemDrawer.getItemId()) {
             case R.id.item_becas:
-                fragmentoGenerico = new BecasFragment();
+                fragmentoGenerico = new BecasFragment(getApplicationContext());
                 break;
             case R.id.item_inicio:
-                fragmentoGenerico = new InicioFragmento();
-                ((InicioFragmento) fragmentoGenerico).setContext(getApplicationContext());
-                ((InicioFragmento) fragmentoGenerico).setFragmentManager(getSupportFragmentManager());
+                fragmentoGenerico = new InicioFragmento(getApplicationContext(), getSupportFragmentManager());
                 break;
             case R.id.item_poli:
                 fragmentoGenerico = new PoliFragment();
@@ -330,13 +266,11 @@ public class MainActivity extends AppCompatActivity {
                 ((CiberFragment) fragmentoGenerico).setActivity(MainActivity.this);
                 break;
             case R.id.item_deporte:
-                fragmentoGenerico = new DeportesFragment(getSupportFragmentManager(),getApplicationContext());
+                fragmentoGenerico = new DeportesFragment(getSupportFragmentManager(), getApplicationContext());
                 break;
 
             case R.id.item_transporte:
-                fragmentoGenerico = new TransporteFragment();
-                ((TransporteFragment) fragmentoGenerico).setContext(getApplicationContext());
-                ((TransporteFragment) fragmentoGenerico).setFragmentManager(getSupportFragmentManager());
+                fragmentoGenerico = new TransporteFragment(getApplicationContext(), getSupportFragmentManager());
                 ((TransporteFragment) fragmentoGenerico).setActivity(MainActivity.this);
                 break;
             case R.id.item_comedor:
@@ -357,24 +291,21 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        if (!(fragmentoGenerico instanceof InicioFragmento)) {
+        /*if (!(fragmentoGenerico instanceof InicioFragmento)) {
             boolean isLogin = manager.getValue(Utils.IS_LOGIN);
             if (!isLogin) {
                 fragmentoGenerico = new AccesoDenegadoFragment();
             }
-        }
+        }*/
 
-        if (mFragment != null && fragmentoGenerico != null && !(mFragment.getClass().equals(fragmentoGenerico.getClass()))) {
-            if (fragmentoGenerico != null) {
-                fragmentManager
-                        .beginTransaction()
-                        .replace(R.id.contenedor_principal, fragmentoGenerico)
-                        .commit();
-            }
+        if (mFragment != null && fragmentoGenerico != null) {
+            fragmentManager
+                    .beginTransaction()
+                    .replace(R.id.contenedor_principal, fragmentoGenerico)
+                    .commit();
         }
 
         mFragment = fragmentoGenerico;
-        // itemSelecionado = itemDrawer.getItemId();
 
         if (!ids.containsKey(itemDrawer.getTitle()))
             ((TextView) findViewById(R.id.txtTitulo)).setText(itemDrawer.getTitle());
@@ -398,48 +329,11 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                drawerLayout.openDrawer(Gravity.START);
+                drawerLayout.openDrawer(START);
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
-
-
-    /*public void toggleMenu() {
-        mSlidingLayout.toggleMenu();
-
-    }*/
-
-    /*private void openDrawer() {
-        toggleMenu();
-        if (!isOpen){
-            final int margin = 0;
-            Animation animation = new Animation() {
-                @Override
-                protected void applyTransformation(float interpolatedTime, Transformation t) {
-                    LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mLayout.getLayoutParams();
-                    params.setMarginStart(margin);
-                    mLayout.setLayoutParams(params);
-                }
-            };
-            animation.setDuration(500);
-            animation.start();
-            isOpen = true;
-        }else{
-            final int margin = -280;
-            Animation animation = new Animation() {
-                @Override
-                protected void applyTransformation(float interpolatedTime, Transformation t) {
-                    LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mLayout.getLayoutParams();
-                    params.setMarginStart(margin);
-                    mLayout.setLayoutParams(params);
-                }
-            };
-            animation.setDuration(500);
-            animation.start();
-            isOpen = false;
-        }
-    }*/
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -516,9 +410,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void getLatLong() {
         Criteria criteria = new Criteria();
-        LocationManager locationManager = (LocationManager) Objects.requireNonNull(getApplicationContext()).getSystemService(LOCATION_SERVICE);
-        //VERIFICAR 23/07
-        String provider = locationManager != null ? locationManager.getBestProvider(criteria, true) : null;
+        LocationManager locationManager = (LocationManager)
+                getApplicationContext().getSystemService(LOCATION_SERVICE);
+        String provider = locationManager != null ?
+                locationManager.getBestProvider(criteria, true) : null;
         if (provider != null) {
             Location location = locationManager.getLastKnownLocation(provider);
             lat = location.getLatitude();
@@ -615,28 +510,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START))
-            drawerLayout.closeDrawer(Gravity.LEFT);
+            drawerLayout.closeDrawer(LEFT);
         else if (!(mFragment instanceof InicioFragmento)) {
             seleccionarItem(navigationView.getMenu().getItem(0));
             navigationView.setCheckedItem(R.id.item_inicio);
         } else
             super.onBackPressed();
-        /*if (mSlidingLayout.isMenuShown()) {
-            mSlidingLayout.toggleMenu();
-        } else {
-            super.onBackPressed();
-        }
-
-        if (isOpen)
-            openDrawer();
-        else if (!(mFragment instanceof InicioFragmento)) {
-            seleccionarItem(R.id.item_inicio, 0);
-            resetItem();
-            mItemDrawers.get(0).setSelect(true);
-            mAdapter.notifyDataSetChanged();
-            //navigationView.setCheckedItem(R.id.item_inicio);
-        } else
-            super.onBackPressed();*/
     }
 
 }

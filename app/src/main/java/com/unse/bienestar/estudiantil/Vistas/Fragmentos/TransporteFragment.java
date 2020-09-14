@@ -43,7 +43,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class TransporteFragment extends Fragment implements View.OnClickListener  {
+public class TransporteFragment extends Fragment implements View.OnClickListener {
 
     View view;
     RecyclerView.LayoutManager mLayoutManager;
@@ -56,6 +56,11 @@ public class TransporteFragment extends Fragment implements View.OnClickListener
     Context mContext;
     CardView cardServicios, cardScanner;
     Activity mActivity;
+
+    public TransporteFragment(Context applicationContext, FragmentManager supportFragmentManager) {
+        mContext = applicationContext;
+        mFragmentManager = supportFragmentManager;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -102,7 +107,7 @@ public class TransporteFragment extends Fragment implements View.OnClickListener
         PreferenceManager manager = new PreferenceManager(getContext());
         String key = manager.getValueString(Utils.TOKEN);
         int id = manager.getValueInt(Utils.MY_ID);
-        String URL = String.format("%s?idU=%s&key=%s", Utils.URL_GET_RECORRIDOS, id, key);
+        String URL = String.format("%s?idU=%s&key=%s", Utils.URL_RECORRIDOS, id, key);
         StringRequest request = new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -112,7 +117,6 @@ public class TransporteFragment extends Fragment implements View.OnClickListener
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
-                //mProgressBar.setVisibility(View.GONE);
                 dialog.dismiss();
 
             }
@@ -138,8 +142,7 @@ public class TransporteFragment extends Fragment implements View.OnClickListener
                     loadInfo(jsonObject);
                     break;
                 case 2:
-//                    Utils.showCustomToast(GestionRecorridosActivity.this, getApplicationContext(),
-//                            getString(R.string.noReservas), R.drawable.ic_error);
+                    Utils.showToast(mContext, getString(R.string.noData));
                     break;
                 case 4:
                     Toast.makeText(mContext, getString(R.string.camposInvalidos), Toast.LENGTH_SHORT).show();
@@ -188,27 +191,36 @@ public class TransporteFragment extends Fragment implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        PreferenceManager manager = new PreferenceManager(mContext);
+        boolean isLogin = manager.getValue(Utils.IS_LOGIN);
+        switch (v.getId()) {
             case R.id.cardServicios:
-                getServicios();
+                if (isLogin)
+                    Utils.showToast(mContext, getString(R.string.serviciosNoHay));
+                else
+                    Utils.showToast(mContext, getString(R.string.primeroRegistrar));
+                //getServicios();
                 break;
             case R.id.cardScanner:
-                int gps = checkGPS();
-                if(gps == 1){
+                if (isLogin)
+                    Utils.showToast(mContext, getString(R.string.serviciosNoHay));
+                else
+                    Utils.showToast(mContext, getString(R.string.primeroRegistrar));
+                //int gps = checkGPS();
+                /*if (gps == 1) {
                     scanQR();
                 } else
-                    Toast.makeText(mContext, "GPS deshabilitado", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "GPS deshabilitado", Toast.LENGTH_SHORT).show();*/
                 break;
         }
     }
 
     private int checkGPS() {
         int gps = -1;
-        final LocationManager manager = (LocationManager)getContext().getSystemService(Context.LOCATION_SERVICE );
-        if ( !manager.isProviderEnabled( LocationManager.GPS_PROVIDER ) ) {
+        final LocationManager manager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
+        if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             gps = 0;
-        }
-        else {
+        } else {
             gps = 1;
         }
         return gps;
@@ -263,8 +275,6 @@ public class TransporteFragment extends Fragment implements View.OnClickListener
                     loadInfoServicios(jsonObject);
                     break;
                 case 2:
-//                    Utils.showCustomToast(GestionRecorridosActivity.this, getApplicationContext(),
-//                            getString(R.string.noReservas), R.drawable.ic_error);
                     break;
                 case 4:
                     Toast.makeText(mContext, getString(R.string.camposInvalidos), Toast.LENGTH_SHORT).show();
@@ -389,7 +399,7 @@ public class TransporteFragment extends Fragment implements View.OnClickListener
         try {
             if (jsonObject.has("mensaje")) {
 
-                if (jsonObject.get("mensaje") instanceof Boolean){
+                if (jsonObject.get("mensaje") instanceof Boolean) {
                     Toast.makeText(mContext, getString(R.string.errorLocation), Toast.LENGTH_SHORT).show();
                 } else {
                     JSONObject jsonObject1 = jsonObject.getJSONObject("mensaje");

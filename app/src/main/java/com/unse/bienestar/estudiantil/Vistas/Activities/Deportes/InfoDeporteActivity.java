@@ -88,7 +88,12 @@ public class InfoDeporteActivity extends AppCompatActivity implements View.OnCli
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnRegister:
-                checkDisponibility();
+                PreferenceManager manager = new PreferenceManager(getApplicationContext());
+                boolean isLogin = manager.getValue(Utils.IS_LOGIN);
+                if (isLogin)
+                    checkDisponibility();
+                else
+                    Utils.showToast(getApplicationContext(), getString(R.string.primeroRegistrar));
                 break;
             case R.id.btnBack:
                 onBackPressed();
@@ -102,7 +107,7 @@ public class InfoDeporteActivity extends AppCompatActivity implements View.OnCli
         int id = preferenceManager.getValueInt(Utils.MY_ID);
         String token = preferenceManager.getValueString(Utils.TOKEN);
         String URL = String.format("%s?idU=%s&key=%s&id=%s",
-                Utils.URL_DEPORTE_TEMPORADA, id,token,mDeporte.getIdDep());
+                Utils.URL_DEPORTE_TEMPORADA, id, token, mDeporte.getIdDep());
         StringRequest request = new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

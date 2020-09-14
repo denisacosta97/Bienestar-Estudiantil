@@ -51,6 +51,7 @@ import java.util.regex.Pattern;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -169,7 +170,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         mLLProfesor.setVisibility(View.GONE);
         mLLEgresado.setVisibility(View.GONE);
 
-        mManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
+        mManager = new GridLayoutManager(getApplicationContext(), 2);
         recyclerTipoUsuario.setHasFixedSize(true);
         recyclerTipoUsuario.setLayoutManager(mManager);
         adapterCategorias = new CategoriasAdapter(mList, getApplicationContext());
@@ -350,28 +351,28 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     }
                     break;
                 case Utils.TIPO_PROFESOR:
-                    if (validador.validarNombresEdt(edtProfesionProf) && validador.validarAnio(edtAnioIngresoProf)) {
+                    if (!validador.validarNombresEdt(edtProfesionProf) && validador.validarAnio(edtAnioIngresoProf)) {
                         sendServer(processString(dni, nombre, apellido, fecha, pais, provincia, localidad,
                                 domicilio, barrio, telefono, sexo, "u", mail,
                                 2, null, null, anioIngreso, null, pass,
                                 profesion, null));
                     }
-                    break;
+                    return;
                 case Utils.TIPO_EGRESADO:
-                    if (validador.validarNombresEdt(edtProfesionEgre) && validador.validarAnio(edtAnioEgresoEgre)) {
+                    if (!validador.validarNombresEdt(edtProfesionEgre) && validador.validarAnio(edtAnioEgresoEgre)) {
                         sendServer(processString(dni, nombre, apellido, fecha, pais, provincia, localidad, domicilio, barrio,
                                 telefono, sexo, "u", mail, 4,
                                 null, null, null, null, pass,
                                 profesion2, anioEgreso));
                     }
-                    break;
+                    return;
                 case Utils.TIPO_NODOCENTE:
                 case Utils.TIPO_PARTICULAR:
                     sendServer(processString(dni, nombre, apellido, fecha, pais, provincia, localidad, domicilio,
                             barrio, telefono, sexo, "u", mail, tipoUsuario,
                             null, null, null, null, pass,
                             null, null));
-                    break;
+                    return;
             }
 
         } else Utils.showToast(getApplicationContext(), getString(R.string.camposInvalidos));
@@ -385,43 +386,45 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                 int tipo, String carrera, String facultad, String anioIng,
                                 String legajo, String contrasenia, String profesion, String anioEgreso) {
         String resp = "";
-        String fechaModifCreacion = Utils.getFechaName(new Date(System.currentTimeMillis()));
-        //Falta pass y key
+        param.put("idU", String.valueOf(dni));
+        param.put("nom", nombre);
+        param.put("ape", apellido);
+        param.put("fechan", fecha);
+        param.put("pais", pais);
+        param.put("prov", provincia);
+        param.put("local", localidad);
+        param.put("dom", domicilio);
+        param.put("sex", sexo);
+        param.put("tipo", String.valueOf(tipo));
+        param.put("mail", mail);
+        param.put("tel", telefono);
+        param.put("barr", barrio);
         if (tipo == 1) {
-            resp = String.format(Utils.dataAlumno, dni, nombre, apellido, fecha, pais, provincia, localidad,
+            /*resp = String.format(Utils.dataAlumno, dni, nombre, apellido, fecha, pais, provincia, localidad,
                     domicilio, sexo, carrera, facultad, anioIng, legajo, tipo, mail, telefono,
-                    barrio, fechaModifCreacion, 0);
-            param.put("idU", String.valueOf(dni));
-            param.put("nom", nombre);
-            param.put("ape", apellido);
-            param.put("fechan", fecha);
-            param.put("pais", pais);
-            param.put("prov", provincia);
-            param.put("local", localidad);
-            param.put("dom", domicilio);
-            param.put("sex", sexo);
+                    barrio, "", 0);*/
             param.put("car", carrera);
             param.put("fac", facultad);
             param.put("anio", anioIng);
             param.put("leg", legajo);
-            param.put("tipo", String.valueOf(tipo));
-            param.put("mail", mail);
-            param.put("tel", telefono);
-            param.put("barr", barrio);
             param.put("idReg", "0");
 
         } else if (tipo == 2) {
-            resp = String.format(Utils.dataProfesor, dni, nombre, apellido, fecha, pais, provincia,
+            param.put("prof", profesion);
+            param.put("fechain", anioIng);
+            /*resp = String.format(Utils.dataProfesor, dni, nombre, apellido, fecha, pais, provincia,
                     localidad, domicilio, sexo, tipo, mail, telefono,
-                    profesion, anioIng, barrio, fechaModifCreacion);
+                    profesion, anioIng, barrio, "");*/
 
         } else if (tipo == 4) {
-            resp = String.format(Utils.dataEgresado, dni, nombre, apellido, fecha, pais, provincia,
+            /*resp = String.format(Utils.dataEgresado, dni, nombre, apellido, fecha, pais, provincia,
                     localidad, domicilio, sexo, tipo, mail, telefono,
-                    profesion, anioEgreso, barrio, fechaModifCreacion);
+                    profesion, anioEgreso, barrio, "");*/
+            param.put("prof", profesion);
+            param.put("fechaeg", anioEgreso);
         } else {
-            resp = String.format(Utils.dataPartiNoDoc, dni, nombre, apellido, fecha, pais, provincia, localidad,
-                    domicilio, sexo, tipo, mail, telefono, barrio, fecha);
+           /* resp = String.format(Utils.dataPartiNoDoc, dni, nombre, apellido, fecha, pais, provincia, localidad,
+                    domicilio, sexo, tipo, mail, telefono, barrio, fecha);*/
         }
         param.put("pass", contrasenia);
         //resp = String.format("%s&key=%s&pass=%s", resp, key, contrasenia);
@@ -462,8 +465,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             public void onErrorResponse(VolleyError error) {
                 dialog.dismiss();
                 error.printStackTrace();
-                String location = error.networkResponse.headers.get("Location");
-                Utils.showLog("dff", location);
                 Utils.showToast(getApplicationContext(), getString(R.string.servidorOff));
 
             }

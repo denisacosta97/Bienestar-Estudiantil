@@ -33,15 +33,15 @@ public class NoticiasAdapter extends RecyclerView.Adapter<NoticiasAdapter.Notici
     }
 
     public void filtrarNoticias(int tipo) {
-        if (tipo == -1) {
+        if (tipo == 9) {
             mNoticias.clear();
             mNoticias.addAll(mNoticiaCopia);
         } else {
             ArrayList<Noticia> result = new ArrayList<>();
             for (Noticia item : mNoticiaCopia) {
-                //if (item.getIdCategoria() == tipo) {
-                //  result.add(item);
-                //}
+                if (item.getIdArea() == tipo) {
+                    result.add(item);
+                }
 
             }
             mNoticias.clear();

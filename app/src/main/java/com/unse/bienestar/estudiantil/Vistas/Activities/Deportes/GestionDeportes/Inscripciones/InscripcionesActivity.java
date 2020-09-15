@@ -114,7 +114,6 @@ public class InscripcionesActivity extends AppCompatActivity implements View.OnC
                                         Intent i = new Intent(getApplicationContext(), ListaInscriptosActivity.class);
                                         i.putExtra(Utils.DEPORTE_ID, idDeporte);
                                         i.putExtra(Utils.ANIO, anio);
-                                        i.putExtra(Utils.NAME_GENERAL, idTemporada);
                                         i.putExtra(Utils.DEPORTE_NAME, deporteName);
                                         startActivity(i);
                                     }
@@ -138,7 +137,6 @@ public class InscripcionesActivity extends AppCompatActivity implements View.OnC
                                     Intent i = new Intent(getApplicationContext(), ListaInscriptosActivity.class);
                                     i.putExtra(Utils.DEPORTE_ID, idDeporte);
                                     i.putExtra(Utils.ANIO, anio);
-                                    i.putExtra(Utils.NAME_GENERAL, idTemporada);
                                     i.putExtra(Utils.DEPORTE_NAME, deporteName);
                                     startActivity(i);
                                 }
@@ -210,8 +208,10 @@ public class InscripcionesActivity extends AppCompatActivity implements View.OnC
     }
 
     private void loadInfo() {
-        String key = new PreferenceManager(getApplicationContext()).getValueString(Utils.TOKEN);
-        String URL = String.format("%s?key=%s&t=%s", Utils.URL_DEPORTE_LISTA, key, 1);
+        PreferenceManager preferenceManager = new PreferenceManager(getApplicationContext());
+        String key = preferenceManager.getValueString(Utils.TOKEN);
+        int id = preferenceManager.getValueInt(Utils.MY_ID);
+        String URL = String.format("%s?key=%s&idU=%s", Utils.URL_DEPORTE_TEMPORADAS, key, id);
         StringRequest request = new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

@@ -12,6 +12,7 @@ import org.json.JSONObject;
 public class Deporte implements Parcelable {
 
     public static final int COMPLETE = 1;
+    public static final int BASIC = 2;
     private int mIconDeporte, idDep, validez;
     private String mName, desc, lugar, dias, horario, lat, lon;
     private Profesor mProfesor;
@@ -208,6 +209,13 @@ public class Deporte implements Parcelable {
             String nombre, descripcion, diasEntreno, horario, lugar, lat, lon, fechaIngreso, nombreP, apellido;
             int valiz, idDeporte, idEntrenador;
             switch (tipo) {
+                case BASIC:
+                    idDeporte = Integer.parseInt(object.getString("iddeporte"));
+                    nombre = object.getString("nombre");
+                    deporte = new Deporte();
+                    deporte.setName(nombre);
+                    deporte.setIdDep(idDeporte);
+                    break;
                 case COMPLETE:
                     idDeporte = Integer.parseInt(object.getString("iddeporte"));
                     nombre = object.getString("nombredeporte");

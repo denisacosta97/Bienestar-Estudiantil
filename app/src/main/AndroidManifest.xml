@@ -10,11 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Vistas.Activities.UPA.PerfilServicioActivity"></activity>
+        <activity android:name=".Vistas.Activities.UPA.PerfilServicioActivity" />
         <activity android:name=".Vistas.Activities.UPA.ServiciosUPAActivity" />
         <activity android:name=".Vistas.Activities.UPA.TurnosUPAActivity" />
-        <activity android:name=".Vistas.Fragmentos.UPAFragment" />
-        <activity android:name=".Vistas.Fragmentos.ResidenciaFragment" />
         <activity android:name=".Vistas.Activities.Gestion.GestionNoticias.ListadoNoticiasActivity" />
         <activity android:name=".Vistas.Activities.Gestion.GestionNoticias.AddNoticiaActivity" />
         <activity android:name=".Vistas.Activities.Gestion.GestionNoticiasActivity" />
@@ -35,8 +33,6 @@
         <activity android:name=".Vistas.Activities.Deportes.GestionDeportes.Inscripciones.ListaInscriptosActivity" />
         <activity android:name=".Vistas.Activities.Deportes.GestionDeportes.Inscripciones.InscripcionesActivity" />
         <activity android:name=".Vistas.Activities.Perfil.ProfilePictureActivity" />
-        <activity android:name=".Vistas.Activities.PerfilBecasActivity" />
-        <activity android:name=".Vistas.Activities.Comedor.MainGestionComedor" />
         <activity android:name=".Vistas.Activities.Becas.PerfilBecasActivity" />
         <activity android:name=".Vistas.Activities.Becas.InfoBecasActivity" />
         <activity
@@ -136,18 +132,16 @@
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
+
         </provider> <!-- Servicio de Firebase -->
-        <service android:name="com.unse.bienestar.estudiantil.Herramientas.Firebase.FirebaseMessagingSDEService">
+        <service android:name="com.unse.bienestar.estudiantil.Herramientas.Firebase.FirebaseMessagingSDEService"
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
-        <service android:name="com.unse.bienestar.estudiantil.Herramientas.Firebase.FCMInstanceIdService">
-            <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
-            </intent-filter>
-        </service> <!-- Info Configuración Firebase -->
+        <!-- Info Configuración Firebase -->
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />

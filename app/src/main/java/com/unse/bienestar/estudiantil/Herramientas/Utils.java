@@ -186,6 +186,7 @@ public class Utils {
     public static final int LIST_NOMBRE = 3;
     public static final String INSCRIPCION_ID = "inscripcion_id";
     public static final String INSCRIPCION_ANIO = "anio_id";
+    public static final String TOKEN_FIREBASE = "token_firebase";
 
 
     private static final String IP = "sis.bienestar.unse.edu.ar/api";
@@ -232,7 +233,7 @@ public class Utils {
     public static final String URL_INSCRIPCION_AGREGAR_CREDENCIAL = "https://" + IP + "/deportes/credencial/insertar.php";
     public static final String URL_CREDENCIAL_CAMBIAR = "https://" + IP + "/deportes/credencial/eliminar.php";
     public static final String URL_CREDENCIAL_DEPORTE = "https://" + IP + "/deportes/credencial/getCredencialByUser.php";
-
+    public static final String URL_DEPORTE_TEMPORADAS = "https://" + IP + "/deportes/getTemporadas.php";
 
 
 

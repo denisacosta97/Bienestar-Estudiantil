@@ -27,6 +27,9 @@ import com.android.volley.toolbox.StringRequest;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.RemoteMessage;
+import com.google.firebase.messaging.RemoteMessageCreator;
 import com.unse.bienestar.estudiantil.Herramientas.Almacenamiento.PreferenceManager;
 import com.unse.bienestar.estudiantil.Herramientas.UploadManager;
 import com.unse.bienestar.estudiantil.Herramientas.Utils;
@@ -284,7 +287,9 @@ public class AddNoticiaActivity extends AppCompatActivity implements View.OnClic
         else btnAltaBaja.setText(getString(R.string.btnDeshabilitar));
     }
 
-    private void enviarNotificacion() {
+
+    private void enviarNotificacion(){
+
     }
 
     private void openGallery() {

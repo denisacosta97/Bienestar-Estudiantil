@@ -74,7 +74,6 @@ public class ListadoNoticiasActivity extends AppCompatActivity
     @Override
     protected void onRestart() {
         super.onRestart();
-        loadInfo();
     }
 
     private void setToolbar() {

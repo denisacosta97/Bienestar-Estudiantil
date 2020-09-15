@@ -8,14 +8,19 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.unse.bienestar.estudiantil.Databases.RolViewModel;
+import com.unse.bienestar.estudiantil.Herramientas.Almacenamiento.PreferenceManager;
 import com.unse.bienestar.estudiantil.Herramientas.RecyclerListener.ItemClickSupport;
 import com.unse.bienestar.estudiantil.Herramientas.Utils;
 import com.unse.bienestar.estudiantil.Modelos.Opciones;
+import com.unse.bienestar.estudiantil.Modelos.Rol;
 import com.unse.bienestar.estudiantil.R;
+import com.unse.bienestar.estudiantil.Vistas.Activities.Deportes.GestionDeportes.Inscripciones.InscripcionesActivity;
 import com.unse.bienestar.estudiantil.Vistas.Activities.Deportes.GestionDeportes.Inscripciones.InscripcionesTemporadasActivity;
 import com.unse.bienestar.estudiantil.Vistas.Adaptadores.OpcionesAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -26,8 +31,10 @@ public class GestionDeportesActivity extends AppCompatActivity implements View.O
     RecyclerView mRecyclerView;
     RecyclerView.LayoutManager mLayoutManager;
     OpcionesAdapter mAdapter;
-    ArrayList<Opciones> mOpciones;
+    ArrayList<Opciones> mOpciones, mOpcionesFinal;
     ImageView imgIcono;
+    List<Rol> rols;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +67,7 @@ public class GestionDeportesActivity extends AppCompatActivity implements View.O
                         startActivity(new Intent(getApplicationContext(), InscripcionesTemporadasActivity.class));
                         break;
                     case 106:
-                        //startActivity(new Intent(getApplicationContext(), GestionDeportesActivity.class));
+                        startActivity(new Intent(getApplicationContext(), InscripcionesActivity.class));
                         break;
 
                 }
@@ -73,6 +80,7 @@ public class GestionDeportesActivity extends AppCompatActivity implements View.O
 
     private void loadData() {
         mOpciones = new ArrayList<>();
+        mOpcionesFinal = new ArrayList<>();
         mOpciones.add(new Opciones(true, LinearLayout.VERTICAL, 101, "Inscripciones", R.drawable.ic_usuarios, R.color.colorFCEyT));
         mOpciones.add(new Opciones(true, LinearLayout.VERTICAL, 106, "Gestión de Inscripciones", R.drawable.ic_usuarios, R.color.colorFCEyT));
         //mOpciones.add(new Opciones(true, LinearLayout.VERTICAL, 102, "Gestión de Becados", R.drawable.ic_becas, R.color.colorFCEyT));
@@ -80,10 +88,25 @@ public class GestionDeportesActivity extends AppCompatActivity implements View.O
         //mOpciones.add(new Opciones(true, LinearLayout.VERTICAL, 104, "Gestión de Profesores", R.drawable.ic_entrenador, R.color.colorFCEyT));
         //mOpciones.add(new Opciones(true, LinearLayout.VERTICAL, 105, "Gestión de Torneos", R.drawable.ic_cup, R.color.colorFCEyT));
 
+        filtrarOpciones();
+
         mLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new OpcionesAdapter(mOpciones, getApplicationContext(), 1);
+        mAdapter = new OpcionesAdapter(mOpcionesFinal, getApplicationContext(), 1);
         mRecyclerView.setAdapter(mAdapter);
+    }
+
+    private void filtrarOpciones() {
+        RolViewModel rolViewModel = new RolViewModel(getApplicationContext());
+        PreferenceManager preferenceManager = new PreferenceManager(getApplicationContext());
+        int id = preferenceManager.getValueInt(Utils.MY_ID);
+        rols = rolViewModel.getAllByUsuario(id);
+        for (Opciones e : mOpciones) {
+            for (Rol rol : rols) {
+                if (rol.getIdRol() == e.getId())
+                    mOpcionesFinal.add(e);
+            }
+        }
     }
 
     private void loadViews() {

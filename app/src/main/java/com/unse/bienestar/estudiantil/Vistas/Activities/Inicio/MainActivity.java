@@ -34,6 +34,7 @@ import com.unse.bienestar.estudiantil.Databases.RolViewModel;
 import com.unse.bienestar.estudiantil.Databases.UsuarioViewModel;
 import com.unse.bienestar.estudiantil.Herramientas.Almacenamiento.FileStorageManager;
 import com.unse.bienestar.estudiantil.Herramientas.Almacenamiento.PreferenceManager;
+import com.unse.bienestar.estudiantil.Herramientas.ContextSingleton;
 import com.unse.bienestar.estudiantil.Herramientas.Utils;
 import com.unse.bienestar.estudiantil.Herramientas.VolleySingleton;
 import com.unse.bienestar.estudiantil.Modelos.Rol;
@@ -255,26 +256,30 @@ public class MainActivity extends AppCompatActivity {
 
         switch (itemDrawer.getItemId()) {
             case R.id.item_becas:
-                fragmentoGenerico = new BecasFragment(getApplicationContext());
+                fragmentoGenerico = new BecasFragment(ContextSingleton.getInstance(getApplicationContext()).getContext());
                 break;
             case R.id.item_inicio:
-                fragmentoGenerico = new InicioFragmento(getApplicationContext(), getSupportFragmentManager());
+                fragmentoGenerico = new InicioFragmento(ContextSingleton.getInstance
+                        (getApplicationContext()).getContext(), getSupportFragmentManager());
                 break;
             case R.id.item_poli:
                 fragmentoGenerico = new PoliFragment();
                 break;
             case R.id.item_upa:
-                fragmentoGenerico = new UPAFragment(getApplicationContext());
+                fragmentoGenerico = new UPAFragment(ContextSingleton.
+                        getInstance(getApplicationContext()).getContext());
                 break;
             case R.id.item_ciber:
                 fragmentoGenerico = new CiberFragment();
                 ((CiberFragment) fragmentoGenerico).setActivity(MainActivity.this);
                 break;
             case R.id.item_deporte:
-                fragmentoGenerico = new DeportesFragment(getSupportFragmentManager(), getApplicationContext());
+                fragmentoGenerico = new DeportesFragment(getSupportFragmentManager(), ContextSingleton.
+                        getInstance(getApplicationContext()).getContext());
                 break;
             case R.id.item_transporte:
-                fragmentoGenerico = new TransporteFragment(getApplicationContext(), getSupportFragmentManager());
+                fragmentoGenerico = new TransporteFragment(ContextSingleton.getInstance(
+                        getApplicationContext()).getContext(), getSupportFragmentManager());
                 ((TransporteFragment) fragmentoGenerico).setActivity(MainActivity.this);
                 break;
             case R.id.item_comedor:

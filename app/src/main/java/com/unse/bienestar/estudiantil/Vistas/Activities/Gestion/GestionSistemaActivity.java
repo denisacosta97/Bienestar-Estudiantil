@@ -127,13 +127,13 @@ public class GestionSistemaActivity extends AppCompatActivity implements View.On
         mOpciones.add(new Opciones(true, LinearLayout.HORIZONTAL, 800, "Gestión Comedor", R.drawable.ic_config, R.color.colorGreen));
         mOpciones.add(new Opciones(true, LinearLayout.HORIZONTAL, 1300, "Gestión Noticias", R.drawable.ic_noticias, R.color.colorGreen));
 
-        mOpcionesFinal.addAll(mOpciones);
+        //mOpcionesFinal.addAll(mOpciones);
         mLayoutManager = new GridLayoutManager(getApplicationContext(), 2);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mAdapter = new OpcionesAdapter(mOpcionesFinal, getApplicationContext(), 1);
         mRecyclerView.setAdapter(mAdapter);
 
-       // filtrarOpciones();
+       filtrarOpciones();
 
         mAdapter.notifyDataSetChanged();
     }

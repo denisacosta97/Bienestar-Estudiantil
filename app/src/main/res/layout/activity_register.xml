@@ -381,7 +381,6 @@
                     android:id="@+id/recycler"
                     android:layout_height="wrap_content" />
 
-
             </LinearLayout>
 
             <LinearLayout
@@ -453,15 +452,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Facultad: "
+                        android:textColor="@color/blackTextColor"
                         android:textSize="16sp"
                         android:fontFamily="@font/montserrat_black"/>
 
                     <Spinner
                         android:id="@+id/spinner1"
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
+                        android:layout_height="50dp"
                         android:overlapAnchor="false"
-                        android:background="@drawable/border_spinner"
                         android:spinnerMode="dropdown"
                         android:fontFamily="@font/montserrat_regular"/>
 
@@ -478,14 +477,14 @@
                         android:layout_height="wrap_content"
                         android:text="Carrera: "
                         android:textSize="16sp"
+                        android:textColor="@color/blackTextColor"
                         android:fontFamily="@font/montserrat_black"/>
 
                     <Spinner
                         android:id="@+id/spinner2"
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
+                        android:layout_height="50dp"
                         android:overlapAnchor="false"
-                        android:background="@drawable/border_spinner"
                         android:spinnerMode="dropdown"
                         android:fontFamily="@font/montserrat_regular"/>
 

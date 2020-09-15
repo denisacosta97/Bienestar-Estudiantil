@@ -1,13 +1,16 @@
 package com.unse.bienestar.estudiantil.Herramientas;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
@@ -44,6 +47,7 @@ import com.unse.bienestar.estudiantil.Databases.RolViewModel;
 import com.unse.bienestar.estudiantil.Databases.UsuarioViewModel;
 import com.unse.bienestar.estudiantil.Herramientas.Almacenamiento.FileStorageManager;
 import com.unse.bienestar.estudiantil.Modelos.Archivo;
+import com.unse.bienestar.estudiantil.Modelos.Noticia;
 import com.unse.bienestar.estudiantil.R;
 
 import java.io.ByteArrayOutputStream;
@@ -1185,6 +1189,54 @@ public class Utils {
                 cal.get(Calendar.YEAR);
 
         return value;
+    }
+
+    /**
+     * Método que permite compartir una noticia a otras aplicaciones del usuario
+     *
+     * @param alerta    instancia de la clase Alerta
+     * @param activity  Contexto actual de la actividad desde donde de lo convoca
+     * @param imageView imagen a compartir
+     */
+    public static void onShare(Noticia noticia, Activity activity, ImageView imageView) {
+        File x = createFile(activity.getApplicationContext(), imageView);
+        Uri image = Uri.fromFile(x);
+        Intent share = new Intent();
+        share.setAction(Intent.ACTION_SEND);
+        //share.setPackage("com.whatsapp");
+        share.putExtra(Intent.EXTRA_TEXT,
+                String.format(activity.getApplicationContext().getResources().getString(R.string.shareInfo), noticia.getTitulo()));
+        share.putExtra(Intent.EXTRA_STREAM, image);
+        share.setType("image/jpeg");
+        share.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        share.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        try {
+            //context.startActivity(share);
+            activity.startActivity(Intent.createChooser(share, "Compartir en..."));
+        } catch (ActivityNotFoundException o) {
+            showToast(activity.getApplicationContext(), "No es posible abrir");
+        }
+
+    }
+
+    /**
+     * Permite crear un archivo temporal en el almacenamiento local
+     *
+     * @param context   Contexto actual de la actividad desde donde de lo convoca
+     * @param imageView imagen a guardar
+     * @return fichero con los datos de la imagen almacenada
+     */
+    private static File createFile(Context context, ImageView imageView) {
+        File file = new File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES), "share.jpg");
+        try {
+            Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+            FileOutputStream bos = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 90, bos);
+            bos.close();
+        } catch (IOException e) {
+            showLog("Creator File", e.getMessage());
+        }
+        return file;
     }
 
 }

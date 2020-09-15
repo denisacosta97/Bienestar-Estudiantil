@@ -1,10 +1,14 @@
 package com.unse.bienestar.estudiantil.Vistas.Activities;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -16,11 +20,14 @@ import com.unse.bienestar.estudiantil.R;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import java.io.File;
+
 public class NoticiaLectorActivity extends AppCompatActivity implements View.OnClickListener {
 
     Noticia mNoticia;
     TextView etiqueta, titulo, cuerpo, fecha, hora;
     ImageView imgFlecha, imgFoto;
+    LinearLayout linlayShare;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +66,7 @@ public class NoticiaLectorActivity extends AppCompatActivity implements View.OnC
 
     private void loadListener() {
         imgFlecha.setOnClickListener(this);
+        linlayShare.setOnClickListener(this);
     }
 
     private void loadData() {
@@ -72,6 +80,7 @@ public class NoticiaLectorActivity extends AppCompatActivity implements View.OnC
                 .applyDefaultRequestOptions(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE))
                 .load(URL)
                 .into(imgFoto);
+
     }
 
     private void loadViews() {
@@ -82,7 +91,7 @@ public class NoticiaLectorActivity extends AppCompatActivity implements View.OnC
         hora = findViewById(R.id.txtHoraPublicado);
         imgFlecha = findViewById(R.id.imgFlecha);
         imgFoto = findViewById(R.id.imgPortada);
-
+        linlayShare = findViewById(R.id.linlayShare);
     }
 
     @Override
@@ -91,6 +100,13 @@ public class NoticiaLectorActivity extends AppCompatActivity implements View.OnC
             case R.id.imgFlecha:
                 onBackPressed();
                 break;
+            case R.id.linlayShare:
+                if (imgFoto != null)
+                    Utils.onShare(mNoticia, NoticiaLectorActivity.this, imgFoto);
+                else
+                    Toast.makeText(this, "No es posible compartir esta noticia.", Toast.LENGTH_SHORT).show();
+                break;
+
         }
     }
 }

@@ -101,7 +101,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         setToolbar();
 
-
         loadData();
 
         loadListener();
@@ -110,7 +109,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     private void setToolbar() {
         ((TextView) findViewById(R.id.txtTitulo)).setText("");
-        DrawableCompat.setTint(btnBack.getDrawable(), ContextCompat.getColor(getApplicationContext(), R.color.colorWhite));
+        DrawableCompat.setTint(btnBack.getDrawable(), ContextCompat.getColor(getApplicationContext(), R.color.colorAccent));
     }
 
     private void isAdmin() {
@@ -152,11 +151,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void loadData() {
-        facultadAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, facultad);
-        facultadAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        facultadAdapter = new ArrayAdapter<String>(this, R.layout.style_spinner, facultad);
+        facultadAdapter.setDropDownViewResource(R.layout.style_spinner);
         spinnerFacultad.setAdapter(facultadAdapter);
-        carreraAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, faya);
-        carreraAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        carreraAdapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.style_spinner, faya);
+        carreraAdapter.setDropDownViewResource(R.layout.style_spinner);
         spinnerCarrera.setAdapter(carreraAdapter);
 
         mList = new ArrayList<>();
@@ -170,7 +169,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         mLLProfesor.setVisibility(View.GONE);
         mLLEgresado.setVisibility(View.GONE);
 
-        mManager = new GridLayoutManager(getApplicationContext(), 2);
+        mManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerTipoUsuario.setHasFixedSize(true);
         recyclerTipoUsuario.setLayoutManager(mManager);
         adapterCategorias = new CategoriasAdapter(mList, getApplicationContext());
@@ -246,35 +245,35 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     case 0:
                         //FAyA
                         carreraAdapter = new ArrayAdapter<String>(getApplicationContext(),
-                                android.R.layout.simple_spinner_item, faya);
-                        carreraAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                R.layout.style_spinner, faya);
+                        carreraAdapter.setDropDownViewResource(R.layout.style_spinner);
                         spinnerCarrera.setAdapter(carreraAdapter);
                         break;
                     case 1:
                         //FCEyT
                         carreraAdapter = new ArrayAdapter<String>(getApplicationContext(),
-                                android.R.layout.simple_spinner_item, fceyt);
-                        carreraAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                R.layout.style_spinner, fceyt);
+                        carreraAdapter.setDropDownViewResource(R.layout.style_spinner);
                         spinnerCarrera.setAdapter(carreraAdapter);
                         break;
                     case 2:
                         //FCF
                         carreraAdapter = new ArrayAdapter<String>(getApplicationContext(),
-                                android.R.layout.simple_spinner_item, fcf);
-                        carreraAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                R.layout.style_spinner, fcf);
+                        carreraAdapter.setDropDownViewResource(R.layout.style_spinner);
                         spinnerCarrera.setAdapter(carreraAdapter);
                         break;
                     case 3:
                         //FCM
                         carreraAdapter = new ArrayAdapter<String>(getApplicationContext(),
-                                android.R.layout.simple_spinner_item, fcm);
-                        carreraAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                R.layout.style_spinner, fcm);
+                        carreraAdapter.setDropDownViewResource(R.layout.style_spinner);
                         spinnerCarrera.setAdapter(carreraAdapter);
                         break;
                     case 4:
                         //FHyCS
-                        carreraAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, fhcys);
-                        carreraAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        carreraAdapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.style_spinner, fhcys);
+                        carreraAdapter.setDropDownViewResource(R.layout.style_spinner);
                         spinnerCarrera.setAdapter(carreraAdapter);
                         break;
                 }
@@ -298,7 +297,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             case R.id.btnregister:
                 register();
                 break;
-            case R.id.btnBack:
+            case R.id.imgFlecha:
                 onBackPressed();
                 break;
             case R.id.btnScanner:

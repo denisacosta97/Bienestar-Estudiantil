@@ -261,6 +261,8 @@
     <string name="info_residencia">La Residencia Universitaria de la Universidad Nacional de Santiago del Estero que está bajo la responsabilidad de la Secretaría de Bienestar Estudiantil, es una beca para estudiantes de bajos recursos para promover y garantizar la iniciación y continuación de los estudios universitarios, de aquellos estudiantes con recursos económicos insuficientes y cuya residencia se encuentre a una distancia no menor a 75km de la Universidad y que demuestren un nivel académico satisfactorio.</string>
     <string name="info_residencia2">Con la capacidad de alojar hasta a 94 alumnos en sus 32 habitaciones, la Residencia fue una de las grandes apuestas por parte de la Secretaría de Bienestar Estudiantil.\nDebido a la situación que se está viviendo en la provincia, esta sección estará deshabilitada.</string>
 
+    <string name="shareInfo">¡Mirá esta noticia! *%s*\nMás info desde la app de Bienestar Estudiantil\n
+        https://play.google.com/store/apps/details?id=com.unse.bienestar.estudiantil</string>
 
     <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
 

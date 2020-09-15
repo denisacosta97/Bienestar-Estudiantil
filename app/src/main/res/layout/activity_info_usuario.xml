@@ -755,7 +755,7 @@
                                                             android:textColor="@color/blackTextColor"
                                                             android:text="Carrera:"
                                                             android:textSize="16sp"
-                                                            android:fontFamily="@font/montserrat_regular"/>
+                                                            android:fontFamily="@font/montserrat_black"/>
 
                                                         <Spinner
                                                             android:id="@+id/spinner2"

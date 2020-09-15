@@ -66,11 +66,12 @@
                 android:paddingEnd="5dp"
                 android:textStyle="italic|bold"
                 android:textSize="14sp"
-                android:fontFamily="@font/montserrat_regular"/>
+                android:fontFamily="@font/montserrat_regular"
+                android:paddingRight="5dp" />
 
             <ImageView
                 android:layout_marginStart="5dp"
-                android:src="@drawable/ic_chek"
+                app:srcCompat="@drawable/ic_chek"
                 android:id="@+id/imgEstado"
                 android:visibility="visible"
                 android:layout_width="35dp"

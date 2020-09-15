@@ -11,13 +11,9 @@ public class ContextSingleton {
         mContext = context;
     }
 
-    public static ContextSingleton getInstance(Context context) {
+    public synchronized static ContextSingleton getInstance(Context context) {
         if (INSTANCE == null) {
-            synchronized (ContextSingleton.class) {
-                if (INSTANCE == null) {
-                    INSTANCE = new ContextSingleton(context);
-                }
-            }
+            INSTANCE = new ContextSingleton(context);
         }
         return INSTANCE;
     }

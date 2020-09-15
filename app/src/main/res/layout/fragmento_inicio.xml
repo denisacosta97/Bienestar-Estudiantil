@@ -31,8 +31,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <include layout="@layout/item_menu_comedor" />
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerNoticias"
                 android:layout_width="match_parent"

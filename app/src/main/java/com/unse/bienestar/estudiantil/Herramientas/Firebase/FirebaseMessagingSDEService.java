@@ -28,13 +28,6 @@ public class FirebaseMessagingSDEService extends FirebaseMessagingService {
         displayNotification(remoteMessage.getNotification(), remoteMessage.getData());
     }
 
-    @Override
-    public void onNewToken(@NonNull String s) {
-        super.onNewToken(s);
-        PreferenceManager preferenceManager = new PreferenceManager(ContextSingleton.getInstance(getApplicationContext()).getContext());
-        preferenceManager.setValue(Utils.TOKEN_FIREBASE, s);
-    }
-
 
     private void displayNotification(RemoteMessage.Notification notification, Map<String, String> data) {
         Intent intent = new Intent(this, MainActivity.class);

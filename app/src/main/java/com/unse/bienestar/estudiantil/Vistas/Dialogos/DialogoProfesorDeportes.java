@@ -16,7 +16,6 @@ import com.unse.bienestar.estudiantil.Herramientas.RecyclerListener.ItemClickSup
 import com.unse.bienestar.estudiantil.Herramientas.Utils;
 import com.unse.bienestar.estudiantil.Modelos.Deporte;
 import com.unse.bienestar.estudiantil.R;
-import com.unse.bienestar.estudiantil.Vistas.Activities.Deportes.FuncionesProfesor.FuncionesProfesorActivity;
 import com.unse.bienestar.estudiantil.Vistas.Adaptadores.DeportesAdapter;
 
 import java.util.ArrayList;
@@ -84,7 +83,7 @@ public class DialogoProfesorDeportes extends DialogFragment {
 //        mDeportes.add(new Deporte(4, R.drawable.ic_futbol, "Fútbol 11 Femenino", "José Grecco", "lunes, miércoles y viernes","18:30hs a 20:30hs"));
 
         mDeportesAdapter = new DeportesAdapter(mDeportes, getContext(), true);
-        mLayoutManager = new LinearLayoutManager(getContext(), LinearLayout.VERTICAL, false);
+        mLayoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
         reciclerDeportes.setNestedScrollingEnabled(true);
         reciclerDeportes.setLayoutManager(mLayoutManager);
         reciclerDeportes.setAdapter(mDeportesAdapter);
@@ -93,9 +92,9 @@ public class DialogoProfesorDeportes extends DialogFragment {
         itemClickSupport.setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
             @Override
             public void onItemClick(RecyclerView parent, View view, int position, long id) {
-                Intent i = new Intent(getContext(), FuncionesProfesorActivity.class);
-                i.putExtra(Utils.DEPORTE_NAME, mDeportes.get(position));
-                startActivity(i);
+               // Intent i = new Intent(getContext(), FuncionesProfesorActivity.class);
+                //i.putExtra(Utils.DEPORTE_NAME, mDeportes.get(position));
+                //startActivity(i);
             }
         });
     }

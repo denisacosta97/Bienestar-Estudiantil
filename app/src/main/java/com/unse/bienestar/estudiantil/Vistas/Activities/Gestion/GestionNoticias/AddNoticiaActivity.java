@@ -27,9 +27,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
-import com.google.firebase.messaging.FirebaseMessaging;
-import com.google.firebase.messaging.RemoteMessage;
-import com.google.firebase.messaging.RemoteMessageCreator;
 import com.unse.bienestar.estudiantil.Herramientas.Almacenamiento.PreferenceManager;
 import com.unse.bienestar.estudiantil.Herramientas.UploadManager;
 import com.unse.bienestar.estudiantil.Herramientas.Utils;
@@ -288,7 +285,7 @@ public class AddNoticiaActivity extends AppCompatActivity implements View.OnClic
     }
 
 
-    private void enviarNotificacion(){
+    private void enviarNotificacion() {
 
     }
 
@@ -312,7 +309,8 @@ public class AddNoticiaActivity extends AppCompatActivity implements View.OnClic
                                 .load(mBitmapFileSelect).into(imgvAddImg);
                     }
                     if (mNoticia != null)
-                        isEdit = true; nameFileSelect = "cambio";
+                        isEdit = true;
+                    nameFileSelect = "cambio";
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
@@ -327,7 +325,7 @@ public class AddNoticiaActivity extends AppCompatActivity implements View.OnClic
 
     private void uploadImage(final Bitmap bitmap) {
         VolleyMultipartRequest.DataPart dataPart = new VolleyMultipartRequest.DataPart(
-                 nameFileSelect,
+                nameFileSelect,
                 Utils.getFileDataFromDrawable(bitmap)
         );
         VolleyMultipartRequest volleyMultipartRequest = new UploadManager.Builder(getApplicationContext())

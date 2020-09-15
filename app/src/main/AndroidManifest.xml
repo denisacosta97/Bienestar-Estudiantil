@@ -140,6 +140,12 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+        <!-- Info Configuración Firebase -->
+        <service android:name="com.unse.bienestar.estudiantil.Herramientas.Firebase.FCMInstanceIdService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
 
         <!-- Info Configuración Firebase -->
         <uses-library

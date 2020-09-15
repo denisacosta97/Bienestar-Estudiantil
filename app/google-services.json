@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "1052591731941-moqmdu7kg6oqp9b17qf1aa0ltsdr818r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.unse.bienestar.estudiantil",
+            "certificate_hash": "8a70a887ddfb746eda399383683239d87e56e3d2"
+          }
+        },
+        {
+          "client_id": "1052591731941-540tdlil7cbonmqt7nrn1or805vqhiea.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.unse.bienestar.estudiantil",
+            "certificate_hash": "69633b66134332c13138170b1e223d203fd67685"
+          }
+        },
+        {
           "client_id": "1052591731941-bomf7kaafp4ilgbfk0da22128ru4rdpm.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -29,7 +45,7 @@
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDhDGTx0maVwAaEbsb_jHq64eTBT8dx8iM"
+          "current_key": "AIzaSyCMCfaNFXLNcXT4T719eW5QPnbU82rdgvg"
         }
       ],
       "services": {

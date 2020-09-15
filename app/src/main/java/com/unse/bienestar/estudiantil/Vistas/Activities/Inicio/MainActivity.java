@@ -253,7 +253,7 @@ public class MainActivity extends AppCompatActivity {
     private void seleccionarItem(MenuItem itemDrawer) {
         Fragment fragmentoGenerico = null;
         FragmentManager fragmentManager = getSupportFragmentManager();
-
+        boolean isOption = false;
         switch (itemDrawer.getItemId()) {
             case R.id.item_becas:
                 fragmentoGenerico = new BecasFragment(ContextSingleton.getInstance(getApplicationContext()).getContext());
@@ -283,21 +283,26 @@ public class MainActivity extends AppCompatActivity {
                 ((TransporteFragment) fragmentoGenerico).setActivity(MainActivity.this);
                 break;
             case R.id.item_comedor:
+
                 fragmentoGenerico = new ComedorFragment();
                 break;
             case R.id.item_resi:
                 fragmentoGenerico = new ResidenciaFragment();
                 break;
             case R.id.item_perfil:
+                isOption = true;
                 startActivity(new Intent(MainActivity.this, PerfilActivity.class));
                 break;
             case R.id.item_sistema:
+                isOption = true;
                 startActivity(new Intent(this, GestionSistemaActivity.class));
                 break;
             case R.id.item_about:
+                isOption = true;
                 startActivity(new Intent(this, AboutActivity.class));
                 break;
             case R.id.item_terminos:
+                isOption = true;
                 startActivity(new Intent(this, TermsActivity.class));
                 break;
         }
@@ -316,8 +321,8 @@ public class MainActivity extends AppCompatActivity {
                     .replace(R.id.contenedor_principal, fragmentoGenerico)
                     .commit();
         }
-
-        mFragment = fragmentoGenerico;
+        if (!isOption)
+            mFragment = fragmentoGenerico;
 
         if (!ids.containsKey(itemDrawer.getTitle()))
             ((TextView) findViewById(R.id.txtTitulo)).setText(itemDrawer.getTitle());

@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.unse.bienestar.estudiantil.Herramientas.Utils;
 import com.unse.bienestar.estudiantil.R;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,7 +36,9 @@ public class ConfiguracionesActivities extends AppCompatActivity implements View
     }
 
     private void setToolbar() {
-        ((TextView) findViewById(R.id.txtTitulo)).setText("");
+        ((TextView) findViewById(R.id.txtTitulo)).setText("Configuraciones");
+        ((TextView) findViewById(R.id.txtTitulo)).setTextColor(getResources().getColor(R.color.colorAccent));
+        Utils.changeColorDrawable(((ImageView) findViewById(R.id.imgFlecha)), getApplicationContext(), R.color.colorAccent);
     }
 
     private void loadData() {

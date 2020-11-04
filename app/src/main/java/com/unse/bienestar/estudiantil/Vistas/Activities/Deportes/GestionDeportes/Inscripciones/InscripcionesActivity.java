@@ -268,7 +268,7 @@ public class InscripcionesActivity extends AppCompatActivity implements View.OnC
         for (int i = 0; i < jsonArray.length(); i++) {
             try {
                 JSONObject j = jsonArray.getJSONObject(i);
-                Deporte deporte = Deporte.mapper(j, Deporte.COMPLETE);
+                Deporte deporte = Deporte.mapper(j, Deporte.BASIC);
                 ItemDato dato = new ItemDato();
                 dato.setDeporte(deporte);
                 dato.setTipo(ItemDato.TIPO_DEPORTE);

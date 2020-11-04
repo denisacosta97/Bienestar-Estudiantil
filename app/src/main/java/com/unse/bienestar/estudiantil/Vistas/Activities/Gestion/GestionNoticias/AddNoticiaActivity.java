@@ -108,7 +108,7 @@ public class AddNoticiaActivity extends AppCompatActivity implements View.OnClic
             mSpinnerCategorias.setSelection(mNoticia.getIdArea());
             edtTitulo.setText(mNoticia.getTitulo());
             edtSubTitulo.setText(mNoticia.getSubtitlo());
-            edtDesc.setText(mNoticia.getDescripcion());
+            edtDesc.setText(Utils.getText(mNoticia.getDescripcion()));
             changeButton();
         }
     }
@@ -202,10 +202,6 @@ public class AddNoticiaActivity extends AppCompatActivity implements View.OnClic
 
                     }
 
-                    @Override
-                    public void aceptar() {
-
-                    }
                 })
                 .setIcono(R.drawable.ic_advertencia)
                 .setTipo(DialogoGeneral.TIPO_SI_NO);
@@ -387,10 +383,12 @@ public class AddNoticiaActivity extends AppCompatActivity implements View.OnClic
         if (validador.validarTexto(edtTitulo) && validador.validarTexto(edtSubTitulo)
                 && validador.validarTexto(edtDesc)) {
 
+            cuerpo = Utils.styleText(cuerp);
+
             if (isEdit) {
                 titulo = tit;
                 subtitulo = stit;
-                cuerpo = cuerp;
+                cuerpo = Utils.styleText(cuerp);
                 if (nameFileSelect == null) {
                     nameFileSelect = mNoticia.getImagen();
                     sendServer(titulo, subtitulo, cuerpo);
@@ -409,7 +407,7 @@ public class AddNoticiaActivity extends AppCompatActivity implements View.OnClic
                 nameFileSelect = String.format("noticia_%s.jpg", fecha);
                 titulo = tit;
                 subtitulo = stit;
-                cuerpo = cuerp;
+                cuerpo = Utils.styleText(cuerp);
                 uploadImage(mBitmapFileSelect);
             } else {
                 sendServer(tit, stit, cuerp);

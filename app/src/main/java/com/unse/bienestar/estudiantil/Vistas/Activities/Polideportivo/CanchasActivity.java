@@ -187,10 +187,6 @@ public class CanchasActivity extends AppCompatActivity implements View.OnClickLi
                         finish();
                     }
 
-                    @Override
-                    public void aceptar() {
-
-                    }
                 })
                 .setTipo(DialogoGeneral.TIPO_SI_NO);
         final DialogoGeneral mensaje = builder.build();

@@ -20,7 +20,7 @@ public class RolViewModel {
     }
 
     public void delete(final Rol rol) {
-        mRepository.delete(rol);
+
     }
 
     public void update(final Rol rol) {

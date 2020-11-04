@@ -204,11 +204,6 @@ public class ResumenTurnoActivity extends AppCompatActivity implements View.OnCl
                     public void no() {
 
                     }
-
-                    @Override
-                    public void aceptar() {
-
-                    }
                 });
         final DialogoGeneral mensaje = builder.build();
         mensaje.setCancelable(false);

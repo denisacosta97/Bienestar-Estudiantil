@@ -9,19 +9,13 @@ import java.util.List;
 public class ProfesorRepository {
 
     private ProfesorDAO mProfesorDAO;
-    private BDBienestar bdBienestar;
 
     public ProfesorRepository(Context application) {
-        bdBienestar = BDBienestar.getDatabase(application);
-        mProfesorDAO = bdBienestar.getProfesorDAO();
+        mProfesorDAO = new ProfesorDAO(application);
     }
 
     public void insert(final Profesor profesor) {
         mProfesorDAO.insert(profesor);
-    }
-
-    public void delete(final Profesor profesor) {
-        mProfesorDAO.delete(profesor);
     }
 
     public void update(final Profesor profesor) {
@@ -42,7 +36,7 @@ public class ProfesorRepository {
         return mProfesorDAO.getAll();
     }
 
-    public void deleteAll(){
+    public void deleteAll() {
         mProfesorDAO.deleteAll();
     }
 

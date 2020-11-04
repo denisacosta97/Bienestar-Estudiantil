@@ -96,7 +96,7 @@ public class GestionSistemaActivity extends AppCompatActivity implements View.On
                         break;
 
                 }
-                Utils.showToast(getApplicationContext(), "Item: " + mOpciones.get(position).getTitulo());
+                //Utils.showToast(getApplicationContext(), "Item: " + mOpciones.get(position).getTitulo());
             }
         });
         imgIcono.setOnClickListener(this);

@@ -64,7 +64,7 @@ public class GestionNoticiasActivity extends AppCompatActivity implements View.O
                         startActivity(new Intent(getApplicationContext(),  ListadoNoticiasActivity.class));
                         break;
                 }
-                Utils.showToast(getApplicationContext(), "Item: " + mOpciones.get(position).getTitulo());
+               // Utils.showToast(getApplicationContext(), "Item: " + mOpciones.get(position).getTitulo());
             }
         });
         imgIcono.setOnClickListener(this);
@@ -75,7 +75,7 @@ public class GestionNoticiasActivity extends AppCompatActivity implements View.O
         mOpciones = new ArrayList<>();
         mOpciones.add(new Opciones(true, LinearLayout.VERTICAL, 101, "Nueva noticia", R.drawable.ic_add, R.color.colorFCEyT));
         mOpciones.add(new Opciones(true, LinearLayout.VERTICAL, 102, "Listado de noticias", R.drawable.ic_listado, R.color.colorFCEyT));
-        mOpciones.add(new Opciones(true, LinearLayout.VERTICAL, 103, "Estadísticas", R.drawable.ic_estadisticas_color, R.color.colorFCEyT));
+        //mOpciones.add(new Opciones(true, LinearLayout.VERTICAL, 103, "Estadísticas", R.drawable.ic_estadisticas_color, R.color.colorFCEyT));
 
         mLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);

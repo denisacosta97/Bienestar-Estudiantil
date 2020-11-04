@@ -4,56 +4,51 @@ import android.os.Parcel;
 
 import java.io.Serializable;
 
-import androidx.annotation.NonNull;
-import androidx.room.Entity;
-import androidx.room.Ignore;
-
-@Entity(tableName = "roles", primaryKeys = {"idRol", "idUsuario"})
 public class Rol implements Serializable {
 
-    @Ignore
-    public static final String TABLE_ROL = "roles";
-    @Ignore
+    public static final String TABLE = "roles";
     public static final String KEY_USER = "idUsuario";
-    @Ignore
     public static final String KEY_ROL = "idRol";
+    public static final String KEY_DESCRIPCON = "descripcion";
+    public static final String KEY_ID_PADRE = "idRolPadre";
 
-    @NonNull
+
     private int idRol;
-    @NonNull
     private int idUsuario;
-    @NonNull
     private String descripcion;
-    @Ignore
     private int idRolPadre;
 
-    @Ignore
+    public Rol() {
+        descripcion = "";
+
+    }
+
     public Rol(int idRol, int idUsuario) {
         this.idRol = idRol;
         this.idUsuario = idUsuario;
     }
 
-    public Rol(int idRol, int idUsuario, @NonNull String descripcion) {
+    public Rol(int idRol, int idUsuario, String descripcion) {
         this.idRol = idRol;
         this.idUsuario = idUsuario;
         this.descripcion = descripcion;
     }
 
-    @Ignore
-    public Rol(int idRol, int idRolPadre, @NonNull  String descripcion, int f) {
+
+    public Rol(int idRol, int idRolPadre, String descripcion, int f) {
         this.idRol = idRol;
         this.idRolPadre = idRolPadre;
         this.descripcion = descripcion;
     }
 
-    @Ignore
+
     public Rol(int idRol, int idUsuario, int idRolPadre) {
         this.idRol = idRol;
         this.idUsuario = idUsuario;
         this.idRolPadre = idRolPadre;
     }
 
-    @Ignore
+
     protected Rol(Parcel in) {
         idRol = in.readInt();
         idUsuario = in.readInt();
@@ -94,7 +89,7 @@ public class Rol implements Serializable {
         this.idRolPadre = idRolPadre;
     }
 
-    @NonNull
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();

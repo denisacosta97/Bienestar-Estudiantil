@@ -188,7 +188,17 @@
                     android:gravity="center"
                     android:fontFamily="@font/montserrat_black"/>
 
+                <TextView
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="No disponible"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/montserrat_regular"/>
+
                 <LinearLayout
+                    android:visibility="gone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"

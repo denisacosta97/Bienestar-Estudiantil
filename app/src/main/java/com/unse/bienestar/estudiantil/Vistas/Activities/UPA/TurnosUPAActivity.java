@@ -82,11 +82,6 @@ public class TurnosUPAActivity extends AppCompatActivity implements View.OnClick
                     public void no() {
 
                     }
-
-                    @Override
-                    public void aceptar() {
-
-                    }
                 });
         final DialogoGeneral mensaje = builder.build();
         mensaje.setCancelable(false);

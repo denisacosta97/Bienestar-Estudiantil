@@ -9,20 +9,15 @@ import java.util.List;
 public class EgresadoRepository {
     
     private EgresadoDAO mEgresadoDAO;
-    private BDBienestar bdBienestar;
 
     public EgresadoRepository(Context application) {
-        bdBienestar = BDBienestar.getDatabase(application);
-        mEgresadoDAO = bdBienestar.getEgresadoDAO();
+        mEgresadoDAO = new EgresadoDAO(application);
     }
 
     public void insert(final Egresado egresado) {
         mEgresadoDAO.insert(egresado);
     }
 
-    public void delete(final Egresado egresado) {
-        mEgresadoDAO.delete(egresado);
-    }
 
     public void update(final Egresado egresado) {
         mEgresadoDAO.update(egresado);

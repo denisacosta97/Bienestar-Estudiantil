@@ -13,11 +13,20 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.bumptech.glide.Glide;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.unse.bienestar.estudiantil.Herramientas.Almacenamiento.PreferenceManager;
 import com.unse.bienestar.estudiantil.Herramientas.Utils;
 import com.unse.bienestar.estudiantil.Herramientas.VolleySingleton;
+import com.unse.bienestar.estudiantil.Interfaces.YesNoDialogListener;
 import com.unse.bienestar.estudiantil.Modelos.Deporte;
 import com.unse.bienestar.estudiantil.R;
+import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoGeneral;
 import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoProcesamiento;
 
 import org.json.JSONException;
@@ -25,13 +34,15 @@ import org.json.JSONObject;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class InfoDeporteActivity extends AppCompatActivity implements View.OnClickListener {
+public class InfoDeporteActivity extends AppCompatActivity implements View.OnClickListener, OnMapReadyCallback {
 
     Deporte mDeporte;
-    TextView txtHorario, txtDia, txtEntrenador, txtNombre;
+    TextView txtHorario, txtDia, txtEntrenador, txtNombre, txtLugar;
     ImageView imgIcon, btnBack;
+    GoogleMap maps;
     Button btnRegister;
     DialogoProcesamiento dialog;
+    SupportMapFragment mapFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,12 +71,15 @@ public class InfoDeporteActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void loadData() {
+        assert mapFragment != null;
+        mapFragment.getMapAsync(this);
         if (mDeporte.getProfesor().getIdProfesor() == 0)
             txtEntrenador.setText(getString(R.string.noAsignado));
         else txtEntrenador.setText(String.format("%s %s", mDeporte.getProfesor().getNombre(),
                 mDeporte.getProfesor().getApellido()));
         txtHorario.setText(mDeporte.getHorario());
         txtDia.setText(mDeporte.getDias());
+        txtLugar.setText(mDeporte.getLugar());
         txtNombre.setText(mDeporte.getName());
         Glide.with(imgIcon.getContext()).load(mDeporte.getIconDeporte()).into(imgIcon);
     }
@@ -77,7 +91,9 @@ public class InfoDeporteActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void loadViews() {
+        mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         txtHorario = findViewById(R.id.txtHorarios);
+        txtLugar = findViewById(R.id.txtLugar);
         txtDia = findViewById(R.id.txtDia);
         txtEntrenador = findViewById(R.id.txtEntrenador);
         txtNombre = findViewById(R.id.txtNameDeporte);
@@ -182,5 +198,41 @@ public class InfoDeporteActivity extends AppCompatActivity implements View.OnCli
             e.printStackTrace();
             Utils.showToast(getApplicationContext(), getString(R.string.errorInternoAdmin));
         }
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        maps = googleMap;
+        maps.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+                DialogoGeneral.Builder builder = new DialogoGeneral.Builder(getApplicationContext())
+                        .setTipo(DialogoGeneral.TIPO_ACEPTAR_CANCELAR)
+                        .setTitulo(getString(R.string.advertencia))
+                        .setDescripcion(getString(R.string.abrirMapa))
+                        .setIcono(R.drawable.ic_advertencia)
+                        .setListener(new YesNoDialogListener() {
+                            @Override
+                            public void yes() {
+                                LatLng latLng = new LatLng(Double.parseDouble(mDeporte.getLat()), Double.parseDouble(mDeporte.getLon()));
+                                Utils.openMap(InfoDeporteActivity.this, latLng);
+                            }
+
+                            @Override
+                            public void no() {
+
+                            }
+                        });
+                DialogoGeneral dialogoGeneral = builder.build();
+                dialogoGeneral.show(getSupportFragmentManager(), "dialogo_pregunta");
+            }
+        });
+        LatLng latLng = new LatLng(Double.parseDouble(mDeporte.getLat()), Double.parseDouble(mDeporte.getLon()));
+        MarkerOptions markerOptions = new MarkerOptions()
+                .position(latLng)
+                .title(mDeporte.getLugar()).
+                        icon(BitmapDescriptorFactory.defaultMarker());
+        maps.addMarker(markerOptions);
+        maps.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16));
     }
 }

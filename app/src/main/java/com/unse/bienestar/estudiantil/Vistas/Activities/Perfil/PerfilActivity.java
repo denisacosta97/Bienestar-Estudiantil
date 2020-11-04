@@ -239,11 +239,6 @@ public class PerfilActivity extends AppCompatActivity implements View.OnClickLis
                     public void no() {
 
                     }
-
-                    @Override
-                    public void aceptar() {
-
-                    }
                 })
                 .setTipo(DialogoGeneral.TIPO_ACEPTAR);
         DialogoGeneral dialogoGeneral = builder.build();
@@ -299,10 +294,6 @@ public class PerfilActivity extends AppCompatActivity implements View.OnClickLis
                     public void no() {
                     }
 
-                    @Override
-                    public void aceptar() {
-
-                    }
                 })
                 .setTipo(DialogoGeneral.TIPO_SI_NO);
         final DialogoGeneral dialogoGeneral = builder.build();

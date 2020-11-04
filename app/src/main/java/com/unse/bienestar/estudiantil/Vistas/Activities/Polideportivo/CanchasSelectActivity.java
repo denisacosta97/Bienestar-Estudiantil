@@ -153,11 +153,6 @@ public class CanchasSelectActivity extends AppCompatActivity implements View.OnC
                     public void no() {
 
                     }
-
-                    @Override
-                    public void aceptar() {
-
-                    }
                 });
         final DialogoGeneral mensaje = builder.build();
         mensaje.setCancelable(false);

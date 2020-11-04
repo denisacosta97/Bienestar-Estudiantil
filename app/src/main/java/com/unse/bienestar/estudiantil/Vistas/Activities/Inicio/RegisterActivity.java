@@ -1,9 +1,12 @@
 package com.unse.bienestar.estudiantil.Vistas.Activities.Inicio;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
@@ -25,14 +28,17 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.unse.bienestar.estudiantil.BuildConfig;
 import com.unse.bienestar.estudiantil.Herramientas.RecyclerListener.ItemClickSupport;
 import com.unse.bienestar.estudiantil.Herramientas.Utils;
 import com.unse.bienestar.estudiantil.Herramientas.Validador;
 import com.unse.bienestar.estudiantil.Herramientas.VolleySingleton;
+import com.unse.bienestar.estudiantil.Interfaces.YesNoDialogListener;
 import com.unse.bienestar.estudiantil.Modelos.Categoria;
 import com.unse.bienestar.estudiantil.R;
 import com.unse.bienestar.estudiantil.Vistas.Activities.Perfil.UploadPictureActivity;
 import com.unse.bienestar.estudiantil.Vistas.Adaptadores.CategoriasAdapter;
+import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoGeneral;
 import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoProcesamiento;
 import com.unse.bienestar.estudiantil.Vistas.Fragmentos.DatePickerFragment;
 
@@ -40,7 +46,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Timer;
@@ -48,14 +53,18 @@ import java.util.TimerTask;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import static android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS;
 import static com.unse.bienestar.estudiantil.Herramientas.Utils.GET_FROM_DNI;
+import static com.unse.bienestar.estudiantil.Herramientas.Utils.PERMISSION_ALL;
+import static com.unse.bienestar.estudiantil.Herramientas.Utils.REQUEST_GROUP_PERMISSIONS_LOCATION;
 import static com.unse.bienestar.estudiantil.Herramientas.Utils.facultad;
 import static com.unse.bienestar.estudiantil.Herramientas.Utils.faya;
 import static com.unse.bienestar.estudiantil.Herramientas.Utils.fceyt;
@@ -301,9 +310,58 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 onBackPressed();
                 break;
             case R.id.btnScanner:
-                startActivityForResult(new Intent(this, BarcodeActivity.class), GET_FROM_DNI);
+                checkPermission();
                 break;
 
+        }
+    }
+
+    private void checkPermission() {
+        if ((ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA)
+                == PackageManager.PERMISSION_GRANTED)) {
+            startActivityForResult(new Intent(this, BarcodeActivity.class), GET_FROM_DNI);
+        } else if (ActivityCompat.shouldShowRequestPermissionRationale(RegisterActivity.this,
+                Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            Intent intent = new Intent();
+            intent.setAction(ACTION_APPLICATION_DETAILS_SETTINGS);
+            Uri uri = Uri.fromParts("package", BuildConfig.APPLICATION_ID, null);
+            intent.setData(uri);
+            startActivityForResult(intent, REQUEST_GROUP_PERMISSIONS_LOCATION);
+            Utils.showToast(getApplicationContext(), "Por favor, autoriza el permiso de cámara");
+
+        } else {
+            DialogoGeneral.Builder builder = new DialogoGeneral.Builder(getApplicationContext())
+                    .setTitulo(getString(R.string.permisoNecesario))
+                    .setIcono(R.drawable.ic_advertencia)
+                    .setDescripcion(getString(R.string.permisoCamara))
+                    .setTipo(DialogoGeneral.TIPO_ACEPTAR_CANCELAR)
+                    .setListener(new YesNoDialogListener() {
+                        @Override
+                        public void yes() {
+                            ActivityCompat.requestPermissions(RegisterActivity.this,
+                                    new String[]{Manifest.permission.CAMERA},
+                                    PERMISSION_ALL);
+                        }
+
+                        @Override
+                        public void no() {
+                        }
+                    });
+            DialogoGeneral dialogoGeneral = builder.build();
+            dialogoGeneral.show(getSupportFragmentManager(), "dialogo_permiso");
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case PERMISSION_ALL:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    startActivityForResult(new Intent(this, BarcodeActivity.class), GET_FROM_DNI);
+                }
+                break;
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
 
@@ -337,7 +395,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 && validador.validarFecha(edtFechaNac) && validador.validarContraseña(edtContra, edtContraConf)
                 && validador.validarDomicilio(edtDomicilio)
                 && !validador.validarNombresEdt(edtNombre, edtApellido, edtPais,
-                edtProvincia, edtLocalidad, edtBarrio)) {
+                edtProvincia) && validador.validarTexto(edtBarrio) &&
+                validador.validarTexto(edtLocalidad)) {
             idDNI = Integer.parseInt(dni);
             switch (tipoUsuario) {
                 case Utils.TIPO_ALUMNO:
@@ -475,7 +534,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                param.put("key","jeje");
+                param.put("key", "jeje");
                 return param;
             }
         };

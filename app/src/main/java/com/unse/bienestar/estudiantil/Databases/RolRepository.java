@@ -9,20 +9,15 @@ import java.util.List;
 public class RolRepository {
 
     private RolDAO mRolDAO;
-    private BDBienestar bdBienestar;
 
     public RolRepository(Context application) {
-        bdBienestar = BDBienestar.getDatabase(application);
-        mRolDAO = bdBienestar.getRolDAO();
+        mRolDAO = new RolDAO(application);
     }
 
     public void insert(final Rol rol) {
         mRolDAO.insert(rol);
     }
 
-    public void delete(final Rol rol) {
-        mRolDAO.delete(rol);
-    }
 
     public void update(final Rol rol) {
         mRolDAO.update(rol);

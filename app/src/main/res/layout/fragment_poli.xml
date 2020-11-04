@@ -112,13 +112,7 @@
                     android:layout_width="190dp"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:background="@color/colorPrimaryDark"></LinearLayout>
-
-<!--                <ImageView-->
-<!--                    android:layout_width="300dp"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:src="@drawable/shape_triangle"-->
-<!--                    android:layout_marginLeft="-56dp" />-->
+                    android:background="@color/colorPrimaryDark" />
 
                 <TextView
                     android:layout_width="match_parent"

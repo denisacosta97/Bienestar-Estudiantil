@@ -97,7 +97,7 @@ public class NoticiasAdapter extends RecyclerView.Adapter<NoticiasAdapter.Notici
         } else {
 
             holder.txtDescripcion.setText(noticia.getSubtitlo().length() > 50 ?
-                    noticia.getSubtitlo().substring(0, 49) : noticia.getSubtitlo());
+                    noticia.getSubtitlo().substring(0, 49)+"..." : noticia.getSubtitlo());
             String URL = String.format(Utils.URL_IMAGE_NOTICIA, noticia.getImagen());
             Glide.with(holder.imgFoto.getContext())
                     .applyDefaultRequestOptions(new RequestOptions().centerCrop().diskCacheStrategy(DiskCacheStrategy.NONE))

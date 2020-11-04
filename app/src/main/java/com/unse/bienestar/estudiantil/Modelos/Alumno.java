@@ -6,38 +6,36 @@ import android.os.Parcelable;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import androidx.annotation.NonNull;
-import androidx.room.Entity;
-import androidx.room.Ignore;
-
-@Entity(tableName = "alumno")
 public class Alumno extends Usuario implements Parcelable {
 
-    @Ignore
-    public static final String TABLE_ALUMNO = "alumno";
-    @Ignore
+    public static final String TABLE = "alumno";
     public static final String KEY_ID_ALU = "idAlumno";
+    public static final String KEY_CARRERA = "carrera";
+    public static final String KEY_LEGAJO = "legajo";
+    public static final String KEY_FACULTAD = "facultad";
+    public static final String KEY_ANIO = "anio";
+    public static final String KEY_REGULARIDAD = "regularidad";
 
-    @NonNull
+
     private int idAlumno;
-    @NonNull
+
     private String carrera;
-    @NonNull
+
     private String facultad;
-    @NonNull
+
     private String anio;
-    @NonNull
+
     private String legajo;
-    @NonNull
+
     private int idRegularidad;
 
-    public Alumno(int idUsuario, @NonNull String nombre, @NonNull String apellido,
-                  @NonNull String fechaNac, @NonNull String pais, @NonNull String provincia,
-                  @NonNull String localidad, @NonNull String domicilio, @NonNull String barrio,
-                  @NonNull String telefono, @NonNull String sexo, @NonNull String mail,
-                  int tipoUsuario, @NonNull String fechaRegistro, @NonNull String fechaModificacion,
-                  int validez, int idAlumno, @NonNull String carrera, @NonNull String facultad,
-                  @NonNull String anio, @NonNull String legajo, int idRegularidad) {
+    public Alumno(int idUsuario, String nombre, String apellido,
+                  String fechaNac, String pais, String provincia,
+                  String localidad, String domicilio, String barrio,
+                  String telefono, String sexo, String mail,
+                  int tipoUsuario, String fechaRegistro, String fechaModificacion,
+                  int validez, int idAlumno, String carrera, String facultad,
+                  String anio, String legajo, int idRegularidad) {
         super(idUsuario, nombre, apellido, fechaNac, pais, provincia, localidad, domicilio,
                 barrio, telefono, sexo, mail, tipoUsuario, fechaRegistro,
                 fechaModificacion, validez);
@@ -49,12 +47,10 @@ public class Alumno extends Usuario implements Parcelable {
         this.idRegularidad = idRegularidad;
     }
 
-    @Ignore
     public Alumno() {
 
     }
 
-    @Ignore
     protected Alumno(Parcel in) {
         setIdUsuario(in.readInt());
         setTipoUsuario(in.readInt());

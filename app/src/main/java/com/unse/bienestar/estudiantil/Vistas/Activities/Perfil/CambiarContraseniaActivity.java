@@ -175,11 +175,6 @@ public class CambiarContraseniaActivity extends AppCompatActivity implements Vie
                                 public void no() {
 
                                 }
-
-                                @Override
-                                public void aceptar() {
-
-                                }
                             })
                             .setColorBackground(R.color.colorGreen)
                             .setColorButtonNo(R.color.colorGreen)

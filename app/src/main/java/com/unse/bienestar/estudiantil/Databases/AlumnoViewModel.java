@@ -21,7 +21,6 @@ public class AlumnoViewModel {
     }
 
     public void delete(Alumno alumno) {
-        mRepository.delete(alumno);
     }
 
     public void update(Alumno alumno) {

@@ -9,19 +9,14 @@ import java.util.List;
 public class AlumnoRepository {
     
     private AlumnoDAO mAlumnoDAO;
-    private BDBienestar mBDBienestar;
     
     public AlumnoRepository(Context context){
-        mBDBienestar = BDBienestar.getDatabase(context);
-        mAlumnoDAO = mBDBienestar.getAlumnoDao();
+        mAlumnoDAO = new AlumnoDAO(context);
+
     }
 
     public void insert(final Alumno alumno) {
         mAlumnoDAO.insert(alumno);
-    }
-
-    public void delete(final Alumno alumno) {
-        mAlumnoDAO.delete(alumno);
     }
 
     public void update(final Alumno alumno) {

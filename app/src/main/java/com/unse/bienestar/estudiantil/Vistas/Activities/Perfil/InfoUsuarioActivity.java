@@ -1,9 +1,11 @@
 package com.unse.bienestar.estudiantil.Vistas.Activities.Perfil;
 
+import android.Manifest;
 import android.animation.ObjectAnimator;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -36,6 +38,7 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
+import com.unse.bienestar.estudiantil.BuildConfig;
 import com.unse.bienestar.estudiantil.Databases.AlumnoViewModel;
 import com.unse.bienestar.estudiantil.Databases.EgresadoViewModel;
 import com.unse.bienestar.estudiantil.Databases.ProfesorViewModel;
@@ -74,10 +77,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.fragment.app.FragmentManager;
@@ -86,7 +91,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+import static android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS;
 import static android.view.View.VISIBLE;
+import static com.unse.bienestar.estudiantil.Herramientas.Utils.PERMISSION_ALL;
+import static com.unse.bienestar.estudiantil.Herramientas.Utils.REQUEST_GROUP_PERMISSIONS_LOCATION;
 import static com.unse.bienestar.estudiantil.Herramientas.Utils.facultad;
 import static com.unse.bienestar.estudiantil.Herramientas.Utils.faya;
 import static com.unse.bienestar.estudiantil.Herramientas.Utils.fceyt;
@@ -380,13 +388,10 @@ public class InfoUsuarioActivity extends AppCompatActivity implements View.OnCli
         PreferenceManager manager = new PreferenceManager(getApplicationContext());
         int idLocal = manager.getValueInt(Utils.MY_ID);
         if (!isAdminMode) {
-            //En caso de ser perfil actual, obtengo los datos desde la BD local
             mUsuario = mUsuarioViewModel.getById(idLocal);
-            // mUsuario = new UsuariosRepo(getApplicationContext()).get(idLocal);
             edtDNI.setEnabled(false);
         }
         if (mUsuario != null) {
-            //Cargo la vista en base al tipo de mUsuario
             loadLayout(mUsuario.getTipoUsuario());
             edtDNI.setText(String.valueOf(mUsuario.getIdUsuario()));
             edtNombre.setText(mUsuario.getNombre());
@@ -572,7 +577,7 @@ public class InfoUsuarioActivity extends AppCompatActivity implements View.OnCli
                 altaBajaUser();
                 break;
             case R.id.fabPic:
-                openGallery();
+                checkPermission();
                 break;
             case R.id.imgFlecha:
                 onBackPressed();
@@ -589,10 +594,45 @@ public class InfoUsuarioActivity extends AppCompatActivity implements View.OnCli
         }
     }
 
+    private void checkPermission() {
+        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
+                == PackageManager.PERMISSION_GRANTED) {
+            openGallery();
+        } else if (ActivityCompat.shouldShowRequestPermissionRationale(InfoUsuarioActivity.this,
+                Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            Intent intent = new Intent();
+            intent.setAction(ACTION_APPLICATION_DETAILS_SETTINGS);
+            Uri uri = Uri.fromParts("package", BuildConfig.APPLICATION_ID, null);
+            intent.setData(uri);
+            startActivityForResult(intent, REQUEST_GROUP_PERMISSIONS_LOCATION);
+            Utils.showToast(getApplicationContext(), "Por favor, autoriza el permiso de almacenamiento");
+
+        } else {
+            DialogoGeneral.Builder builder = new DialogoGeneral.Builder(getApplicationContext())
+                    .setTitulo(getString(R.string.permisoNecesario))
+                    .setIcono(R.drawable.ic_advertencia)
+                    .setDescripcion(getString(R.string.permisosFoto))
+                    .setTipo(DialogoGeneral.TIPO_ACEPTAR_CANCELAR)
+                    .setListener(new YesNoDialogListener() {
+                        @Override
+                        public void yes() {
+                            ActivityCompat.requestPermissions(InfoUsuarioActivity.this,
+                                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                    PERMISSION_ALL);
+                        }
+
+                        @Override
+                        public void no() {
+                        }
+                    });
+            DialogoGeneral dialogoGeneral = builder.build();
+            dialogoGeneral.show(getSupportFragmentManager(), "dialogo_permiso");
+        }
+    }
+
     private void openPicture() {
         Intent intent = new Intent(getApplicationContext(), ProfilePictureActivity.class);
         startActivity(intent);
-
     }
 
     private void openBannerReg() {
@@ -627,11 +667,6 @@ public class InfoUsuarioActivity extends AppCompatActivity implements View.OnCli
 
                     @Override
                     public void no() {
-
-                    }
-
-                    @Override
-                    public void aceptar() {
 
                     }
                 })
@@ -714,6 +749,21 @@ public class InfoUsuarioActivity extends AppCompatActivity implements View.OnCli
         Intent chooserIntent = Intent.createChooser(getIntent, "Seleccionar imagen");
         chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[]{pickIntent});
         startActivityForResult(chooserIntent, Utils.PICK_IMAGE);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case PERMISSION_ALL:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    openGallery();
+                } else {
+                    checkPermission();
+                }
+                break;
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
     }
 
     @Override

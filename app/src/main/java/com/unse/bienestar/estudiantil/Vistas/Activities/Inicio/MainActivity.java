@@ -126,7 +126,6 @@ public class MainActivity extends AppCompatActivity {
         ids.put(getString(R.string.itemSistema), R.id.item_sistema);
         ids.put(getString(R.string.itemNosotros), R.id.item_about);
         ids.put(getString(R.string.itemCondiciones), R.id.item_terminos);
-        //ids.put(getString(R.string.itemContacto), R.id.item_contactos);
         mRolViewModel = new RolViewModel(getApplicationContext());
         manager = new PreferenceManager(getApplicationContext());
         mUsuarioViewModel = new UsuarioViewModel(getApplicationContext());
@@ -169,23 +168,7 @@ public class MainActivity extends AppCompatActivity {
         Bitmap bitmap = FileStorageManager.getBitmap(getApplicationContext(), Utils.FOLDER, String.format(Utils.PROFILE_PIC, idUser),
                 false);
         if (bitmap != null) {
-            Glide.with(imgPerfil.getContext()).load(bitmap)/*.listener(new RequestListener<Drawable>() {
-                @Override
-                public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                    return false;
-                }
-
-                @Override
-                public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                    StorageManager manager = new StorageManager.Builder(getApplicationContext())
-                            .setFolder("BIENESTAR").setNameFile("foto.jpg").build();
-                       manager.saveBitmap(true, ((BitmapDrawable) resource).getBitmap());
-                    Bitmap bitmap1 = manager.loadBitmap(true);
-                    if (bitmap1 != null)
-                        return false;
-                    return false;
-                }
-            })*/.into(imgPerfil);
+            Glide.with(imgPerfil.getContext()).load(bitmap).into(imgPerfil);
         } else {
             String URL = String.format("%s%s.jpg", Utils.URL_USUARIO_IMAGE_LOAD, idUser);
             Glide.with(imgPerfil.getContext()).load(URL)
@@ -214,6 +197,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onRestart() {
         super.onRestart();
         loadProfilePicture();
+        checkUser();
     }
 
     private void checkUser() {
@@ -241,7 +225,7 @@ public class MainActivity extends AppCompatActivity {
         Menu menu = navigationView.getMenu();
         MenuItem item = menu.findItem(R.id.item_sistema);
         Rol rol = mRolViewModel.getByPermission(10);
-        if (rol == null) {
+        if (rol != null && rol.getDescripcion().equals("")) {
             item.setVisible(false);
         }
         item = menu.findItem(R.id.item_perfil);
@@ -263,7 +247,7 @@ public class MainActivity extends AppCompatActivity {
                         (getApplicationContext()).getContext(), getSupportFragmentManager());
                 break;
             case R.id.item_poli:
-                fragmentoGenerico = new PoliFragment();
+                fragmentoGenerico = new PoliFragment(MainActivity.this);
                 break;
             case R.id.item_upa:
                 fragmentoGenerico = new UPAFragment(ContextSingleton.

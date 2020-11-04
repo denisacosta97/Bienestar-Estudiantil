@@ -195,11 +195,6 @@ public class ConfirmarReservaActivity extends AppCompatActivity implements View.
                     public void no() {
 
                     }
-
-                    @Override
-                    public void aceptar() {
-
-                    }
                 });
         final DialogoGeneral mensaje = builder.build();
         mensaje.setCancelable(false);

@@ -6,64 +6,69 @@ import android.os.Parcelable;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import androidx.annotation.NonNull;
-import androidx.room.Entity;
-import androidx.room.Ignore;
-import androidx.room.PrimaryKey;
-
-@Entity(tableName = "usuario")
 public class Usuario implements Parcelable {
 
-    @Ignore
-    public static final int COMPLETE = 1;
-    @Ignore
-    public static final int BASIC = 2;
-    @Ignore
-    public static final int MEDIUM = 3;
-    @Ignore
-    public static final String TABLE_USER = "usuario";
-    @Ignore
-    public static final String KEY_ID_USER = "idUsuario";
 
-    @PrimaryKey
-    @NonNull
+    public static final int COMPLETE = 1;
+
+    public static final int BASIC = 2;
+
+    public static final int MEDIUM = 3;
+
+    public static final String TABLE = "usuario";
+    // Labels Table Columns names	    // Labels Table Columns names
+    public static final String KEY_ID_USER = "idUsuario";
+    public static final String KEY_NOMB = "nombre";
+    public static final String KEY_APE = "apellido";
+    public static final String KEY_FECHA_NAC = "fechaNac";
+    public static final String KEY_PAIS = "pais";
+    public static final String KEY_PROV = "provincia";
+    public static final String KEY_LOC = "localidad";
+    public static final String KEY_DOM = "domicilio";
+    public static final String KEY_BAR = "barrio";
+    public static final String KEY_TEL = "telefono";
+    public static final String KEY_SEX = "sexo";
+    public static final String KEY_MAIL = "mail";
+    public static final String KEY_TYPE_USER = "tipoUsuario";
+    public static final String KEY_CHK_DATA = "checkData";
+
     private int idUsuario;
-    @NonNull
+
     private String nombre;
-    @NonNull
+
     private String apellido;
-    @NonNull
+
     private String fechaNac;
-    @NonNull
+
     private String pais;
-    @NonNull
+
     private String provincia;
-    @NonNull
+
     private String localidad;
-    @NonNull
+
     private String domicilio;
-    @NonNull
+
     private String barrio;
-    @NonNull
+
     private String telefono;
-    @NonNull
+
     private String sexo;
-    @NonNull
+
     private String mail;
-    @NonNull
+
     private int tipoUsuario;
-    @NonNull
+
     private String fechaRegistro;
-    @NonNull
+
     private String fechaModificacion;
-    @NonNull
+
     private int validez;
 
-    public Usuario(int idUsuario, @NonNull String nombre, @NonNull String apellido,
-                   @NonNull String fechaNac, @NonNull String pais, @NonNull String provincia,
-                   @NonNull String localidad, @NonNull String domicilio, @NonNull String barrio,
-                   @NonNull String telefono, @NonNull String sexo, @NonNull String mail,
-                   int tipoUsuario, @NonNull String fechaRegistro, @NonNull String fechaModificacion,
+    public Usuario(int idUsuario, String nombre, String apellido,
+                   String fechaNac, String pais, String provincia,
+                   String localidad, String domicilio, String barrio,
+                   String telefono, String sexo, String mail,
+                   int tipoUsuario, String fechaRegistro, String fechaModificacion,
                    int validez) {
         this.idUsuario = idUsuario;
         this.nombre = nombre;
@@ -83,19 +88,19 @@ public class Usuario implements Parcelable {
         this.validez = validez;
     }
 
-    @Ignore
-    public Usuario(int idUsuario, @NonNull String nombre, @NonNull String apellido, int tipoUsuario) {
+
+    public Usuario(int idUsuario, String nombre, String apellido, int tipoUsuario) {
         this.idUsuario = idUsuario;
         this.nombre = nombre;
         this.apellido = apellido;
         this.tipoUsuario = tipoUsuario;
     }
 
-    @Ignore
+
     public Usuario() {
     }
 
-    @Ignore
+
     protected Usuario(Parcel in) {
         idUsuario = in.readInt();
         tipoUsuario = in.readInt();
@@ -155,8 +160,8 @@ public class Usuario implements Parcelable {
                     fechaModificacion = datos.getString("fechamodificacion");
                     validez = Integer.parseInt(datos.getString("validez"));
 
-                    usuario = new Usuario(idUsuario, nombre, apellido,fechaNac, pais, provincia,
-                            localidad, domicilio, barrio,telefono, sexo, mail, tipoUsuario, fechaRegistro,
+                    usuario = new Usuario(idUsuario, nombre, apellido, fechaNac, pais, provincia,
+                            localidad, domicilio, barrio, telefono, sexo, mail, tipoUsuario, fechaRegistro,
                             fechaModificacion, validez);
                     break;
                 case BASIC:
@@ -164,7 +169,7 @@ public class Usuario implements Parcelable {
                     tipoUsuario = Integer.parseInt(object.getString("tipousuario"));
                     nombre = object.getString("nombre");
                     apellido = object.getString("apellido");
-                    usuario = new Usuario(idUsuario,nombre, apellido, tipoUsuario);
+                    usuario = new Usuario(idUsuario, nombre, apellido, tipoUsuario);
                     break;
                 case MEDIUM:
                     idUsuario = Integer.parseInt(object.getString("idusuario"));
@@ -179,8 +184,8 @@ public class Usuario implements Parcelable {
                     domicilio = object.getString("domicilio");
                     barrio = object.getString("barrio");
                     mail = object.getString("mail");
-                    usuario = new Usuario(idUsuario,nombre, apellido, fechaNac, pais, provincia,localidad,domicilio,
-                            barrio, telefono, null, mail,tipoUsuario,null,null,-1);
+                    usuario = new Usuario(idUsuario, nombre, apellido, fechaNac, pais, provincia, localidad, domicilio,
+                            barrio, telefono, null, mail, tipoUsuario, null, null, -1);
                     break;
             }
 
@@ -224,102 +229,102 @@ public class Usuario implements Parcelable {
         this.idUsuario = idUsuario;
     }
 
-    @NonNull
+
     public String getNombre() {
         return nombre;
     }
 
-    public void setNombre(@NonNull String nombre) {
+    public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
-    @NonNull
+
     public String getApellido() {
         return apellido;
     }
 
-    public void setApellido(@NonNull String apellido) {
+    public void setApellido(String apellido) {
         this.apellido = apellido;
     }
 
-    @NonNull
+
     public String getFechaNac() {
         return fechaNac;
     }
 
-    public void setFechaNac(@NonNull String fechaNac) {
+    public void setFechaNac(String fechaNac) {
         this.fechaNac = fechaNac;
     }
 
-    @NonNull
+
     public String getPais() {
         return pais;
     }
 
-    public void setPais(@NonNull String pais) {
+    public void setPais(String pais) {
         this.pais = pais;
     }
 
-    @NonNull
+
     public String getProvincia() {
         return provincia;
     }
 
-    public void setProvincia(@NonNull String provincia) {
+    public void setProvincia(String provincia) {
         this.provincia = provincia;
     }
 
-    @NonNull
+
     public String getLocalidad() {
         return localidad;
     }
 
-    public void setLocalidad(@NonNull String localidad) {
+    public void setLocalidad(String localidad) {
         this.localidad = localidad;
     }
 
-    @NonNull
+
     public String getDomicilio() {
         return domicilio;
     }
 
-    public void setDomicilio(@NonNull String domicilio) {
+    public void setDomicilio(String domicilio) {
         this.domicilio = domicilio;
     }
 
-    @NonNull
+
     public String getBarrio() {
         return barrio;
     }
 
-    public void setBarrio(@NonNull String barrio) {
+    public void setBarrio(String barrio) {
         this.barrio = barrio;
     }
 
-    @NonNull
+
     public String getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(@NonNull String telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 
-    @NonNull
+
     public String getSexo() {
         return sexo;
     }
 
-    public void setSexo(@NonNull String sexo) {
+    public void setSexo(String sexo) {
         this.sexo = sexo;
     }
 
-    @NonNull
+
     public String getMail() {
         return mail;
     }
 
-    public void setMail(@NonNull String mail) {
+    public void setMail(String mail) {
         this.mail = mail;
     }
 
@@ -331,21 +336,21 @@ public class Usuario implements Parcelable {
         this.tipoUsuario = tipoUsuario;
     }
 
-    @NonNull
+
     public String getFechaRegistro() {
         return fechaRegistro;
     }
 
-    public void setFechaRegistro(@NonNull String fechaRegistro) {
+    public void setFechaRegistro(String fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
     }
 
-    @NonNull
+
     public String getFechaModificacion() {
         return fechaModificacion;
     }
 
-    public void setFechaModificacion(@NonNull String fechaModificacion) {
+    public void setFechaModificacion(String fechaModificacion) {
         this.fechaModificacion = fechaModificacion;
     }
 

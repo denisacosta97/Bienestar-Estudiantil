@@ -9,11 +9,9 @@ import java.util.List;
 public class UsuarioRepository {
 
     private UsuarioDAO mUsuarioDAO;
-    private BDBienestar bdBienestar;
 
     public UsuarioRepository(Context application) {
-        bdBienestar = BDBienestar.getDatabase(application);
-        mUsuarioDAO = bdBienestar.getUserDao();
+        mUsuarioDAO = new UsuarioDAO(application);
     }
 
     public void insert(final Usuario usuario) {

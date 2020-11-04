@@ -80,23 +80,23 @@ public class Deporte implements Parcelable {
     };
 
     public void setIcon() {
-        if (getName().contentEquals("Ajedrez")) {
+        if (getName().contains("Ajedrez")) {
             mIconDeporte = R.drawable.ic_ajedrez;
-        } else if (getName().contentEquals("Basquet")) {
+        } else if (getName().contains("Básquet")) {
             mIconDeporte = R.drawable.ic_basquet;
-        } else if (getName().contentEquals("Cestobal")) {
+        } else if (getName().contains("Cestobal")) {
             mIconDeporte = R.drawable.ic_pelota;
-        } else if (getName().contentEquals("Futbol")) {
+        } else if (getName().contains("Fútbol")) {
             mIconDeporte = R.drawable.ic_futbol;
-        } else if (getName().contentEquals("Hockey")) {
+        } else if (getName().contains("Hockey")) {
             mIconDeporte = R.drawable.ic_hockey;
-        } else if (getName().contentEquals("Natacion")) {
+        } else if (getName().contains("Nataci")) {
             mIconDeporte = R.drawable.ic_natacion;
         } else if (getName().contentEquals("Rugby")) {
             mIconDeporte = R.drawable.ic_rugby;
-        } else if (getName().contentEquals("Tenis")) {
+        } else if (getName().contains("Tenis")) {
             mIconDeporte = R.drawable.ic_tenis_mesa;
-        } else if (getName().contentEquals("Voleibol")) {
+        } else if (getName().contains("Voleibol")) {
             mIconDeporte = R.drawable.ic_voley;
         } else {
             mIconDeporte = R.drawable.ic_deportes;

@@ -439,6 +439,11 @@
         Reinscriptos\n
         Haber aprobado  el 75% de las Asignaturas  del Plan de Estudios\n
         Acreditar el mejor promedio en su Facultad.</string>
+    <string name="permisoNecesario">¡Permiso necesario!</string>
+    <string name="permisoUbicacion">Para acceder a servicios vinculados a mapas interacticos, debes aceptar los permisos de ubicación.</string>
+    <string name="permisosFoto">Para poder acceder a tus archivos primero debes aceptar el permiso.</string>
+    <string name="abrirMapa">¿Desea abrir la ubicación en Google Maps?</string>
+    <string name="permisoCamara">Para poder escanear un documento, debes aceptar el permiso de cámara.</string>
 
 </resources>
 

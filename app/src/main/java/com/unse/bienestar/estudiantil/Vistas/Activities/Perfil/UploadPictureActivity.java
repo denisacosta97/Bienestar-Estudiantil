@@ -1,7 +1,9 @@
 package com.unse.bienestar.estudiantil.Vistas.Activities.Perfil;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -18,14 +20,17 @@ import com.android.volley.VolleyError;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.unse.bienestar.estudiantil.BuildConfig;
 import com.unse.bienestar.estudiantil.Herramientas.Almacenamiento.FileStorageManager;
 import com.unse.bienestar.estudiantil.Herramientas.BlurTransformation;
 import com.unse.bienestar.estudiantil.Herramientas.UploadManager;
 import com.unse.bienestar.estudiantil.Herramientas.Utils;
 import com.unse.bienestar.estudiantil.Herramientas.VolleyMultipartRequest;
 import com.unse.bienestar.estudiantil.Herramientas.VolleySingleton;
+import com.unse.bienestar.estudiantil.Interfaces.YesNoDialogListener;
 import com.unse.bienestar.estudiantil.R;
 import com.unse.bienestar.estudiantil.Vistas.Activities.Inicio.LoginActivity;
+import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoGeneral;
 import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoProcesamiento;
 
 import org.json.JSONException;
@@ -33,9 +38,16 @@ import org.json.JSONObject;
 
 import java.io.File;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import de.hdodenhof.circleimageview.CircleImageView;
+
+import static android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS;
+import static com.unse.bienestar.estudiantil.Herramientas.Utils.PERMISSION_ALL;
+import static com.unse.bienestar.estudiantil.Herramientas.Utils.REQUEST_GROUP_PERMISSIONS_LOCATION;
 
 public class UploadPictureActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -105,7 +117,7 @@ public class UploadPictureActivity extends AppCompatActivity implements View.OnC
         switch (v.getId()) {
             case R.id.imgUserRegister:
             case R.id.fabPic:
-                openGallery();
+                checkPermission();
                 break;
             case R.id.btnSaltar:
                 saltar();
@@ -117,14 +129,65 @@ public class UploadPictureActivity extends AppCompatActivity implements View.OnC
 
     }
 
+    private void checkPermission() {
+        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
+                == PackageManager.PERMISSION_GRANTED) {
+            openGallery();
+        } else if (ActivityCompat.shouldShowRequestPermissionRationale(UploadPictureActivity.this,
+                Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            Intent intent = new Intent();
+            intent.setAction(ACTION_APPLICATION_DETAILS_SETTINGS);
+            Uri uri = Uri.fromParts("package", BuildConfig.APPLICATION_ID, null);
+            intent.setData(uri);
+            startActivityForResult(intent, REQUEST_GROUP_PERMISSIONS_LOCATION);
+            Utils.showToast(getApplicationContext(), "Por favor, autoriza el permiso de almacenamiento");
+
+        } else {
+            DialogoGeneral.Builder builder = new DialogoGeneral.Builder(getApplicationContext())
+                    .setTitulo(getString(R.string.permisoNecesario))
+                    .setIcono(R.drawable.ic_advertencia)
+                    .setDescripcion(getString(R.string.permisosFoto))
+                    .setTipo(DialogoGeneral.TIPO_ACEPTAR_CANCELAR)
+                    .setListener(new YesNoDialogListener() {
+                        @Override
+                        public void yes() {
+                            ActivityCompat.requestPermissions(UploadPictureActivity.this,
+                                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                    PERMISSION_ALL);
+                        }
+
+                        @Override
+                        public void no() {
+                        }
+                    });
+            DialogoGeneral dialogoGeneral = builder.build();
+            dialogoGeneral.show(getSupportFragmentManager(), "dialogo_permiso");
+        }
+    }
+
     private void openNext() {
         if (!isAdminMode) {
             Utils.showToast(getApplicationContext(), getString(R.string.iniciarSesionConf));
         }
-        if (getIntent().getBooleanExtra(Utils.TIPO_REGISTRO, false)){
+        if (getIntent().getBooleanExtra(Utils.TIPO_REGISTRO, false)) {
             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
         }
         finish();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case PERMISSION_ALL:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    openGallery();
+                } else {
+                    checkPermission();
+                }
+                break;
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
     }
 
     @Override

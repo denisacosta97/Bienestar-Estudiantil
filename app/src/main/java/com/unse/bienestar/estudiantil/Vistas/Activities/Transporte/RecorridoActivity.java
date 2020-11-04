@@ -1,13 +1,17 @@
 package com.unse.bienestar.estudiantil.Vistas.Activities.Transporte;
 
 import android.Manifest;
+import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -27,13 +31,16 @@ import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.unse.bienestar.estudiantil.BuildConfig;
 import com.unse.bienestar.estudiantil.Herramientas.Almacenamiento.PreferenceManager;
 import com.unse.bienestar.estudiantil.Herramientas.Utils;
 import com.unse.bienestar.estudiantil.Herramientas.VolleySingleton;
+import com.unse.bienestar.estudiantil.Interfaces.YesNoDialogListener;
 import com.unse.bienestar.estudiantil.Modelos.Paradas;
 import com.unse.bienestar.estudiantil.Modelos.Punto;
 import com.unse.bienestar.estudiantil.Modelos.Recorrido;
 import com.unse.bienestar.estudiantil.R;
+import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoGeneral;
 import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoProcesamiento;
 
 import org.json.JSONArray;
@@ -43,8 +50,16 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
+import static android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS;
+import static com.unse.bienestar.estudiantil.Herramientas.Utils.PERMISSION_ALL;
+import static com.unse.bienestar.estudiantil.Herramientas.Utils.REQUEST_GROUP_PERMISSIONS_LOCATION;
 
 public class RecorridoActivity extends AppCompatActivity implements OnMapReadyCallback, View.OnClickListener {
 
@@ -60,7 +75,7 @@ public class RecorridoActivity extends AppCompatActivity implements OnMapReadyCa
     DialogoProcesamiento dialog;
     ImageView imgIcono;
 
-    private int id, colorPolyline;
+    private int colorPolyline;
     private int type = -1;
 
     @Override
@@ -73,6 +88,84 @@ public class RecorridoActivity extends AppCompatActivity implements OnMapReadyCa
             mRecorridos = getIntent().getParcelableExtra(Utils.RECORRIDO);
         }
 
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        checkPermission();
+    }
+
+    private void checkPermission() {
+        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            load();
+        } else if (ActivityCompat.shouldShowRequestPermissionRationale(RecorridoActivity.this,
+                Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            Intent intent = new Intent();
+            intent.setAction(ACTION_APPLICATION_DETAILS_SETTINGS);
+            Uri uri = Uri.fromParts("package", BuildConfig.APPLICATION_ID, null);
+            intent.setData(uri);
+            startActivityForResult(intent, REQUEST_GROUP_PERMISSIONS_LOCATION);
+            Utils.showToast(getApplicationContext(), "Por favor, autoriza el permiso de ubicación");
+
+        } else {
+            DialogoGeneral.Builder builder = new DialogoGeneral.Builder(getApplicationContext())
+                    .setTitulo(getString(R.string.permisoNecesario))
+                    .setIcono(R.drawable.ic_advertencia)
+                    .setDescripcion(getString(R.string.permisosFoto))
+                    .setTipo(DialogoGeneral.TIPO_ACEPTAR_CANCELAR)
+                    .setListener(new YesNoDialogListener() {
+                        @Override
+                        public void yes() {
+                            ActivityCompat.requestPermissions(RecorridoActivity.this,
+                                    new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
+                                            Manifest.permission.ACCESS_FINE_LOCATION},
+                                    PERMISSION_ALL);
+                        }
+
+                        @Override
+                        public void no() {
+                        }
+                    });
+            DialogoGeneral dialogoGeneral = builder.build();
+            dialogoGeneral.show(getSupportFragmentManager(), "dialogo_permiso");
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_GROUP_PERMISSIONS_LOCATION:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    load();
+                } else {
+                    checkPermission();
+                }
+                break;
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        switch (requestCode) {
+            case REQUEST_GROUP_PERMISSIONS_LOCATION:
+                if (resultCode == Activity.RESULT_OK) {
+                    load();
+                } else {
+                    checkPermission();
+                }
+                break;
+            default:
+                super.onActivityResult(requestCode, resultCode, data);
+        }
+
+    }
+
+    private void load() {
         loadViews();
 
         loadData();

@@ -2,7 +2,6 @@ package com.unse.bienestar.estudiantil.Vistas.Fragmentos;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,9 +13,6 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.transition.Transition;
 import com.unse.bienestar.estudiantil.Herramientas.Almacenamiento.PreferenceManager;
 import com.unse.bienestar.estudiantil.Herramientas.RecyclerListener.ItemClickSupport;
 import com.unse.bienestar.estudiantil.Herramientas.Utils;
@@ -103,10 +99,11 @@ public class DeportesFragment extends Fragment {
     public void loadInfo() {
         PreferenceManager manager = new PreferenceManager(mContext);
         String key = manager.getValueString(Utils.TOKEN);
+        boolean isLogin = manager.getValue(Utils.IS_LOGIN);
         int id = manager.getValueInt(Utils.MY_ID);
         if (id == 0)
             id = 1;
-        String URL = String.format("%s?key=%s&idU=%s", Utils.URL_DEPORTE_LISTA, key, id);
+        String URL = String.format("%s?key=%s&idU=%s", Utils.URL_DEPORTE_LISTA, isLogin ? key : "1", id);
         StringRequest request = new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

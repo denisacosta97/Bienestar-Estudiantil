@@ -20,7 +20,6 @@ public class EgresadoViewModel {
     }
 
     public void delete(Egresado egresado) {
-        mRepository.delete(egresado);
     }
 
     public void update(Egresado egresado) {

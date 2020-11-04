@@ -98,10 +98,6 @@ public class PerfilServicioActivity extends AppCompatActivity implements View.On
 
                     }
 
-                    @Override
-                    public void aceptar() {
-
-                    }
                 });
         final DialogoGeneral mensaje = builder.build();
         mensaje.setCancelable(false);

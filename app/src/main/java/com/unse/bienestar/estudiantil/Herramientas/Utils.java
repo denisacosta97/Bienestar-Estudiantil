@@ -33,6 +33,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.android.gms.maps.model.LatLng;
 import com.itextpdf.forms.PdfAcroForm;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfReader;
@@ -41,6 +42,8 @@ import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.property.TextAlignment;
 import com.unse.bienestar.estudiantil.Databases.AlumnoViewModel;
+import com.unse.bienestar.estudiantil.Databases.BDGestor;
+import com.unse.bienestar.estudiantil.Databases.DBManager;
 import com.unse.bienestar.estudiantil.Databases.EgresadoViewModel;
 import com.unse.bienestar.estudiantil.Databases.ProfesorViewModel;
 import com.unse.bienestar.estudiantil.Databases.RolViewModel;
@@ -69,10 +72,18 @@ import java.util.regex.Pattern;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 import androidx.core.graphics.drawable.DrawableCompat;
 
 public class Utils {
 
+    //Constantes para las BD
+    public static final String STRING_TYPE = "text";
+    public static final String INT_TYPE = "integer";
+    public static final String FLOAT_TYPE = "float";
+    public static final String NULL_TYPE = "not null";
+    public static final String NULL_YES_TYPE = "null";
+    public static final String AUTO_INCREMENT = "auto_increment";
     //Constantes de preferencias
     public static final String IS_FIRST_TIME_LAUNCH = "is_first";
     public static final String IS_LOGIN = "login_yes";
@@ -236,8 +247,6 @@ public class Utils {
     public static final String URL_DEPORTE_TEMPORADAS = "https://" + IP + "/deportes/getTemporadas.php";
 
 
-
-
     public static final String URL_DEPORTE_BAJA = "https://" + IP + "/deportes/actualizarDeporte.php";
     public static final String URL_PROFES = "https://" + IP + "/deportes/getAllProfesores.php";
     public static final String URL_BECADOS = "https://" + IP + "/beca/getAllBecados.php";
@@ -378,6 +387,16 @@ public class Utils {
 
     public static String dataPartiNoDoc = "?idU=%s&nom=%s&ape=%s&fechan=%s&pais=%s&prov=%s&local=%s" +
             "&dom=%s&sex=%s&tipo=%s&mail=%s&tel=%s&barr=%s&fecham=%s";
+
+    /**
+     * Método que permite inicializar la BD local
+     *
+     * @param c Contexto actual de la actividad desde donde de lo convoca
+     */
+    public static void initBD(Context c) {
+        BDGestor gestor = new BDGestor(c);
+        DBManager.initializeInstance(gestor);
+    }
 
 
     public static void changeColorDrawable(ImageView view, Context context, int color) {
@@ -672,6 +691,22 @@ public class Utils {
     private static Paragraph getText(String text, float size, boolean center) {
         return center ? new Paragraph(text).setFontSize(size).setTextAlignment(TextAlignment.CENTER)
                 : new Paragraph(text).setFontSize(size);
+    }
+
+    public static String getText(String text) {
+        StringBuilder stringBuilder = new StringBuilder();
+        text = text.replaceAll("!=","\n");
+        text = text.replaceAll("=!", "\t");
+        stringBuilder.append(text);
+        return stringBuilder.toString();
+    }
+
+    public static String styleText(String text) {
+        StringBuilder stringBuilder = new StringBuilder();
+        text = text.replaceAll("\n","!=");
+        text = text.replaceAll("\t","=!");
+        stringBuilder.append(text);
+        return stringBuilder.toString();
     }
 
     public static Date getFechaDate(String fecha) {
@@ -1195,13 +1230,15 @@ public class Utils {
     /**
      * Método que permite compartir una noticia a otras aplicaciones del usuario
      *
-     * @param alerta    instancia de la clase Alerta
+     * @param
      * @param activity  Contexto actual de la actividad desde donde de lo convoca
      * @param imageView imagen a compartir
      */
     public static void onShare(Noticia noticia, Activity activity, ImageView imageView) {
         File x = createFile(activity.getApplicationContext(), imageView);
-        Uri image = Uri.fromFile(x);
+        Uri image = FileProvider.getUriForFile(activity.getApplicationContext(),
+                "com.unse.bienestar.estudiantil.provider", x);
+        //Uri image = Uri.fromFile(x);
         Intent share = new Intent();
         share.setAction(Intent.ACTION_SEND);
         //share.setPackage("com.whatsapp");
@@ -1240,5 +1277,45 @@ public class Utils {
         return file;
     }
 
+    public static String getTime(String fecha) {
+        Date fechaRegistro = getFechaDateWithHour(fecha);
+        Date now = new Date(System.currentTimeMillis());
+        long different = now.getTime() - fechaRegistro.getTime();
+
+        long secondsInMilli = 1000;
+        long minutesInMilli = secondsInMilli * 60;
+        long hoursInMilli = minutesInMilli * 60;
+        long daysInMilli = hoursInMilli * 24;
+
+        long elapsedDays = different / daysInMilli;
+        different = different % daysInMilli;
+
+        long elapsedHours = different / hoursInMilli;
+        different = different % hoursInMilli;
+
+        long elapsedMinutes = different / minutesInMilli;
+        different = different % minutesInMilli;
+
+        long elapsedSeconds = different / secondsInMilli;
+
+        if (elapsedDays > 0)
+            return String.format("Hace %s días", elapsedDays);
+        else if (elapsedHours > 0)
+            return String.format("Hace %s horas", elapsedHours);
+        else if (elapsedMinutes > 0)
+            return String.format("Hace %s minutos", elapsedMinutes);
+        else if (elapsedSeconds > 0)
+            return String.format("Hace %s segundos", elapsedSeconds);
+        else
+            return "Hace un momento";
+
+    }
+
+    public static void openMap(Activity activity, LatLng latLng) {
+        String uri = String.format(Locale.ENGLISH, "geo:%f,%f?z=%d&q=%f,%f (%s)", latLng.latitude, latLng.longitude,
+                16, latLng.latitude, latLng.longitude, " ");
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+        activity.startActivity(intent);
+    }
 }
 

@@ -13,6 +13,7 @@ import com.unse.bienestar.estudiantil.Herramientas.Almacenamiento.PreferenceMana
 import com.unse.bienestar.estudiantil.Herramientas.Utils;
 import com.unse.bienestar.estudiantil.R;
 import com.unse.bienestar.estudiantil.Vistas.Activities.Becas.InfoBecasActivity;
+import com.unse.bienestar.estudiantil.Vistas.Activities.Becas.TipoTurnosActivity;
 
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
@@ -85,7 +86,7 @@ public class BecasFragment extends Fragment implements View.OnClickListener {
                 if (isLogin)
                     Utils.showToast(mContext, getString(R.string.noDisponible));
                 else Utils.showToast(mContext, getString(R.string.primeroRegistrar));
-                //startActivity(new Intent(getContext(), TurnosActivity.class));
+                startActivity(new Intent(getContext(), TipoTurnosActivity.class));
                 break;
             case R.id.card_infoBecas:
                 startActivity(new Intent(getContext(), InfoBecasActivity.class));

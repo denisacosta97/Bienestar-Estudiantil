@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.unse.bienestar.estudiantil.Modelos.Turno;
 import com.unse.bienestar.estudiantil.R;
 
@@ -34,35 +33,33 @@ public class TurnosAdapter extends RecyclerView.Adapter<TurnosAdapter.TurnoViewH
         View
                 view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_turnos, viewGroup, false);
 
-        return new TurnosAdapter.TurnoViewHolder(view);
+        return new TurnoViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull TurnosAdapter.TurnoViewHolder holder, int i) {
 
-        if (mList.size() != 0) {
-            Turno turno = mList.get(i);
-            holder.txtTitulo.setText(turno.getTitulo());
-            holder.txtFecha.setText(String.format("%s, %s - %s", turno.getFecha(), turno.getFechaInicio(),
-                    turno.getFechaFin()));
-            int estado = 0;
-            switch (turno.getEstado()) {
-                case "PENDIENTE":
-                    estado = R.drawable.ic_reserva_espera_turno;
-                    holder.txtEstado.setBackgroundColor(mContext.getResources().getColor(R.color.colorAccent));
-                    break;
-                case "CONFIRMADO":
-                    estado = R.drawable.ic_reserva_libre_turno;
-                    holder.txtEstado.setBackgroundColor(mContext.getResources().getColor(R.color.colorGreen));
-                    break;
-                case "AUSENTE":
-                    estado = R.drawable.ic_reserva_ocupado_turno;
-                    holder.txtEstado.setBackgroundColor(mContext.getResources().getColor(R.color.colorOrange));
-                    break;
-            }
-            Glide.with(holder.imgIcon.getContext()).load(estado).into(holder.imgIcon);
-            holder.txtEstado.setText(turno.getEstado());
-            holder.txtDesc.setText(turno.getDescripcion());
+        Turno turno = mList.get(i);
+        holder.txtTitulo.setText(turno.getTitulo().toUpperCase());
+        holder.txtFecha.setText(String.format("%s/%s/%s, %s", turno.getDia(), turno.getMes(), turno.getAnio(),
+                turno.getFechaInicio()));
+        switch (turno.getEstado()) {
+            case "PENDIENTE":
+                holder.txtEstado.setBackgroundColor(mContext.getResources().getColor(R.color.colorOrange));
+                break;
+            case "CONFIRMADO":
+                holder.txtEstado.setBackgroundColor(mContext.getResources().getColor(R.color.colorGreen));
+                break;
+            case "AUSENTE":
+                holder.txtEstado.setBackgroundColor(mContext.getResources().getColor(R.color.colorAccent));
+                break;
+            case "CANCELADO":
+                holder.txtEstado.setBackgroundColor(mContext.getResources().getColor(R.color.colorPink));
+                break;
+        }
+        //Glide.with(holder.imgIcon.getContext()).load(estado).into(holder.imgIcon);
+        holder.txtEstado.setText(turno.getEstado());
+        //holder.txtDesc.setText(turno.getDescripcion());
 
            /*Drawable drawable = holder.imgIcon.;
            // drawable.mutate();
@@ -87,7 +84,6 @@ public class TurnosAdapter extends RecyclerView.Adapter<TurnosAdapter.TurnoViewH
                     break;
             }*/
 
-        }
 
     }
 
@@ -97,7 +93,7 @@ public class TurnosAdapter extends RecyclerView.Adapter<TurnosAdapter.TurnoViewH
         return mList.size();
     }
 
-    class TurnoViewHolder extends RecyclerView.ViewHolder {
+    static class TurnoViewHolder extends RecyclerView.ViewHolder {
 
         TextView txtTitulo, txtDesc, txtFecha, txtEstado;
         ImageView imgIcon;

@@ -188,6 +188,9 @@ public class Utils {
     public static final String NOTICIA = "dato_noticias";
     public static final String RESERVA = "dato_reserva";
     public static final String DATA_RESERVA = "dato_reserva";
+    public static final String DATA_TURNO = "dato_turno";
+    public static final String DATA_FECHA = "dato_fecha";
+    public static final String DATA_CONVOCATORIA = "dato_convocatoria";
     public static final String ALUMNO_NAME = "dato_alumno";
     public static final String USER_NAME = "dato_user";
     public static final String NUM_INST = "num_inst";
@@ -245,8 +248,6 @@ public class Utils {
     public static final String URL_CREDENCIAL_CAMBIAR = "https://" + IP + "/deportes/credencial/eliminar.php";
     public static final String URL_CREDENCIAL_DEPORTE = "https://" + IP + "/deportes/credencial/getCredencialByUser.php";
     public static final String URL_DEPORTE_TEMPORADAS = "https://" + IP + "/deportes/getTemporadas.php";
-
-
     public static final String URL_DEPORTE_BAJA = "https://" + IP + "/deportes/actualizarDeporte.php";
     public static final String URL_PROFES = "https://" + IP + "/deportes/getAllProfesores.php";
     public static final String URL_BECADOS = "https://" + IP + "/beca/getAllBecados.php";
@@ -270,10 +271,20 @@ public class Utils {
     public static final String URL_TORNEOS_INSERTAR = "https://" + IP + "/deportes/torneo/insertar.php";
 
     //BECAS
-    public static final String URL_BECAS_CREDENCIAL = "http://" + IP + "/bienestar/beca/getCredencial.php";
+    public static final String URL_BECAS_CREDENCIAL = "https://" + IP + "/becas/beca/getCredencial.php";
+    public static final String URL_BECAS_CONVOCATORIA = "https://" + IP + "/becas/convocatoria/getConvocatoriasTurnos.php";
+
+    public static final String URL_BECAS_HORARIO = "https://" + IP + "/becas/turno/horarios.json";
+    public static final String URL_TURNO_HORARIO = "https://" + IP + "/becas/turno/getTurnoHorarios.php";
+    public static final String URL_TURNO_NUEVO = "https://" + IP + "/becas/turno/insertar.php";
+    public static final String URL_TURNO_POR_USUARIO = "https://" + IP + "/becas/turno/getTurnoByUsuario.php";
+    public static final String URL_TURNO_CANCELAR = "https://" + IP + "/becas/turno/actualizar.php";
+    public static final String URL_ARCHIVO_TURNO = "https://" + IP + "/becas/turno/archivos/";
+
+    public static final String URL_FECHAS_VALIDA = "https://" + IP + "/becas/fecha/getFechaInvalidate.php";
 
     //CIBER
-    public static final String URL_REGISTRAR_INGRESO = "http://" + IP + "/bienestar/ciber/getCredencial.php";
+    public static final String URL_REGISTRAR_INGRESO = "http://" + IP + "/ciber/getCredencial.php";
     //GENERALES
     public static final String URL_ARCHIVOS_LISTA = "https://" + IP + "/general/getArchivos.php";
     public static final String URL_ARCHIVOS = "https://" + IP + "/archivos/";

@@ -11,33 +11,60 @@ import android.os.Handler;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.unse.bienestar.estudiantil.Herramientas.Almacenamiento.PreferenceManager;
 import com.unse.bienestar.estudiantil.Herramientas.Utils;
-import com.unse.bienestar.estudiantil.Interfaces.YesNoDialogListener;
+import com.unse.bienestar.estudiantil.Herramientas.VolleySingleton;
+import com.unse.bienestar.estudiantil.Modelos.Convocatoria;
 import com.unse.bienestar.estudiantil.R;
-import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoGeneral;
 
-import androidx.annotation.RequiresApi;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 public class ResumenTurnoActivity extends AppCompatActivity implements View.OnClickListener {
 
     TextView txtTipoTurno, txtHora, txtFecha, txtReceptor, txtConfirmar, txtTitulo;
-    Button btnConfirmar;
     ProgressBar mProgressBar;
     FrameLayout frame;
     View revealView;
-
+    int[] mCalendar;
+    String horarios, receptores;
+    Convocatoria mConvocatoria;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resumen_turno);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        if (getIntent().getStringExtra(Utils.DATA_RESERVA) != null) {
+            horarios = getIntent().getStringExtra(Utils.DATA_RESERVA);
+        }
+        if (getIntent().getStringExtra(Utils.DATA_TURNO) != null) {
+            receptores = getIntent().getStringExtra(Utils.DATA_TURNO);
+        }
+        if (getIntent().getIntArrayExtra(Utils.DATA_FECHA) != null) {
+            mCalendar = getIntent().getIntArrayExtra(Utils.DATA_FECHA);
+        }
+        if (getIntent().getParcelableExtra(Utils.DATA_CONVOCATORIA) != null) {
+            mConvocatoria = (Convocatoria) getIntent().getParcelableExtra(Utils.DATA_CONVOCATORIA);
+
+        }
 
         loadViews();
 
@@ -47,6 +74,11 @@ public class ResumenTurnoActivity extends AppCompatActivity implements View.OnCl
     }
 
     private void loadData() {
+        txtTipoTurno.setText(mConvocatoria.getNombreBeca());
+        txtFecha.setText(String.format("%s/%s/%s", mCalendar[0]
+                , mCalendar[1], mCalendar[2]));
+        txtHora.setText(horarios);
+        txtReceptor.setText(receptores);
 
     }
 
@@ -67,11 +99,20 @@ public class ResumenTurnoActivity extends AppCompatActivity implements View.OnCl
         txtTitulo = findViewById(R.id.txtTitulo);
     }
 
-    public void load(View view) {
-        animateButtonWidth();
-        fadeInOutTextProgress();
-        nextAction();
 
+    public void animateButtonWidth(boolean is) {
+        ValueAnimator valueAnimator = ValueAnimator.ofInt(frame.getMeasuredWidth(), getFinalWidth(is));
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                int value = (int) animation.getAnimatedValue();
+                ViewGroup.LayoutParams layoutParams = frame.getLayoutParams();
+                layoutParams.width = value;
+                frame.requestLayout();
+            }
+        });
+        valueAnimator.setDuration(350);
+        valueAnimator.start();
     }
 
     public void fadeInOutTextProgress() {
@@ -83,7 +124,7 @@ public class ResumenTurnoActivity extends AppCompatActivity implements View.OnCl
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                showProgressDialog();
+                showProgressDialog(true);
             }
 
             @Override
@@ -99,34 +140,197 @@ public class ResumenTurnoActivity extends AppCompatActivity implements View.OnCl
 
     }
 
-    public void nextAction() {
-        new Handler().postDelayed(new Runnable() {
-            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-            @Override
-            public void run() {
-                revealButton();
-                fadeOutProgress();
-            }
-        }, 2000);
 
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void revealButton() {
-        frame.setElevation(0f);
         revealView.setVisibility(View.VISIBLE);
 
         int x = revealView.getWidth();
         int y = revealView.getHeight();
 
-        int startX = (int) (getFinalWidth() / 2 + frame.getX());
-        int startY = (int) (getFinalWidth() / 2 + frame.getY());
+        int startX = (int) (getFinalWidth(true) / 2 + frame.getX());
+        int startY = (int) (getFinalWidth(true) / 2 + frame.getY());
 
         float radius = Math.max(x, y) * 1.2f;
 
-        Animator reveal = ViewAnimationUtils.createCircularReveal(revealView, startX, startY, getFinalWidth(), radius);
-        reveal.setDuration(1000);
-        reveal.addListener(new Animator.AnimatorListener() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+
+            Animator reveal = ViewAnimationUtils.createCircularReveal(revealView, startX, startY, getFinalWidth(true), radius);
+            reveal.setDuration(1000);
+            reveal.addListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    showFinalText(true);
+
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animation) {
+
+                }
+            });
+            reveal.start();
+        } else {
+            revealView.setVisibility(View.VISIBLE);
+            showFinalText(true);
+        }
+    }
+
+    private void showFinalText(boolean is) {
+        txtTitulo.setVisibility(View.VISIBLE);
+        txtTitulo.setAlpha(0f);
+        txtTitulo.setText(is ? "¡TURNO RESERVADO!" : "");
+        txtTitulo.animate().setDuration(500).alpha(1f);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                SelectorReceptoresActivity.instance.finish();
+                SelectorFechaActivity.instance.finish();
+                TipoTurnosActivity.instance.finish();
+                finish();
+                //Utils.createPDF(getApplicationContext(), "COMPROBANTE_TURNO.pdf");
+            }
+        }, 1200);
+    }
+
+    public void fadeOutProgress() {
+        mProgressBar.animate().alpha(0f).setDuration(250).start();
+    }
+
+
+    public void showProgressDialog(boolean is) {
+        mProgressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#ffffff"), PorterDuff.Mode.SRC_IN);
+        mProgressBar.setVisibility(is ? View.VISIBLE : View.GONE);
+    }
+
+    private int getFinalWidth(boolean is) {
+
+        return (int) getResources().getDimension(is ? R.dimen.width : R.dimen.width2);
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.singBtn:
+                animateButtonWidth(true);
+                fadeInOutTextProgress();
+                sendServer();
+                break;
+        }
+    }
+
+    private void sendServer() {
+        final HashMap<String, String> map = new HashMap<>();
+        String URL = Utils.URL_TURNO_NUEVO;
+        PreferenceManager preferenceManager = new PreferenceManager(getApplicationContext());
+        final int id = preferenceManager.getValueInt(Utils.MY_ID);
+        final String token = preferenceManager.getValueString(Utils.TOKEN);
+        StringRequest request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                procesarRespuesta(response);
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+                Utils.showToast(getApplicationContext(), getString(R.string.servidorOff));
+                loadError();
+
+            }
+        }) {
+            @Override
+            public String getBodyContentType() {
+                return "application/x-www-form-urlencoded; charset=UTF-8";
+            }
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                map.put("key", token);
+                map.put("idU", String.valueOf(id));
+                map.put("di", String.valueOf(mCalendar[0]));
+                map.put("me", String.valueOf(mCalendar[1]));
+                map.put("an", String.valueOf(mCalendar[2]));
+                Pattern pattern = Pattern.compile("[0-9]");
+                Matcher matcher = pattern.matcher(receptores);
+                String num = "";
+                if (matcher.find())
+                    num = matcher.group();
+                map.put("ir", num);
+                map.put("ho", horarios);
+                map.put("iu", String.valueOf(id));
+                map.put("ib", String.valueOf(mConvocatoria.getIdBeca()));
+                return map;
+            }
+        };
+        VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
+    }
+
+    private void procesarRespuesta(String response) {
+        try {
+            JSONObject jsonObject = new JSONObject(response);
+            int estado = jsonObject.getInt("estado");
+            switch (estado) {
+                case -1:
+                    Utils.showToast(getApplicationContext(), getString(R.string.errorInternoAdmin));
+                    loadError();
+                    break;
+                case 1:
+                    //Exito
+                    revealButton();
+                    fadeOutProgress();
+                    break;
+                case 2:
+                    loadError();
+                    break;
+                case 3:
+                    Utils.showToast(getApplicationContext(), getString(R.string.tokenInvalido));
+                    loadError();
+                    break;
+                case 4:
+                    Utils.showToast(getApplicationContext(), getString(R.string.camposInvalidos));
+                    loadError();
+                    break;
+                case 5:
+                    Utils.showToast(getApplicationContext(), getString(R.string.becaTurnoYaReservado));
+                    showProgressDialog(false);
+                    animateButtonWidth(false);
+                    fadeOutInTextProgress();
+                    break;
+                case 100:
+                    Utils.showToast(getApplicationContext(), getString(R.string.tokenInexistente));
+                    loadError();
+                    break;
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+            loadError();
+            Utils.showToast(getApplicationContext(), getString(R.string.errorInternoAdmin));
+        }
+    }
+
+    private void loadError() {
+        showProgressDialog(false);
+        animateButtonWidth(false);
+        fadeOutInTextProgress();
+        Utils.showToast(getApplicationContext(), getString(R.string.becaTurnoError));
+    }
+
+    public void fadeOutInTextProgress() {
+        txtConfirmar.animate().alpha(1f).setDuration(250).setListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
 
@@ -134,18 +338,8 @@ public class ResumenTurnoActivity extends AppCompatActivity implements View.OnCl
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                txtTitulo.setVisibility(View.VISIBLE);
-                txtTitulo.setAlpha(0f);
-                txtTitulo.animate().setDuration(500).alpha(1f);
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        finish();
-                        Utils.createPDF(getApplicationContext(), "COMPROBANTE_TURNO.pdf");
-                    }
-                }, 1200);
 
-           }
+            }
 
             @Override
             public void onAnimationCancel(Animator animation) {
@@ -156,67 +350,7 @@ public class ResumenTurnoActivity extends AppCompatActivity implements View.OnCl
             public void onAnimationRepeat(Animator animation) {
 
             }
-        });
-        reveal.start();
-    }
+        }).start();
 
-    public void fadeOutProgress() {
-        mProgressBar.animate().alpha(0f).setDuration(250).start();
-    }
-
-
-    public void showProgressDialog() { 
-        mProgressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#ffffff"), PorterDuff.Mode.SRC_IN);
-        mProgressBar.setVisibility(View.VISIBLE);
-    }
-
-    public void animateButtonWidth() {
-        ValueAnimator valueAnimator = ValueAnimator.ofInt(frame.getMeasuredWidth(), getFinalWidth());
-        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                int value = (int) animation.getAnimatedValue();
-                ViewGroup.LayoutParams layoutParams = frame.getLayoutParams();
-                layoutParams.width = value;
-                frame.requestLayout();
-            }
-        });
-        valueAnimator.setDuration(350);
-        valueAnimator.start();
-    }
-
-    private int getFinalWidth() {
-
-        return (int) getResources().getDimension(R.dimen.width);
-    }
-
-    private void showDialogs() {
-        DialogoGeneral.Builder builder = new DialogoGeneral.Builder(getApplicationContext())
-                .setDescripcion(getString(R.string.generalFunciones))
-                .setIcono(R.drawable.ic_enojado)
-                .setTipo(DialogoGeneral.TIPO_ACEPTAR).setListener(new YesNoDialogListener() {
-                    @Override
-                    public void yes() {
-
-                    }
-
-                    @Override
-                    public void no() {
-
-                    }
-                });
-        final DialogoGeneral mensaje = builder.build();
-        mensaje.setCancelable(false);
-        mensaje.show(getSupportFragmentManager(), "dialog_error");
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.singBtn:
-                showDialogs();
-                //load(v);
-                break;
-        }
     }
 }

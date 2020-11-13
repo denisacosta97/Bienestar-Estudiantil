@@ -8,7 +8,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/card_inicio"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:clickable="true"
         android:focusable="true"
@@ -22,14 +22,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/imgIcon"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:padding="2dp"
-                android:scaleType="centerCrop"
-                app:srcCompat="@drawable/ic_reserva_ocupado_turno" />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -42,6 +34,7 @@
                     android:padding="10dp">
 
                     <TextView
+                        android:padding="5dp"
                         android:id="@+id/txtEstado"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -61,6 +54,7 @@
                         android:fontFamily="@font/montserrat_black"/>
 
                     <TextView
+                        android:visibility="gone"
                         android:id="@+id/txtDesc"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
@@ -71,13 +65,14 @@
                         android:fontFamily="@font/montserrat_regular"/>
 
                     <TextView
+                        android:layout_marginTop="5dp"
                         android:id="@+id/txtFecha"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="end"
                         android:layout_marginRight="10dp"
                         android:text="06/03/2019 - 11:42hs"
-                        android:textSize="12sp"
+                        android:textSize="15sp"
                         android:fontFamily="@font/montserrat_regular"/>
 
                 </LinearLayout>

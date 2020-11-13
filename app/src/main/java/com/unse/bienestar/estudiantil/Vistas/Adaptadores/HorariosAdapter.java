@@ -45,9 +45,18 @@ public class HorariosAdapter extends RecyclerView.Adapter<HorariosAdapter.Opcion
     public void onBindViewHolder(@NonNull HorariosAdapter.OpcionesViewHolder holder, int position) {
 
         Horario s = arrayList.get(position);
-        String hora = String.format("%s\n-\n%s", s.getHoraInicio(), s.getHoraFin());
+        int index = s.getHoraInicio().indexOf("-");
+        String horaI = s.getHoraInicio().substring(0, index).trim();
+        String horaF = s.getHoraInicio().substring(index+1, s.getHoraInicio().length()).trim();
+        String hora = String.format("%s\n-\n%s", horaI, horaF);
         holder.txtTitulo.setText(hora);
         holder.txtTitulo.setTextColor(context.getResources().getColor(R.color.colorAccent));
+
+        if (s.getEstado() == 1) {
+            holder.mCardView.setBackgroundColor(context.getResources().getColor(R.color.colorRed));
+        } else {
+            holder.mCardView.setBackgroundColor(context.getResources().getColor(R.color.colorWhite));
+        }
     }
 
     @Override

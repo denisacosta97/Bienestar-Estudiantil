@@ -33,6 +33,7 @@ import com.unse.bienestar.estudiantil.Modelos.Opciones;
 import com.unse.bienestar.estudiantil.Modelos.Profesor;
 import com.unse.bienestar.estudiantil.Modelos.Usuario;
 import com.unse.bienestar.estudiantil.R;
+import com.unse.bienestar.estudiantil.Vistas.Activities.Becas.TurnosActivity;
 import com.unse.bienestar.estudiantil.Vistas.Activities.Inicio.LoginActivity;
 import com.unse.bienestar.estudiantil.Vistas.Adaptadores.OpcionesAdapter;
 import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoGeneral;
@@ -96,7 +97,7 @@ public class PerfilActivity extends AppCompatActivity implements View.OnClickLis
         mList.add(new Opciones(LinearLayout.VERTICAL, true, 2, "Configuraciones", R.drawable.ic_settings, R.color.colorWhite, R.color.blackTextColor, 12));
         mList.add(new Opciones(LinearLayout.VERTICAL, true, 6, "Cerrar Sesión", R.drawable.ic_cerrar_e, R.color.colorWhite, R.color.blackTextColor, 12));
 
-        mAdapter = new OpcionesAdapter(mList, getApplicationContext(),1);
+        mAdapter = new OpcionesAdapter(mList, getApplicationContext(), 1);
 
         mLayoutManager = new GridLayoutManager(getApplicationContext(), 3);
 
@@ -105,12 +106,12 @@ public class PerfilActivity extends AppCompatActivity implements View.OnClickLis
         mRecyclerViewFunciones.setAdapter(mAdapter);
 
         mListActividades = new ArrayList<>();
+        mListActividades.add(new Opciones(LinearLayout.VERTICAL, true, 3, "Historial de Turnos", R.drawable.ic_turnos, R.color.colorWhite, R.color.blackTextColor, 12));
         mListActividades.add(new Opciones(LinearLayout.VERTICAL, false, 1, "Reservas", R.drawable.ic_reservas, R.color.colorWhite, R.color.blackTextColor, 12));
         mListActividades.add(new Opciones(LinearLayout.VERTICAL, false, 2, "Historia Clínica", R.drawable.ic_historia_clinica, R.color.colorWhite, R.color.blackTextColor, 12));
-        mListActividades.add(new Opciones(LinearLayout.VERTICAL, false, 3, "Historial de Turnos", R.drawable.ic_turnos, R.color.colorWhite, R.color.blackTextColor, 12));
 
 
-        mAdapterActividades = new OpcionesAdapter(mListActividades, getApplicationContext(),1);
+        mAdapterActividades = new OpcionesAdapter(mListActividades, getApplicationContext(), 1);
         mLayoutActividades = new GridLayoutManager(getApplicationContext(), 3);
 
         mRecyclerActividades.setLayoutManager(mLayoutActividades);
@@ -130,7 +131,7 @@ public class PerfilActivity extends AppCompatActivity implements View.OnClickLis
         PreferenceManager manager = new PreferenceManager(getApplicationContext());
         int idLocal = manager.getValueInt(Utils.MY_ID);
         usuario = mUsuarioViewModel.getById(idLocal);
-        
+
         if (txtNombre != null) {
             txtNombre.setText("NOMBRE");
             txtDescripcion.setText("CARRERA");
@@ -196,7 +197,7 @@ public class PerfilActivity extends AppCompatActivity implements View.OnClickLis
                             FileStorageManager.saveBitmap(getApplicationContext(), Utils.FOLDER,
                                     String.format(Utils.PROFILE_PIC,
                                             usuario.getIdUsuario()),
-                                    ((BitmapDrawable)resource).getBitmap(), false);
+                                    ((BitmapDrawable) resource).getBitmap(), false);
                             return false;
                         }
                     }).into(imgPerfil);
@@ -220,33 +221,38 @@ public class PerfilActivity extends AppCompatActivity implements View.OnClickLis
         itemClickSupport2.setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
             @Override
             public void onItemClick(RecyclerView parent, View view, int position, long id) {
-                 procesarClick2(parent, view, position, (int) id);
+                procesarClick2(parent, view, position, (int) id);
             }
         });
     }
 
     private void procesarClick2(RecyclerView parent, View view, int position, int id) {
-        DialogoGeneral.Builder builder = new DialogoGeneral.Builder(getApplicationContext())
-                .setIcono(R.drawable.ic_repair)
-                .setDescripcion( "¡Ésta sección se encuentra en desarrollo!")
-                .setListener(new YesNoDialogListener() {
-                    @Override
-                    public void yes() {
 
-                    }
-
-                    @Override
-                    public void no() {
-
-                    }
-                })
-                .setTipo(DialogoGeneral.TIPO_ACEPTAR);
-        DialogoGeneral dialogoGeneral = builder.build();
-        dialogoGeneral.setCancelable(false);
-        dialogoGeneral.show(getSupportFragmentManager(), "dialog_proces");
         switch (id) {
             case 1:
-                //startActivity(new Intent(getApplicationContext(), CredencialActivity.class));
+            case 2:
+                DialogoGeneral.Builder builder = new DialogoGeneral.Builder(getApplicationContext())
+                        .setIcono(R.drawable.ic_repair)
+                        .setDescripcion("¡Ésta sección se encuentra en desarrollo!")
+                        .setListener(new YesNoDialogListener() {
+                            @Override
+                            public void yes() {
+
+                            }
+
+                            @Override
+                            public void no() {
+
+                            }
+                        })
+                        .setTipo(DialogoGeneral.TIPO_ACEPTAR);
+                DialogoGeneral dialogoGeneral = builder.build();
+                dialogoGeneral.setCancelable(false);
+                dialogoGeneral.show(getSupportFragmentManager(), "dialog_proces");
+
+                break;
+            case 3:
+                startActivity(new Intent(getApplicationContext(), TurnosActivity.class));
                 break;
         }
     }

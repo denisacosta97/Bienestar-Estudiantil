@@ -21,6 +21,10 @@ public class Archivo implements Serializable {
         this.nombre = nombre;
     }
 
+    public Archivo(){
+
+    }
+
     public String getFechaCreacion() {
         return fechaCreacion;
     }

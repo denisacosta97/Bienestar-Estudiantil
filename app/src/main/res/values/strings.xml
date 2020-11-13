@@ -122,7 +122,7 @@
     <string name="domicilioInvalido">Debe contener al menos una letra y un número</string>
     <string name="campoNoFormato">El campo solo admite letras</string>
     <string name="contraseniaActualizada">¡Contraseña actualizada!</string>
-    <string name="documentoNoCompletado">Error al completar el documento</string>
+    <string name="documentoNoCompletado">¡Error al completar el documento!</string>
     <string name="inscripcionNoCarga">Error al obtener la inscripcion. ¿Desea volver a intentarlo?</string>
     <string name="estadoActualizado">¡Estado actualizado!</string>
     <string name="numeroNoValido">Valor númerico no valido</string>
@@ -444,6 +444,16 @@
     <string name="permisosFoto">Para poder acceder a tus archivos primero debes aceptar el permiso.</string>
     <string name="abrirMapa">¿Desea abrir la ubicación en Google Maps?</string>
     <string name="permisoCamara">Para poder escanear un documento, debes aceptar el permiso de cámara.</string>
+    <string name="becaConvocatoriaNo">¡No hay convocatorias!</string>
+    <string name="becaTurnoNoDia">Día no habilitado para turnos</string>
+    <string name="becaTurnoNoHorario">¡No hay turnos disponibles!</string>
+    <string name="becaTurnoError">¡Error al reservar el turno!</string>
+    <string name="becaTurnoYaReservado">¡Turno ya reservado!</string>
+    <string name="becaTurnoSeleccionaHorario">Primero seleccione un horario</string>
+    <string name="becaTurnoErrorRecargar">Error, vuelva a cargar la vista</string>
+    <string name="becaTurnoErrorCancelar">¡Error al actualizar!</string>
+    <string name="archivosErrorDescarga">¡Error al descargar el archivo!</string>
+    <string name="archivoErrorNoAppPDF">No hay aplicaciones disponibles para abrir PDF</string>
 
 </resources>
 

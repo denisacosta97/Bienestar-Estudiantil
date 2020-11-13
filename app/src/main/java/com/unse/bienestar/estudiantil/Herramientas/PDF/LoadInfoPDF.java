@@ -21,6 +21,7 @@ import com.unse.bienestar.estudiantil.Herramientas.Credencial.CustomPictureButto
 import com.unse.bienestar.estudiantil.Herramientas.Utils;
 import com.unse.bienestar.estudiantil.Interfaces.YesNoDialogListener;
 import com.unse.bienestar.estudiantil.Modelos.Archivo;
+import com.unse.bienestar.estudiantil.Modelos.Turno;
 import com.unse.bienestar.estudiantil.Modelos.Usuario;
 import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoProcesamiento;
 
@@ -45,6 +46,7 @@ public class LoadInfoPDF extends AsyncTask<String, Integer, String> {
     private YesNoDialogListener mListener;
     private DialogoProcesamiento mDialogoProcesamiento;
     private FragmentManager mFragmentManager;
+    private Turno mTurno;
 
     public LoadInfoPDF(Context context, Archivo archivo, YesNoDialogListener listener, FragmentManager manager) {
         this.mContext = context;
@@ -147,15 +149,24 @@ public class LoadInfoPDF extends AsyncTask<String, Integer, String> {
                 ad.setImage(ImageDataFactory.create(stream.toByteArray()));
                 formFields.remove("foto");
                 document.add(new Paragraph().add(ad));
-
-
-
-
-
             }
 
         }
+        if (mTurno != null){
+            if (formFields.containsKey("receptor"))
+                formFields.get("receptor").setValue(mTurno.getReceptorString());
+            if (formFields.containsKey("fecha"))
+                formFields.get("fecha").setValue(mTurno.getFecha());
+            if (formFields.containsKey("hora"))
+                formFields.get("hora").setValue(mTurno.getFechaInicio());
+            if (formFields.containsKey("estado"))
+                formFields.get("estado").setValue(mTurno.getEstado());
+        }
 
+    }
+
+    public void setTurno(Turno turno) {
+        mTurno = turno;
     }
 
     @Override

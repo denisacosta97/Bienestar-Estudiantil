@@ -13,7 +13,7 @@
 
         <LinearLayout
             android:layout_margin="10dp"
-            android:id="@+id/layTurnos"
+            android:id="@+id/latDatos"
             android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -26,7 +26,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/layoutVacio"
+            android:id="@+id/latVacio"
             android:gravity="center"
             android:layout_margin="20dp"
             android:orientation="vertical"
@@ -52,14 +52,5 @@
         </LinearLayout>
 
     </LinearLayout>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingMas"
-        android:layout_width="wrap_content"
-        android:layout_margin="16dp"
-        app:srcCompat="@drawable/ic_mas"
-        android:layout_gravity="bottom|end"
-        app:layout_anchorGravity="bottom|right|end"
-        android:layout_height="wrap_content" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

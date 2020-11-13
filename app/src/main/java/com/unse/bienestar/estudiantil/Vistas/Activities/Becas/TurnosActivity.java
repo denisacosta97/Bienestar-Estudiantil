@@ -5,16 +5,29 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.unse.bienestar.estudiantil.Herramientas.Almacenamiento.PreferenceManager;
+import com.unse.bienestar.estudiantil.Herramientas.RecyclerListener.ItemClickSupport;
 import com.unse.bienestar.estudiantil.Herramientas.Utils;
+import com.unse.bienestar.estudiantil.Herramientas.VolleySingleton;
 import com.unse.bienestar.estudiantil.Modelos.Turno;
 import com.unse.bienestar.estudiantil.R;
 import com.unse.bienestar.estudiantil.Vistas.Adaptadores.TurnosAdapter;
+import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoProcesamiento;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,8 +38,10 @@ public class TurnosActivity extends AppCompatActivity implements View.OnClickLis
     TurnosAdapter adapter;
     RecyclerView.LayoutManager mLayoutManager;
     ArrayList<Turno> mList;
-    FloatingActionButton fabMas;
+    LinearLayout latTurnos, latVacio;
     ImageView imgIcono;
+    DialogoProcesamiento dialog;
+    boolean isLoad = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,35 +58,148 @@ public class TurnosActivity extends AppCompatActivity implements View.OnClickLis
         loadListener();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (isLoad){
+            loadInfo();
+            isLoad = false;
+        }
+    }
+
+    private void loadInfo() {
+        PreferenceManager manager = new PreferenceManager(getApplicationContext());
+        String key = manager.getValueString(Utils.TOKEN);
+        int idLocal = manager.getValueInt(Utils.MY_ID);
+        String URL = String.format("%s?key=%s&idU=%s&iu=%s", Utils.URL_TURNO_POR_USUARIO, key,
+                idLocal, idLocal);
+        StringRequest requestImage = new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                procesarRespuesta(response);
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Utils.showToast(getApplicationContext(), getString(R.string.servidorOff));
+                dialog.dismiss();
+            }
+        });
+        dialog = new DialogoProcesamiento();
+        dialog.setCancelable(false);
+        dialog.show(getSupportFragmentManager(), "dialog");
+        VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(requestImage);
+    }
+
+    private void procesarRespuesta(String response) {
+        try {
+            dialog.dismiss();
+            JSONObject jsonObject = new JSONObject(response);
+            int estado = jsonObject.getInt("estado");
+            switch (estado) {
+                case -1:
+                    Utils.showToast(getApplicationContext(), getString(R.string.errorInternoAdmin));
+                    break;
+                case 1:
+                    //Exito
+                    loadInfo(jsonObject);
+                    break;
+                case 2:
+                    Utils.showToast(getApplicationContext(), getString(R.string.noData));
+                    break;
+                case 3:
+                    Utils.showToast(getApplicationContext(), getString(R.string.tokenInvalido));
+                    break;
+                case 4:
+                    Utils.showToast(getApplicationContext(), getString(R.string.camposInvalidos));
+                    break;
+                case 100:
+                    Utils.showToast(getApplicationContext(), getString(R.string.tokenInexistente));
+                    break;
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Utils.showToast(getApplicationContext(), getString(R.string.errorInternoAdmin));
+        }
+    }
+
+    private void loadInfo(JSONObject jsonObject) {
+        try {
+            if (jsonObject.has("mensaje")) {
+
+                mList = new ArrayList<>();
+
+                JSONArray datos = jsonObject.getJSONArray("mensaje");
+                for (int i = 0; i < datos.length(); i++) {
+                    JSONObject object = datos.getJSONObject(i);
+
+                    Turno turno = Turno.mapper(object, Turno.MEDIUM);
+
+                    mList.add(turno);
+                }
+                if (mList.size() > 0) {
+                    adapter = new TurnosAdapter(mList, getApplicationContext());
+                    mRecyclerView.setAdapter(adapter);
+                    latTurnos.setVisibility(View.VISIBLE);
+                    latVacio.setVisibility(View.GONE);
+                } else {
+                    latVacio.setVisibility(View.VISIBLE);
+                }
+
+            }
+        } catch (JSONException e) {
+
+        }
+
+    }
+
     private void loadData() {
         mList = new ArrayList<>();
-        /*mList.add(new Turno("BECAS COMEDOR 2019", "Presentación de papeles para becas comedor 2019", Turno.ESTADO.CONFIRMADO.name(),
-                "09:05:00", "09:10:00", "24/02/2019", "39986583", "Cristian", "Ledesma"));
-        mList.add(new Turno("BECAS UNSE 2020", "Presentación de papeles para becas comedor 2019", Turno.ESTADO.AUSENTE.name(),
-                "09:05:00", "09:10:00", "24/02/2019", "39986583", "Cristian", "Ledesma"));
-        mList.add(new Turno("BECAS COMEDOR 2020", "Presentación de papeles para becas comedor 2019", Turno.ESTADO.CONFIRMADO.name(),
-                "09:05:00", "09:10:00", "2/10/2020", "39986583", "Cristian", "Ledesma"));
-        mList.add(new Turno("DEPORTES 2020", "Presentación de papeles para becas comedor 2019", Turno.ESTADO.AUSENTE.name(),
-                "09:05:00", "09:10:00", "24/04/2020", "39986583", "Cristian", "Ledesma"));
-        mList.add(new Turno("AYUDA ECONOMICA 2020", "Presentación de papeles para becas comedor 2019", Turno.ESTADO.PENDIENTE.name(),
-                "09:05:00", "09:10:00", "24/03/2020", "39986583", "Cristian", "Ledesma"));
-*/
+
+        loadInfo();
+
         mLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
 
-        adapter = new TurnosAdapter(mList, getApplicationContext());
+        latVacio.setVisibility(View.VISIBLE);
+
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setAdapter(adapter);
+
     }
 
     private void loadListener() {
         imgIcono.setOnClickListener(this);
-        fabMas.setOnClickListener(this);
+        ItemClickSupport itemClickSupport = ItemClickSupport.addTo(mRecyclerView);
+        itemClickSupport.setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
+            @Override
+            public void onItemClick(RecyclerView parent, View view, int position, long id) {
+                procresClick(position);
+            }
+        });
+    }
+
+    private void procresClick(int position) {
+        Turno turno = mList.get(position);
+        Intent intent = new Intent(getApplicationContext(), InfoTurnoActivity.class);
+        intent.putExtra(Utils.DATA_TURNO, turno);
+        startActivityForResult(intent, 500);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 500){
+            if (resultCode == RESULT_OK)
+                isLoad = true;
+        }
     }
 
     private void loadViews() {
+        latTurnos = findViewById(R.id.latDatos);
+        latVacio = findViewById(R.id.latVacio);
         mRecyclerView = findViewById(R.id.recycler);
-        fabMas = findViewById(R.id.floatingMas);
         imgIcono = findViewById(R.id.imgFlecha);
     }
 
@@ -81,14 +209,11 @@ public class TurnosActivity extends AppCompatActivity implements View.OnClickLis
             case R.id.imgFlecha:
                 onBackPressed();
                 break;
-            case R.id.floatingMas:
-                startActivity(new Intent(getApplicationContext(), TipoTurnosActivity.class));
-                break;
         }
     }
 
     private void setToolbar() {
-        ((TextView) findViewById(R.id.txtTitulo)).setText(Utils.getAppName(getApplicationContext(), getComponentName()));
+        ((TextView) findViewById(R.id.txtTitulo)).setText("Historial de Turnos");
         ((TextView) findViewById(R.id.txtTitulo)).setTextColor(getResources().getColor(R.color.colorAccent));
         Utils.changeColorDrawable(((ImageView) findViewById(R.id.imgFlecha)), getApplicationContext(), R.color.colorAccent);
     }

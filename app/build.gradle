@@ -73,7 +73,7 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
     //Calendario
     implementation 'com.github.badoualy:datepicker-timeline:1.0.1'
-    implementation 'com.applandeo:material-calendar-view:1.4.0'
+    //implementation 'com.applandeo:material-calendar-view:1.4.0'
     //Circle Image View
     implementation 'de.hdodenhof:circleimageview:2.1.0'
     //Código de Barras Scanner

@@ -13,7 +13,7 @@ public class Turno implements Parcelable {
 
     int id, receptor, dia, mes, anio;
     String titulo, descripcion, nombre, apellido, dni;
-    String estado, fechaInicio, fechaFin, fecha, receptorString;
+    String estado, fechaInicio, fechaFin, fecha, receptorString, fechaRegistro;
 
 
     public Turno(String titulo, String descripcion, String estado, String fechaInicio, String fechaFin,
@@ -74,6 +74,7 @@ public class Turno implements Parcelable {
         fechaFin = in.readString();
         fecha = in.readString();
         receptorString = in.readString();
+        fechaRegistro = in.readString();
     }
 
 
@@ -181,6 +182,14 @@ public class Turno implements Parcelable {
         return apellido;
     }
 
+    public String getFechaRegistro() {
+        return fechaRegistro;
+    }
+
+    public void setFechaRegistro(String fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
+    }
+
     public void setApellido(String apellido) {
         this.apellido = apellido;
     }
@@ -190,7 +199,7 @@ public class Turno implements Parcelable {
         try {
             int id, receptor, dia, mes, anio;
             String titulo, descripcion, nombre, apellido, dni;
-            String estado, fechaInicio, fechaFin, fecha;
+            String estado, fechaInicio, fechaFin, fecha, fechRegistro;
             switch (tipo) {
                 case LOW:
                     receptor = Integer.parseInt(object.getString("receptor"));
@@ -205,9 +214,11 @@ public class Turno implements Parcelable {
                     mes = Integer.parseInt(object.getString("mes"));
                     anio = Integer.parseInt(object.getString("anio"));
                     receptor = Integer.parseInt(object.getString("receptor"));
+                    fechRegistro = object.getString("fecharegistro");
                     turno = new Turno(dia, mes, anio, titulo, estado, fechaInicio);
                     turno.setReceptor(receptor);
                     turno.setReceptor(String.format("Receptor %s", receptor));
+                    turno.setFechaRegistro(fechRegistro);
                     break;
 
             }
@@ -248,5 +259,6 @@ public class Turno implements Parcelable {
         dest.writeString(fechaFin);
         dest.writeString(fecha);
         dest.writeString(receptorString);
+        dest.writeString(fechaRegistro);
     }
 }

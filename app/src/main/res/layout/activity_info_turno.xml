@@ -129,13 +129,58 @@
                                 android:layout_marginRight="10dp"
                                 android:textColor="@color/blackTextColor"
                                 android:textStyle="bold"
-                                android:text="Fecha:"
+                                android:text="Fecha de Turno:"
                                 android:textSize="16sp"
                                 android:fontFamily="@font/montserrat_black"/>
 
                             <TextView
                                 android:enabled="false"
                                 android:id="@+id/txtFecha"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="14sp"
+                                android:text="00:00 - 00:00"
+                                android:fontFamily="@font/montserrat_regular"
+                                android:textColor="@color/blackTextColor"
+                                android:padding="10dp" />
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/colorGrey"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:textColor="@color/blackTextColor"
+                                android:textStyle="bold"
+                                android:text="Fecha de Registro:"
+                                android:textSize="16sp"
+                                android:fontFamily="@font/montserrat_black"/>
+
+                            <TextView
+                                android:enabled="false"
+                                android:id="@+id/txtFechaRegistro"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:textSize="14sp"

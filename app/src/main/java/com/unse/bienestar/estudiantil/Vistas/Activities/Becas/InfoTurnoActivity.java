@@ -42,7 +42,7 @@ import androidx.core.content.FileProvider;
 public class InfoTurnoActivity extends AppCompatActivity implements View.OnClickListener {
 
     CardView cardEstado;
-    TextView txtTitulo, txtEstado, txtHorario, txtReceptor, txtFecha;
+    TextView txtTitulo, txtEstado, txtHorario, txtReceptor, txtFecha, txtFechaRegistro;
     Button btnCancelar, btnPDF;
     Turno mTurno;
     DialogoProcesamiento dialog;
@@ -157,6 +157,7 @@ public class InfoTurnoActivity extends AppCompatActivity implements View.OnClick
         txtTitulo.setText(mTurno.getTitulo());
         txtReceptor.setText(mTurno.getReceptorString());
         txtHorario.setText(mTurno.getFechaInicio());
+        txtFechaRegistro.setText(mTurno.getFechaRegistro());
         txtFecha.setText(String.format("%s/%s/%s", mTurno.getDia(), mTurno.getMes(), mTurno.getAnio()));
         txtEstado.setText(mTurno.getEstado());
 
@@ -188,6 +189,7 @@ public class InfoTurnoActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void loadViews() {
+        txtFechaRegistro = findViewById(R.id.txtFechaRegistro);
         cardEstado = findViewById(R.id.cardEstado);
         txtTitulo = findViewById(R.id.txtDescripcion);
         txtEstado = findViewById(R.id.txtEstado);
@@ -216,7 +218,7 @@ public class InfoTurnoActivity extends AppCompatActivity implements View.OnClick
     private void downloadPDF() {
         final Archivo archivo = new Archivo();
         archivo.setNombreArchivo(String.format("COMPROBANTE_TURNO_%s_%s.pdf",
-                mTurno.getTitulo().replaceAll(" ","_").toUpperCase(),
+                mTurno.getTitulo().replaceAll(" ", "_").toUpperCase(),
                 mTurno.getFecha().replaceAll("/", "_")));
         DownloadPDF downloadPDF = new DownloadPDF(getApplicationContext(), archivo.getNombreArchivo(),
                 getSupportFragmentManager(), new YesNoDialogListener() {

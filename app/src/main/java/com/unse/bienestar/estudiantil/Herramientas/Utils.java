@@ -278,7 +278,7 @@ public class Utils {
     public static final String URL_TURNO_HORARIO = "https://" + IP + "/becas/turno/getTurnoHorarios.php";
     public static final String URL_TURNO_NUEVO = "https://" + IP + "/becas/turno/insertar.php";
     public static final String URL_TURNO_POR_USUARIO = "https://" + IP + "/becas/turno/getTurnoByUsuario.php";
-    public static final String URL_TURNO_CANCELAR = "https://" + IP + "/becas/turno/actualizar.php";
+    public static final String URL_TURNO_CANCELAR = "https://" + IP + "/becas/turno/cancelar.php";
     public static final String URL_ARCHIVO_TURNO = "https://" + IP + "/becas/turno/archivos/";
 
     public static final String URL_FECHAS_VALIDA = "https://" + IP + "/becas/fecha/getFechaInvalidate.php";

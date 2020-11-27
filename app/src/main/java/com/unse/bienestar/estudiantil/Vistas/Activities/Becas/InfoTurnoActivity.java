@@ -26,6 +26,7 @@ import com.unse.bienestar.estudiantil.Interfaces.YesNoDialogListener;
 import com.unse.bienestar.estudiantil.Modelos.Archivo;
 import com.unse.bienestar.estudiantil.Modelos.Turno;
 import com.unse.bienestar.estudiantil.R;
+import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoGeneral;
 import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoProcesamiento;
 
 import org.json.JSONException;
@@ -103,6 +104,7 @@ public class InfoTurnoActivity extends AppCompatActivity implements View.OnClick
                 param.put("idU", String.valueOf(idLocal));
                 param.put("di", String.valueOf(mTurno.getDia()));
                 param.put("me", String.valueOf(mTurno.getMes()));
+                param.put("re", String.valueOf(mTurno.getReceptor()));
                 param.put("an", String.valueOf(mTurno.getAnio()));
                 param.put("ir", String.valueOf(mTurno.getReceptor()));
                 param.put("ho", mTurno.getFechaInicio());
@@ -207,12 +209,32 @@ public class InfoTurnoActivity extends AppCompatActivity implements View.OnClick
                 onBackPressed();
                 break;
             case R.id.btnCancelar:
-                cancelar();
+                preguntar();
                 break;
             case R.id.btnPDF:
                 downloadPDF();
                 break;
         }
+    }
+
+    private void preguntar() {
+        DialogoGeneral.Builder builder = new DialogoGeneral.Builder(getApplicationContext())
+                .setTipo(DialogoGeneral.TIPO_SI_NO)
+                .setTitulo(getString(R.string.advertencia))
+                .setDescripcion(getString(R.string.becaTurnoCancelar))
+                .setListener(new YesNoDialogListener() {
+                    @Override
+                    public void yes() {
+                        cancelar();
+                    }
+
+                    @Override
+                    public void no() {
+
+                    }
+                });
+        DialogoGeneral dialogoGeneral = builder.build();
+        dialogoGeneral.show(getSupportFragmentManager(), "dialog");
     }
 
     private void downloadPDF() {

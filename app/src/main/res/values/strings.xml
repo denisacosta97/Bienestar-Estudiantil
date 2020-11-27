@@ -454,6 +454,12 @@
     <string name="becaTurnoErrorCancelar">¡Error al actualizar!</string>
     <string name="archivosErrorDescarga">¡Error al descargar el archivo!</string>
     <string name="archivoErrorNoAppPDF">No hay aplicaciones disponibles para abrir PDF</string>
+    <string name="becaTurnoCancelar">Una vez que canceles, puede que alguien más reserve el mismo horario</string>
+    <string name="qrCancelado">¡Cancelado!</string>
+    <string name="qrInvalido">¡QR inválido!</string>
+    <string name="qrEscaneado">¡Registrado!</string>
+    <string name="ciberUsoMaquina">¡Uso de máquina registrado!</string>
+    <string name="ciberUsoMaquinaError">¡Error al registrar uso de máquina!\nHorario no permitido</string>
 
 </resources>
 

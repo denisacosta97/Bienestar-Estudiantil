@@ -321,7 +321,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 == PackageManager.PERMISSION_GRANTED)) {
             startActivityForResult(new Intent(this, BarcodeActivity.class), GET_FROM_DNI);
         } else if (ActivityCompat.shouldShowRequestPermissionRationale(RegisterActivity.this,
-                Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                Manifest.permission.CAMERA)) {
             Intent intent = new Intent();
             intent.setAction(ACTION_APPLICATION_DETAILS_SETTINGS);
             Uri uri = Uri.fromParts("package", BuildConfig.APPLICATION_ID, null);

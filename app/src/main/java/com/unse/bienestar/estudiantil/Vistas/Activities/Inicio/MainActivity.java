@@ -2,6 +2,7 @@ package com.unse.bienestar.estudiantil.Vistas.Activities.Inicio;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -14,8 +15,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -37,6 +38,7 @@ import com.unse.bienestar.estudiantil.Herramientas.Almacenamiento.PreferenceMana
 import com.unse.bienestar.estudiantil.Herramientas.ContextSingleton;
 import com.unse.bienestar.estudiantil.Herramientas.Utils;
 import com.unse.bienestar.estudiantil.Herramientas.VolleySingleton;
+import com.unse.bienestar.estudiantil.Interfaces.YesNoDialogListener;
 import com.unse.bienestar.estudiantil.Modelos.Rol;
 import com.unse.bienestar.estudiantil.Modelos.Usuario;
 import com.unse.bienestar.estudiantil.R;
@@ -44,6 +46,7 @@ import com.unse.bienestar.estudiantil.Vistas.Activities.AboutActivity;
 import com.unse.bienestar.estudiantil.Vistas.Activities.Gestion.GestionSistemaActivity;
 import com.unse.bienestar.estudiantil.Vistas.Activities.Perfil.PerfilActivity;
 import com.unse.bienestar.estudiantil.Vistas.Activities.TermsActivity;
+import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoGeneral;
 import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoProcesamiento;
 import com.unse.bienestar.estudiantil.Vistas.Fragmentos.BecasFragment;
 import com.unse.bienestar.estudiantil.Vistas.Fragmentos.CiberFragment;
@@ -61,9 +64,11 @@ import org.json.JSONObject;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -75,6 +80,7 @@ import androidx.fragment.app.FragmentManager;
 
 import static android.view.Gravity.LEFT;
 import static android.view.Gravity.START;
+import static com.unse.bienestar.estudiantil.Herramientas.Utils.PERMISSION_ALL;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -92,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
     TextView txtNombre;
     HashMap<String, Integer> ids;
     Double lat, lon;
-    public Boolean isReady = false, qrCiber = false;
+    public Boolean isReady = false, qrCiber = false, isReadyCiber = false;
     String pat = "", idR = "";
 
     @Override
@@ -341,7 +347,7 @@ public class MainActivity extends AppCompatActivity {
         IntentResult intentIntegrator = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         if (intentIntegrator != null) {
             if (intentIntegrator.getContents() == null) {
-                Utils.showCustomToast(MainActivity.this, getApplicationContext(), "Cancelaste", R.drawable.ic_error);
+                Utils.showToast(getApplicationContext(), getString(R.string.qrCancelado));
 
             } else {
                 String contenido = intentIntegrator.getContents();
@@ -356,35 +362,43 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void decordeQRCiber(String contenido) {
-        String code = "";
-        Pattern pattern = Pattern.compile("MAQ-[0-9]+");
-        Matcher matcher = pattern.matcher(contenido);
-        if (matcher.find()) {
-            code = matcher.group();
-        }
-        registrarUso(code);
+        if (contenido.equals("CYB-MAQ"))
+            isReadyCiber = true;
+        else Utils.showToast(getApplicationContext(), getString(R.string.qrInvalido));
     }
 
-    private void registrarUso(String code) {
+    private void registrarUso() {
         PreferenceManager manager = new PreferenceManager(getApplicationContext());
-        String key = manager.getValueString(Utils.TOKEN);
-        int id = manager.getValueInt(Utils.MY_ID);
-        //CAMBIAR URL EN UTILS
-        String URL = String.format("%s?idU=%s&key=%s&co=%s", Utils.URL_REGISTRAR_INGRESO, id, key, code);
+        final String key = manager.getValueString(Utils.TOKEN);
+        final int id = manager.getValueInt(Utils.MY_ID);
+        String URL = Utils.URL_REGISTRAR_INGRESO;
         StringRequest request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                procesarRespuestaActualizar(response);
+                procesarRespuestaCiber(response);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
-                Utils.showCustomToast(MainActivity.this, getApplicationContext(),
-                        getString(R.string.servidorOff), R.drawable.ic_error);
+                Utils.showToast(getApplicationContext(), getString(R.string.servidorOff));
                 dialog.dismiss();
             }
-        });
+        }) {
+            @Override
+            public String getBodyContentType() {
+                return "application/x-www-form-urlencoded; charset=UTF-8";
+            }
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String, String> param = new HashMap<>();
+                param.put("key", key);
+                param.put("idU", String.valueOf(id));
+                param.put("iu", String.valueOf(id));
+                return param;
+            }
+        };
         //Abro dialogo para congelar pantalla
         dialog = new DialogoProcesamiento();
         dialog.setCancelable(false);
@@ -430,6 +444,23 @@ public class MainActivity extends AppCompatActivity {
             isReady = false;
             changeEstado(pat, idR);
         }
+        if (isReadyCiber) {
+            isReadyCiber = false;
+            registrarUso();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case PERMISSION_ALL:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    if (mFragment instanceof CiberFragment) ((CiberFragment) mFragment).scanQR();
+                }
+                break;
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
     }
 
     private void changeEstado(String pat, String idR) {
@@ -448,7 +479,7 @@ public class MainActivity extends AppCompatActivity {
         StringRequest request = new StringRequest(Request.Method.PUT, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                procesarRespuestaActualizar(response);
+                procesarRespuestaCiber(response);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -467,45 +498,61 @@ public class MainActivity extends AppCompatActivity {
         VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
     }
 
-    private void procesarRespuestaActualizar(String response) {
+    private void procesarRespuestaCiber(String response) {
         try {
             dialog.dismiss();
             JSONObject jsonObject = new JSONObject(response);
             int estado = jsonObject.getInt("estado");
             switch (estado) {
                 case -1:
-                    Utils.showCustomToast(MainActivity.this, getApplicationContext(),
-                            getString(R.string.errorInternoAdmin), R.drawable.ic_error);
+                    Utils.showToast(getApplicationContext(), getString(R.string.errorInternoAdmin));
                     break;
                 case 1:
                     //Exito
-                    Toast.makeText(this, "Listo prro", Toast.LENGTH_SHORT).show();
+                    showDialogCiber(true);
                     break;
                 case 2:
-                    Utils.showCustomToast(MainActivity.this, getApplicationContext(),
-                            "", R.drawable.ic_error);
+                case 5:
+                    showDialogCiber(false);
                     break;
                 case 3:
-                    Utils.showCustomToast(MainActivity.this, getApplicationContext(),
-                            getString(R.string.tokenInvalido), R.drawable.ic_error);
+                    Utils.showToast(getApplicationContext(), getString(R.string.tokenInvalido));
                     break;
                 case 4:
-                    Utils.showCustomToast(MainActivity.this, getApplicationContext(),
-                            getString(R.string.camposIncompletos), R.drawable.ic_error);
+                    Utils.showToast(getApplicationContext(), getString(R.string.camposInvalidos));
                     break;
                 case 100:
                     //No autorizado
-                    Utils.showCustomToast(MainActivity.this, getApplicationContext(),
-                            getString(R.string.tokenInexistente), R.drawable.ic_error);
+                    Utils.showToast(getApplicationContext(), getString(R.string.tokenInexistente));
                     break;
             }
 
         } catch (JSONException e) {
             e.printStackTrace();
-            Utils.showCustomToast(MainActivity.this, getApplicationContext(),
-                    getString(R.string.errorInternoAdmin), R.drawable.ic_error);
+            Utils.showToast(getApplicationContext(), getString(R.string.errorInternoAdmin));
 
         }
+    }
+
+    private void showDialogCiber(boolean b) {
+        DialogoGeneral.Builder builder = new DialogoGeneral.Builder(getApplicationContext())
+                .setTitulo(getString(b ? R.string.qrEscaneado : R.string.advertencia))
+                .setDescripcion(getString(b ? R.string.ciberUsoMaquina : R.string.ciberUsoMaquinaError))
+                .setListener(new YesNoDialogListener() {
+                    @Override
+                    public void yes() {
+
+                    }
+
+                    @Override
+                    public void no() {
+
+                    }
+                })
+                .setTipo(DialogoGeneral.TIPO_ACEPTAR)
+                .setIcono(b ? R.drawable.ic_chek : R.drawable.ic_advertencia);
+        DialogoGeneral dialogoGeneral = builder.build();
+        dialogoGeneral.show(getSupportFragmentManager(), "dialogo");
     }
 
     @Override

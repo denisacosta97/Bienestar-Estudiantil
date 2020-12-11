@@ -284,7 +284,7 @@ public class Utils {
     public static final String URL_FECHAS_VALIDA = "https://" + IP + "/becas/fecha/getFechaInvalidate.php";
 
     //CIBER
-    public static final String URL_REGISTRAR_INGRESO = "http://" + IP + "/ciber/getCredencial.php";
+    public static final String URL_REGISTRAR_INGRESO = "https://" + IP + "/ciber/maquina/insertar.php";
     //GENERALES
     public static final String URL_ARCHIVOS_LISTA = "https://" + IP + "/general/getArchivos.php";
     public static final String URL_ARCHIVOS = "https://" + IP + "/archivos/";

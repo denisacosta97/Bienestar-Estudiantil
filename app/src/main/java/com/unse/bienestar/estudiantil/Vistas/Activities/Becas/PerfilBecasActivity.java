@@ -1,8 +1,10 @@
 package com.unse.bienestar.estudiantil.Vistas.Activities.Becas;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,6 +19,7 @@ public class PerfilBecasActivity extends AppCompatActivity implements View.OnCli
     InfoBecas mInfoBecas;
     TextView nameBeca, reqGeneral, reqAcad, desc, pdf;
     ImageView imgIcono;
+    Button btnCargar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +61,7 @@ public class PerfilBecasActivity extends AppCompatActivity implements View.OnCli
 
     private void loadListener() {
         imgIcono.setOnClickListener(this);
+        btnCargar.setOnClickListener(this);
     }
 
     private void loadViews() {
@@ -67,6 +71,7 @@ public class PerfilBecasActivity extends AppCompatActivity implements View.OnCli
         desc = findViewById(R.id.txtDesc);
         pdf = findViewById(R.id.txtPdf);
         imgIcono = findViewById(R.id.imgFlecha);
+        btnCargar = findViewById(R.id.btnCargar);
 
     }
 
@@ -75,6 +80,9 @@ public class PerfilBecasActivity extends AppCompatActivity implements View.OnCli
         switch (v.getId()){
             case R.id.imgFlecha:
                 onBackPressed();
+                break;
+            case R.id.btnCargar:
+                startActivity(new Intent(getApplicationContext(), CargarDocumentacionActivity.class));
                 break;
         }
 

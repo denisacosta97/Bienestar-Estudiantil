@@ -2,6 +2,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.unse.bienestar.estudiantil">
 
+    <uses-feature android:name="android.hardware.location.gps" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,6 +21,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".Vistas.Dialogos.DialogoDocumentacionActivity"></activity>
+        <activity android:name=".Vistas.Activities.Becas.CargarDocumentacionActivity" />
         <activity android:name=".Vistas.Activities.UPA.PerfilServicioActivity" />
         <activity android:name=".Vistas.Activities.UPA.ServiciosUPAActivity" />
         <activity android:name=".Vistas.Activities.UPA.TurnosUPAActivity" />
@@ -107,11 +120,9 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
-
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/ic_b_bienestar" />
-
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/colorWhite" />
@@ -124,37 +135,22 @@
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
-
         </provider> <!-- Servicio de Firebase -->
-        <service android:name="com.unse.bienestar.estudiantil.Herramientas.Firebase.FirebaseMessagingSDEService"
+        <service
+            android:name=".Herramientas.Firebase.FirebaseMessagingSDEService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
-        </service>
-        <!-- Info Configuración Firebase -->
-        <service android:name="com.unse.bienestar.estudiantil.Herramientas.Firebase.FCMInstanceIdService">
+        </service> <!-- Info Configuración Firebase -->
+        <service android:name=".Herramientas.Firebase.FCMInstanceIdService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
-        </service>
-
-        <!-- Info Configuración Firebase -->
+        </service> <!-- Info Configuración Firebase -->
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
-
     </application>
-
-    <uses-feature android:name="android.hardware.location.gps" />
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
 </manifest>

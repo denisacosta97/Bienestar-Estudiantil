@@ -162,9 +162,20 @@
 
                     </LinearLayout>
 
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorWhite"
+                        android:layout_marginTop="10dp"
+                        android:textSize="14sp"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:fontFamily="@font/montserrat_regular"
+                        android:text="NOTA: en tu perfil, opción 'Historial de Turnos', puedes obtener el comprobante del turno. " />
+
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="30dp" />
+                        android:layout_height="20dp" />
 
                 </LinearLayout>
 

@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include layout="@layout/toolbar_trans" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            app:cardCornerRadius="10dp"
+            android:outlineAmbientShadowColor="@color/colorGrey2"
+            android:outlineSpotShadowColor="@color/colorGrey2"
+            card_view:backgroundTint="@color/colorWhite">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txtNameBeca"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="BECA COMEDOR"
+                    android:textColor="@color/blackTextColor"
+                    android:textSize="26sp"
+                    android:gravity="center"
+                    android:fontFamily="@font/montserrat_black"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Fecha inicio: "
+                            android:textColor="@color/blackTextColor"
+                            android:textSize="16sp"
+                            android:fontFamily="@font/montserrat_black"/>
+
+                        <TextView
+                            android:id="@+id/txtInicio"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="15/12/2020"
+                            android:textSize="16sp"
+                            android:fontFamily="@font/montserrat_regular"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Fecha fin: "
+                            android:textColor="@color/blackTextColor"
+                            android:textSize="16sp"
+                            android:fontFamily="@font/montserrat_black"/>
+
+                        <TextView
+                            android:id="@+id/txtFin"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="15/01/2021"
+                            android:textSize="16sp"
+                            android:fontFamily="@font/montserrat_regular"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Seleccionar tipo de archivo a subir"
+                        android:textColor="@color/blackTextColor"
+                        android:textSize="18sp"
+                        android:gravity="center"
+                        android:fontFamily="@font/montserrat_black"/>
+
+                    <ImageButton
+                        android:id="@+id/btnAdd"
+                        android:layout_marginTop="10dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/colorAccent"
+                        app:srcCompat="@drawable/ic_add" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Documentación agregada"
+                        android:textColor="@color/blackTextColor"
+                        android:textSize="18sp"
+                        android:gravity="center"
+                        android:fontFamily="@font/montserrat_black"/>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btnCargar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_border"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginBottom="30dp"
+                    android:layout_centerInParent="true"
+                    android:textSize="18sp"
+                    android:textColor="@android:color/white"
+                    android:text="ENVIAR DOCUMENTACIÓN"
+                    android:fontFamily="@font/montserrat_black"/>
+
+                <LinearLayout
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/imgvPdf"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        app:srcCompat="@drawable/ic_pdf"/>
+
+                    <TextView
+                        android:id="@+id/txtPdf"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Ficha inscripción"
+                        android:textSize="18sp"
+                        android:fontFamily="@font/montserrat_regular"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

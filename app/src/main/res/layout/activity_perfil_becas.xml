@@ -182,20 +182,26 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Documentación"
+                    android:text="Cargar documentación"
                     android:textColor="@color/blackTextColor"
                     android:textSize="20sp"
                     android:gravity="center"
                     android:fontFamily="@font/montserrat_black"/>
 
-                <TextView
-                    android:gravity="center"
+                <Button
+                    android:id="@+id/btnCargar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="No disponible"
+                    android:background="@drawable/button_border"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginBottom="30dp"
+                    android:layout_centerInParent="true"
                     android:textSize="18sp"
-                    android:fontFamily="@font/montserrat_regular"/>
+                    android:textColor="@android:color/white"
+                    android:text="CARGAR"
+                    android:fontFamily="@font/montserrat_black"/>
 
                 <LinearLayout
                     android:visibility="gone"

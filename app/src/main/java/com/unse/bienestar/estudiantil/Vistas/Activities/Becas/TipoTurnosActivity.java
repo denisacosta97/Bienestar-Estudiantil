@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -38,6 +39,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class TipoTurnosActivity extends AppCompatActivity {
 
     RecyclerView mRecyclerView;
+    TextView txtDescripcion;
     OpcionesSimpleAdapter adapter;
     RecyclerView.LayoutManager mLayoutManager;
     ArrayList<Opciones> mList;
@@ -156,6 +158,9 @@ public class TipoTurnosActivity extends AppCompatActivity {
                 if (mList.size() > 0){
                     adapter = new OpcionesSimpleAdapter(mList, getApplicationContext());
                     mRecyclerView.setAdapter(adapter);
+                }else{
+                    txtDescripcion.setVisibility(View.VISIBLE);
+                    mRecyclerView.setVisibility(View.GONE);
                 }
             }
         } catch (JSONException e) {
@@ -178,6 +183,7 @@ public class TipoTurnosActivity extends AppCompatActivity {
     }
 
     private void loadViews() {
+        txtDescripcion = findViewById(R.id.txtDescripcion);
         mRecyclerView = findViewById(R.id.recycler);
         mProgressBar = findViewById(R.id.progres);
     }

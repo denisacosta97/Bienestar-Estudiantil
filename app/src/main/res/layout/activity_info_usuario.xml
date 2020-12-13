@@ -355,7 +355,7 @@
                                                     android:textSize="16sp"
                                                     android:fontFamily="@font/montserrat_black"/>
 
-                                                <EditText
+                                                <TextView
                                                     android:id="@+id/edtFecha"
                                                     android:layout_width="match_parent"
                                                     android:layout_height="wrap_content"
@@ -481,12 +481,12 @@
                                                     android:layout_marginLeft="10dp"
                                                     android:layout_marginRight="10dp"
                                                     android:textColor="@color/blackTextColor"
-                                                    android:text="Localidad:"
+                                                    android:text="País:"
                                                     android:textSize="16sp"
                                                     android:fontFamily="@font/montserrat_black"/>
 
-                                                <EditText
-                                                    android:id="@+id/edtLocalidad"
+                                                <TextView
+                                                    android:id="@+id/edtPais"
                                                     android:layout_width="match_parent"
                                                     android:layout_height="wrap_content"
                                                     android:textSize="16sp"
@@ -505,6 +505,7 @@
                                                 android:background="@color/colorGrey"/>
 
                                         </LinearLayout>
+
 
                                         <LinearLayout
                                             android:layout_width="match_parent"
@@ -528,7 +529,7 @@
                                                     android:textSize="16sp"
                                                     android:fontFamily="@font/montserrat_black"/>
 
-                                                <EditText
+                                                <TextView
                                                     android:id="@+id/edtProvincia"
                                                     android:layout_width="match_parent"
                                                     android:layout_height="wrap_content"
@@ -567,12 +568,12 @@
                                                     android:layout_marginLeft="10dp"
                                                     android:layout_marginRight="10dp"
                                                     android:textColor="@color/blackTextColor"
-                                                    android:text="País:"
+                                                    android:text="Localidad:"
                                                     android:textSize="16sp"
                                                     android:fontFamily="@font/montserrat_black"/>
 
-                                                <EditText
-                                                    android:id="@+id/edtPais"
+                                                <TextView
+                                                    android:id="@+id/edtLocalidad"
                                                     android:layout_width="match_parent"
                                                     android:layout_height="wrap_content"
                                                     android:textSize="16sp"
@@ -591,6 +592,7 @@
                                                 android:background="@color/colorGrey"/>
 
                                         </LinearLayout>
+
 
                                         <LinearLayout
                                             android:layout_width="match_parent"

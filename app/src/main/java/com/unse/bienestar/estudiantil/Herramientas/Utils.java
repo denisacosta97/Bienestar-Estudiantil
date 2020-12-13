@@ -217,6 +217,7 @@ public class Utils {
     public static final String URL_USUARIO_BY_ID = "https://" + IP + "/usuario/getUser.php";
     public static final String URL_USUARIO_ELIMINAR = "https://" + IP + "/usuario/eliminar.php";
     public static final String URL_USUARIO_BY_ID_REDUCE = "https://" + IP + "/usuario/getUserReduce.php";
+    public static final String URL_USUARIO_DIRECCION = "https://" + IP + "/usuario/getDireccion.php";
     //ALUMNO
     public static final String URL_REGULARIDAD = "https://" + IP + "/usuario/insertarRegularidad.php";
     public static final String URL_REGULARIDAD_CAMBIAR = "https://" + IP + "/usuario/cambiarRegularidad.php";
@@ -238,7 +239,7 @@ public class Utils {
     public static final String URL_DEPORTE_LISTA = "https://" + IP + "/deportes/getDeportes.php";
     public static final String URL_DEPORTE_TEMPORADA = "https://" + IP + "/deportes/inscripcion/getTemporada.php";
     public static final String URL_DEPORTE_INSCRIPCION = "https://" + IP + "/deportes/inscripcion/insertar.php";
-    public static final String URL_INSCRIPCIONES_GENERALES = "https://" + IP + "/becas/getInscripciones.php";
+    public static final String URL_INSCRIPCIONES_GENERALES = "https://" + IP + "/becas/inscripcion/getInscripciones.php";
     public static final String URL_INSCRIPCION_BY_ID = "https://" + IP + "/deportes/inscripcion/getInscripcion.php";
     public static final String URL_INSCRIPCION_ACTUALIZAR = "https://" + IP + "/deportes/inscripcion/actualizar.php";
     public static final String URL_INSCRIPCIONES_POR_DEPORTE = "https://" + IP + "/deportes/inscripcion/getInscriptosByDeporte.php";

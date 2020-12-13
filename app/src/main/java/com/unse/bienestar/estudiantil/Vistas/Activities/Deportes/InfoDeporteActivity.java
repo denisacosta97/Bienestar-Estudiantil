@@ -23,14 +23,20 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.unse.bienestar.estudiantil.Herramientas.Almacenamiento.PreferenceManager;
 import com.unse.bienestar.estudiantil.Herramientas.Utils;
 import com.unse.bienestar.estudiantil.Herramientas.VolleySingleton;
+import com.unse.bienestar.estudiantil.Interfaces.OnClickOptionListener;
 import com.unse.bienestar.estudiantil.Interfaces.YesNoDialogListener;
 import com.unse.bienestar.estudiantil.Modelos.Deporte;
+import com.unse.bienestar.estudiantil.Modelos.Opciones;
 import com.unse.bienestar.estudiantil.R;
 import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoGeneral;
+import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoOpciones;
 import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoProcesamiento;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -168,11 +174,25 @@ public class InfoDeporteActivity extends AppCompatActivity implements View.OnCli
                     break;
                 case 1:
                     //Exito
-                    Intent i = new Intent(getApplicationContext(), InscribirDeporteActivity.class);
-                    i.putExtra(Utils.DEPORTE_NAME, mDeporte);
-                    int anio = jsonObject.getInt("id");
-                    i.putExtra(Utils.DEPORTE_TEMPORADA, anio);
-                    startActivity(i);
+                    JSONArray jsonArray = jsonObject.getJSONArray("id");
+
+                    if (jsonArray.length() > 1){
+                        final ArrayList<Opciones> anios = new ArrayList<>();
+                        for (int i = 0; i<jsonArray.length(); i++){
+                            anios.add(new Opciones(String.format("%s", jsonArray.getJSONObject(i).getInt("anio"))));
+                        }
+                        DialogoOpciones opciones = new DialogoOpciones(new OnClickOptionListener() {
+                            @Override
+                            public void onClick(int pos) {
+                                String anio = anios.get(pos).getTitulo();
+                                openInscripcion(anio);
+                            }
+                        }, anios, getApplicationContext());
+                        opciones.show(getSupportFragmentManager(), "dialogo");
+                    }else{
+                        openInscripcion(String.valueOf(jsonArray.getJSONObject(0).getInt("anio")));
+                    }
+
                     break;
                 case 2:
                     Utils.showToast(getApplicationContext(), getString(R.string.deporteCerroConvocatoria));
@@ -183,11 +203,11 @@ public class InfoDeporteActivity extends AppCompatActivity implements View.OnCli
                 case 4:
                     Utils.showToast(getApplicationContext(), getString(R.string.camposInvalidos));
                     break;
-                case 5:
-                    Utils.showToast(getApplicationContext(), getString(R.string.deportesSinConvocatoria));
-                    break;
                 case 6:
                     Utils.showToast(getApplicationContext(), getString(R.string.deporteYaInscripto));
+                    break;
+                case 7:
+                    Utils.showToast(getApplicationContext(), getString(R.string.deporteUsuario));
                     break;
                 case 100:
                     Utils.showToast(getApplicationContext(), getString(R.string.tokenInexistente));
@@ -198,6 +218,13 @@ public class InfoDeporteActivity extends AppCompatActivity implements View.OnCli
             e.printStackTrace();
             Utils.showToast(getApplicationContext(), getString(R.string.errorInternoAdmin));
         }
+    }
+
+    private void openInscripcion(String anio) {
+        Intent i = new Intent(getApplicationContext(), InscribirDeporteActivity.class);
+        i.putExtra(Utils.DEPORTE_NAME, mDeporte);
+        i.putExtra(Utils.DEPORTE_TEMPORADA, anio);
+        startActivity(i);
     }
 
     @Override

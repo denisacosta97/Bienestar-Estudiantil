@@ -460,6 +460,7 @@
     <string name="qrEscaneado">¡Registrado!</string>
     <string name="ciberUsoMaquina">¡Uso de máquina registrado!</string>
     <string name="ciberUsoMaquinaError">¡Error al registrar uso de máquina!\nHorario no permitido</string>
+    <string name="deporteUsuario">¡Solo disponible para alumnos!</string>
 
 </resources>
 

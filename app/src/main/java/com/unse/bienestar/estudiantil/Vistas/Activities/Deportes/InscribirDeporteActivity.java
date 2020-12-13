@@ -298,6 +298,7 @@ public class InscribirDeporteActivity extends AppCompatActivity implements View.
                 datos.put("ob", objetivo);
                 datos.put("pe", peso);
                 datos.put("al", altura);
+                datos.put("an", String.valueOf(anio));
                 datos.put("cu", cuales.equals("") ? " " : cuales);
                 datos.put("int", String.valueOf(intensidad));
                 datos.put("lu", lug.equals("") ? " ": lug);

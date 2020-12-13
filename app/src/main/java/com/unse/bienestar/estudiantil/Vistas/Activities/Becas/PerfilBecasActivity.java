@@ -35,7 +35,7 @@ public class PerfilBecasActivity extends AppCompatActivity implements View.OnCli
 
             loadData();
         } else {
-            Utils.showToast(getApplicationContext(), "ERROR al abrir, vuelva a intentar");
+            Utils.showToast(getApplicationContext(), getString(R.string.errorInternoAdmin));
             finish();
         }
 

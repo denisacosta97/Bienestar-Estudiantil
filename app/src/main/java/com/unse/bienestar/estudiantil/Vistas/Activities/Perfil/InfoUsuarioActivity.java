@@ -52,20 +52,27 @@ import com.unse.bienestar.estudiantil.Herramientas.Validador;
 import com.unse.bienestar.estudiantil.Herramientas.VolleyMultipartRequest;
 import com.unse.bienestar.estudiantil.Herramientas.VolleySingleton;
 import com.unse.bienestar.estudiantil.Interfaces.OnClickListenerAdapter;
+import com.unse.bienestar.estudiantil.Interfaces.OnClickOptionListener;
 import com.unse.bienestar.estudiantil.Interfaces.YesNoDialogListener;
 import com.unse.bienestar.estudiantil.Modelos.Alumno;
+import com.unse.bienestar.estudiantil.Modelos.Departamento;
 import com.unse.bienestar.estudiantil.Modelos.Egresado;
+import com.unse.bienestar.estudiantil.Modelos.Opciones;
 import com.unse.bienestar.estudiantil.Modelos.Profesor;
+import com.unse.bienestar.estudiantil.Modelos.Provincia;
 import com.unse.bienestar.estudiantil.Modelos.Regularidad;
 import com.unse.bienestar.estudiantil.Modelos.Usuario;
 import com.unse.bienestar.estudiantil.R;
 import com.unse.bienestar.estudiantil.Vistas.Adaptadores.RegularidadAdapter;
 import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoActivarDesactivar;
+import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoDirecciones;
 import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoGeneral;
+import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoOpciones;
 import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoProcesamiento;
 import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoRegularidadAlumno;
 import com.unse.bienestar.estudiantil.Vistas.Fragmentos.DatePickerFragment;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -109,10 +116,9 @@ public class InfoUsuarioActivity extends AppCompatActivity implements View.OnCli
     LinearLayout latGeneral, latAlumno, latProfesor, latEgresado, latAdmin, latUser, latRegularidades;
     CardView fabEditar, fabPic;
     AppCompatImageView imgEditar;
+    TextView edtFechaNac, edtProvincia, edtPais, edtLocalidad;
     EditText edtNombre, edtApellido, edtDNI, edtSexo, edtMail, edtProfesionProf, edtAnioIngresoProf,
-            edtProfesionEgre, edtAnioEgresoEgre, edtAnioIngresoAlu, edtLegajoAlu, edtDomicilio,
-            edtProvincia, edtTelefono, edtPais, edtLocalidad, edtBarrio, edtRegistro, edtModificacion,
-            edtFechaNac;
+            edtProfesionEgre, edtAnioEgresoEgre, edtAnioIngresoAlu, edtLegajoAlu, edtDomicilio, edtTelefono, edtBarrio, edtRegistro, edtModificacion;
     Button btnAltaBaja, btnAgregarReg;
     Spinner spinnerFacultad, spinnerCarrera;
     EditText[] campos;
@@ -124,6 +130,17 @@ public class InfoUsuarioActivity extends AppCompatActivity implements View.OnCli
     ArrayList<Regularidad> mRegularidads;
     HashMap<String, String> param;
 
+    ArrayList<Opciones> provincias = new ArrayList<>();
+    ArrayList<Provincia> mProvincias;
+
+    ArrayList<Opciones> departamentos = new ArrayList<>();
+    ArrayList<Departamento> depart;
+
+    ArrayList<Opciones> localidad = new ArrayList<>();
+    ArrayList<Departamento> local;
+
+    int idPais = -1, idProvinc = -1, idLocalidad = -1;
+    int tipo = -1, posicionDep, posicionLocal;
 
     DialogoProcesamiento dialog;
     UsuarioViewModel mUsuarioViewModel;
@@ -169,8 +186,7 @@ public class InfoUsuarioActivity extends AppCompatActivity implements View.OnCli
             }
         }
         if (getIntent().getSerializableExtra(Utils.LIST_REGULARIDAD) != null) {
-            mRegularidads = (ArrayList<Regularidad>)
-                    getIntent().getSerializableExtra(Utils.LIST_REGULARIDAD);
+            mRegularidads = (ArrayList<Regularidad>) getIntent().getSerializableExtra(Utils.LIST_REGULARIDAD);
 
         }
     }
@@ -353,8 +369,8 @@ public class InfoUsuarioActivity extends AppCompatActivity implements View.OnCli
             edtRegistro.setEnabled(false);
         }
         campos = new EditText[]{edtNombre, edtApellido, edtSexo, edtMail, edtProfesionProf,
-                edtAnioIngresoProf, edtAnioIngresoAlu, edtProfesionEgre, edtAnioEgresoEgre, edtProvincia,
-                edtPais, edtTelefono, edtLocalidad, edtDomicilio, edtLegajoAlu, edtBarrio};
+                edtAnioIngresoProf, edtAnioIngresoAlu, edtProfesionEgre, edtAnioEgresoEgre
+                , edtTelefono, edtDomicilio, edtLegajoAlu, edtBarrio};
         manager = getSupportFragmentManager();
         new Thread(new Runnable() {
             @Override
@@ -400,9 +416,28 @@ public class InfoUsuarioActivity extends AppCompatActivity implements View.OnCli
             edtFechaNac.setText(mUsuario.getFechaNac());
             edtDomicilio.setText(mUsuario.getDomicilio());
             edtBarrio.setText(mUsuario.getBarrio());
-            edtLocalidad.setText(mUsuario.getLocalidad());
-            edtProvincia.setText(mUsuario.getProvincia());
-            edtPais.setText(mUsuario.getPais());
+
+            if (mUsuario.getPais().equals("ARGENTINA") || mUsuario.getPais().equals("OTRO")
+            || Character.isUpperCase(mUsuario.getPais().charAt(0))) {
+                idPais = 54;
+                edtPais.setText(mUsuario.getPais());
+            } else {
+                idPais = -1;
+                edtPais.setText(" ");
+            }
+            Provincia provincia = new Provincia(mUsuario.getProvincia());
+            if (provincia.getCodigo() == -1) {
+                idProvinc = -1;
+                edtProvincia.setText(" ");
+                idLocalidad = -1;
+                edtLocalidad.setText(" ");
+            } else {
+                idProvinc = provincia.getCodigo();
+                edtProvincia.setText(provincia.getTitulo());
+                idLocalidad = idProvinc;
+                edtLocalidad.setText(mUsuario.getLocalidad());
+            }
+
             edtMail.setText(mUsuario.getMail());
             edtTelefono.setText(mUsuario.getTelefono());
             edtRegistro.setText(Utils.getFechaFormat(mUsuario.getFechaRegistro()));
@@ -570,6 +605,18 @@ public class InfoUsuarioActivity extends AppCompatActivity implements View.OnCli
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.edtPais:
+                tipo = 0;
+                openPais();
+                break;
+            case R.id.edtProvincia:
+                tipo = 1;
+                openProvincia();
+                break;
+            case R.id.edtLocalidad:
+                tipo = 2;
+                openLocalidad();
+                break;
             case R.id.btnRegularidad:
                 openBannerReg();
                 break;
@@ -592,6 +639,242 @@ public class InfoUsuarioActivity extends AppCompatActivity implements View.OnCli
                 openPicture();
                 break;
         }
+    }
+
+    private void openLocalidad() {
+        if (idProvinc == -1) {
+            openDialogEdit("Escribe tu localidad", tipo);
+        } else {
+            PreferenceManager manager = new PreferenceManager(getApplicationContext());
+            final String key = manager.getValueString(Utils.TOKEN);
+            final int idLocal = manager.getValueInt(Utils.MY_ID);
+            String URL = String.format("%s?key=%s&idU=%s&ir=%s", Utils.URL_USUARIO_DIRECCION, key, idLocal, idProvinc);
+            StringRequest request = new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+
+                    procesarRespuestaDireccion(response, 2);
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    error.printStackTrace();
+                    Utils.showToast(getApplicationContext(), getString(R.string.servidorOff));
+                    dialog.dismiss();
+
+                }
+            });
+            //Abro dialogo para congelar pantalla
+            dialog = new DialogoProcesamiento();
+            dialog.setCancelable(false);
+            dialog.show(getSupportFragmentManager(), "dialog_process");
+            VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
+        }
+    }
+
+    private void openProvincia() {
+        if (idPais == -1) {
+            openDialogEdit("Escribe tu provincia", tipo);
+        } else {
+            PreferenceManager manager = new PreferenceManager(getApplicationContext());
+            final String key = manager.getValueString(Utils.TOKEN);
+            final int idLocal = manager.getValueInt(Utils.MY_ID);
+            String URL = String.format("%s?key=%s&idU=%s&ip=%s", Utils.URL_USUARIO_DIRECCION, key, idLocal, idPais);
+            StringRequest request = new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+
+                    procesarRespuestaDireccion(response, 1);
+
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    error.printStackTrace();
+                    Utils.showToast(getApplicationContext(), getString(R.string.servidorOff));
+                    dialog.dismiss();
+
+                }
+            });
+            //Abro dialogo para congelar pantalla
+            dialog = new DialogoProcesamiento();
+            dialog.setCancelable(false);
+            dialog.show(getSupportFragmentManager(), "dialog_process");
+            VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
+        }
+    }
+
+    private void procesarRespuestaDireccion(String response, int tipo) {
+        try {
+            dialog.dismiss();
+            JSONObject jsonObject = new JSONObject(response);
+            int estado = jsonObject.getInt("estado");
+            switch (estado) {
+                case -1:
+                    Utils.showToast(getApplicationContext(), getString(R.string.errorInternoAdmin));
+                    break;
+                case 1:
+                    //Exito
+                    if (tipo == 1) {
+                        JSONArray jsonArray = jsonObject.getJSONArray("mensaje");
+                        mProvincias = new ArrayList<>();
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject object = jsonArray.getJSONObject(i);
+                            String msj = object.getString("descripcion").toUpperCase();
+                            int cod = Integer.parseInt(object.getString("idprovincia"));
+                            mProvincias.add(new Provincia(cod, msj));
+                        }
+                        provincias = new ArrayList<>();
+                        for (Provincia p : mProvincias) {
+                            provincias.add(new Opciones(p.getTitulo()));
+                        }
+                        DialogoOpciones dialogoOpciones = new DialogoOpciones(new OnClickOptionListener() {
+                            @Override
+                            public void onClick(int pos) {
+                                isEditMode = true;
+                                for (Provincia p : mProvincias) {
+                                    if (p.getTitulo().equals(provincias.get(pos).getTitulo())) {
+                                        idProvinc = p.getCodigo();
+                                        edtProvincia.setText(p.getTitulo());
+                                        edtLocalidad.setText("");
+                                        break;
+                                    }
+                                }
+                            }
+                        }, provincias, getApplicationContext());
+                        dialogoOpciones.show(getSupportFragmentManager(), "dialog");
+                    } else {
+                        depart = new ArrayList<>();
+                        JSONArray departa = jsonObject.getJSONArray("mensaje");
+                        for (int i = 0; i < departa.length(); i++) {
+                            JSONObject dep = departa.getJSONObject(i);
+                            int codigo = Integer.parseInt(dep.getString("iddepartamento"));
+                            String titulo = dep.getString("descripcion").toUpperCase();
+                            depart.add(new Departamento(codigo, titulo));
+                        }
+                        departamentos = new ArrayList<>();
+                        for (Departamento d : depart) {
+                            departamentos.add(new Opciones(d.getDescripcion()));
+                        }
+                        local = new ArrayList<>();
+                        JSONArray locali = jsonObject.getJSONArray("localidad");
+                        for (int i = 0; i < locali.length(); i++) {
+                            JSONObject dep = locali.getJSONObject(i);
+                            int codigo = Integer.parseInt(dep.getString("iddepartamento"));
+                            int codigo2 = Integer.parseInt(dep.has("idlocalidad") ? dep.getString("idlocalidad") : "");
+                            String titulo = dep.getString("descripcion").toUpperCase();
+                            local.add(new Departamento(codigo2, titulo, codigo));
+                        }
+                        DialogoOpciones dialogoOpciones = new DialogoOpciones(new OnClickOptionListener() {
+                            @Override
+                            public void onClick(int pos) {
+                                isEditMode = true;
+                                for (Departamento p : depart) {
+                                    if (p.getDescripcion().equals(departamentos.get(pos).getTitulo())) {
+                                        int codigo = p.getCodigo();
+                                        posicionDep = pos;
+                                        showLocalidad(codigo);
+                                        break;
+                                    }
+
+                                }
+                            }
+                        }, departamentos, getApplicationContext());
+                        dialogoOpciones.show(getSupportFragmentManager(), "dialog");
+
+                    }
+
+                    break;
+                case 2:
+                    Utils.showToast(getApplicationContext(), getString(R.string.noData));
+                    break;
+                case 4:
+                    Utils.showToast(getApplicationContext(), getString(R.string.camposInvalidos));
+                    break;
+                case 3:
+                    Utils.showToast(getApplicationContext(), getString(R.string.tokenInvalido));
+                    break;
+                case 100:
+                    //No autorizado
+                    Utils.showToast(getApplicationContext(), getString(R.string.tokenInexistente));
+                    break;
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Utils.showToast(getApplicationContext(), getString(R.string.errorInternoAdmin));
+        }
+    }
+
+    private void showLocalidad(int codigo) {
+        localidad = new ArrayList<>();
+        for (Departamento de : local) {
+            if (de.getCodigoDep() == codigo) {
+                localidad.add(new Opciones(de.getDescripcion()));
+            }
+        }
+        DialogoOpciones dialogoOpciones = new DialogoOpciones(new OnClickOptionListener() {
+            @Override
+            public void onClick(int pos) {
+                for (Departamento p : local) {
+                    if (p.getDescripcion().equals(localidad.get(pos).getTitulo())) {
+                        String depa = depart.get(posicionDep).getDescripcion().toUpperCase();
+                        String loc = p.getDescripcion().toUpperCase();
+                        edtLocalidad.setText(String.format("%s - %s", depa, loc));
+                        break;
+                    }
+
+                }
+            }
+        }, localidad, getApplicationContext());
+        dialogoOpciones.show(getSupportFragmentManager(), "dialog");
+
+    }
+
+    private void openPais() {
+        ArrayList<Opciones> opciones = new ArrayList<>();
+        opciones.add(new Opciones("ARGENTINA"));
+        opciones.add(new Opciones("OTRO"));
+        DialogoOpciones dialogo = new DialogoOpciones(new OnClickOptionListener() {
+            @Override
+            public void onClick(int pos) {
+                isEditMode = true;
+                if (pos == 1) {
+                    openDialogEdit("Escribe tu pais", tipo);
+                } else {
+                    edtPais.setText("ARGENTINA");
+                    edtLocalidad.setText("");
+                    edtProvincia.setText("");
+                    idProvinc = -1;
+                    idPais = 54;
+                }
+            }
+        }, opciones, getApplicationContext());
+        dialogo.show(getSupportFragmentManager(), "dialogo");
+    }
+
+    private void openDialogEdit(String titulo, final int tipo) {
+        DialogoDirecciones dialogoDirecciones = new DialogoDirecciones(titulo, new OnClickListenerAdapter() {
+            @Override
+            public void onClick(Object id) {
+                if (tipo == 1) {
+                    edtProvincia.setText(String.valueOf(id));
+                    edtLocalidad.setText("");
+                } else if (tipo == 2) {
+                    edtLocalidad.setText(String.valueOf(id));
+                }else if (tipo == 0) {
+                    edtPais.setText(String.valueOf(id));
+                    idPais = -1;
+                    idProvinc = -1;
+                    edtProvincia.setText("");
+                    edtLocalidad.setText("");
+                }
+
+            }
+        }, getApplicationContext());
+        dialogoDirecciones.show(getSupportFragmentManager(), "dialog");
     }
 
     private void checkPermission() {
@@ -935,6 +1218,9 @@ public class InfoUsuarioActivity extends AppCompatActivity implements View.OnCli
         if (mode != 0) {
             Glide.with(imgEditar.getContext()).load(R.drawable.ic_save).into(imgEditar);
             edtFechaNac.setOnClickListener(this);
+            edtPais.setOnClickListener(this);
+            edtProvincia.setOnClickListener(this);
+            edtLocalidad.setOnClickListener(this);
             spinnerFacultad.setEnabled(true);
             spinnerCarrera.setEnabled(true);
             if (!isAdminMode) {
@@ -943,6 +1229,9 @@ public class InfoUsuarioActivity extends AppCompatActivity implements View.OnCli
         } else {
             Glide.with(imgEditar.getContext()).load(R.drawable.ic_edit_).into(imgEditar);
             edtFechaNac.setOnClickListener(null);
+            edtPais.setOnClickListener(null);
+            edtProvincia.setOnClickListener(null);
+            edtLocalidad.setOnClickListener(null);
             spinnerFacultad.setEnabled(false);
             spinnerCarrera.setEnabled(false);
             fabPic.setVisibility(View.INVISIBLE);
@@ -988,6 +1277,7 @@ public class InfoUsuarioActivity extends AppCompatActivity implements View.OnCli
         String barrio = edtBarrio.getText().toString().trim();
         //Creo un modelo para posterior almacenarlo local
         int regularidad = 0;
+        provincia = String.format("%s - %s", idProvinc, provincia);
         if (mUsuario instanceof Alumno)
             regularidad = ((Alumno) mUsuario).getIdRegularidad();
         mUsuario = new Usuario(Integer.parseInt(dni), nombre, apellido, fecha, pais, provincia, localidad,
@@ -995,10 +1285,13 @@ public class InfoUsuarioActivity extends AppCompatActivity implements View.OnCli
                 mUsuario.getValidez());
         idUser = Integer.parseInt(dni);
 
+
+
         if (validador.validarDNI(edtDNI) && validador.validarTelefono(edtTelefono) && validador.validarMail(edtMail)
                 && validador.validarFecha(edtFechaNac) && validador.validarDomicilio(edtDomicilio)
-                && !validador.validarNombresEdt(edtNombre, edtApellido, edtPais,
-                edtProvincia, edtLocalidad, edtBarrio, edtSexo)) {
+                && validador.validarTexto(edtPais) && validador.validarTexto(edtLocalidad)
+                && validador.validarTexto(edtProvincia)
+                && !validador.validarNombresEdt(edtNombre, edtApellido, edtBarrio, edtSexo)) {
             switch (mUsuario.getTipoUsuario()) {
                 case Utils.TIPO_ALUMNO:
                     if (!validador.noVacio(faculta) && !validador.noVacio(carrera) &&

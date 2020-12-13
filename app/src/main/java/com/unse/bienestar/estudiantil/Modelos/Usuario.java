@@ -6,6 +6,9 @@ import android.os.Parcelable;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Usuario implements Parcelable {
 
 
@@ -276,6 +279,24 @@ public class Usuario implements Parcelable {
 
 
     public String getLocalidad() {
+        /*if (localidad.contains("#")) {
+            String dep = "", local = "";
+            Pattern pattern = Pattern.compile("[0-9]+ #");
+            Matcher matcher = pattern.matcher(localidad);
+            if (matcher.find()) {
+                dep = matcher.group();
+                dep = dep.replaceAll("#", "").trim();
+            }
+            pattern = Pattern.compile("/ [0-9]+ #");
+            matcher = pattern.matcher(localidad);
+            if (matcher.find()) {
+                local = matcher.group();
+                dep = dep.replaceAll("/", "");
+                dep = dep.replaceAll("#", "");
+                dep = dep.trim();
+            }
+            return String.format("%s / %s", dep, local);
+        }*/
         return localidad;
     }
 

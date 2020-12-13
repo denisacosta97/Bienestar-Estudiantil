@@ -90,6 +90,7 @@ public class UploadPictureActivity extends AppCompatActivity implements View.OnC
 
     private void loadData() {
         btnAceptar.setEnabled(false);
+        Glide.with(getApplicationContext()).load(R.drawable.ic_user).into(imgUser);
     }
 
 

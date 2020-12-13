@@ -2,6 +2,7 @@ package com.unse.bienestar.estudiantil.Herramientas;
 
 import android.content.Context;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.unse.bienestar.estudiantil.R;
 
@@ -88,6 +89,19 @@ public class Validador {
         }
     }
 
+    public boolean validarTexto(TextView editText) {
+        if (noVacio(editText.getText().toString().trim())) {
+            editText.setError(mContext.getString(R.string.campoVacio));
+            return false;
+        }
+        if (lengthMore(editText.getText().toString().trim())) {
+            return true;
+        }else{
+            editText.setError(mContext.getString(R.string.campoNoGrande));
+            return false;
+        }
+    }
+
     public boolean validarNombres(EditText editText) {
         if (noVacio(editText.getText().toString().trim())) {
             editText.setError(mContext.getString(R.string.campoVacio));
@@ -121,7 +135,7 @@ public class Validador {
         }
     }
 
-    public boolean validarFecha(EditText editText){
+    public boolean validarFecha(TextView editText){
         if (noVacio(editText.getText().toString().trim())){
             editText.setError(mContext.getString(R.string.campoVacio));
             return false;

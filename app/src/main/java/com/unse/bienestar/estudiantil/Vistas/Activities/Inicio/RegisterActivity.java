@@ -29,19 +29,28 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.unse.bienestar.estudiantil.BuildConfig;
+import com.unse.bienestar.estudiantil.Herramientas.Almacenamiento.PreferenceManager;
 import com.unse.bienestar.estudiantil.Herramientas.RecyclerListener.ItemClickSupport;
 import com.unse.bienestar.estudiantil.Herramientas.Utils;
 import com.unse.bienestar.estudiantil.Herramientas.Validador;
 import com.unse.bienestar.estudiantil.Herramientas.VolleySingleton;
+import com.unse.bienestar.estudiantil.Interfaces.OnClickListenerAdapter;
+import com.unse.bienestar.estudiantil.Interfaces.OnClickOptionListener;
 import com.unse.bienestar.estudiantil.Interfaces.YesNoDialogListener;
 import com.unse.bienestar.estudiantil.Modelos.Categoria;
+import com.unse.bienestar.estudiantil.Modelos.Departamento;
+import com.unse.bienestar.estudiantil.Modelos.Opciones;
+import com.unse.bienestar.estudiantil.Modelos.Provincia;
 import com.unse.bienestar.estudiantil.R;
 import com.unse.bienestar.estudiantil.Vistas.Activities.Perfil.UploadPictureActivity;
 import com.unse.bienestar.estudiantil.Vistas.Adaptadores.CategoriasAdapter;
+import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoDirecciones;
 import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoGeneral;
+import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoOpciones;
 import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoProcesamiento;
 import com.unse.bienestar.estudiantil.Vistas.Fragmentos.DatePickerFragment;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -76,7 +85,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     EditText edtFechaNac, edtNombre, edtApellido, edtDNI, edtSexo, edtMail, edtContra, edtContraConf,
             edtProfesionProf, edtAnioIngresoProf, edtProfesionEgre, edtAnioIngresoAlu, edtAnioEgresoEgre,
-            edtDomicilio, edtProvincia, edtTelefono, edtPais, edtLocalidad, edtLegajoAlu, edtBarrio;
+            edtDomicilio,edtTelefono , edtLegajoAlu, edtBarrio;
+    TextView edtProvincia, edtPais, edtLocalidad;
     Button mRegister;
     ImageButton mScanner;
     ImageView btnBack;
@@ -89,13 +99,19 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     Spinner spinnerFacultad, spinnerCarrera;
     HashMap<String, String> param = new HashMap<>();
 
+    ArrayList<Opciones> provincias = new ArrayList<>();
+    ArrayList<Provincia> mProvincias;
+
+    ArrayList<Opciones> departamentos = new ArrayList<>();
+    ArrayList<Departamento> depart;
+
+    ArrayList<Opciones> localidad = new ArrayList<>();
+    ArrayList<Departamento> local;
+
     ArrayAdapter<String> facultadAdapter, carreraAdapter;
 
-    private int tipoUsuario = 1, idDNI = 0, isFoto = 0, isData = 0;
+    private int tipoUsuario = 1, idDNI = 0, idPais = -1, tipo = -1, idProvinc = -1, posicionDep = -1;
     boolean dobleConfirmacion = false, isToDNI = false, isAdminMode = false;
-
-    Timer timer;
-    TimerTask timerTask;
 
 
     @Override
@@ -160,10 +176,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void loadData() {
-        facultadAdapter = new ArrayAdapter<String>(this, R.layout.style_spinner, facultad);
+        facultadAdapter = new ArrayAdapter<>(this, R.layout.style_spinner, facultad);
         facultadAdapter.setDropDownViewResource(R.layout.style_spinner);
         spinnerFacultad.setAdapter(facultadAdapter);
-        carreraAdapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.style_spinner, faya);
+        carreraAdapter = new ArrayAdapter<>(getApplicationContext(), R.layout.style_spinner, faya);
         carreraAdapter.setDropDownViewResource(R.layout.style_spinner);
         spinnerCarrera.setAdapter(carreraAdapter);
 
@@ -242,6 +258,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 adapterCategorias.notifyDataSetChanged();
             }
         });
+        edtPais.setOnClickListener(this);
+        edtProvincia.setOnClickListener(this);
+        edtLocalidad.setOnClickListener(this);
         edtFechaNac.setOnClickListener(this);
         mRegister.setOnClickListener(this);
         btnBack.setOnClickListener(this);
@@ -253,35 +272,35 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 switch (position) {
                     case 0:
                         //FAyA
-                        carreraAdapter = new ArrayAdapter<String>(getApplicationContext(),
+                        carreraAdapter = new ArrayAdapter<>(getApplicationContext(),
                                 R.layout.style_spinner, faya);
                         carreraAdapter.setDropDownViewResource(R.layout.style_spinner);
                         spinnerCarrera.setAdapter(carreraAdapter);
                         break;
                     case 1:
                         //FCEyT
-                        carreraAdapter = new ArrayAdapter<String>(getApplicationContext(),
+                        carreraAdapter = new ArrayAdapter<>(getApplicationContext(),
                                 R.layout.style_spinner, fceyt);
                         carreraAdapter.setDropDownViewResource(R.layout.style_spinner);
                         spinnerCarrera.setAdapter(carreraAdapter);
                         break;
                     case 2:
                         //FCF
-                        carreraAdapter = new ArrayAdapter<String>(getApplicationContext(),
+                        carreraAdapter = new ArrayAdapter<>(getApplicationContext(),
                                 R.layout.style_spinner, fcf);
                         carreraAdapter.setDropDownViewResource(R.layout.style_spinner);
                         spinnerCarrera.setAdapter(carreraAdapter);
                         break;
                     case 3:
                         //FCM
-                        carreraAdapter = new ArrayAdapter<String>(getApplicationContext(),
+                        carreraAdapter = new ArrayAdapter<>(getApplicationContext(),
                                 R.layout.style_spinner, fcm);
                         carreraAdapter.setDropDownViewResource(R.layout.style_spinner);
                         spinnerCarrera.setAdapter(carreraAdapter);
                         break;
                     case 4:
                         //FHyCS
-                        carreraAdapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.style_spinner, fhcys);
+                        carreraAdapter = new ArrayAdapter<>(getApplicationContext(), R.layout.style_spinner, fhcys);
                         carreraAdapter.setDropDownViewResource(R.layout.style_spinner);
                         spinnerCarrera.setAdapter(carreraAdapter);
                         break;
@@ -296,10 +315,254 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         });
     }
 
+    private void openPais() {
+        ArrayList<Opciones> opciones = new ArrayList<>();
+        opciones.add(new Opciones("ARGENTINA"));
+        opciones.add(new Opciones("OTRO"));
+        DialogoOpciones dialogo = new DialogoOpciones(new OnClickOptionListener() {
+            @Override
+            public void onClick(int pos) {
+                if (pos == 1) {
+                    openDialogEdit("Escribe tu pais", tipo);
+                } else {
+                    edtPais.setText("ARGENTINA");
+                    idPais = 54;
+                    edtLocalidad.setText("");
+                    edtProvincia.setText("");
+                    idProvinc = -1;
+                }
+            }
+        }, opciones, getApplicationContext());
+        dialogo.show(getSupportFragmentManager(), "dialogo");
+    }
+
+    private void openDialogEdit(String titulo, final int tipo) {
+        DialogoDirecciones dialogoDirecciones = new DialogoDirecciones(titulo, new OnClickListenerAdapter() {
+            @Override
+            public void onClick(Object id) {
+                if (tipo == 1) {
+                    edtProvincia.setText(String.valueOf(id));
+                    edtLocalidad.setText("");
+                } else if (tipo == 2) {
+                    edtLocalidad.setText(String.valueOf(id));
+                }else if (tipo == 0) {
+                    edtPais.setText(String.valueOf(id));
+                    edtProvincia.setText("");
+                    edtLocalidad.setText("");
+                    idPais = -1;
+                    idProvinc = -1;
+                }
+
+            }
+        }, getApplicationContext());
+        dialogoDirecciones.show(getSupportFragmentManager(), "dialog");
+    }
+
+    private void openProvincia() {
+        if (idPais == -1) {
+            openDialogEdit("Escribe tu provincia", tipo);
+        } else {
+            PreferenceManager manager = new PreferenceManager(getApplicationContext());
+            final String key = manager.getValueString(Utils.TOKEN);
+            final int idLocal = manager.getValueInt(Utils.MY_ID);
+            String URL = String.format("%s?key=%s&idU=%s&ip=%s", Utils.URL_USUARIO_DIRECCION, key, idLocal, idPais);
+            StringRequest request = new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+
+                    procesarRespuestaDireccion(response, 1);
+
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    error.printStackTrace();
+                    Utils.showToast(getApplicationContext(), getString(R.string.servidorOff));
+                    dialog.dismiss();
+
+                }
+            });
+            //Abro dialogo para congelar pantalla
+            dialog = new DialogoProcesamiento();
+            dialog.setCancelable(false);
+            dialog.show(getSupportFragmentManager(), "dialog_process");
+            VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
+        }
+    }
+
+    private void procesarRespuestaDireccion(String response, int tipo) {
+        try {
+            dialog.dismiss();
+            JSONObject jsonObject = new JSONObject(response);
+            int estado = jsonObject.getInt("estado");
+            switch (estado) {
+                case -1:
+                    Utils.showToast(getApplicationContext(), getString(R.string.errorInternoAdmin));
+                    break;
+                case 1:
+                    //Exito
+                    if (tipo == 1) {
+                        JSONArray jsonArray = jsonObject.getJSONArray("mensaje");
+                        mProvincias = new ArrayList<>();
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject object = jsonArray.getJSONObject(i);
+                            String msj = object.getString("descripcion").toUpperCase();
+                            int cod = Integer.parseInt(object.getString("idprovincia"));
+                            mProvincias.add(new Provincia(cod, msj));
+                        }
+                        provincias = new ArrayList<>();
+                        for (Provincia p : mProvincias) {
+                            provincias.add(new Opciones(p.getTitulo()));
+                        }
+                        DialogoOpciones dialogoOpciones = new DialogoOpciones(new OnClickOptionListener() {
+                            @Override
+                            public void onClick(int pos) {
+                                for (Provincia p : mProvincias) {
+                                    if (p.getTitulo().equals(provincias.get(pos).getTitulo())) {
+                                        idProvinc = p.getCodigo();
+                                        edtProvincia.setText(p.getTitulo());
+                                        edtLocalidad.setText("");
+                                        break;
+                                    }
+                                }
+                            }
+                        }, provincias, getApplicationContext());
+                        dialogoOpciones.show(getSupportFragmentManager(), "dialog");
+                    } else {
+                        depart = new ArrayList<>();
+                        JSONArray departa = jsonObject.getJSONArray("mensaje");
+                        for (int i = 0; i < departa.length(); i++) {
+                            JSONObject dep = departa.getJSONObject(i);
+                            int codigo = Integer.parseInt(dep.getString("iddepartamento"));
+                            String titulo = dep.getString("descripcion").toUpperCase();
+                            depart.add(new Departamento(codigo, titulo));
+                        }
+                        departamentos = new ArrayList<>();
+                        for (Departamento d : depart) {
+                            departamentos.add(new Opciones(d.getDescripcion()));
+                        }
+                        local = new ArrayList<>();
+                        JSONArray locali = jsonObject.getJSONArray("localidad");
+                        for (int i = 0; i < locali.length(); i++) {
+                            JSONObject dep = locali.getJSONObject(i);
+                            int codigo = Integer.parseInt(dep.getString("iddepartamento"));
+                            int codigo2 = Integer.parseInt(dep.has("idlocalidad") ? dep.getString("idlocalidad") : "");
+                            String titulo = dep.getString("descripcion").toUpperCase();
+                            local.add(new Departamento(codigo2, titulo, codigo));
+                        }
+                        DialogoOpciones dialogoOpciones = new DialogoOpciones(new OnClickOptionListener() {
+                            @Override
+                            public void onClick(int pos) {
+                                for (Departamento p : depart) {
+                                    if (p.getDescripcion().equals(departamentos.get(pos).getTitulo())) {
+                                        int codigo = p.getCodigo();
+                                        posicionDep = pos;
+                                        showLocalidad(codigo);
+                                        break;
+                                    }
+
+                                }
+                            }
+                        }, departamentos, getApplicationContext());
+                        dialogoOpciones.show(getSupportFragmentManager(), "dialog");
+
+                    }
+
+                    break;
+                case 2:
+                    Utils.showToast(getApplicationContext(), getString(R.string.noData));
+                    break;
+                case 4:
+                    Utils.showToast(getApplicationContext(), getString(R.string.camposInvalidos));
+                    break;
+                case 3:
+                    Utils.showToast(getApplicationContext(), getString(R.string.tokenInvalido));
+                    break;
+                case 100:
+                    //No autorizado
+                    Utils.showToast(getApplicationContext(), getString(R.string.tokenInexistente));
+                    break;
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Utils.showToast(getApplicationContext(), getString(R.string.errorInternoAdmin));
+        }
+    }
+
+    private void showLocalidad(int codigo) {
+        localidad = new ArrayList<>();
+        for (Departamento de : local) {
+            if (de.getCodigoDep() == codigo) {
+                localidad.add(new Opciones(de.getDescripcion()));
+            }
+        }
+        DialogoOpciones dialogoOpciones = new DialogoOpciones(new OnClickOptionListener() {
+            @Override
+            public void onClick(int pos) {
+                for (Departamento p : local) {
+                    if (p.getDescripcion().equals(localidad.get(pos).getTitulo())) {
+                        String depa = depart.get(posicionDep).getDescripcion().toUpperCase();
+                        String loc = p.getDescripcion().toUpperCase();
+                        edtLocalidad.setText(String.format("%s - %s", depa, loc));
+                        break;
+                    }
+
+                }
+            }
+        }, localidad, getApplicationContext());
+        dialogoOpciones.show(getSupportFragmentManager(), "dialog");
+
+    }
+
+    private void openLocalidad() {
+        if (idProvinc == -1) {
+            openDialogEdit("Escribe tu localidad", tipo);
+        } else {
+            PreferenceManager manager = new PreferenceManager(getApplicationContext());
+            final String key = manager.getValueString(Utils.TOKEN);
+            final int idLocal = manager.getValueInt(Utils.MY_ID);
+            String URL = String.format("%s?key=%s&idU=%s&ir=%s", Utils.URL_USUARIO_DIRECCION, key, idLocal, idProvinc);
+            StringRequest request = new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+
+                    procesarRespuestaDireccion(response, 2);
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    error.printStackTrace();
+                    Utils.showToast(getApplicationContext(), getString(R.string.servidorOff));
+                    dialog.dismiss();
+
+                }
+            });
+            //Abro dialogo para congelar pantalla
+            dialog = new DialogoProcesamiento();
+            dialog.setCancelable(false);
+            dialog.show(getSupportFragmentManager(), "dialog_process");
+            VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
+        }
+    }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.edtPais:
+                tipo = 0;
+                openPais();
+                break;
+            case R.id.edtProvincia:
+                tipo = 1;
+                openProvincia();
+                break;
+            case R.id.edtLocalidad:
+                tipo = 2;
+                openLocalidad();
+                break;
             case R.id.edtFecha:
                 selectFechaNac();
                 break;
@@ -354,14 +617,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case PERMISSION_ALL:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    startActivityForResult(new Intent(this, BarcodeActivity.class), GET_FROM_DNI);
-                }
-                break;
-            default:
-                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == PERMISSION_ALL) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                startActivityForResult(new Intent(this, BarcodeActivity.class), GET_FROM_DNI);
+            }
+        } else {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
 
@@ -375,7 +636,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         String sexo = edtSexo.getText().toString().trim();
         String mail = edtMail.getText().toString().trim();
         String pass = edtContra.getText().toString().trim();
-        String passConf = edtContraConf.getText().toString().trim();
         String profesion = edtProfesionProf.getText().toString().trim();
         String anioIngreso = edtAnioIngresoProf.getText().toString().trim();
         String faculta = facultad[spinnerFacultad.getSelectedItemPosition()].trim();
@@ -391,11 +651,14 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         String legajo = edtLegajoAlu.getText().toString().trim();
         String barrio = edtBarrio.getText().toString().trim();
 
+        provincia = String.format("%s - %s", idProvinc, provincia);
+
         if (validador.validarDNI(edtDNI) && validador.validarTelefono(edtTelefono) && validador.validarMail(edtMail)
                 && validador.validarFecha(edtFechaNac) && validador.validarContraseña(edtContra, edtContraConf)
                 && validador.validarDomicilio(edtDomicilio)
-                && !validador.validarNombresEdt(edtNombre, edtApellido, edtPais,
-                edtProvincia) && validador.validarTexto(edtBarrio) &&
+                && validador.validarTexto(edtLocalidad)
+                && validador.validarTexto(edtPais) && validador.validarTexto(edtProvincia)
+                && !validador.validarNombresEdt(edtNombre, edtApellido) && validador.validarTexto(edtBarrio) &&
                 validador.validarTexto(edtLocalidad)) {
             idDNI = Integer.parseInt(dni);
             switch (tipoUsuario) {
@@ -430,7 +693,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                             barrio, telefono, sexo, "u", mail, tipoUsuario,
                             null, null, null, null, pass,
                             null, null));
-                    return;
+                    break;
             }
 
         } else Utils.showToast(getApplicationContext(), getString(R.string.camposInvalidos));

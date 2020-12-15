@@ -18,13 +18,16 @@ import com.unse.bienestar.estudiantil.Herramientas.RecyclerListener.ItemClickSup
 import com.unse.bienestar.estudiantil.Herramientas.Utils;
 import com.unse.bienestar.estudiantil.Herramientas.VolleySingleton;
 import com.unse.bienestar.estudiantil.Modelos.Alumno;
+import com.unse.bienestar.estudiantil.Modelos.Archivo;
 import com.unse.bienestar.estudiantil.Modelos.CredencialDeporte;
+import com.unse.bienestar.estudiantil.Modelos.Documentacion;
 import com.unse.bienestar.estudiantil.Modelos.Inscripcion;
 import com.unse.bienestar.estudiantil.Modelos.ItemBase;
 import com.unse.bienestar.estudiantil.Modelos.ItemDato;
 import com.unse.bienestar.estudiantil.Modelos.ItemFecha;
 import com.unse.bienestar.estudiantil.Modelos.Usuario;
 import com.unse.bienestar.estudiantil.R;
+import com.unse.bienestar.estudiantil.Vistas.Activities.Becas.CargarDocumentacionActivity;
 import com.unse.bienestar.estudiantil.Vistas.Activities.Deportes.ModificarInscripcionActivity;
 import com.unse.bienestar.estudiantil.Vistas.Adaptadores.FechasAdapter;
 import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoProcesamiento;
@@ -102,30 +105,34 @@ public class InscripcionesActivity extends AppCompatActivity implements View.OnC
             ItemDato itemDato = (ItemDato) itemBase;
             switch (itemDato.getInscripcion().getTipo()) {
                 case Inscripcion.TIPO_BECA:
-                    // intent = new Intent(getApplicationContext(), null);
-                    //int id = itemDato.getInscripcion().getIdConvocatoria();
-                    //intent.putExtra(Utils.CREDENCIAL, id);
-                    //startActivity(intent);
+                    openInscripcion(itemDato.getInscripcion(), Inscripcion.TIPO_BECA);
                     break;
                 case Inscripcion.TIPO_DEPORTE:
-                    openInscripcion(itemDato.getInscripcion());
+                    openInscripcion(itemDato.getInscripcion(), Inscripcion.TIPO_DEPORTE);
                     break;
             }
         }
 
     }
 
-    private void openInscripcion(Inscripcion inscripcion) {
+    private void openInscripcion(Inscripcion inscripcion, final int tipo) {
         PreferenceManager manager = new PreferenceManager(getApplicationContext());
         String key = manager.getValueString(Utils.TOKEN);
         int id = manager.getValueInt(Utils.MY_ID);
-        String URL = String.format("%s?idU=%s&key=%s&ii=%s&aa=%s", Utils.URL_INSCRIPCION_BY_ID, id, key,
-                inscripcion.getIdInscripcion(),
-                inscripcion.getIdTemporada());
+        String URL = "";
+        if (tipo == Inscripcion.TIPO_DEPORTE) {
+            URL = String.format("%s?idU=%s&key=%s&ii=%s&aa=%s", Utils.URL_INSCRIPCION_BY_ID, id, key,
+                    inscripcion.getIdInscripcion(),
+                    inscripcion.getIdTemporada());
+        } else if (tipo == Inscripcion.TIPO_BECA) {
+            URL = String.format("%s?idU=%s&key=%s&iu=%s&an=%s&ib=%s", Utils.URL_BECAS_INSCRIPCION, id, key,
+                    id,
+                    inscripcion.getIdTemporada(), inscripcion.getIdBeca());
+        }
         StringRequest request = new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                procesarRespuestaInscripcion(response);
+                procesarRespuestaInscripcion(response, tipo);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -143,7 +150,7 @@ public class InscripcionesActivity extends AppCompatActivity implements View.OnC
         VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
     }
 
-    private void procesarRespuestaInscripcion(String response) {
+    private void procesarRespuestaInscripcion(String response, int tipo) {
         try {
             dialog.dismiss();
             JSONObject jsonObject = new JSONObject(response);
@@ -154,7 +161,7 @@ public class InscripcionesActivity extends AppCompatActivity implements View.OnC
                     break;
                 case 1:
                     //Exito
-                    loadInfoInscripcion(jsonObject);
+                    loadInfoInscripcion(jsonObject, tipo);
                     break;
                 case 2:
                     Utils.showToast(getApplicationContext(), getString(R.string.noData));
@@ -177,31 +184,77 @@ public class InscripcionesActivity extends AppCompatActivity implements View.OnC
         }
     }
 
-    private void loadInfoInscripcion(JSONObject jsonObject) {
-        try {
-            if (jsonObject.has("mensaje") && jsonObject.has("cred")) {
+    private void loadInfoInscripcion(JSONObject jsonObject, int tipo) {
 
-                JSONObject o = jsonObject.getJSONObject("mensaje");
+        if (tipo == Inscripcion.TIPO_BECA) {
+            try {
+                Usuario usuario = null;
+                if (jsonObject.has("datos")) {
+                    usuario = Usuario.mapper(jsonObject.getJSONObject("mensaje"), Usuario.BASIC);
+                }
+                ArrayList<Documentacion> docs = new ArrayList<>();
+                if (jsonObject.has("docs")) {
+                    JSONArray documentos = jsonObject.getJSONArray("docs");
+                    for (int i = 0; i < documentos.length(); i++) {
+                        JSONObject object = documentos.getJSONObject(i);
+                        Documentacion documentacion = Documentacion.toMapper(object, Documentacion.LOW);
+                        docs.add(documentacion);
 
-                Inscripcion mInscripcion = Inscripcion.mapper(o, Inscripcion.COMPLETE);
-                Usuario mUsuario = Usuario.mapper(o, Usuario.MEDIUM);
-                Alumno alumno = jsonObject.has("datos") ? Alumno.mapper(jsonObject, mUsuario) : null;
-                CredencialDeporte credencialDeporte = (jsonObject.has("cred") &&
-                        !(jsonObject.get("cred") instanceof Boolean))
-                        ? CredencialDeporte.mapper(jsonObject.getJSONObject("cred"), CredencialDeporte.MEDIUM) : null;
+                    }
+                }
+                ArrayList<Archivo> archivos = new ArrayList<>();
+                if (jsonObject.has("archivos")) {
+                    JSONArray arch = jsonObject.getJSONArray("archivos");
+                    for (int i = 0; i < arch.length(); i++) {
+                        JSONObject object = arch.getJSONObject(i);
+                        Archivo archivo = Archivo.toMapper(object, Archivo.LOW);
+                        archivo.setValidez(1);
+                        archivos.add(archivo);
 
-                Intent intent = new Intent(getApplicationContext(), ModificarInscripcionActivity.class);
-                intent.putExtra(Utils.INSCRIPCION_ID, mInscripcion);
-                intent.putExtra(Utils.USER_INFO, mUsuario);
-                intent.putExtra(Utils.ALUMNO_NAME, alumno);
-                intent.putExtra(Utils.CREDENCIAL, credencialDeporte);
+                    }
+                }
+                Inscripcion inscripcion = null;
+                if (jsonObject.has("mensaje")) {
+                    JSONObject object = jsonObject.getJSONObject("mensaje");
+                    inscripcion = Inscripcion.mapper(object, Inscripcion.HIGH);
+
+                }
+                Intent intent = new Intent(getApplicationContext(), CargarDocumentacionActivity.class);
+                intent.putExtra(Utils.INFO_EXTRA, inscripcion);
+                intent.putExtra(Utils.INFO_EXTRA_2, archivos);
+                intent.putExtra(Utils.NOTICIA_INFO, docs);
                 startActivity(intent);
 
-
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-        } catch (JSONException e) {
-            e.printStackTrace();
         }
+
+        if (tipo == Inscripcion.TIPO_DEPORTE) {
+            try {
+                if (jsonObject.has("mensaje") && jsonObject.has("cred")) {
+
+                    JSONObject o = jsonObject.getJSONObject("mensaje");
+
+                    Inscripcion mInscripcion = Inscripcion.mapper(o, Inscripcion.COMPLETE);
+                    Usuario mUsuario = Usuario.mapper(o, Usuario.MEDIUM);
+                    Alumno alumno = jsonObject.has("datos") ? Alumno.mapper(jsonObject, mUsuario) : null;
+                    CredencialDeporte credencialDeporte = (jsonObject.has("cred") &&
+                            !(jsonObject.get("cred") instanceof Boolean))
+                            ? CredencialDeporte.mapper(jsonObject.getJSONObject("cred"), CredencialDeporte.MEDIUM) : null;
+
+                    Intent intent = new Intent(getApplicationContext(), ModificarInscripcionActivity.class);
+                    intent.putExtra(Utils.INSCRIPCION_ID, mInscripcion);
+                    intent.putExtra(Utils.USER_INFO, mUsuario);
+                    intent.putExtra(Utils.ALUMNO_NAME, alumno);
+                    intent.putExtra(Utils.CREDENCIAL, credencialDeporte);
+                    startActivity(intent);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
 
     }
 
@@ -276,6 +329,7 @@ public class InscripcionesActivity extends AppCompatActivity implements View.OnC
                     break;
                 case 2:
                     Utils.showToast(getApplicationContext(), getString(R.string.noData));
+                    updateView(0);
                     break;
                 case 3:
                     Utils.showToast(getApplicationContext(), getString(R.string.tokenInvalido));
@@ -298,9 +352,9 @@ public class InscripcionesActivity extends AppCompatActivity implements View.OnC
 
             if (jsonObject.has("deportes")) {
 
-                JSONArray jsonArray = jsonObject.getJSONArray("deportes");
+                JSONArray jsonArray = jsonObject.isNull("deportes") ? null : jsonObject.getJSONArray("deportes");
 
-                for (int i = 0; i < jsonArray.length(); i++) {
+                for (int i = 0; jsonArray != null && i < jsonArray.length(); i++) {
 
                     JSONObject o = jsonArray.getJSONObject(i);
 
@@ -309,6 +363,26 @@ public class InscripcionesActivity extends AppCompatActivity implements View.OnC
                     ItemDato dato = new ItemDato();
                     dato.setInscripcion(inscripcion);
                     dato.setTipo(ItemDato.TIPO_INSCRIPCION);
+
+                    mList.add(dato);
+
+                }
+
+            }
+
+            if (jsonObject.has("becas")) {
+
+                JSONArray jsonArray = jsonObject.isNull("becas") ? null : jsonObject.getJSONArray("becas");
+
+                for (int i = 0; jsonArray != null && i < jsonArray.length(); i++) {
+
+                    JSONObject o = jsonArray.getJSONObject(i);
+
+                    Inscripcion inscripcion = Inscripcion.mapper(o, Inscripcion.LOW_BECA);
+
+                    ItemDato dato = new ItemDato();
+                    dato.setInscripcion(inscripcion);
+                    dato.setTipo(ItemDato.TIPO_BECA);
 
                     mList.add(dato);
 

@@ -156,6 +156,7 @@
     <string name="archivoError">¡Error al cargar archivo!</string>
     <string name="nombreVacio">Debe elegir un nombre</string>
     <string name="archivoGrande">El archivo es demasiado grande</string>
+    <string name="archivoGrande2">El archivo es demasiado grande (mayor a 5MB)</string>
     <string name="archivoActualizado">¡Archivo actualizado!</string>
     <string name="tituloArchivosNuevo">Nuevo Archivo</string>
     <string name="archivoNoAbrir">No hay aplicaciones disponibles para archivos %s</string>
@@ -272,6 +273,27 @@
     <string name="descServ">Servicio para toda la comunidad universitaria en general.</string>
 
     <!--  Información de becas  -->
+    <string-array name="reqGen">
+        <item>@string/reqGen0</item>
+        <item>@string/reqGen1</item>
+        <item>@string/reqGen2</item>
+        <item>@string/reqGen3</item>
+        <item>@string/reqGen4</item>
+        <item>@string/reqGen5</item>
+        <item>@string/reqGen6</item>
+        <item>@string/reqGen7</item>
+    </string-array>
+
+    <string-array name="reAca">
+        <item>@string/reqAcad0</item>
+        <item>@string/reqAcad1</item>
+        <item>@string/reqAcad2</item>
+        <item>@string/reqAcad3</item>
+        <item>@string/reqAcad4</item>
+        <item>@string/reqAcad5</item>
+        <item>@string/reqAcad6</item>
+        <item>@string/reqAcad7</item>
+    </string-array>
 
     <!--  Beca Comedor  -->
     <string name="desc0">Servicio de almuerzo para los estudiantes de la UNSE, tiene por finalidad cubrir una necesidad inmediata y a la vez fomentar un ambiente de camaradería, solidaridad y respeto entre los estudiantes.\n\nBeneficiarios\nAlumnos Ingresantes y Reinscriptos (Renovantes o no).\nEl beneficio establece las siguientes categorías:\n a) Beca Completa Comedor Universitario (cobertura del 100 % por parte de la Universidad)\n
@@ -461,6 +483,19 @@
     <string name="ciberUsoMaquina">¡Uso de máquina registrado!</string>
     <string name="ciberUsoMaquinaError">¡Error al registrar uso de máquina!\nHorario no permitido</string>
     <string name="deporteUsuario">¡Solo disponible para alumnos!</string>
+    <string name="errorArchivo">¡Error al seleccionar archivo!</string>
+    <string name="permisoAlmacenamiento">Para visualizar archivos, por favor acepta el permiso</string>
+    <string name="archivoNoSeleccionados">¡Hay documentos sin archivos cargados!</string>
+    <string name="archivosEnviar">Se iniciará el proceso de envío de archivos, por favor no te desconectes de internet</string>
+    <string name="archivosPendiente">Existen archivos pendientes de carga</string>
+    <string name="inscripcionRegistrar">Está a punto de registrar el envío de documentación\n¿Desea continuar?</string>
+    <string name="archivoEliminar">Está a punto de borrar un archivo que ya fue cargado\n¿Desea continuar?</string>
+    <string name="archivoNoExiste">El archivo que intenta borrar no existe</string>
+    <string name="archivoEliminado2">¡Archivo eliminado!</string>
+    <string name="archivoErrorEliminar">Error al borrar archivo, reintente</string>
+    <string name="archivosInvalido">Solo archivos PDF, JPG o PNG</string>
+    <string name="inscripcionPerfil"><![CDATA[Ingresa a Perfil -> Inscripciones para visualizarla]]></string>
+    <string name="archivosNoSubidos">¡Algunos archivos no se subieron!</string>
 
 </resources>
 

@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.unse.bienestar.estudiantil.Modelos.Inscripcion;
 import com.unse.bienestar.estudiantil.Modelos.ItemBase;
 import com.unse.bienestar.estudiantil.Modelos.ItemDato;
 import com.unse.bienestar.estudiantil.Modelos.ItemFecha;
@@ -76,27 +77,56 @@ public class FechasAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 DateViewHolder dateViewHolder = (DateViewHolder) viewHolder;
                 if (tipo == TIPO_INSCRIPCIONES) {
                     dateViewHolder.txtTitulo.setText(dateItem.getTextValue());
-                    dateViewHolder.txtNroArchivo.setText(String.format("#%s", dateItem.getIdValue()));
+                    if (dateItem.getInscripcion().getTipo() == Inscripcion.TIPO_BECA) {
+                        dateViewHolder.txtNroArchivo.setVisibility(View.GONE);
+
+                    } else {
+                        dateViewHolder.txtNroArchivo.setVisibility(View.VISIBLE);
+                        dateViewHolder.txtNroArchivo.setText(String.format("#%s", dateItem.getIdValue()));
+                    }
                     if (dateItem.getEstadoValueId() != 0) {
                         dateViewHolder.txtEstado.setVisibility(View.VISIBLE);
                         dateViewHolder.txtEstado.setText(dateItem.getEstadoValue());
-                        int i = R.color.colorTextDefault;
-                        switch (dateItem.getEstadoValueId()) {
-                            case 2:
-                                i = R.color.colorGreen;
-                                break;
-                            case 3:
-                                i = R.color.colorRed;
-                                break;
-                            case 1:
-                                i = R.color.colorOrange;
-                                break;
+                        int i = 0;
+                        if (dateItem.getInscripcion().getTipo() == Inscripcion.TIPO_BECA) {
+                             i = R.color.colorTextDefault;
+                            switch (dateItem.getInscripcion().getDescripcion()){
+                                case "ACEPTADA":
+                                    i = R.color.colorGreen;
+                                    break;
+                                case "RECHAZADA":
+                                    i = R.color.colorAccent;
+                                    break;
+                                case "CANCELADA":
+                                    i = R.color.colorOrange;
+                                    break;
+                                case "EN PROCESO":
+                                    i = R.color.colorPink;
+                                    break;
+                                case "EN EVALUACIÓN":
+                                    i = R.color.colorFCEyT;
+                                    break;
+                            }
+
+                        } else {
+                            i = R.color.colorTextDefault;
+                            switch (dateItem.getEstadoValueId()) {
+                                case 2:
+                                    i = R.color.colorGreen;
+                                    break;
+                                case 3:
+                                    i = R.color.colorRed;
+                                    break;
+                                case 1:
+                                    i = R.color.colorOrange;
+                                    break;
+                            }
                         }
                         dateViewHolder.txtEstado.setTextColor(mContext.getResources().getColor(i));
                         dateViewHolder.txtEstado.setTypeface(null, Typeface.BOLD);
 
                     } else dateViewHolder.txtEstado.setVisibility(View.GONE);
-                }else if (tipo == TIPO_DEPORTES_INSCRIPCIONES){
+                } else if (tipo == TIPO_DEPORTES_INSCRIPCIONES) {
                     dateViewHolder.txtNroArchivo.setVisibility(View.GONE);
                     dateViewHolder.txtEstado.setVisibility(View.GONE);
                     dateViewHolder.txtTitulo.setText(dateItem.getTextValue());

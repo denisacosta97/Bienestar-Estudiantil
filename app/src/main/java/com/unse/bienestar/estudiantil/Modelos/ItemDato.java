@@ -3,6 +3,7 @@ package com.unse.bienestar.estudiantil.Modelos;
 public class ItemDato extends ItemBase {
 
     public static final int TIPO_INSCRIPCION = 1;
+    public static final int TIPO_BECA = 4;
     public static final int TIPO_TEMPORADA = 2;
     public static final int TIPO_DEPORTE = 3;
     private Inscripcion mInscripcion;
@@ -29,6 +30,8 @@ public class ItemDato extends ItemBase {
                 return String.valueOf(getTemporada().getAnio());
             case TIPO_DEPORTE:
                 return getDeporte().getName();
+            case TIPO_BECA:
+                 return String.format("%s - %s", getInscripcion().getNombreBeca(), getInscripcion().getIdTemporada());
 
         }
         return null;
@@ -38,6 +41,8 @@ public class ItemDato extends ItemBase {
         switch (getTipoDato()) {
             case TIPO_INSCRIPCION:
                 return String.format("%s", getInscripcion().getNombreEstado());
+            case TIPO_BECA:
+                return String.format("%s", getInscripcion().getDescripcion());
 
         }
         return null;
@@ -47,6 +52,8 @@ public class ItemDato extends ItemBase {
         switch (getTipoDato()) {
             case TIPO_INSCRIPCION:
                 return getInscripcion().getIdEstado();
+            case TIPO_BECA:
+                return 1;
 
         }
         return 0;

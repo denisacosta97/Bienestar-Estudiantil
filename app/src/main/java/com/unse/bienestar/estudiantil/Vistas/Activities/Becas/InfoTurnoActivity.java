@@ -1,8 +1,10 @@
 package com.unse.bienestar.estudiantil.Vistas.Activities.Becas;
 
+import android.Manifest;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,6 +19,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.unse.bienestar.estudiantil.BuildConfig;
 import com.unse.bienestar.estudiantil.Herramientas.Almacenamiento.PreferenceManager;
 import com.unse.bienestar.estudiantil.Herramientas.PDF.DownloadPDF;
 import com.unse.bienestar.estudiantil.Herramientas.PDF.LoadInfoPDF;
@@ -38,7 +41,13 @@ import java.util.Map;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
+
+import static android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS;
+import static com.unse.bienestar.estudiantil.Herramientas.Utils.PERMISSION_ALL;
+import static com.unse.bienestar.estudiantil.Herramientas.Utils.REQUEST_GROUP_PERMISSIONS_LOCATION;
 
 public class InfoTurnoActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -212,8 +221,44 @@ public class InfoTurnoActivity extends AppCompatActivity implements View.OnClick
                 preguntar();
                 break;
             case R.id.btnPDF:
-                downloadPDF();
+               checkPermission();
                 break;
+        }
+    }
+
+    private void checkPermission() {
+        if ((ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                == PackageManager.PERMISSION_GRANTED)) {
+            downloadPDF();
+        } else if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            Intent intent = new Intent();
+            intent.setAction(ACTION_APPLICATION_DETAILS_SETTINGS);
+            Uri uri = Uri.fromParts("package", BuildConfig.APPLICATION_ID, null);
+            intent.setData(uri);
+            startActivityForResult(intent, REQUEST_GROUP_PERMISSIONS_LOCATION);
+            Utils.showToast(getApplicationContext(), "Por favor, autoriza el permiso de almacenamiento");
+
+        } else {
+            DialogoGeneral.Builder builder = new DialogoGeneral.Builder(getApplicationContext())
+                    .setTitulo(getString(R.string.permisoNecesario))
+                    .setIcono(R.drawable.ic_advertencia)
+                    .setDescripcion(getString(R.string.permisoAlmacenamiento))
+                    .setTipo(DialogoGeneral.TIPO_ACEPTAR_CANCELAR)
+                    .setListener(new YesNoDialogListener() {
+                        @Override
+                        public void yes() {
+                            ActivityCompat.requestPermissions(InfoTurnoActivity.this,
+                                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                    PERMISSION_ALL);
+                        }
+
+                        @Override
+                        public void no() {
+                        }
+                    });
+            DialogoGeneral dialogoGeneral = builder.build();
+            dialogoGeneral.show(getSupportFragmentManager(), "dialogo_permiso");
         }
     }
 
@@ -242,7 +287,7 @@ public class InfoTurnoActivity extends AppCompatActivity implements View.OnClick
         archivo.setNombreArchivo(String.format("COMPROBANTE_TURNO_%s_%s.pdf",
                 mTurno.getTitulo().replaceAll(" ", "_").toUpperCase(),
                 mTurno.getFecha().replaceAll("/", "_")));
-        DownloadPDF downloadPDF = new DownloadPDF(getApplicationContext(), archivo.getNombreArchivo(),
+        DownloadPDF downloadPDF = new DownloadPDF(getApplicationContext(), archivo.getNombreArchivo(true),
                 getSupportFragmentManager(), new YesNoDialogListener() {
             @Override
             public void yes() {
@@ -278,7 +323,7 @@ public class InfoTurnoActivity extends AppCompatActivity implements View.OnClick
 
     private void openFile(Archivo archivo) {
 
-        File file = new File(Utils.getDirectoryPath(true, getApplicationContext()) + archivo.getNombreArchivo());
+        File file = new File(Utils.getDirectoryPath(true, getApplicationContext()) + archivo.getNombreArchivo(true));
 
         if (file.exists()) {
             Intent intent = new Intent(Intent.ACTION_VIEW);

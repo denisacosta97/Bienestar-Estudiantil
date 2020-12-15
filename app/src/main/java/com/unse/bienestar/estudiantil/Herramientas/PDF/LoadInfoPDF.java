@@ -60,8 +60,8 @@ public class LoadInfoPDF extends AsyncTask<String, Integer, String> {
     protected void onPreExecute() {
         mDialogoProcesamiento = new DialogoProcesamiento();
         mDialogoProcesamiento.show(mFragmentManager, "dialog_proces");
-        origen = new File(directory_path + mArchivo.getNombreArchivo());
-        destino = new File(directory_path + "old_" + mArchivo.getNombreArchivo());
+        origen = new File(directory_path + mArchivo.getNombreArchivo(true));
+        destino = new File(directory_path + "old_" + mArchivo.getNombreArchivo(true));
         try {
             FileInputStream inputStream = new FileInputStream(origen);
             FileOutputStream outputStream = new FileOutputStream(destino);
@@ -77,8 +77,8 @@ public class LoadInfoPDF extends AsyncTask<String, Integer, String> {
             e.printStackTrace();
             isYes = false;
         }
-        origen = new File(directory_path + "old_" + mArchivo.getNombreArchivo());
-        destino = new File(directory_path + mArchivo.getNombreArchivo());
+        origen = new File(directory_path + "old_" + mArchivo.getNombreArchivo(true));
+        destino = new File(directory_path + mArchivo.getNombreArchivo(true));
         try {
             mPdfDocument = new PdfDocument(new PdfReader(origen), new PdfWriter(destino));
         } catch (IOException e) {

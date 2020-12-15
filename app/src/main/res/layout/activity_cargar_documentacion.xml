@@ -24,13 +24,14 @@
             card_view:backgroundTint="@color/colorWhite">
 
             <LinearLayout
+                android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/txtNameBeca"
+                    android:id="@+id/txtTipoBeca"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="BECA COMEDOR"
@@ -53,16 +54,16 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Fecha inicio: "
+                            android:text="Convocatoria: "
                             android:textColor="@color/blackTextColor"
                             android:textSize="16sp"
                             android:fontFamily="@font/montserrat_black"/>
 
                         <TextView
-                            android:id="@+id/txtInicio"
+                            android:id="@+id/txtDesc"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="15/12/2020"
+                            android:text="2020"
                             android:textSize="16sp"
                             android:fontFamily="@font/montserrat_regular"/>
 
@@ -77,16 +78,42 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Fecha fin: "
+                            android:text="Estado: "
                             android:textColor="@color/blackTextColor"
                             android:textSize="16sp"
                             android:fontFamily="@font/montserrat_black"/>
 
+
                         <TextView
-                            android:id="@+id/txtFin"
+                            android:id="@+id/txtEstado"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="15/01/2021"
+                            android:text="EN PROGRESO"
+                            android:textSize="16sp"
+                            android:fontFamily="@font/montserrat_regular"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Ultima modificación: "
+                            android:textColor="@color/blackTextColor"
+                            android:textSize="16sp"
+                            android:fontFamily="@font/montserrat_black"/>
+
+
+                        <TextView
+                            android:id="@+id/txtFecha"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="EN PROGRESO"
                             android:textSize="16sp"
                             android:fontFamily="@font/montserrat_regular"/>
 
@@ -95,28 +122,134 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/latDatos"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Observaciones"
+                        android:textColor="@color/blackTextColor"
+                        android:textSize="16sp"
+                        android:fontFamily="@font/montserrat_black"/>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_marginTop="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="10dp"
+                        app:cardBackgroundColor="@color/colorGrey">
+
+                        <TextView
+                            android:layout_margin="10dp"
+                            android:id="@+id/txtObs"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Documentación completa"
+                            android:textSize="16sp"
+                            android:fontFamily="@font/montserrat_regular"/>
+
+
+                    </androidx.cardview.widget.CardView>
+
+
+
+
+                </LinearLayout>
+                <LinearLayout
+                    android:weightSum="1"
+                    android:gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Seleccionar tipo de archivo a subir"
-                        android:textColor="@color/blackTextColor"
-                        android:textSize="18sp"
-                        android:gravity="center"
-                        android:fontFamily="@font/montserrat_black"/>
-
-                    <ImageButton
-                        android:id="@+id/btnAdd"
-                        android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+                    
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardAgregar"
+                        android:layout_margin="5dp"
+                        android:layout_weight="0.5"
                         android:layout_gravity="center"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:backgroundTint="@color/colorAccent"
-                        app:srcCompat="@drawable/ic_add" />
+                        app:cardCornerRadius="10dp"
+                        app:cardBackgroundColor="@color/colorAccent">
+                        
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:layout_margin="10dp"
+                            >
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Agregar nueva documentación"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="15sp"
+                                android:gravity="center"
+                                android:fontFamily="@font/montserrat_black"/>
+
+                            <ImageView
+                                android:id="@+id/btnAgregar"
+                                android:layout_gravity="center"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:srcCompat="@drawable/ic_add" />
+                            
+                            
+                        </LinearLayout>
+
+                        
+                        
+                        
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardConsultar"
+                        android:layout_margin="5dp"
+                        android:layout_weight="0.5"
+                        android:layout_gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="10dp"
+                        app:cardBackgroundColor="@color/colorAccent">
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:layout_margin="10dp"
+                            >
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Consultar documentación"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="15sp"
+                                android:gravity="center"
+                                android:fontFamily="@font/montserrat_black"/>
+
+                            <ImageView
+                                android:id="@+id/btnInfo"
+                                android:layout_gravity="center"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:srcCompat="@drawable/ic_info" />
+
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    
 
                 </LinearLayout>
 
@@ -129,7 +262,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Documentación agregada"
+                        android:text="Documentación"
                         android:textColor="@color/blackTextColor"
                         android:textSize="18sp"
                         android:gravity="center"
@@ -140,6 +273,17 @@
                         android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:layout_marginTop="20dp"
+                        android:gravity="center"
+                        android:id="@+id/txtCuerpo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="No hay documentación"
+                        android:textSize="16sp"
+                        android:fontFamily="@font/montserrat_regular"/>
+
 
                 </LinearLayout>
 

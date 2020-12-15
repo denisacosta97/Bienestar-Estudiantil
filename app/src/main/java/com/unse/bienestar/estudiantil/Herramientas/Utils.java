@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
@@ -19,6 +20,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Environment;
+import android.provider.OpenableColumns;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
@@ -182,6 +184,8 @@ public class Utils {
     public static final String MONTSERRAT_BOLD = "Montserrat-Black.ttf";
 
     public static final String BECA_NAME = "dato_deporte";
+    public static final String INFO_EXTRA = "extra_uno";
+    public static final String INFO_EXTRA_2 = "extra_dos";
     public static final String SERVICIO_NAME = "servicio_deporte";
     public static final String BARCODE = "dato_barcode";
     public static final String TORNEO = "dato_torneo";
@@ -274,13 +278,18 @@ public class Utils {
     //BECAS
     public static final String URL_BECAS_CREDENCIAL = "https://" + IP + "/becas/beca/getCredencial.php";
     public static final String URL_BECAS_CONVOCATORIA = "https://" + IP + "/becas/convocatoria/getConvocatoriasTurnos.php";
-
+    public static final String URL_BECAS_DISPONIBILIDAD = "https://" + IP + "/becas/convocatoria/getConvocatoria.php";
+    public static final String URL_BECAS_INSCRIPCION = "https://" + IP + "/becas/inscripcion/getInscripcion.php";
     public static final String URL_BECAS_HORARIO = "https://" + IP + "/becas/turno/horarios.json";
     public static final String URL_TURNO_HORARIO = "https://" + IP + "/becas/turno/getTurnoHorarios.php";
     public static final String URL_TURNO_NUEVO = "https://" + IP + "/becas/turno/insertar.php";
     public static final String URL_TURNO_POR_USUARIO = "https://" + IP + "/becas/turno/getTurnoByUsuario.php";
     public static final String URL_TURNO_CANCELAR = "https://" + IP + "/becas/turno/cancelar.php";
     public static final String URL_ARCHIVO_TURNO = "https://" + IP + "/becas/turno/archivos/";
+    public static final String URL_BECAS_INSCRIPCION_DOC = "https://" + IP + "/becas/inscripcion/insertar.php";
+    public static final String URL_BECAS_INSCRIPCION_ACTUALIZAR = "https://" + IP + "/becas/inscripcion/actualizar.php";
+    public static final String URL_BECAS_DOCUMENTACION = "https://" + IP + "/becas/inscripcion/documentacion/uploadPDF.php";
+    public static final String URL_BECAS_DOCUMENTACION_ELIMINAR = "https://" + IP + "/becas/inscripcion/documentacion/deletePDF.php";
 
     public static final String URL_FECHAS_VALIDA = "https://" + IP + "/becas/fecha/getFechaInvalidate.php";
 
@@ -594,7 +603,7 @@ public class Utils {
     }
 
     public static Object[] exist(Archivo archivo, Context context) {
-        File file = new File(getDirectoryPath(true, context) + archivo.getNombreArchivo());
+        File file = new File(getDirectoryPath(true, context) + archivo.getNombreArchivo(true));
         Object[] a = new Object[2];
         a[0] = file.exists();
         a[1] = file.exists() ? file.lastModified() : 0;
@@ -707,7 +716,7 @@ public class Utils {
 
     public static String getText(String text) {
         StringBuilder stringBuilder = new StringBuilder();
-        text = text.replaceAll("!=","\n");
+        text = text.replaceAll("!=", "\n");
         text = text.replaceAll("=!", "\t");
         stringBuilder.append(text);
         return stringBuilder.toString();
@@ -715,8 +724,8 @@ public class Utils {
 
     public static String styleText(String text) {
         StringBuilder stringBuilder = new StringBuilder();
-        text = text.replaceAll("\n","!=");
-        text = text.replaceAll("\t","=!");
+        text = text.replaceAll("\n", "!=");
+        text = text.replaceAll("\t", "=!");
         stringBuilder.append(text);
         return stringBuilder.toString();
     }
@@ -1328,6 +1337,14 @@ public class Utils {
                 16, latLng.latitude, latLng.longitude, " ");
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
         activity.startActivity(intent);
+    }
+
+    public static String getFileName(Uri file, Activity context) {
+        Cursor cursor = context.getContentResolver().query(file, null, null, null, null);
+        assert cursor != null;
+        int nameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+        cursor.moveToFirst();
+        return cursor.getString(nameIndex);
     }
 }
 

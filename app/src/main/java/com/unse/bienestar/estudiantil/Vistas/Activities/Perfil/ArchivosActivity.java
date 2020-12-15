@@ -226,7 +226,7 @@ public class ArchivosActivity extends AppCompatActivity implements View.OnClickL
 
     private void openFile(Archivo archivo) {
 
-        File file = new File(Utils.getDirectoryPath(true, getApplicationContext()) + archivo.getNombreArchivo());
+        File file = new File(Utils.getDirectoryPath(true, getApplicationContext()) + archivo.getNombreArchivo(true));
 
         if (file.exists()) {
             Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -268,7 +268,7 @@ public class ArchivosActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void download(final Archivo archivo) {
-        DownloadPDF downloadPDF = new DownloadPDF(getApplicationContext(), archivo.getNombreArchivo(),
+        DownloadPDF downloadPDF = new DownloadPDF(getApplicationContext(), archivo.getNombreArchivo(true),
                 getSupportFragmentManager(), new YesNoDialogListener() {
             @Override
             public void yes() {
@@ -282,7 +282,7 @@ public class ArchivosActivity extends AppCompatActivity implements View.OnClickL
             }
 
         }, true);
-        String URL = String.format("%s%s", Utils.URL_ARCHIVOS, archivo.getNombreArchivo());
+        String URL = String.format("%s%s", Utils.URL_ARCHIVOS, archivo.getNombreArchivo(true));
         downloadPDF.execute(URL);
     }
 
@@ -360,7 +360,7 @@ public class ArchivosActivity extends AppCompatActivity implements View.OnClickL
                 try {
                     JSONObject object = mensaje.getJSONObject(i);
 
-                    Archivo archivo = Archivo.toMapper(object);
+                    Archivo archivo = Archivo.toMapper(object, Archivo.LOW);
 
                     if (archivo.getValidez() == 1)
                         mArchivos.add(archivo);

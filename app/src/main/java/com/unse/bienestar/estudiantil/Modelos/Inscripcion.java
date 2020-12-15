@@ -12,6 +12,8 @@ public class Inscripcion implements Parcelable {
     public static final int TIPO_DEPORTE = 2;
 
     public static final int COMPLETE = 1;
+    public static final int HIGH = 4;
+    public static final int LOW_BECA = 5;
     public static final int PARCIAL = 2;
     public static final int LOW = 3;
 
@@ -34,8 +36,24 @@ public class Inscripcion implements Parcelable {
     private int intensidad;
     private String lugar;
 
+    private int idBeca;
+    private int anio;
+    private int estado;
+    private String descripcion, nombre, apellido, nombreBeca, estadoDescripcion;
+
     private String nombreEstado, nombreDeporte, titulo;
     private int tipoInscripcion, idDeporte;
+
+
+
+    public Inscripcion(int idUsuario, String fechaModificacion, int validez, int idBeca, int anio, int estado) {
+        this.idUsuario = idUsuario;
+        this.fechaModificacion = fechaModificacion;
+        this.validez = validez;
+        this.idBeca = idBeca;
+        this.anio = anio;
+        this.estado = estado;
+    }
 
     //Inscripcion principal
     public Inscripcion(int idInscripcion, int idEstado, int idUsuario, int idTemporada, int wsp,
@@ -94,12 +112,21 @@ public class Inscripcion implements Parcelable {
         cuales = in.readString();
         intensidad = in.readInt();
         lugar = in.readString();
+        idBeca = in.readInt();
+        anio = in.readInt();
+        estado = in.readInt();
+        descripcion = in.readString();
+        nombre = in.readString();
+        apellido = in.readString();
+        nombreBeca = in.readString();
+        estadoDescripcion = in.readString();
         nombreEstado = in.readString();
         nombreDeporte = in.readString();
         titulo = in.readString();
         tipoInscripcion = in.readInt();
         idDeporte = in.readInt();
     }
+
 
     public static final Creator<Inscripcion> CREATOR = new Creator<Inscripcion>() {
         @Override
@@ -112,6 +139,55 @@ public class Inscripcion implements Parcelable {
             return new Inscripcion[size];
         }
     };
+
+    public String getEstadoDescripcion() {
+        return estadoDescripcion;
+    }
+
+    public void setEstadoDescripcion(String estadoDescripcion) {
+        this.estadoDescripcion = estadoDescripcion;
+    }
+
+    public int getIdBeca() {
+        return idBeca;
+    }
+
+    public void setIdBeca(int idBeca) {
+        this.idBeca = idBeca;
+    }
+
+    public int getAnio() {
+        return anio;
+    }
+
+    public void setAnio(int anio) {
+        this.anio = anio;
+    }
+
+    public int getEstado() {
+        return estado;
+    }
+
+    public void setEstado(int estado) {
+        this.estado = estado;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public int getTipoInscripcion() {
+        return tipoInscripcion;
+    }
+
+    public void setTipoInscripcion(int tipoInscripcion) {
+        this.tipoInscripcion = tipoInscripcion;
+    }
+
 
     public int getIdDeporte() {
         return idDeporte;
@@ -290,12 +366,44 @@ public class Inscripcion implements Parcelable {
     }
 
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public String getNombreBeca() {
+        return nombreBeca;
+    }
+
+    public void setNombreBeca(String nombreBeca) {
+        this.nombreBeca = nombreBeca;
+    }
+
     public int getTipo() {
         return tipoInscripcion;
     }
 
     public void setTipo(int tipo) {
         this.tipoInscripcion = tipo;
+    }
+
+    public Inscripcion(int idBeca, int anio, String descripcion, String nombreBeca) {
+        this.idBeca = idBeca;
+        this.anio = anio;
+        this.idTemporada = anio;
+        this.descripcion = descripcion;
+        this.nombreBeca = nombreBeca;
     }
 
     public static Inscripcion mapper(JSONObject o, int tipo) {
@@ -305,6 +413,38 @@ public class Inscripcion implements Parcelable {
         String facebook, instagram, objetivo, altura, peso, cuales, lugar, fechaRegistro, fechaModificacion;
         try {
             switch (tipo) {
+                case HIGH:
+                    idUsuario = Integer.parseInt(o.getString("idusuario"));
+                    int idBeca = Integer.parseInt(o.getString("idbeca"));
+                    String descripcion = o.getString("descripcionbeca");
+                    String observaciones = o.isNull("observaciones") ? "" : o.getString("observaciones");
+                    idEstado = Integer.parseInt(o.getString("estado"));
+                    idTemporada = Integer.parseInt(o.getString("anio"));
+                    fechaModificacion = o.getString("fechamodificacion");
+                    fechaRegistro = o.getString("fecharegistro");
+                    String nombreBeca = o.getString("nombrebeca");
+                    String nombre2 = o.getString("nombre");
+                    String apellido2 = o.getString("apellido");
+                    validez = Integer.parseInt(o.getString("validez"));
+                    int tipoUsuario = Integer.parseInt(o.getString("tipousuario"));
+                    inscripcion = new Inscripcion(idUsuario, fechaModificacion, validez, idBeca,
+                            idTemporada, idEstado);
+                    inscripcion.setFechaRegistro(fechaRegistro);
+                    inscripcion.setEstadoDescripcion(descripcion);
+                    inscripcion.setIntensidad(tipoUsuario);
+                    inscripcion.setNombre(nombre2);
+                    inscripcion.setApellido(apellido2);
+                    inscripcion.setNombreBeca(nombreBeca);
+                    inscripcion.setDescripcion(observaciones);
+                    break;
+                case LOW_BECA:
+                    idBeca = Integer.parseInt(o.getString("idbeca"));
+                    descripcion = o.getString("descripcionbeca");
+                    idTemporada = Integer.parseInt(o.getString("anio"));
+                    nombreBeca = o.getString("nombrebeca");
+                    inscripcion = new Inscripcion(idBeca, idTemporada, descripcion, nombreBeca);
+                    inscripcion.setTipo(Inscripcion.TIPO_BECA);
+                    break;
                 case COMPLETE:
                     idEstado = Integer.parseInt(o.getString("estado"));
                     int idDeporte = Integer.parseInt(o.getString("iddeporte"));
@@ -395,6 +535,14 @@ public class Inscripcion implements Parcelable {
         dest.writeString(cuales);
         dest.writeInt(intensidad);
         dest.writeString(lugar);
+        dest.writeInt(idBeca);
+        dest.writeInt(anio);
+        dest.writeInt(estado);
+        dest.writeString(descripcion);
+        dest.writeString(nombre);
+        dest.writeString(apellido);
+        dest.writeString(nombreBeca);
+        dest.writeString(estadoDescripcion);
         dest.writeString(nombreEstado);
         dest.writeString(nombreDeporte);
         dest.writeString(titulo);

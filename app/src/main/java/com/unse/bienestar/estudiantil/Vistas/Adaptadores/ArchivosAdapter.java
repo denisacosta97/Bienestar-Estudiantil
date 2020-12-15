@@ -49,7 +49,7 @@ public class ArchivosAdapter extends RecyclerView.Adapter<ArchivosAdapter.Evento
 
         holder.mFecha.setText(archivo.getFechaModificacion().substring(0, 10));
         holder.mNombreArchivo.setText(archivo.getNombre());
-        String ext = Utils.getExtension(archivo.getNombreArchivo());
+        String ext = Utils.getExtension(archivo.getNombreArchivo(true));
         holder.txtExtension.setText(ext.length() != 0 ? ext.toUpperCase() : ext);
         holder.txtExtension.setBackgroundColor(context.getResources().getColor(Utils.getColorExtension(ext)));
 

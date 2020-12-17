@@ -51,6 +51,7 @@
                 android:fontFamily="@font/montserrat_regular"
                 android:textSize="16sp"
                 android:gravity="center"
+                android:textColor="@color/blackTextColor"
                 android:text="@string/alert6" />
 
             <EditText

@@ -61,7 +61,7 @@ import static com.unse.bienestar.estudiantil.Herramientas.Utils.REQUEST_GROUP_PE
 public class CargarDocumentacionActivity extends AppCompatActivity implements View.OnClickListener {
 
     CardView btnAgregar, btnConsultar;
-    Button btnCargar;
+    Button btnCargar, btnRec;
     ImageView btnBack;
     ArrayList<Documentacion> mDocumentacions;
     ArrayList<Archivo> mArchivos;
@@ -109,7 +109,6 @@ public class CargarDocumentacionActivity extends AppCompatActivity implements Vi
             Utils.showToast(getApplicationContext(), getString(R.string.errorInternoAdmin));
             finish();
         }
-
 
     }
 
@@ -374,7 +373,7 @@ public class CargarDocumentacionActivity extends AppCompatActivity implements Vi
         btnCargar.setOnClickListener(this);
         btnConsultar.setOnClickListener(this);
         btnAgregar.setOnClickListener(this);
-
+        btnRec.setOnClickListener(this);
 
     }
 
@@ -441,6 +440,7 @@ public class CargarDocumentacionActivity extends AppCompatActivity implements Vi
         recycler = findViewById(R.id.recycler);
         btnConsultar = findViewById(R.id.cardConsultar);
         btnAgregar = findViewById(R.id.cardAgregar);
+        btnRec = findViewById(R.id.btnRec);
     }
 
     private void openDialogArchivos() {
@@ -480,7 +480,7 @@ public class CargarDocumentacionActivity extends AppCompatActivity implements Vi
         }
 
         if (isReady() && mArchivos.size() > 0) {
-            btnCargar.setText("FINALIZAR INSCRIPCION");
+            btnCargar.setText("FINALIZAR INSCRIPCIÓN");
         } else {
             btnCargar.setText("ENVIAR DOCUMENTACIÓN");
         }
@@ -513,6 +513,9 @@ public class CargarDocumentacionActivity extends AppCompatActivity implements Vi
             case R.id.btnCargar:
                 //chequear documentación
                 chequear();
+                break;
+            case R.id.btnRec:
+                startActivity(new Intent(getApplicationContext(), RecomendacionesActivity.class));
                 break;
         }
 

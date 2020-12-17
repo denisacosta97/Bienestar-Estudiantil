@@ -41,8 +41,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Cambiar contraseña"
-                    android:textColor="@color/colorTextDefault"
                     android:fontFamily="@font/montserrat_regular"
+                    android:textColor="@color/blackTextColor"
                     android:textSize="18sp" />
 
                 <View

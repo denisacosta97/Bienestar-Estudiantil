@@ -9,15 +9,11 @@ import android.net.Uri;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-import com.unse.bienestar.estudiantil.Herramientas.Almacenamiento.PreferenceManager;
-import com.unse.bienestar.estudiantil.Herramientas.ContextSingleton;
-import com.unse.bienestar.estudiantil.Herramientas.Utils;
 import com.unse.bienestar.estudiantil.R;
 import com.unse.bienestar.estudiantil.Vistas.Activities.Inicio.MainActivity;
 
 import java.util.Map;
 
-import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 
 public class FirebaseMessagingSDEService extends FirebaseMessagingService {

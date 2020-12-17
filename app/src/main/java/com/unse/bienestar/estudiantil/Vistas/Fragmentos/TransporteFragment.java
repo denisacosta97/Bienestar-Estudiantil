@@ -39,6 +39,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -59,10 +61,16 @@ public class TransporteFragment extends Fragment implements View.OnClickListener
     CardView cardServicios, cardScanner;
     Activity mActivity;
 
-    public TransporteFragment(Context applicationContext, FragmentManager supportFragmentManager) {
-        mContext = applicationContext;
+    public TransporteFragment(FragmentManager supportFragmentManager) {
         mFragmentManager = supportFragmentManager;
     }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        mContext = context;
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -137,30 +145,30 @@ public class TransporteFragment extends Fragment implements View.OnClickListener
             int estado = jsonObject.getInt("estado");
             switch (estado) {
                 case -1:
-                    Toast.makeText(mContext, getString(R.string.errorInternoAdmin), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getString(R.string.errorInternoAdmin), Toast.LENGTH_SHORT).show();
                     break;
                 case 1:
                     //Exito
                     loadInfo(jsonObject);
                     break;
                 case 2:
-                    Utils.showToast(mContext, getString(R.string.noData));
+                    Utils.showToast(getContext(), getString(R.string.noData));
                     break;
                 case 4:
-                    Toast.makeText(mContext, getString(R.string.camposInvalidos), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getString(R.string.camposInvalidos), Toast.LENGTH_SHORT).show();
                     break;
                 case 3:
-                    Toast.makeText(mContext, getString(R.string.tokenInvalido), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getString(R.string.tokenInvalido), Toast.LENGTH_SHORT).show();
                     break;
                 case 100:
                     //No autorizado
-                    Toast.makeText(mContext, getString(R.string.tokenInexistente), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getString(R.string.tokenInexistente), Toast.LENGTH_SHORT).show();
                     break;
             }
 
         } catch (JSONException e) {
             e.printStackTrace();
-            Toast.makeText(mContext, getString(R.string.errorInternoAdmin), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), getString(R.string.errorInternoAdmin), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -193,26 +201,26 @@ public class TransporteFragment extends Fragment implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
-        PreferenceManager manager = new PreferenceManager(mContext);
+        PreferenceManager manager = new PreferenceManager(getContext());
         boolean isLogin = manager.getValue(Utils.IS_LOGIN);
         switch (v.getId()) {
             case R.id.cardServicios:
                 if (isLogin)
-                    Utils.showToast(mContext, getString(R.string.serviciosNoHay));
+                    Utils.showToast(getContext(), getString(R.string.serviciosNoHay));
                 else
-                    Utils.showToast(mContext, getString(R.string.primeroRegistrar));
+                    Utils.showToast(getContext(), getString(R.string.primeroRegistrar));
                 //getServicios();
                 break;
             case R.id.cardScanner:
                 if (isLogin)
-                    Utils.showToast(mContext, getString(R.string.serviciosNoHay));
+                    Utils.showToast(getContext(), getString(R.string.serviciosNoHay));
                 else
-                    Utils.showToast(mContext, getString(R.string.primeroRegistrar));
+                    Utils.showToast(getContext(), getString(R.string.primeroRegistrar));
                 //int gps = checkGPS();
                 /*if (gps == 1) {
                     scanQR();
                 } else
-                    Toast.makeText(mContext, "GPS deshabilitado", Toast.LENGTH_SHORT).show();*/
+                    Toast.makeText(getContext(), "GPS deshabilitado", Toast.LENGTH_SHORT).show();*/
                 break;
         }
     }
@@ -270,7 +278,7 @@ public class TransporteFragment extends Fragment implements View.OnClickListener
             int estado = jsonObject.getInt("estado");
             switch (estado) {
                 case -1:
-                    Toast.makeText(mContext, getString(R.string.errorInternoAdmin), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getString(R.string.errorInternoAdmin), Toast.LENGTH_SHORT).show();
                     break;
                 case 1:
                     //Exito
@@ -279,20 +287,20 @@ public class TransporteFragment extends Fragment implements View.OnClickListener
                 case 2:
                     break;
                 case 4:
-                    Toast.makeText(mContext, getString(R.string.camposInvalidos), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getString(R.string.camposInvalidos), Toast.LENGTH_SHORT).show();
                     break;
                 case 3:
-                    Toast.makeText(mContext, getString(R.string.tokenInvalido), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getString(R.string.tokenInvalido), Toast.LENGTH_SHORT).show();
                     break;
                 case 100:
                     //No autorizado
-                    Toast.makeText(mContext, getString(R.string.tokenInexistente), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getString(R.string.tokenInexistente), Toast.LENGTH_SHORT).show();
                     break;
             }
 
         } catch (JSONException e) {
             e.printStackTrace();
-            Toast.makeText(mContext, getString(R.string.errorInternoAdmin), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), getString(R.string.errorInternoAdmin), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -369,7 +377,7 @@ public class TransporteFragment extends Fragment implements View.OnClickListener
             int estado = jsonObject.getInt("estado");
             switch (estado) {
                 case -1:
-                    Toast.makeText(mContext, getString(R.string.errorInternoAdmin), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getString(R.string.errorInternoAdmin), Toast.LENGTH_SHORT).show();
                     break;
                 case 1:
                     //Exito
@@ -380,20 +388,20 @@ public class TransporteFragment extends Fragment implements View.OnClickListener
 //                            getString(R.string.noReservas), R.drawable.ic_error);
                     break;
                 case 4:
-                    Toast.makeText(mContext, getString(R.string.camposInvalidos), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getString(R.string.camposInvalidos), Toast.LENGTH_SHORT).show();
                     break;
                 case 3:
-                    Toast.makeText(mContext, getString(R.string.tokenInvalido), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getString(R.string.tokenInvalido), Toast.LENGTH_SHORT).show();
                     break;
                 case 100:
                     //No autorizado
-                    Toast.makeText(mContext, getString(R.string.tokenInexistente), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getString(R.string.tokenInexistente), Toast.LENGTH_SHORT).show();
                     break;
             }
 
         } catch (JSONException e) {
             e.printStackTrace();
-            Toast.makeText(mContext, getString(R.string.errorInternoAdmin), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), getString(R.string.errorInternoAdmin), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -402,7 +410,7 @@ public class TransporteFragment extends Fragment implements View.OnClickListener
             if (jsonObject.has("mensaje")) {
 
                 if (jsonObject.get("mensaje") instanceof Boolean) {
-                    Toast.makeText(mContext, getString(R.string.errorLocation), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getString(R.string.errorLocation), Toast.LENGTH_SHORT).show();
                 } else {
                     JSONObject jsonObject1 = jsonObject.getJSONObject("mensaje");
                     JSONObject punto = jsonObject.getJSONObject("last");
@@ -430,14 +438,6 @@ public class TransporteFragment extends Fragment implements View.OnClickListener
         return this.mFragmentManager;
     }
 
-    @Override
-    public Context getContext() {
-        return mContext;
-    }
-
-    public void setContext(Context context) {
-        mContext = context;
-    }
 
     public void setActivity(Activity activity) {
         mActivity = activity;

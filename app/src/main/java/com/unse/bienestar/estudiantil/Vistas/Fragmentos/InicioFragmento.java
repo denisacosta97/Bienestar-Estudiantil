@@ -29,6 +29,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -60,8 +61,13 @@ public class InicioFragmento extends Fragment {
         // Metodo necesario
     }
 
-    public InicioFragmento(Context context, FragmentManager fragmentManager) {
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
         mContext = context;
+    }
+
+    public InicioFragmento(FragmentManager fragmentManager) {
         mFragmentManager = fragmentManager;
     }
 
@@ -130,7 +136,7 @@ public class InicioFragmento extends Fragment {
 
     private void loadInfo() {
 
-        PreferenceManager manager = new PreferenceManager(mContext);
+        PreferenceManager manager = new PreferenceManager(getContext());
         boolean isLogin = manager.getValue(Utils.IS_LOGIN);
         String key = manager.getValueString(Utils.TOKEN);
         int id = manager.getValueInt(Utils.MY_ID);
@@ -146,7 +152,7 @@ public class InicioFragmento extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
-                Utils.showToast(mContext, getString(R.string.servidorOff));
+                Utils.showToast(getContext(), getString(R.string.servidorOff));
                 dialog.dismiss();
 
             }
@@ -155,7 +161,7 @@ public class InicioFragmento extends Fragment {
         dialog = new DialogoProcesamiento();
         dialog.setCancelable(false);
         dialog.show(mFragmentManager, "dialog_process");
-        VolleySingleton.getInstance(mContext).addToRequestQueue(request);
+        VolleySingleton.getInstance(getContext()).addToRequestQueue(request);
     }
 
     private void procesarRespuesta(String response) {
@@ -165,28 +171,28 @@ public class InicioFragmento extends Fragment {
             int estado = jsonObject.getInt("estado");
             switch (estado) {
                 case -1:
-                    Utils.showToast(mContext, getString(R.string.errorInternoAdmin));
+                    Utils.showToast(getContext(), getString(R.string.errorInternoAdmin));
                     break;
                 case 1:
                     //Exito
                     loadInfo(jsonObject);
                     break;
                 case 2:
-                    Utils.showToast(mContext, getString(R.string.noData));
+                    Utils.showToast(getContext(), getString(R.string.noData));
                     //updateView(0);
                     break;
                 case 3:
-                    Utils.showToast(mContext, getString(R.string.tokenInvalido));
+                    Utils.showToast(getContext(), getString(R.string.tokenInvalido));
                     break;
                 case 100:
                     //No autorizado
-                    Utils.showToast(mContext, getString(R.string.tokenInexistente));
+                    Utils.showToast(getContext(), getString(R.string.tokenInexistente));
                     break;
             }
 
         } catch (JSONException e) {
             e.printStackTrace();
-            Utils.showToast(mContext, getString(R.string.errorInternoAdmin));
+            Utils.showToast(getContext(), getString(R.string.errorInternoAdmin));
             //updateView(2);
         }
     }
@@ -208,7 +214,7 @@ public class InicioFragmento extends Fragment {
                     mListNoticias.add(noticia);
 
                 }
-                if (mListNoticias.size() >0){
+                if (mListNoticias.size() > 0) {
                     mNoticiasAdapter = new NoticiasAdapter(mListNoticias, getContext(), 0);
                     recyclerNoticias.setAdapter(mNoticiasAdapter);
                     recyclerCategorias.setVisibility(View.VISIBLE);

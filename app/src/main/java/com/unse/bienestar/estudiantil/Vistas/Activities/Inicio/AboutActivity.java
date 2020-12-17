@@ -1,4 +1,4 @@
-package com.unse.bienestar.estudiantil.Vistas.Activities;
+package com.unse.bienestar.estudiantil.Vistas.Activities.Inicio;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;

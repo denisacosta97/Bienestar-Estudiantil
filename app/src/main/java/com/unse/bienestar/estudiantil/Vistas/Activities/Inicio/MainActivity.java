@@ -35,17 +35,14 @@ import com.unse.bienestar.estudiantil.Databases.RolViewModel;
 import com.unse.bienestar.estudiantil.Databases.UsuarioViewModel;
 import com.unse.bienestar.estudiantil.Herramientas.Almacenamiento.FileStorageManager;
 import com.unse.bienestar.estudiantil.Herramientas.Almacenamiento.PreferenceManager;
-import com.unse.bienestar.estudiantil.Herramientas.ContextSingleton;
 import com.unse.bienestar.estudiantil.Herramientas.Utils;
 import com.unse.bienestar.estudiantil.Herramientas.VolleySingleton;
 import com.unse.bienestar.estudiantil.Interfaces.YesNoDialogListener;
 import com.unse.bienestar.estudiantil.Modelos.Rol;
 import com.unse.bienestar.estudiantil.Modelos.Usuario;
 import com.unse.bienestar.estudiantil.R;
-import com.unse.bienestar.estudiantil.Vistas.Activities.AboutActivity;
 import com.unse.bienestar.estudiantil.Vistas.Activities.Gestion.GestionSistemaActivity;
 import com.unse.bienestar.estudiantil.Vistas.Activities.Perfil.PerfilActivity;
-import com.unse.bienestar.estudiantil.Vistas.Activities.TermsActivity;
 import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoGeneral;
 import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoProcesamiento;
 import com.unse.bienestar.estudiantil.Vistas.Fragmentos.BecasFragment;
@@ -246,30 +243,26 @@ public class MainActivity extends AppCompatActivity {
         boolean isOption = false;
         switch (itemDrawer.getItemId()) {
             case R.id.item_becas:
-                fragmentoGenerico = new BecasFragment(ContextSingleton.getInstance(getApplicationContext()).getContext());
+                fragmentoGenerico = new BecasFragment();
                 break;
             case R.id.item_inicio:
-                fragmentoGenerico = new InicioFragmento(ContextSingleton.getInstance
-                        (getApplicationContext()).getContext(), getSupportFragmentManager());
+                fragmentoGenerico = new InicioFragmento(getSupportFragmentManager());
                 break;
             case R.id.item_poli:
                 fragmentoGenerico = new PoliFragment(MainActivity.this);
                 break;
             case R.id.item_upa:
-                fragmentoGenerico = new UPAFragment(ContextSingleton.
-                        getInstance(getApplicationContext()).getContext());
+                fragmentoGenerico = new UPAFragment();
                 break;
             case R.id.item_ciber:
                 fragmentoGenerico = new CiberFragment();
                 ((CiberFragment) fragmentoGenerico).setActivity(MainActivity.this);
                 break;
             case R.id.item_deporte:
-                fragmentoGenerico = new DeportesFragment(getSupportFragmentManager(), ContextSingleton.
-                        getInstance(getApplicationContext()).getContext());
+                fragmentoGenerico = new DeportesFragment(getSupportFragmentManager());
                 break;
             case R.id.item_transporte:
-                fragmentoGenerico = new TransporteFragment(ContextSingleton.getInstance(
-                        getApplicationContext()).getContext(), getSupportFragmentManager());
+                fragmentoGenerico = new TransporteFragment(getSupportFragmentManager());
                 ((TransporteFragment) fragmentoGenerico).setActivity(MainActivity.this);
                 break;
             case R.id.item_comedor:

@@ -20,6 +20,7 @@ import com.unse.bienestar.estudiantil.R;
 import com.unse.bienestar.estudiantil.Vistas.Activities.Inicio.MainActivity;
 import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoGeneral;
 
+import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -37,9 +38,6 @@ public class CiberFragment extends Fragment implements View.OnClickListener {
     Activity mActivity;
     FragmentManager mFragmentManagerM;
 
-    public Context getContext() {
-        return mActivity.getApplicationContext();
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

@@ -116,6 +116,8 @@ public class TipoTurnosActivity extends AppCompatActivity {
                     break;
                 case 2:
                     Utils.showToast(getApplicationContext(), getString(R.string.becaConvocatoriaNo));
+                    txtDescripcion.setVisibility(View.VISIBLE);
+                    mRecyclerView.setVisibility(View.GONE);
                     break;
                 case 3:
                     Utils.showToast(getApplicationContext(), getString(R.string.tokenInvalido));

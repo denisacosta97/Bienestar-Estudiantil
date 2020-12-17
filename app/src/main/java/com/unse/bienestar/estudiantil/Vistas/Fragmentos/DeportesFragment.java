@@ -29,6 +29,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -47,10 +49,16 @@ public class DeportesFragment extends Fragment {
     Context mContext;
     Button btnError;
 
-    public DeportesFragment(FragmentManager fragmentManager, Context context) {
+    public DeportesFragment(FragmentManager fragmentManager) {
         mFragmentManager = fragmentManager;
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
         mContext = context;
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -97,7 +105,7 @@ public class DeportesFragment extends Fragment {
     }
 
     public void loadInfo() {
-        PreferenceManager manager = new PreferenceManager(mContext);
+        PreferenceManager manager = new PreferenceManager(getContext());
         String key = manager.getValueString(Utils.TOKEN);
         boolean isLogin = manager.getValue(Utils.IS_LOGIN);
         int id = manager.getValueInt(Utils.MY_ID);
@@ -113,7 +121,7 @@ public class DeportesFragment extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
-                Utils.showToast(mContext, getString(R.string.servidorOff));
+                Utils.showToast(getContext(), getString(R.string.servidorOff));
                 updateView(1);
                 dialog.dismiss();
 
@@ -123,7 +131,7 @@ public class DeportesFragment extends Fragment {
         dialog = new DialogoProcesamiento();
         dialog.setCancelable(false);
         dialog.show(mFragmentManager, "dialog_process");
-        VolleySingleton.getInstance(mContext).addToRequestQueue(request);
+        VolleySingleton.getInstance(getContext()).addToRequestQueue(request);
     }
 
 

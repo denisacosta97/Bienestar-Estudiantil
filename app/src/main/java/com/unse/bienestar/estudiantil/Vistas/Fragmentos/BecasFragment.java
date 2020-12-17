@@ -15,6 +15,8 @@ import com.unse.bienestar.estudiantil.R;
 import com.unse.bienestar.estudiantil.Vistas.Activities.Becas.InfoBecasActivity;
 import com.unse.bienestar.estudiantil.Vistas.Activities.Becas.TipoTurnosActivity;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
@@ -24,11 +26,19 @@ public class BecasFragment extends Fragment implements View.OnClickListener {
     CardView cardTurnos, cardInfo, cardWsp;
     Context mContext;
 
-    public BecasFragment(Context context) {
+    public BecasFragment() {
+
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
         mContext = context;
     }
 
+
     CardView cardInsta;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -84,9 +94,10 @@ public class BecasFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.cardTurnos:
                 if (isLogin)
-                    Utils.showToast(mContext, getString(R.string.noDisponible));
+                    startActivity(new Intent(getContext(), TipoTurnosActivity.class));
+                    //Utils.showToast(mContext, getString(R.string.noDisponible));
                 else Utils.showToast(mContext, getString(R.string.primeroRegistrar));
-                startActivity(new Intent(getContext(), TipoTurnosActivity.class));
+
                 break;
             case R.id.card_infoBecas:
                 startActivity(new Intent(getContext(), InfoBecasActivity.class));

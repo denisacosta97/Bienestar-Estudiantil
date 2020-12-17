@@ -17,7 +17,7 @@
             android:id="@+id/backgroundAbout"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:background="@drawable/fondo_secretaria"
+            android:background="@color/blackTextColor"
             android:orientation="vertical">
 
             <LinearLayout

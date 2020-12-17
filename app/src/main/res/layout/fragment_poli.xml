@@ -105,11 +105,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/imgborrar1"
+                    android:src="@color/colorTextDefault"
                     android:layout_marginLeft="100dp"/>
 
                 <LinearLayout
-                    android:layout_width="190dp"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:background="@color/colorPrimaryDark" />
@@ -141,6 +141,7 @@
                 android:layout_height="40dp"
                 android:layout_gravity="center|right"
                 android:layout_margin="10dp"
+                android:backgroundTint="colo"
                 android:background="@drawable/button_border"
                 android:text="MÁS INFO"
                 android:textColor="@color/colorWhite"

@@ -78,7 +78,7 @@
                     android:layout_margin="5dp"
                     android:background="@drawable/edit_text_logreg"
                     android:fontFamily="@font/montserrat_regular"
-                    android:hint="Ingresa tu DNI"
+                    android:hint="Ingresá tu DNI"
                     android:textSize="16sp"
                     android:inputType="number"
                     android:padding="10dp" />
@@ -91,7 +91,7 @@
                     android:textSize="16sp"
                     android:background="@drawable/edit_text_logreg"
                     android:fontFamily="@font/montserrat_regular"
-                    android:hint="Ingresa el mail asociado"
+                    android:hint="Ingresá el mail asociado"
                     android:inputType="textEmailAddress"
                     android:padding="10dp" />
 

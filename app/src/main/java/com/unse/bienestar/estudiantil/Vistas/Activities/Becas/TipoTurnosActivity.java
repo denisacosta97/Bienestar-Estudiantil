@@ -46,7 +46,6 @@ public class TipoTurnosActivity extends AppCompatActivity {
     ArrayList<Convocatoria> mConvocatorias;
     ProgressBar mProgressBar;
 
-
     public static TipoTurnosActivity instance = null;
 
     @Override

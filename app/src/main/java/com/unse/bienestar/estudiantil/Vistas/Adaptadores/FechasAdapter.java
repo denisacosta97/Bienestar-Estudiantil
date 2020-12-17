@@ -123,7 +123,7 @@ public class FechasAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                             }
                         }
                         dateViewHolder.txtEstado.setTextColor(mContext.getResources().getColor(i));
-                        dateViewHolder.txtEstado.setTypeface(null, Typeface.BOLD);
+                        //dateViewHolder.txtEstado.setTypeface(null, Typeface.BOLD);
 
                     } else dateViewHolder.txtEstado.setVisibility(View.GONE);
                 } else if (tipo == TIPO_DEPORTES_INSCRIPCIONES) {

@@ -64,6 +64,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="2020"
+                            android:textColor="@color/blackTextColor"
                             android:textSize="16sp"
                             android:fontFamily="@font/montserrat_regular"/>
 
@@ -83,12 +84,12 @@
                             android:textSize="16sp"
                             android:fontFamily="@font/montserrat_black"/>
 
-
                         <TextView
                             android:id="@+id/txtEstado"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="EN PROGRESO"
+                            android:textColor="@color/blackTextColor"
                             android:textSize="16sp"
                             android:fontFamily="@font/montserrat_regular"/>
 
@@ -98,7 +99,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:orientation="horizontal">
+                        android:orientation="vertical">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -108,16 +109,29 @@
                             android:textSize="16sp"
                             android:fontFamily="@font/montserrat_black"/>
 
-
                         <TextView
                             android:id="@+id/txtFecha"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="EN PROGRESO"
+                            android:textColor="@color/blackTextColor"
                             android:textSize="16sp"
                             android:fontFamily="@font/montserrat_regular"/>
 
                     </LinearLayout>
+
+                    <Button
+                        android:id="@+id/btnRec"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:text="Ver recomendaciones"
+                        android:layout_marginTop="10dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/corners_rounded_green"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="16sp"
+                        android:backgroundTint="@color/colorMoney"
+                        android:fontFamily="@font/montserrat_black"/>
 
                 </LinearLayout>
 
@@ -150,6 +164,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Documentación completa"
+                            android:textColor="@color/blackTextColor"
                             android:textSize="16sp"
                             android:fontFamily="@font/montserrat_regular"/>
 
@@ -281,9 +296,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="No hay documentación"
+                        android:textColor="@color/blackTextColor"
                         android:textSize="16sp"
                         android:fontFamily="@font/montserrat_regular"/>
-
 
                 </LinearLayout>
 

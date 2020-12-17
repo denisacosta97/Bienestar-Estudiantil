@@ -18,7 +18,6 @@
     <string name="app_name_shor">Bienestar Estudiantil</string>
 
 
-
     <string name="menu_send">Send</string>
     <string name="next">SIGUIENTE</string>
 
@@ -93,7 +92,7 @@
     <string name="btnAlta">DAR DE ALTA</string>
     <string name="btnBaja">DAR DE BAJA</string>
     <string name="advertencia">¡Advertencia!</string>
-    <string name="contraseniaMinimo">La contraseña debe tener mínimo de 4 caracteres</string>
+    <string name="áraseniaMinimo">La contraseña debe tener mínimo de 4 caracteres</string>
     <string name="contraseniaNoIguales">Las contraseñas no son identicas</string>
     <string name="presionaDeNuevo">Presiona de nuevo para salir</string>
     <string name="usuarioNoRegistro">Error al crear el usuario</string>
@@ -450,7 +449,7 @@
         Haber aprobado  el 75% de las Asignaturas  del Plan de Estudios\n
         Acreditar el mejor promedio en su Facultad.</string>
     <string name="permisoNecesario">¡Permiso necesario!</string>
-    <string name="permisoUbicacion">Para acceder a servicios vinculados a mapas interacticos, debes aceptar los permisos de ubicación.</string>
+    <string name="permisoUbicacion">Para acceder a servicios vinculados a mapas interactivos, debes aceptar los permisos de ubicación.</string>
     <string name="permisosFoto">Para poder acceder a tus archivos primero debes aceptar el permiso.</string>
     <string name="abrirMapa">¿Desea abrir la ubicación en Google Maps?</string>
     <string name="permisoCamara">Para poder escanear un documento, debes aceptar el permiso de cámara.</string>
@@ -485,6 +484,11 @@
     <string name="inscripcionPerfil"><![CDATA[Ingresa a Perfil -> Inscripciones para visualizarla]]></string>
     <string name="archivosNoSubidos">¡Algunos archivos no se subieron!</string>
     <string name="contraseniaReco">Si pasaron más de 3 minutos e intentaste varias veces, por favor comunicate con la Secretaría de Bienestar Estudiantil</string>
+
+    <string name="txtRecNo">Cuando vayas a sacar las fotos de la documentación, ten en cuenta las siguientes recomendaciones:\n- NO saques la foto como se muestra en el ejemplo, trata de que no haya ningún elemento al rededor.\n- NO sacar fotos a papeles arrugados o que no se note lo escrito.\n- Evita sacar fotos con la luz directa, eso ocasiona que haya sombra al momento de tomar la foto.</string>
+    <string name="txtRecSi">Algunos tips para sacar unas buenas fotos:\n- Usar el flash, puede ser una buena opción, verifica que todo se vea correctamente.\n- Limpiá bien el lente de la cámara del celular.\n- Mantené una distancia considerable del papel, mira siempre que las esquinas cuadren en la foto.\n- Utiliza alguna de las aplicaciones que nombramos más abajo para más calidad.</string>
+
+    <string name="txtRecApps">Utiliza alguna de estas apps para sacar las fotos con una mejor calidad y nitidez:\n- CamScanner.\n- Genius Scan.\n- TinyScann.\n- Office Lens.</string>
 
 </resources>
 

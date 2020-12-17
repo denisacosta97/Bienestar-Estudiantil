@@ -56,7 +56,7 @@ public class ConfiguracionesActivities extends AppCompatActivity implements View
         Intent intent = null;
         switch (id) {
             case 1:
-                intent = new Intent(getApplicationContext(), CambiarContraseniaActivity.class);
+                intent = new Intent(getApplicationContext(), RecuperarContraseniaActivity.class);
                 startActivity(intent);
                 break;
         }

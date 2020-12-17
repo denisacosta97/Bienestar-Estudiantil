@@ -106,7 +106,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void loadViews() {
         mInicio = findViewById(R.id.sesionOn);
-        btnBack = findViewById(R.id.btnBack);
         mVideoView = findViewById(R.id.videoView);
         edtPass = findViewById(R.id.edtPass);
         edtUser = findViewById(R.id.edtUser);
@@ -125,9 +124,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.txtPassMissed:
                 startActivity(new Intent(LoginActivity.this, RecuperarContraseniaActivity.class));
-                break;
-            case R.id.btnBack:
-                onBackPressed();
                 break;
         }
     }

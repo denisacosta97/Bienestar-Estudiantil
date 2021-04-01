@@ -157,6 +157,7 @@
     <string name="suscripcionInscripto">El socio ya está inscripto en ese año</string>
     <string name="primeroBuscarSuscrip">Primero debe buscar un año</string>
     <string name="suscripcionNoExiste">No existen suscripciones en ese año</string>
+    <string name="contraseniaMinimo">La contraseña debe tener mínimo 4 caracteres</string>
 
     <!--  Calendario  -->
 

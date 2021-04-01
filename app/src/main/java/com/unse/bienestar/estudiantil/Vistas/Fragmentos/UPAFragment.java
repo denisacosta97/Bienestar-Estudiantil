@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import com.unse.bienestar.estudiantil.Herramientas.Almacenamiento.PreferenceManager;
 import com.unse.bienestar.estudiantil.Herramientas.Utils;
 import com.unse.bienestar.estudiantil.R;
+import com.unse.bienestar.estudiantil.Vistas.Activities.UPA.MedicamentosActivity;
 import com.unse.bienestar.estudiantil.Vistas.Activities.UPA.ServiciosUPAActivity;
 
 import androidx.annotation.NonNull;
@@ -20,7 +21,7 @@ import androidx.fragment.app.Fragment;
 public class UPAFragment extends Fragment implements View.OnClickListener {
 
     View view;
-    CardView cardTurnos, cardServ;
+    CardView cardTurnos, cardServ, card_medicamentos;
     Context mContext;
 
     public UPAFragment() {
@@ -48,11 +49,13 @@ public class UPAFragment extends Fragment implements View.OnClickListener {
     private void loadListener() {
         cardTurnos.setOnClickListener(this);
         cardServ.setOnClickListener(this);
+        card_medicamentos.setOnClickListener(this);
     }
 
     private void loadViews() {
         cardTurnos = view.findViewById(R.id.cardTurnos);
         cardServ = view.findViewById(R.id.card_servicios);
+        card_medicamentos = view.findViewById(R.id.card_medicamentos);
     }
 
     @Override
@@ -69,6 +72,9 @@ public class UPAFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.card_servicios:
                 startActivity(new Intent(getContext(), ServiciosUPAActivity.class));
+                break;
+            case R.id.card_medicamentos:
+                startActivity(new Intent(getContext(), MedicamentosActivity.class));
                 break;
         }
     }

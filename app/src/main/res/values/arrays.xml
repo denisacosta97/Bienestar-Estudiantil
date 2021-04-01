@@ -13,4 +13,9 @@
         <item>#3F3F3F</item>
     </string-array>
 
+    <string-array name="medicamentos">
+        <item>Clínica Médica</item>
+        <item>Salud Sexual y Reproductiva</item>
+    </string-array>
+
 </resources>

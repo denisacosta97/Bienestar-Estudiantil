@@ -163,7 +163,7 @@ public class MedicamentosActivity extends AppCompatActivity implements View.OnCl
                     Utils.showToast(getApplicationContext(), getString(R.string.usuarioRegistrado));
                     break;
                 case 2:
-                    Utils.showToast(getApplicationContext(), getString(R.string.deporteCerroConvocatoria));
+                    Utils.showToast(getApplicationContext(), getString(R.string.errorCrearUsuario));
                     break;
                 case 3:
                     Utils.showToast(getApplicationContext(), getString(R.string.tokenInvalido));
@@ -172,9 +172,6 @@ public class MedicamentosActivity extends AppCompatActivity implements View.OnCl
                     Utils.showToast(getApplicationContext(), getString(R.string.camposInvalidos));
                     break;
                 case 6:
-                    Utils.showToast(getApplicationContext(), getString(R.string.deporteYaInscripto));
-                    break;
-                case 7:
                     Utils.showToast(getApplicationContext(), getString(R.string.deporteUsuario));
                     break;
                 case 100:

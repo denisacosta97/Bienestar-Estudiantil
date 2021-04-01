@@ -10,10 +10,14 @@ public class Turno implements Parcelable {
 
     public static final int LOW = 1;
     public static final int MEDIUM = 2;
+    public static final int UAPU = 3;
+    public static final int TIPO_BECA = 1;
+    public static final int TIPO_UPA = 2;
 
     int id, receptor, dia, mes, anio;
     String titulo, descripcion, nombre, apellido, dni;
     String estado, fechaInicio, fechaFin, fecha, receptorString, fechaRegistro;
+    int tipo;
 
 
     public Turno(String titulo, String descripcion, String estado, String fechaInicio, String fechaFin,
@@ -32,6 +36,14 @@ public class Turno implements Parcelable {
     public Turno(int receptor, String fechaInicio) {
         this.receptor = receptor;
         this.fechaInicio = fechaInicio;
+    }
+
+    public int getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(int tipo) {
+        this.tipo = tipo;
     }
 
     public int getDia() {
@@ -75,6 +87,7 @@ public class Turno implements Parcelable {
         fecha = in.readString();
         receptorString = in.readString();
         fechaRegistro = in.readString();
+        tipo = in.readInt();
     }
 
 
@@ -123,7 +136,14 @@ public class Turno implements Parcelable {
     }
 
     public String getTitulo() {
+        if (tipo == TIPO_UPA){
+            return String.format("Retiro Medicamentos: %s", getMedicamentos(Integer.parseInt(descripcion)));
+        }
         return titulo;
+    }
+
+    public String getMedicamentos(int i){
+        return i == 0 ? "Clínica Médica" : "Salud Sexual y Reprod.";
     }
 
     public void setTitulo(String titulo) {
@@ -194,6 +214,13 @@ public class Turno implements Parcelable {
         this.apellido = apellido;
     }
 
+    public Turno(int id, String descripcion, String estado, String fechaRegistro) {
+        this.id = id;
+        this.descripcion = descripcion;
+        this.estado = estado;
+        this.fechaRegistro = fechaRegistro;
+    }
+
     public static Turno mapper(JSONObject object, int tipo) {
         Turno turno = null;
         try {
@@ -201,6 +228,13 @@ public class Turno implements Parcelable {
             String titulo, descripcion, nombre, apellido, dni;
             String estado, fechaInicio, fechaFin, fecha, fechRegistro;
             switch (tipo) {
+                case UAPU:
+                    id = Integer.parseInt(object.getString("idusuario"));
+                    estado = object.getString("descripcion");
+                    descripcion = object.getString("tipomedicamento");
+                    fechRegistro = object.getString("fecharegistro");
+                    turno = new Turno(id, descripcion, estado, fechRegistro);
+                    break;
                 case LOW:
                     receptor = Integer.parseInt(object.getString("receptor"));
                     fechaInicio = object.getString("horario");
@@ -260,5 +294,6 @@ public class Turno implements Parcelable {
         dest.writeString(fecha);
         dest.writeString(receptorString);
         dest.writeString(fechaRegistro);
+        dest.writeInt(tipo);
     }
 }

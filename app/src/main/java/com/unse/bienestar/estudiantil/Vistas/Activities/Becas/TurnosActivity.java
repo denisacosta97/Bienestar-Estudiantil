@@ -26,8 +26,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -41,7 +43,6 @@ public class TurnosActivity extends AppCompatActivity implements View.OnClickLis
     LinearLayout latTurnos, latVacio;
     ImageView imgIcono;
     DialogoProcesamiento dialog;
-    boolean isLoad = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,15 +57,7 @@ public class TurnosActivity extends AppCompatActivity implements View.OnClickLis
         loadData();
 
         loadListener();
-    }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (isLoad){
-            loadInfo();
-            isLoad = false;
-        }
     }
 
     private void loadInfo() {
@@ -136,18 +129,46 @@ public class TurnosActivity extends AppCompatActivity implements View.OnClickLis
                     JSONObject object = datos.getJSONObject(i);
 
                     Turno turno = Turno.mapper(object, Turno.MEDIUM);
+                    if (turno != null)
+                        turno.setTipo(Turno.TIPO_BECA);
 
                     mList.add(turno);
                 }
-                if (mList.size() > 0) {
-                    adapter = new TurnosAdapter(mList, getApplicationContext());
-                    mRecyclerView.setAdapter(adapter);
-                    latTurnos.setVisibility(View.VISIBLE);
-                    latVacio.setVisibility(View.GONE);
-                } else {
-                    latVacio.setVisibility(View.VISIBLE);
+
+
+            }
+            if (jsonObject.has("uapu")) {
+
+                if (mList == null)
+                    mList = new ArrayList<>();
+
+                JSONArray datos = jsonObject.getJSONArray("uapu");
+                for (int i = 0; i < datos.length(); i++) {
+                    JSONObject object = datos.getJSONObject(i);
+
+                    Turno turno = Turno.mapper(object, Turno.UAPU);
+                    if (turno != null)
+                        turno.setTipo(Turno.TIPO_UPA);
+
+                    mList.add(turno);
                 }
 
+            }
+            Collections.sort(mList, new Comparator<Turno>() {
+                @Override
+                public int compare(Turno o1, Turno o2) {
+                    Date date1 = Utils.getFechaDateWithHour(o1.getFechaRegistro());
+                    Date date2 = Utils.getFechaDateWithHour(o2.getFechaRegistro());
+                    return date2.compareTo(date1);
+                }
+            });
+            if (mList.size() > 0) {
+                adapter = new TurnosAdapter(mList, getApplicationContext());
+                mRecyclerView.setAdapter(adapter);
+                latTurnos.setVisibility(View.VISIBLE);
+                latVacio.setVisibility(View.GONE);
+            } else {
+                latVacio.setVisibility(View.VISIBLE);
             }
         } catch (JSONException e) {
 
@@ -185,15 +206,6 @@ public class TurnosActivity extends AppCompatActivity implements View.OnClickLis
         Intent intent = new Intent(getApplicationContext(), InfoTurnoActivity.class);
         intent.putExtra(Utils.DATA_TURNO, turno);
         startActivityForResult(intent, 500);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 500){
-            if (resultCode == RESULT_OK)
-                isLoad = true;
-        }
     }
 
     private void loadViews() {

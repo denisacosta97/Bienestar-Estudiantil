@@ -501,7 +501,6 @@ Solo en caso de ser renovante de la beca, se deberá adjuntar el informe de dese
     <string name="txtRecSi">Algunos tips para sacar unas buenas fotos:\n- Usar el flash, puede ser una buena opción, verifica que todo se vea correctamente.\n- Limpiá bien el lente de la cámara del celular.\n- Mantené una distancia considerable del papel, mira siempre que las esquinas cuadren en la foto.\n- Utiliza alguna de las aplicaciones que nombramos más abajo para más calidad.</string>
 
     <string name="txtRecApps">Utiliza alguna de estas apps para sacar las fotos con una mejor calidad y nitidez:\n- CamScanner.\n- Genius Scan.\n- TinyScann.\n- Office Lens.</string>
-    <string name="contraseniaMinimo">Debe tener al menos 4 caracteres</string>
     <string name="inscripcionFinalizar">Está a punto de enviar la documentación.\nUna vez enviada no podrá editar la misma hasta su evaluación.</string>
 
 </resources>

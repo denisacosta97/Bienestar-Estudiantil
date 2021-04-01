@@ -33,16 +33,42 @@
                     android:orientation="vertical"
                     android:padding="10dp">
 
-                    <TextView
-                        android:padding="5dp"
-                        android:id="@+id/txtEstado"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/colorPrimary"
-                        android:text="POLIDEPORTIVO"
-                        android:textColor="@color/whiteTextColor"
-                        android:textSize="14sp"
-                        android:fontFamily="@font/montserrat_black"/>
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:padding="5dp"
+                            android:id="@+id/txtEstado"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@color/colorPrimary"
+                            android:text="POLIDEPORTIVO"
+                            android:textColor="@color/whiteTextColor"
+                            android:textSize="14sp"
+                            android:fontFamily="@font/montserrat_black"/>
+
+                        <View
+                            android:layout_width="10dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/transparente" />
+
+                        <TextView
+                            android:padding="5dp"
+                            android:id="@+id/txtDescripcion"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@color/blackTextColor"
+                            android:text="POLIDEPORTIVO"
+                            android:textColor="@color/whiteTextColor"
+                            android:textSize="14sp"
+                            android:fontFamily="@font/montserrat_black"/>
+
+
+
+                    </LinearLayout>
+
 
                     <TextView
                         android:id="@+id/txtTitulo"

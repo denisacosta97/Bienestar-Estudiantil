@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.unse.bienestar.estudiantil.Herramientas.Utils;
 import com.unse.bienestar.estudiantil.Modelos.Turno;
 import com.unse.bienestar.estudiantil.R;
 
@@ -41,8 +42,6 @@ public class TurnosAdapter extends RecyclerView.Adapter<TurnosAdapter.TurnoViewH
 
         Turno turno = mList.get(i);
         holder.txtTitulo.setText(turno.getTitulo().toUpperCase());
-        holder.txtFecha.setText(String.format("%s/%s/%s, %s", turno.getDia(), turno.getMes(), turno.getAnio(),
-                turno.getFechaInicio()));
         switch (turno.getEstado()) {
             case "PENDIENTE":
                 holder.txtEstado.setBackgroundColor(mContext.getResources().getColor(R.color.colorOrange));
@@ -55,6 +54,17 @@ public class TurnosAdapter extends RecyclerView.Adapter<TurnosAdapter.TurnoViewH
                 break;
             case "CANCELADO":
                 holder.txtEstado.setBackgroundColor(mContext.getResources().getColor(R.color.colorPink));
+                break;
+        }
+        switch (turno.getTipo()){
+            case Turno.TIPO_BECA:
+                holder.txtDescripcion.setText("ÁREA BECAS");
+                holder.txtFecha.setText(String.format("%s/%s/%s, %s", turno.getDia(), turno.getMes(), turno.getAnio(),
+                        turno.getFechaInicio()));
+                break;
+            case Turno.TIPO_UPA:
+                holder.txtDescripcion.setText("UAPU");
+                holder.txtFecha.setText(Utils.getFechaOrder(Utils.getFechaDateWithHour(turno.getFechaRegistro())));
                 break;
         }
         //Glide.with(holder.imgIcon.getContext()).load(estado).into(holder.imgIcon);
@@ -95,7 +105,7 @@ public class TurnosAdapter extends RecyclerView.Adapter<TurnosAdapter.TurnoViewH
 
     static class TurnoViewHolder extends RecyclerView.ViewHolder {
 
-        TextView txtTitulo, txtDesc, txtFecha, txtEstado;
+        TextView txtTitulo, txtDesc, txtFecha, txtEstado, txtDescripcion;
         ImageView imgIcon;
         CardView mCardView;
 
@@ -105,6 +115,7 @@ public class TurnosAdapter extends RecyclerView.Adapter<TurnosAdapter.TurnoViewH
             mCardView = view.findViewById(R.id.card);
             txtTitulo = view.findViewById(R.id.txtTitulo);
             txtDesc = view.findViewById(R.id.txtDesc);
+            txtDescripcion = view.findViewById(R.id.txtDescripcion);
             txtFecha = view.findViewById(R.id.txtFecha);
             imgIcon = view.findViewById(R.id.imgIcon);
             txtEstado = view.findViewById(R.id.txtEstado);

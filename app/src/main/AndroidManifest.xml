@@ -21,7 +21,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Vistas.Activities.Becas.RecomendacionesActivity"></activity>
+        <activity android:name=".Vistas.Activities.UPA.MedicamentosActivity"></activity>
+        <activity android:name=".Vistas.Activities.Becas.RecomendacionesActivity" />
         <activity android:name=".Vistas.Dialogos.DialogoDocumentacionActivity" />
         <activity android:name=".Vistas.Activities.Becas.CargarDocumentacionActivity" />
         <activity android:name=".Vistas.Activities.UPA.PerfilServicioActivity" />

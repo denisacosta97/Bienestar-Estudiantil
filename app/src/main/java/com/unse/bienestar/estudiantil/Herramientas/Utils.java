@@ -348,13 +348,19 @@ public class Utils {
     public static final String URL_NOTICIA_IMAGE = "https://sis.bienestar.unse.edu.ar/api/general/noticia/uploadImage.php";
 
 
+    //UAPU
+    public static final String URL_MEDICAM_INSERT = "https://" + IP + "/uapu/medicamento/insertar.php";
+    public static final String URL_MEDICAM_DAY  = "https://" + IP + "/uapu/medicamento/getByDay.php";
+    public static final String URL_MEDICAM_USER  = "https://" + IP + "/uapu/medicamento/getByUser.php";
+    public static final String URL_MEDICAM_UPDATE  = "https://" + IP + "/uapu/medicamento/actualizar.php";
+
     public static final long SECONS_TIMER = 15000;
 
     //CARPETAS
     public static final String FOLDER = "BIENESTAR_ESTUDIANTIL/";
     public static final String FOLDER_CREDENCIALES = FOLDER + "CREDENCIALES/";
 
-
+    public static String[] med = {"Clínica Médica", "Salud Sexual y Reproductiva"};
     public static String[] facultad = {"FAyA", "FCEyT", "FCF", "FCM", "FHCSyS"};
     public static String[] faya = {"Ingeniería Agronómica", "Ingeniería en Alimentos", "Licenciatura en Biotecnología",
             "Licenciatura en Química", "Profesorado en Química", "Tecnicatura en Apicultura"};

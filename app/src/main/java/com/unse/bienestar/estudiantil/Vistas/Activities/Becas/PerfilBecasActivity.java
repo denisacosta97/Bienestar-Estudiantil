@@ -91,9 +91,9 @@ public class PerfilBecasActivity extends AppCompatActivity implements View.OnCli
         desc.setText(mInfoBecas.getDesc());
         pdf.setText(mInfoBecas.getPdf());
 
-        if (!isShow){
+        if (!isShow) {
             latDatos.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             latDatos.setVisibility(View.GONE);
         }
     }
@@ -216,6 +216,8 @@ public class PerfilBecasActivity extends AppCompatActivity implements View.OnCli
                     break;
                 case 5:
                     Utils.showToast(getApplicationContext(), getString(R.string.inscripcionYaRegistrada));
+                    Utils.showToast(getApplicationContext(), getString(R.string.inscripcionPerfil));
+
                     break;
                 case 6:
                     Utils.showToast(getApplicationContext(), getString(R.string.deporteYaInscripto));

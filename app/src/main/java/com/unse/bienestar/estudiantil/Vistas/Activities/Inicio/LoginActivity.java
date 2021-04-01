@@ -8,7 +8,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.VideoView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -35,9 +34,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import java.util.Calendar;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -46,7 +45,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     DialogoProcesamiento dialog;
     EditText edtUser, edtPass;
     TextView txtWelcome;
-    VideoView mVideoView;
     UsuarioViewModel mUsuarioViewModel;
     int dniNumber = 0;
 
@@ -95,8 +93,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onResume() {
         super.onResume();
-        if (mVideoView != null)
-            mVideoView.start();
     }
 
     private void loadListener() {
@@ -106,7 +102,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void loadViews() {
         mInicio = findViewById(R.id.sesionOn);
-        mVideoView = findViewById(R.id.videoView);
         edtPass = findViewById(R.id.edtPass);
         edtUser = findViewById(R.id.edtUser);
         txtWelcome = findViewById(R.id.txtWelcome);
@@ -133,9 +128,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         String pass = edtPass.getText().toString().trim();
         if (!dniN.equals("") && !pass.equals("")) {
             //pass = Utils.crypt(pass);
-            try{
+            try {
                 dniNumber = Integer.parseInt(dniN);
-            }catch (NumberFormatException e){
+            } catch (NumberFormatException e) {
 
             }
             String url = String.format("%s?id=%s&pass=%s", Utils.URL_USUARIO_LOGIN, dniN, pass);
@@ -216,7 +211,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    public void getData(String token){
+    public void getData(String token) {
         PreferenceManager manager = new PreferenceManager(getApplicationContext());
         String key = manager.getValueString(Utils.TOKEN);
         int id = manager.getValueInt(Utils.MY_ID);
@@ -289,10 +284,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void saveRoles(JSONObject jsonObject, int id) {
         RolViewModel rolViewModel = new RolViewModel(getApplicationContext());
-        if (jsonObject.has("roles")){
+        if (jsonObject.has("roles")) {
             try {
                 JSONArray jsonArray = jsonObject.getJSONArray("roles");
-                for (int i = 0; i<jsonArray.length();i++){
+                for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject object = jsonArray.getJSONObject(i);
 
                     String rol = object.getString("idrol");

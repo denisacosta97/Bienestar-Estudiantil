@@ -57,8 +57,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -85,7 +83,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     EditText edtFechaNac, edtNombre, edtApellido, edtDNI, edtSexo, edtMail, edtContra, edtContraConf,
             edtProfesionProf, edtAnioIngresoProf, edtProfesionEgre, edtAnioIngresoAlu, edtAnioEgresoEgre,
-            edtDomicilio,edtTelefono , edtLegajoAlu, edtBarrio;
+            edtDomicilio, edtTelefono, edtLegajoAlu, edtBarrio;
     TextView edtProvincia, edtPais, edtLocalidad;
     Button mRegister;
     ImageButton mScanner;
@@ -345,7 +343,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     edtLocalidad.setText("");
                 } else if (tipo == 2) {
                     edtLocalidad.setText(String.valueOf(id));
-                }else if (tipo == 0) {
+                } else if (tipo == 0) {
                     edtPais.setText(String.valueOf(id));
                     edtProvincia.setText("");
                     edtLocalidad.setText("");
@@ -894,8 +892,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         switch (requestCode) {
             case GET_FROM_DNI:
                 if (resultCode == Activity.RESULT_OK) {
-                    ArrayList<String> resultados = data.getStringArrayListExtra(Utils.BARCODE);
-                    completarDatos(resultados);
+                    try {
+                        ArrayList<String> resultados = data.getStringArrayListExtra(Utils.BARCODE);
+                        completarDatos(resultados);
+                    } catch (Exception e) {
+                        Utils.showToast(getApplicationContext(), getString(R.string.errorDNI));
+                    }
+
                 } else {
                     Utils.showToast(getApplicationContext(), getString(R.string.errorDNI));
                 }
@@ -903,28 +906,33 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
-    private void completarDatos(ArrayList<String> resultados) {
+    private void completarDatos(ArrayList<String> resultados) throws Exception {
         if (resultados.size() != 0) {
-            edtApellido.setText(Utils.getStringCamel(resultados.get(0)));
-            edtNombre.setText(Utils.getStringCamel(resultados.get(1)));
-            edtSexo.setText(Utils.getStringCamel(resultados.get(2)));
-            edtDNI.setText(resultados.get(3));
-            String fecha = resultados.get(5);
-            String result = "";
-            Pattern numero = Pattern.compile("[0-9]+");
-            Matcher matcher = numero.matcher(fecha);
-            while (matcher.find()) {
-                result = "-" + matcher.group(0) + result;
-            }
-            result = result.substring(1);
-            edtFechaNac.setText(result);
+            try {
+                edtApellido.setText(Utils.getStringCamel(resultados.get(0)));
+                edtNombre.setText(Utils.getStringCamel(resultados.get(1)));
+                edtSexo.setText(Utils.getStringCamel(resultados.get(2)));
+                edtDNI.setText(resultados.get(3));
+                String fecha = resultados.get(5);
+                String result = "";
+                Pattern numero = Pattern.compile("[0-9]+");
+                Matcher matcher = numero.matcher(fecha);
+                while (matcher.find()) {
+                    result = "-" + matcher.group(0) + result;
+                }
+                result = result.substring(1);
+                edtFechaNac.setText(result);
 
-            edtFechaNac.setEnabled(false);
-            edtDNI.setEnabled(false);
-            edtApellido.setEnabled(false);
-            edtSexo.setEnabled(false);
-            edtNombre.setEnabled(false);
-            isToDNI = !isToDNI;
+                edtFechaNac.setEnabled(false);
+                edtDNI.setEnabled(false);
+                edtApellido.setEnabled(false);
+                edtSexo.setEnabled(false);
+                edtNombre.setEnabled(false);
+                isToDNI = !isToDNI;
+            } catch (StringIndexOutOfBoundsException e) {
+                Utils.showToast(getApplicationContext(), getString(R.string.errorDNI));
+            }
+
         }
     }
 

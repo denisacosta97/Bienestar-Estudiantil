@@ -63,10 +63,11 @@ public class CargarDocumentacionActivity extends AppCompatActivity implements Vi
     CardView btnAgregar, btnConsultar;
     Button btnCargar, btnRec;
     ImageView btnBack;
+    //AppCompatImageView imgInfo, imgAgregar;
     ArrayList<Documentacion> mDocumentacions;
     ArrayList<Archivo> mArchivos;
     ArrayList<Opciones> tipos;
-    TextView txtEstado, txtAnio, txtFecha, txtNoData, txtObservacion;
+    TextView txtEstado, txtAnio, txtFecha, txtNoData, txtObservacion, txtTipoBeca;
     LinearLayout latDatos;
     ArrayList<InfoBecas> mInfoBecas;
     HashMap<String, Integer> cantidades = new HashMap<>();
@@ -289,6 +290,22 @@ public class CargarDocumentacionActivity extends AppCompatActivity implements Vi
     }
 
     private void loadData() {
+
+        //Glide.with(imgAgregar.getContext()).load(R.drawable.ic_add).into(imgAgregar);
+        //Glide.with(imgInfo.getContext()).load(R.drawable.ic_info).into(imgInfo);
+
+        mInfoBecas = new ArrayList<>();
+        mInfoBecas.add(new InfoBecas(1, R.drawable.ic_becas, "Beca Comedor", getString(R.string.desc0), "pdf_comedor", getString(R.string.reqAcad0), getString(R.string.reqGen0)));
+        mInfoBecas.add(new InfoBecas(2, R.drawable.ic_becas, "Beca Estímulo al Deporte", getString(R.string.desc1), "pdf_estimulo_deporte", getString(R.string.reqAcad1), getString(R.string.reqGen1)));
+        mInfoBecas.add(new InfoBecas(3, R.drawable.ic_becas, "Beca Movilidad", getString(R.string.desc2), "pdf_movilidad", getString(R.string.reqAcad2), getString(R.string.reqGen2)));
+        mInfoBecas.add(new InfoBecas(4, R.drawable.ic_becas, "Beca Residencia", getString(R.string.desc3), "pdf_residencia", getString(R.string.reqAcad3), getString(R.string.reqGen3)));
+        mInfoBecas.add(new InfoBecas(5, R.drawable.ic_becas, "Beca Finalización de Estudios de Grado", getString(R.string.desc4), "pdf_finalizacion_estud", getString(R.string.reqAcad4), getString(R.string.reqGen4)));
+        mInfoBecas.add(new InfoBecas(6, R.drawable.ic_becas, "Beca para el Apoyo al Ingreso y Permanencia de los Estudiantes en la UNSE", getString(R.string.desc5), "pdf_apoyo", getString(R.string.reqAcad5), getString(R.string.reqGen5)));
+        mInfoBecas.add(new InfoBecas(7, R.drawable.ic_becas, "Beca de Apoyo Económico", getString(R.string.desc6), "pdf_apoyo_econ", getString(R.string.reqAcad6), getString(R.string.reqGen6)));
+        mInfoBecas.add(new InfoBecas(8, R.drawable.ic_becas, "Beca Estímulo al Mérito Académico", getString(R.string.desc7), "pdf_estim_acad", getString(R.string.reqAcad7), getString(R.string.reqGen7)));
+
+
+        txtTipoBeca.setText(mInfoBecas.get(mInscripcion.getIdBeca() - 1).getNameBeca());
         txtAnio.setText(String.valueOf(mInscripcion.getAnio()));
         txtFecha.setText(mInscripcion.getFechaModificacion());
         txtEstado.setText(mInscripcion.getEstadoDescripcion());
@@ -329,16 +346,6 @@ public class CargarDocumentacionActivity extends AppCompatActivity implements Vi
 
         updateView();
 
-        mInfoBecas = new ArrayList<>();
-        mInfoBecas.add(new InfoBecas(1, R.drawable.ic_becas, "Beca Comedor", getString(R.string.desc0), "pdf_comedor", getString(R.string.reqAcad0), getString(R.string.reqGen0)));
-        mInfoBecas.add(new InfoBecas(2, R.drawable.ic_becas, "Beca Estímulo al Deporte", getString(R.string.desc1), "pdf_estimulo_deporte", getString(R.string.reqAcad1), getString(R.string.reqGen1)));
-        mInfoBecas.add(new InfoBecas(3, R.drawable.ic_becas, "Beca Movilidad", getString(R.string.desc2), "pdf_movilidad", getString(R.string.reqAcad2), getString(R.string.reqGen2)));
-        mInfoBecas.add(new InfoBecas(4, R.drawable.ic_becas, "Beca Residencia", getString(R.string.desc3), "pdf_residencia", getString(R.string.reqAcad3), getString(R.string.reqGen3)));
-        mInfoBecas.add(new InfoBecas(5, R.drawable.ic_becas, "Beca Finalización de Estudios de Grado", getString(R.string.desc4), "pdf_finalizacion_estud", getString(R.string.reqAcad4), getString(R.string.reqGen4)));
-        mInfoBecas.add(new InfoBecas(6, R.drawable.ic_becas, "Beca para el Apoyo al Ingreso y Permanencia de los Estudiantes en la UNSE", getString(R.string.desc5), "pdf_apoyo", getString(R.string.reqAcad5), getString(R.string.reqGen5)));
-        mInfoBecas.add(new InfoBecas(7, R.drawable.ic_becas, "Beca de Apoyo Económico", getString(R.string.desc6), "pdf_apoyo_econ", getString(R.string.reqAcad6), getString(R.string.reqGen6)));
-        mInfoBecas.add(new InfoBecas(8, R.drawable.ic_becas, "Beca Estímulo al Mérito Académico", getString(R.string.desc7), "pdf_estim_acad", getString(R.string.reqAcad7), getString(R.string.reqGen7)));
-
 
     }
 
@@ -346,6 +353,7 @@ public class CargarDocumentacionActivity extends AppCompatActivity implements Vi
         if (mInscripcion.getEstado() != 9) {
             btnAgregar.setVisibility(View.GONE);
             btnConsultar.setVisibility(View.GONE);
+            btnRec.setVisibility(View.GONE);
             btnCargar.setVisibility(View.GONE);
             txtEstado.setText(mInscripcion.getEstadoDescripcion());
             recycler.setVisibility(View.GONE);
@@ -398,12 +406,15 @@ public class CargarDocumentacionActivity extends AppCompatActivity implements Vi
                     long size = cursor.getLong(index);
                     if (size <= (5 * (1024 * 1024))) {
                         String ext = cursor.getString(index2);
+                        boolean contiene = ext.toLowerCase().contains("pdf") || ext.toLowerCase().contains("jpg")
+                                || ext.toLowerCase().contains("jpeg") || ext.toLowerCase().contains("png");
                         ext = ext.substring(ext.indexOf(".") + 1);
-                        if ((ext.toLowerCase().equals("pdf")
+                        boolean extension = (ext.toLowerCase().equals("pdf")
                                 || ext.toLowerCase().equals("jpg")
                                 || ext.toLowerCase().equals("jpeg")
                                 || ext.toLowerCase().equals("png")
-                        )
+                        );
+                        if (extension || contiene
                         ) {
                             if (posicionArchivo != -1) {
                                 mArchivos.get(posicionArchivo).setFile(uploadfileuri);
@@ -429,6 +440,9 @@ public class CargarDocumentacionActivity extends AppCompatActivity implements Vi
     }
 
     private void loadViews() {
+        //imgAgregar = findViewById(R.id.btnAgregar);
+        //imgInfo = findViewById(R.id.btnInfo);
+        txtTipoBeca = findViewById(R.id.txtTipoBeca);
         btnBack = findViewById(R.id.imgFlecha);
         latDatos = findViewById(R.id.latDatos);
         txtObservacion = findViewById(R.id.txtObs);
@@ -474,15 +488,17 @@ public class CargarDocumentacionActivity extends AppCompatActivity implements Vi
 
     private void checkFiles() {
         if (mArchivos.size() > 0) {
+            btnCargar.setEnabled(true);
             txtNoData.setVisibility(View.GONE);
         } else {
+            btnCargar.setEnabled(false);
             txtNoData.setVisibility(View.VISIBLE);
         }
 
         if (isReady() && mArchivos.size() > 0) {
             btnCargar.setText("FINALIZAR INSCRIPCIÓN");
         } else {
-            btnCargar.setText("ENVIAR DOCUMENTACIÓN");
+            btnCargar.setText("GUARDAR INSCRIPCIÓN");
         }
 
     }
@@ -559,9 +575,31 @@ public class CargarDocumentacionActivity extends AppCompatActivity implements Vi
 
         } else {
             //Finaliza documentacion
-            enviar();
+            dialogoFin();
+            //enviar();
         }
 
+    }
+
+    private void dialogoFin() {
+        DialogoGeneral.Builder builder = new DialogoGeneral.Builder(getApplicationContext())
+                .setTitulo(getString(R.string.advertencia))
+                .setDescripcion(getString(R.string.inscripcionFinalizar))
+                .setTipo(DialogoGeneral.TIPO_ACEPTAR_CANCELAR)
+                .setIcono(R.drawable.ic_advertencia)
+                .setListener(new YesNoDialogListener() {
+                    @Override
+                    public void yes() {
+                        enviar();
+                    }
+
+                    @Override
+                    public void no() {
+
+                    }
+                });
+        DialogoGeneral dialogoGeneral = builder.build();
+        dialogoGeneral.show(getSupportFragmentManager(), "dialog");
     }
 
     private void enviar() {
@@ -637,7 +675,7 @@ public class CargarDocumentacionActivity extends AppCompatActivity implements Vi
 
     private void openDialogDatos() {
         Intent intent = new Intent(getApplicationContext(), PerfilBecasActivity.class);
-        intent.putExtra(Utils.BECA_NAME, mInfoBecas.get(mInscripcion.getIdBeca() -1));
+        intent.putExtra(Utils.BECA_NAME, mInfoBecas.get(mInscripcion.getIdBeca() - 1));
         intent.putExtra(Utils.IS_EDIT_MODE, true);
         startActivity(intent);
     }

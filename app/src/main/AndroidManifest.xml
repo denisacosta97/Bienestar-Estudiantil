@@ -114,6 +114,7 @@
         <activity android:name=".Vistas.Activities.Deportes.GestionDeportes.GestionDeportesActivity" />
         <activity android:name=".Vistas.Activities.Perfil.UploadPictureActivity" />
         <activity android:name=".Vistas.Activities.Becas.InfoTurnoActivity" />
+        <activity android:name=".Vistas.Activities.Becas.RecomendacionesActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

@@ -20,7 +20,7 @@
             android:textColor="@color/blackTextColor"
             android:text="@string/info_poli"
             android:textSize="16sp"
-            android:fontFamily="@font/montserrat_regular"/>
+            android:fontFamily="@font/montserrat_regular" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_one"
@@ -41,13 +41,13 @@
                     android:layout_height="wrap_content"
                     android:scaleType="centerCrop"
                     android:src="@drawable/imgborrar2"
-                    android:layout_marginLeft="100dp"/>
+                    android:layout_marginLeft="100dp" />
 
-<!--                <ImageView-->
-<!--                    android:layout_width="300dp"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:src="@drawable/shape_triangle"-->
-<!--                    android:layout_marginLeft="-56dp" />-->
+                <!--                <ImageView-->
+                <!--                    android:layout_width="300dp"-->
+                <!--                    android:layout_height="match_parent"-->
+                <!--                    android:src="@drawable/shape_triangle"-->
+                <!--                    android:layout_marginLeft="-56dp" />-->
 
                 <TextView
                     android:layout_width="match_parent"
@@ -57,7 +57,7 @@
                     android:textStyle="bold"
                     android:textColor="@color/whiteTextColor"
                     android:textSize="35dp"
-                    android:fontFamily="@font/montserrat_black"/>
+                    android:fontFamily="@font/montserrat_black" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -67,7 +67,7 @@
                     android:gravity="center|left"
                     android:textSize="12dp"
                     android:textColor="@color/whiteTextColor"
-                    android:fontFamily="@font/montserrat_regular"/>
+                    android:fontFamily="@font/montserrat_regular" />
 
             </RelativeLayout>
 
@@ -84,7 +84,7 @@
                 android:drawableTint="@color/whiteTextColor"
                 android:textSize="14sp"
                 android:textStyle="bold"
-                android:fontFamily="@font/montserrat_black"/>
+                android:fontFamily="@font/montserrat_black" />
 
         </androidx.cardview.widget.CardView>
 
@@ -106,7 +106,7 @@
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
                     android:src="@color/colorTextDefault"
-                    android:layout_marginLeft="100dp"/>
+                    android:layout_marginLeft="100dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -121,7 +121,7 @@
                     android:layout_margin="10dp"
                     android:textColor="@color/whiteTextColor"
                     android:textSize="34dp"
-                    android:fontFamily="@font/montserrat_black"/>
+                    android:fontFamily="@font/montserrat_black" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -131,7 +131,7 @@
                     android:gravity="center|left"
                     android:textSize="16sp"
                     android:textColor="@color/whiteTextColor"
-                    android:fontFamily="@font/montserrat_regular"/>
+                    android:fontFamily="@font/montserrat_regular" />
 
             </RelativeLayout>
 
@@ -141,14 +141,13 @@
                 android:layout_height="40dp"
                 android:layout_gravity="center|right"
                 android:layout_margin="10dp"
-                android:backgroundTint="colo"
                 android:background="@drawable/button_border"
                 android:text="MÁS INFO"
                 android:textColor="@color/colorWhite"
                 android:drawableRight="@drawable/flecha_derecha"
                 android:drawableTint="@color/whiteTextColor"
                 android:textSize="16sp"
-                android:fontFamily="@font/montserrat_black"/>
+                android:fontFamily="@font/montserrat_black" />
 
         </androidx.cardview.widget.CardView>
 
@@ -181,7 +180,7 @@
                     android:text="UBICACIÓN DEL POLIDEPORTIVO"
                     android:textColor="@color/colorWhite"
                     android:textSize="16sp"
-                    android:fontFamily="@font/montserrat_black"/>
+                    android:fontFamily="@font/montserrat_black" />
 
             </LinearLayout>
 

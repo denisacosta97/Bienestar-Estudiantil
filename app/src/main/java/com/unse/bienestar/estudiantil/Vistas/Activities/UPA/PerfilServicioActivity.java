@@ -1,7 +1,6 @@
 package com.unse.bienestar.estudiantil.Vistas.Activities.UPA;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
@@ -11,10 +10,11 @@ import android.widget.TextView;
 
 import com.unse.bienestar.estudiantil.Herramientas.Utils;
 import com.unse.bienestar.estudiantil.Interfaces.YesNoDialogListener;
-import com.unse.bienestar.estudiantil.Modelos.InfoBecas;
 import com.unse.bienestar.estudiantil.Modelos.ServiciosUPA;
 import com.unse.bienestar.estudiantil.R;
 import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoGeneral;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class PerfilServicioActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -55,15 +55,11 @@ public class PerfilServicioActivity extends AppCompatActivity implements View.On
     }
 
     private void loadData() {
-        btnTurno.setVisibility(View.GONE);
         txtName.setText(mServicio.getName());
         txtNameDoc.setText(mServicio.getNomApMed());
         txtDia.setText(mServicio.getDias());
         txtHorarios.setText(mServicio.getHora());
         txtDesc.setText(mServicio.getDesc());
-        if(mServicio.getCateg() == 0){
-            btnTurno.setVisibility(View.VISIBLE);
-        }
 
     }
 
@@ -106,9 +102,15 @@ public class PerfilServicioActivity extends AppCompatActivity implements View.On
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btnTurno:
-                showDialogs();
+                if (mServicio.getTurnos() == 1) {
+                    Intent intent = new Intent(getApplicationContext(), SelectorFechaUPAActivity.class);
+                    intent.putExtra(Utils.SERVICIO, mServicio);
+                    startActivity(intent);
+                } else {
+                    Utils.showToast(getApplicationContext(), getString(R.string.noTurnoDisponible));
+                }
                 break;
             case R.id.imgFlecha:
                 onBackPressed();

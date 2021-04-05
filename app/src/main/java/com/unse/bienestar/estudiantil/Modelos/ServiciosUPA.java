@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 public class ServiciosUPA implements Parcelable {
 
-    private int idServicio, icon, categ;
+    private int idServicio, icon, categ, turnos;
     private String name, desc, dias, hora, nomApMed;
 
     public ServiciosUPA(int idServicio, int icon, String name, String desc, String dias,
@@ -29,6 +29,7 @@ public class ServiciosUPA implements Parcelable {
         hora = in.readString();
         nomApMed = in.readString();
         categ = in.readInt();
+        turnos = in.readInt();
     }
 
     public static final Creator<ServiciosUPA> CREATOR = new Creator<ServiciosUPA>() {
@@ -107,6 +108,14 @@ public class ServiciosUPA implements Parcelable {
         this.categ = categ;
     }
 
+    public int getTurnos() {
+        return 1;
+    }
+
+    public void setTurnos(int turnos) {
+        this.turnos = turnos;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -122,5 +131,6 @@ public class ServiciosUPA implements Parcelable {
         dest.writeString(hora);
         dest.writeString(nomApMed);
         dest.writeInt(categ);
+        dest.writeInt(turnos);
     }
 }

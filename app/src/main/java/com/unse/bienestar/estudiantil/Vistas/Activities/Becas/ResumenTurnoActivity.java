@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -43,6 +44,7 @@ public class ResumenTurnoActivity extends AppCompatActivity implements View.OnCl
     FrameLayout frame;
     View revealView;
     int[] mCalendar;
+    LinearLayout latReceptor;
     String horarios, receptores;
     Convocatoria mConvocatoria;
 
@@ -78,7 +80,14 @@ public class ResumenTurnoActivity extends AppCompatActivity implements View.OnCl
         txtFecha.setText(String.format("%s/%s/%s", mCalendar[0]
                 , mCalendar[1], mCalendar[2]));
         txtHora.setText(horarios);
-        txtReceptor.setText(receptores);
+        if (receptores != null) {
+            txtReceptor.setText(receptores);
+        } else {
+            if (latReceptor != null) {
+                latReceptor.setVisibility(View.GONE);
+            }
+        }
+
 
     }
 
@@ -87,7 +96,7 @@ public class ResumenTurnoActivity extends AppCompatActivity implements View.OnCl
     }
 
     private void loadViews() {
-
+        latReceptor = findViewById(R.id.latReceptor);
         txtTipoTurno = findViewById(R.id.txtTipoBeca);
         txtHora = findViewById(R.id.txtHora);
         txtFecha = findViewById(R.id.txtFecha);

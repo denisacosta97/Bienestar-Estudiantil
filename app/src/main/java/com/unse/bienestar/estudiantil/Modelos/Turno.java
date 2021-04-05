@@ -8,6 +8,7 @@ import org.json.JSONObject;
 
 public class Turno implements Parcelable {
 
+    public static final int LOW_2 = 0;
     public static final int LOW = 1;
     public static final int MEDIUM = 2;
     public static final int UAPU = 3;
@@ -136,13 +137,13 @@ public class Turno implements Parcelable {
     }
 
     public String getTitulo() {
-        if (tipo == TIPO_UPA){
+        if (tipo == TIPO_UPA) {
             return String.format("Retiro Medicamentos: %s", getMedicamentos(Integer.parseInt(descripcion)));
         }
         return titulo;
     }
 
-    public String getMedicamentos(int i){
+    public String getMedicamentos(int i) {
         return i == 0 ? "Clínica Médica" : "Salud Sexual y Reprod.";
     }
 
@@ -225,7 +226,7 @@ public class Turno implements Parcelable {
         Turno turno = null;
         try {
             int id, receptor, dia, mes, anio;
-            String titulo, descripcion, nombre, apellido, dni;
+            String titulo, descripcion, nombre, apellido, dni, horario;
             String estado, fechaInicio, fechaFin, fecha, fechRegistro;
             switch (tipo) {
                 case UAPU:
@@ -234,6 +235,10 @@ public class Turno implements Parcelable {
                     descripcion = object.getString("tipomedicamento");
                     fechRegistro = object.getString("fecharegistro");
                     turno = new Turno(id, descripcion, estado, fechRegistro);
+                    break;
+                case LOW_2:
+                    horario = object.getString("horario");
+                    turno = new Turno(0, horario);
                     break;
                 case LOW:
                     receptor = Integer.parseInt(object.getString("receptor"));

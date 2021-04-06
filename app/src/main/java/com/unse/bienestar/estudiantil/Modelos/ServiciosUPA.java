@@ -3,16 +3,23 @@ package com.unse.bienestar.estudiantil.Modelos;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.unse.bienestar.estudiantil.R;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class ServiciosUPA implements Parcelable {
 
-    private int idServicio, icon, categ, turnos;
-    private String name, desc, dias, hora, nomApMed;
+    private int idServicio, icon, turnos;
+    private String name, desc, dias, hora, nomApMed, categoria;
+
+    public static final int BASIC = 1;
 
     public ServiciosUPA(int idServicio, int icon, String name, String desc, String dias,
                         String hora, String nomApMed, int categ) {
         this.idServicio = idServicio;
         this.icon = icon;
-        this.categ = categ;
+        this.turnos = categ;
         this.name = name;
         this.desc = desc;
         this.dias = dias;
@@ -20,16 +27,35 @@ public class ServiciosUPA implements Parcelable {
         this.nomApMed = nomApMed;
     }
 
+
     protected ServiciosUPA(Parcel in) {
         idServicio = in.readInt();
         icon = in.readInt();
+        turnos = in.readInt();
         name = in.readString();
         desc = in.readString();
         dias = in.readString();
         hora = in.readString();
         nomApMed = in.readString();
-        categ = in.readInt();
-        turnos = in.readInt();
+        categoria = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(idServicio);
+        dest.writeInt(icon);
+        dest.writeInt(turnos);
+        dest.writeString(name);
+        dest.writeString(desc);
+        dest.writeString(dias);
+        dest.writeString(hora);
+        dest.writeString(nomApMed);
+        dest.writeString(categoria);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public static final Creator<ServiciosUPA> CREATOR = new Creator<ServiciosUPA>() {
@@ -100,37 +126,47 @@ public class ServiciosUPA implements Parcelable {
         this.nomApMed = nomApMed;
     }
 
-    public int getCateg() {
-        return categ;
-    }
-
-    public void setCateg(int categ) {
-        this.categ = categ;
-    }
 
     public int getTurnos() {
-        return 1;
+        return turnos;
     }
 
     public void setTurnos(int turnos) {
         this.turnos = turnos;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
+    public String getCategoria() {
+        return categoria;
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(idServicio);
-        dest.writeInt(icon);
-        dest.writeString(name);
-        dest.writeString(desc);
-        dest.writeString(dias);
-        dest.writeString(hora);
-        dest.writeString(nomApMed);
-        dest.writeInt(categ);
-        dest.writeInt(turnos);
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+
+    public static ServiciosUPA mapper(JSONObject o, int tipo) {
+        int idServicio, icon, categ, turnos;
+        String name, desc, dias, hora, nomApMed, categoria;
+        ServiciosUPA serviciosUPA = null;
+        try {
+
+            switch (tipo) {
+                case BASIC:
+                    name = o.getString("titulo");
+                    idServicio = Integer.parseInt(o.getString("idservicio"));
+                    desc = o.getString("descripcion");
+                    hora = o.getString("horario");
+                    dias = o.getString("dias");
+                    categoria = o.getString("usuarios");
+                    turnos = Integer.parseInt(o.getString("turno"));
+                    serviciosUPA = new ServiciosUPA(idServicio, R.drawable.ic_medico, name, desc, dias,
+                            hora, "", turnos);
+                    serviciosUPA.setCategoria(categoria);
+
+                    break;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return serviciosUPA;
     }
 }

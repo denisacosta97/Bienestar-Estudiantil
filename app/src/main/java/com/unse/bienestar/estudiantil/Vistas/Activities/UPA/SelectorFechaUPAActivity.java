@@ -27,6 +27,7 @@ import com.unse.bienestar.estudiantil.Modelos.ServiciosUPA;
 import com.unse.bienestar.estudiantil.Modelos.Turno;
 import com.unse.bienestar.estudiantil.R;
 import com.unse.bienestar.estudiantil.Vistas.Activities.Becas.ResumenTurnoActivity;
+import com.unse.bienestar.estudiantil.Vistas.Activities.Becas.SelectorReceptoresActivity;
 import com.unse.bienestar.estudiantil.Vistas.Adaptadores.HorariosAdapter;
 
 import org.json.JSONArray;
@@ -67,6 +68,8 @@ public class SelectorFechaUPAActivity extends AppCompatActivity implements View.
 
     CalendarView.OnDateChangeListener calendarListener;
 
+    public static SelectorFechaUPAActivity instance = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +80,8 @@ public class SelectorFechaUPAActivity extends AppCompatActivity implements View.
         if (getIntent().getParcelableExtra(Utils.SERVICIO) != null) {
             mServicio = getIntent().getParcelableExtra(Utils.SERVICIO);
         }
+
+        instance = this;
 
         loadViews();
 
@@ -503,9 +508,10 @@ public class SelectorFechaUPAActivity extends AppCompatActivity implements View.
         Intent intent = new Intent(getApplicationContext(), ResumenTurnoActivity.class);
         intent.putExtra(Utils.DATA_FECHA, fecha);
         Horario horario = copiaHorarios.get(posicionHorario);
-        Convocatoria convocatoria = new Convocatoria(0,0, mServicio.getName(), null, null);
+        Convocatoria convocatoria = new Convocatoria(mServicio.getIdServicio(),0, mServicio.getName(), null, null);
         intent.putExtra(Utils.DATA_RESERVA, horario.getHoraInicio());
         intent.putExtra(Utils.DATA_CONVOCATORIA, convocatoria);
+        intent.putExtra(Utils.IS_ADMIN_MODE, true);
         startActivity(intent);
 
     }

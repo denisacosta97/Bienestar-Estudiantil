@@ -7,13 +7,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.unse.bienestar.estudiantil.Modelos.ServiciosUPA;
 import com.unse.bienestar.estudiantil.R;
 
 import java.util.ArrayList;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class ServiciosUPAAdapter extends RecyclerView.Adapter<ServiciosUPAAdapter.EventosViewHolder> {
     private ArrayList<ServiciosUPA> serviciosUPA;
@@ -39,14 +39,7 @@ public class ServiciosUPAAdapter extends RecyclerView.Adapter<ServiciosUPAAdapte
 
         holder.mIcon.setImageResource(upa.getIcon());
         holder.mName.setText(upa.getName());
-        String cat = getCategoria(upa.getCateg());
-        holder.mCateg.setText(cat);
-    }
-
-    private String getCategoria(int categ) {
-        if(categ == 0)
-            return "Estudiante";
-        return "Comunidad Universitaria";
+        holder.mCateg.setText(upa.getCategoria());
     }
 
 

@@ -59,12 +59,17 @@ public class TurnosAdapter extends RecyclerView.Adapter<TurnosAdapter.TurnoViewH
         switch (turno.getTipo()){
             case Turno.TIPO_BECA:
                 holder.txtDescripcion.setText("ÁREA BECAS");
-                holder.txtFecha.setText(String.format("%s/%s/%s, %s", turno.getDia(), turno.getMes(), turno.getAnio(),
+                holder.txtFecha.setText(String.format("%02d/%02d/%s, %s", turno.getDia(), turno.getMes(), turno.getAnio(),
                         turno.getFechaInicio()));
                 break;
             case Turno.TIPO_UPA:
                 holder.txtDescripcion.setText("UAPU");
                 holder.txtFecha.setText(Utils.getFechaOrder(Utils.getFechaDateWithHour(turno.getFechaRegistro())));
+                break;
+            case Turno.TIPO_UPA_TURNOS:
+                holder.txtDescripcion.setText("UAPU");
+                holder.txtFecha.setText(String.format("%02d/%02d/%s, %s", turno.getDia(), turno.getMes(), turno.getAnio(),
+                        turno.getFechaInicio()));
                 break;
         }
         //Glide.with(holder.imgIcon.getContext()).load(estado).into(holder.imgIcon);

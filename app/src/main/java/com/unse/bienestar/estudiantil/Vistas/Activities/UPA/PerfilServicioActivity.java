@@ -61,6 +61,7 @@ public class PerfilServicioActivity extends AppCompatActivity implements View.On
         txtHorarios.setText(mServicio.getHora());
         txtDesc.setText(mServicio.getDesc());
 
+
     }
 
     private void loadListener() {
@@ -81,7 +82,7 @@ public class PerfilServicioActivity extends AppCompatActivity implements View.On
 
     private void showDialogs() {
         DialogoGeneral.Builder builder = new DialogoGeneral.Builder(getApplicationContext())
-                .setDescripcion(getString(R.string.generalFunciones))
+                .setDescripcion(getString(R.string.turnosEspeciales))
                 .setIcono(R.drawable.ic_enojado)
                 .setTipo(DialogoGeneral.TIPO_ACEPTAR).setListener(new YesNoDialogListener() {
                     @Override
@@ -110,6 +111,7 @@ public class PerfilServicioActivity extends AppCompatActivity implements View.On
                     startActivity(intent);
                 } else {
                     Utils.showToast(getApplicationContext(), getString(R.string.noTurnoDisponible));
+                    showDialogs();
                 }
                 break;
             case R.id.imgFlecha:

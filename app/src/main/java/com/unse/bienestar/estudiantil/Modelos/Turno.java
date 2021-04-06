@@ -12,8 +12,10 @@ public class Turno implements Parcelable {
     public static final int LOW = 1;
     public static final int MEDIUM = 2;
     public static final int UAPU = 3;
+    public static final int UAPU_TURNOS = 4;
     public static final int TIPO_BECA = 1;
     public static final int TIPO_UPA = 2;
+    public static final int TIPO_UPA_TURNOS = 3;
 
     int id, receptor, dia, mes, anio;
     String titulo, descripcion, nombre, apellido, dni;
@@ -139,6 +141,8 @@ public class Turno implements Parcelable {
     public String getTitulo() {
         if (tipo == TIPO_UPA) {
             return String.format("Retiro Medicamentos: %s", getMedicamentos(Integer.parseInt(descripcion)));
+        } else if (tipo == TIPO_UPA_TURNOS) {
+            return descripcion;
         }
         return titulo;
     }
@@ -204,7 +208,12 @@ public class Turno implements Parcelable {
     }
 
     public String getFechaRegistro() {
-        return fechaRegistro;
+        if (fechaRegistro != null)
+            return fechaRegistro;
+        else {
+            return String.format("%s-%s-%s %s:%s:%s", getAnio(), getMes(), getDia(),
+                    "00", "00", "00");
+        }
     }
 
     public void setFechaRegistro(String fechaRegistro) {
@@ -235,6 +244,19 @@ public class Turno implements Parcelable {
                     descripcion = object.getString("tipomedicamento");
                     fechRegistro = object.getString("fecharegistro");
                     turno = new Turno(id, descripcion, estado, fechRegistro);
+                    break;
+                case UAPU_TURNOS:
+                    dia = Integer.parseInt(object.getString("dia"));
+                    mes = Integer.parseInt(object.getString("mes"));
+                    anio = Integer.parseInt(object.getString("anio"));
+                    estado = object.getString("estado");
+                    titulo = object.getString("titulo");
+                    horario = object.getString("horario");
+                    turno = new Turno(0, titulo, estado, null);
+                    turno.setDia(dia);
+                    turno.setMes(mes);
+                    turno.setAnio(anio);
+                    turno.setFechaInicio(horario);
                     break;
                 case LOW_2:
                     horario = object.getString("horario");

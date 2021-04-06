@@ -26,6 +26,7 @@ import com.unse.bienestar.estudiantil.Herramientas.Utils;
 import com.unse.bienestar.estudiantil.Herramientas.VolleySingleton;
 import com.unse.bienestar.estudiantil.Modelos.Convocatoria;
 import com.unse.bienestar.estudiantil.R;
+import com.unse.bienestar.estudiantil.Vistas.Activities.UPA.SelectorFechaUPAActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -44,6 +45,7 @@ public class ResumenTurnoActivity extends AppCompatActivity implements View.OnCl
     FrameLayout frame;
     View revealView;
     int[] mCalendar;
+    boolean isUPA = false;
     LinearLayout latReceptor;
     String horarios, receptores;
     Convocatoria mConvocatoria;
@@ -56,6 +58,9 @@ public class ResumenTurnoActivity extends AppCompatActivity implements View.OnCl
 
         if (getIntent().getStringExtra(Utils.DATA_RESERVA) != null) {
             horarios = getIntent().getStringExtra(Utils.DATA_RESERVA);
+        }
+        if (getIntent().getBooleanExtra(Utils.IS_ADMIN_MODE, false)) {
+            isUPA = getIntent().getBooleanExtra(Utils.IS_ADMIN_MODE, false);
         }
         if (getIntent().getStringExtra(Utils.DATA_TURNO) != null) {
             receptores = getIntent().getStringExtra(Utils.DATA_TURNO);
@@ -202,9 +207,13 @@ public class ResumenTurnoActivity extends AppCompatActivity implements View.OnCl
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                SelectorReceptoresActivity.instance.finish();
-                SelectorFechaActivity.instance.finish();
-                TipoTurnosActivity.instance.finish();
+                if (isUPA) {
+                    SelectorFechaUPAActivity.instance.finish();
+                } else {
+                    SelectorReceptoresActivity.instance.finish();
+                    SelectorFechaActivity.instance.finish();
+                    TipoTurnosActivity.instance.finish();
+                }
                 finish();
                 //Utils.createPDF(getApplicationContext(), "COMPROBANTE_TURNO.pdf");
             }
@@ -240,7 +249,11 @@ public class ResumenTurnoActivity extends AppCompatActivity implements View.OnCl
 
     private void sendServer() {
         final HashMap<String, String> map = new HashMap<>();
-        String URL = Utils.URL_TURNO_NUEVO;
+        String URL = null;
+        if (!isUPA)
+            URL = Utils.URL_TURNO_NUEVO;
+        else
+            URL = Utils.URL_TURNO_UAPU_NUEVO;
         PreferenceManager preferenceManager = new PreferenceManager(getApplicationContext());
         final int id = preferenceManager.getValueInt(Utils.MY_ID);
         final String token = preferenceManager.getValueString(Utils.TOKEN);
@@ -272,15 +285,19 @@ public class ResumenTurnoActivity extends AppCompatActivity implements View.OnCl
                 map.put("di", String.valueOf(mCalendar[0]));
                 map.put("me", String.valueOf(mCalendar[1]));
                 map.put("an", String.valueOf(mCalendar[2]));
-                Pattern pattern = Pattern.compile("[0-9]");
-                Matcher matcher = pattern.matcher(receptores);
-                String num = "";
-                if (matcher.find())
-                    num = matcher.group();
-                map.put("ir", num);
                 map.put("ho", horarios);
                 map.put("iu", String.valueOf(id));
-                map.put("ib", String.valueOf(mConvocatoria.getIdBeca()));
+                if (isUPA) {
+                    map.put("is", String.valueOf(mConvocatoria.getIdBeca()));
+                } else {
+                    map.put("ib", String.valueOf(mConvocatoria.getIdBeca()));
+                    Pattern pattern = Pattern.compile("[0-9]");
+                    Matcher matcher = pattern.matcher(receptores);
+                    String num = "";
+                    if (matcher.find())
+                        num = matcher.group();
+                    map.put("ir", num);
+                }
                 return map;
             }
         };

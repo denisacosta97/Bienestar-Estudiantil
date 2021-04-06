@@ -190,8 +190,8 @@
     <string name="posicionError">¡Error al actualizar GPS!</string>
     <string name="primeroFecha">¡Primero elija una fecha!</string>
 
-
-    <string name="generalFunciones">Debido a la situación actual, no es posible realizar esta acción... por ahora.</string>
+    <string name="turnosEspeciales">Este servicio funciona bajo una modalidad de turnos diferentes. Contáctate con la Secretaría de Bienestar Estudiantil para mas info. </string>
+    <string name="generalFunciones">Debido a la situación actual, no es posible realizar esta acción… por ahora.</string>
     <string name="reservaOk">¡Fecha y hora libre!\n¿Desea reservar?</string>
     <string name="errorImagenLoad">¡Error al cargar imagen!</string>
     <string name="noticiaError">¡Error al subir la noticia!</string>

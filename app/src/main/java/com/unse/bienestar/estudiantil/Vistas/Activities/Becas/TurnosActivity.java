@@ -154,12 +154,32 @@ public class TurnosActivity extends AppCompatActivity implements View.OnClickLis
                 }
 
             }
+            if (jsonObject.has("turno")) {
+
+                if (mList == null)
+                    mList = new ArrayList<>();
+
+                JSONArray datos = jsonObject.getJSONArray("turno");
+                for (int i = 0; i < datos.length(); i++) {
+                    JSONObject object = datos.getJSONObject(i);
+
+                    Turno turno = Turno.mapper(object, Turno.UAPU_TURNOS);
+                    if (turno != null)
+                        turno.setTipo(Turno.TIPO_UPA_TURNOS);
+
+                    mList.add(turno);
+                }
+
+            }
+
             Collections.sort(mList, new Comparator<Turno>() {
                 @Override
                 public int compare(Turno o1, Turno o2) {
                     Date date1 = Utils.getFechaDateWithHour(o1.getFechaRegistro());
                     Date date2 = Utils.getFechaDateWithHour(o2.getFechaRegistro());
-                    return date2.compareTo(date1);
+                    if (date1 != null && date2 != null)
+                        return date2.compareTo(date1);
+                    else return 0;
                 }
             });
             if (mList.size() > 0) {

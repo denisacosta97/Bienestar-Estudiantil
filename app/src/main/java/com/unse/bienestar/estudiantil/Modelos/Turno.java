@@ -13,8 +13,9 @@ public class Turno implements Parcelable {
     public static final int MEDIUM = 2;
     public static final int UAPU = 3;
     public static final int UAPU_TURNOS = 4;
+
     public static final int TIPO_BECA = 1;
-    public static final int TIPO_UPA = 2;
+    public static final int TIPO_UPA_MEDICAMENTO = 2;
     public static final int TIPO_UPA_TURNOS = 3;
 
     int id, receptor, dia, mes, anio;
@@ -139,7 +140,7 @@ public class Turno implements Parcelable {
     }
 
     public String getTitulo() {
-        if (tipo == TIPO_UPA) {
+        if (tipo == TIPO_UPA_MEDICAMENTO) {
             return String.format("Retiro Medicamentos: %s", getMedicamentos(Integer.parseInt(descripcion)));
         } else if (tipo == TIPO_UPA_TURNOS) {
             return descripcion;

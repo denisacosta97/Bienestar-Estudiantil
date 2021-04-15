@@ -52,7 +52,7 @@ import static com.unse.bienestar.estudiantil.Herramientas.Utils.REQUEST_GROUP_PE
 public class InfoTurnoActivity extends AppCompatActivity implements View.OnClickListener {
 
     CardView cardEstado;
-    TextView txtTitulo, txtEstado, txtHorario, txtReceptor, txtFecha, txtFechaRegistro;
+    TextView txtTitulo, txtEstado, txtHorario, txtReceptor, txtFecha, txtFechaRegistro, txtOpcion;
     Button btnCancelar, btnPDF;
     Turno mTurno;
     DialogoProcesamiento dialog;
@@ -83,11 +83,148 @@ public class InfoTurnoActivity extends AppCompatActivity implements View.OnClick
         }
     }
 
+    private void loadData() {
+
+        if (mTurno.getTipo() == Turno.TIPO_BECA) {
+            txtOpcion.setText("Receptor");
+            txtReceptor.setText(mTurno.getReceptorString());
+        } else if (mTurno.getTipo() == Turno.TIPO_UPA_MEDICAMENTO) {
+            txtOpcion.setText("Tipo de Medicamento");
+            txtReceptor.setText(mTurno.getDescripcion());
+        } else if (mTurno.getTipo() == Turno.TIPO_UPA_TURNOS) {
+            txtOpcion.setText("Especialidad");
+            txtReceptor.setText(mTurno.getDescripcion());
+        }
+
+        txtTitulo.setText(mTurno.getTitulo());
+        txtHorario.setText(mTurno.getFechaInicio());
+        txtFechaRegistro.setText(mTurno.getFechaRegistro());
+        txtFecha.setText(String.format("%s/%s/%s", mTurno.getDia(), mTurno.getMes(), mTurno.getAnio()));
+        txtEstado.setText(mTurno.getEstado());
+
+        switch (mTurno.getEstado()) {
+            case "PENDIENTE":
+            case "RESERVADO":
+                cardEstado.setCardBackgroundColor(getApplicationContext().getResources().getColor(R.color.colorOrange));
+                break;
+            case "CONFIRMADO":
+            case "RETIRADO":
+                cardEstado.setCardBackgroundColor(getApplicationContext().getResources().getColor(R.color.colorGreen));
+                break;
+            case "AUSENTE":
+                cardEstado.setCardBackgroundColor(getApplicationContext().getResources().getColor(R.color.colorAccent));
+                break;
+            case "CANCELADO":
+                cardEstado.setCardBackgroundColor(getApplicationContext().getResources().getColor(R.color.colorPink));
+                break;
+        }
+
+        if (!mTurno.getEstado().equals("PENDIENTE") || !mTurno.getEstado().equals("RESERVADO")) {
+            btnCancelar.setEnabled(false);
+        }
+
+
+    }
+
+    private void loadListener() {
+        btnPDF.setOnClickListener(this);
+        btnCancelar.setOnClickListener(this);
+    }
+
+    private void loadViews() {
+        txtFechaRegistro = findViewById(R.id.txtFechaRegistro);
+        txtOpcion = findViewById(R.id.txtOpcion);
+        cardEstado = findViewById(R.id.cardEstado);
+        txtTitulo = findViewById(R.id.txtDescripcion);
+        txtEstado = findViewById(R.id.txtEstado);
+        txtFecha = findViewById(R.id.txtFecha);
+        txtHorario = findViewById(R.id.txtHoraIni);
+        txtReceptor = findViewById(R.id.txtReceptor);
+        btnCancelar = findViewById(R.id.btnCancelar);
+        btnPDF = findViewById(R.id.btnPDF);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.imgFlecha:
+                onBackPressed();
+                break;
+            case R.id.btnCancelar:
+                preguntar();
+                break;
+            case R.id.btnPDF:
+                checkPermission();
+                break;
+        }
+    }
+
+    private void checkPermission() {
+        if ((ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                == PackageManager.PERMISSION_GRANTED)) {
+            downloadPDF();
+        } else if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            Intent intent = new Intent();
+            intent.setAction(ACTION_APPLICATION_DETAILS_SETTINGS);
+            Uri uri = Uri.fromParts("package", BuildConfig.APPLICATION_ID, null);
+            intent.setData(uri);
+            startActivityForResult(intent, REQUEST_GROUP_PERMISSIONS_LOCATION);
+            Utils.showToast(getApplicationContext(), "Por favor, autoriza el permiso de almacenamiento");
+
+        } else {
+            DialogoGeneral.Builder builder = new DialogoGeneral.Builder(getApplicationContext())
+                    .setTitulo(getString(R.string.permisoNecesario))
+                    .setIcono(R.drawable.ic_advertencia)
+                    .setDescripcion(getString(R.string.permisoAlmacenamiento))
+                    .setTipo(DialogoGeneral.TIPO_ACEPTAR_CANCELAR)
+                    .setListener(new YesNoDialogListener() {
+                        @Override
+                        public void yes() {
+                            ActivityCompat.requestPermissions(InfoTurnoActivity.this,
+                                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                    PERMISSION_ALL);
+                        }
+
+                        @Override
+                        public void no() {
+                        }
+                    });
+            DialogoGeneral dialogoGeneral = builder.build();
+            dialogoGeneral.show(getSupportFragmentManager(), "dialogo_permiso");
+        }
+    }
+
+    private void preguntar() {
+        DialogoGeneral.Builder builder = new DialogoGeneral.Builder(getApplicationContext())
+                .setTipo(DialogoGeneral.TIPO_SI_NO)
+                .setTitulo(getString(R.string.advertencia))
+                .setDescripcion(getString(R.string.becaTurnoCancelar))
+                .setListener(new YesNoDialogListener() {
+                    @Override
+                    public void yes() {
+                        cancelar();
+                    }
+
+                    @Override
+                    public void no() {
+
+                    }
+                });
+        DialogoGeneral dialogoGeneral = builder.build();
+        dialogoGeneral.show(getSupportFragmentManager(), "dialog");
+    }
+
     private void cancelar() {
         PreferenceManager manager = new PreferenceManager(getApplicationContext());
         final String key = manager.getValueString(Utils.TOKEN);
         final int idLocal = manager.getValueInt(Utils.MY_ID);
-        String URL = Utils.URL_TURNO_CANCELAR;
+        String URL = "";
+        if (mTurno.getTipo() == Turno.TIPO_BECA) {
+            URL = Utils.URL_TURNO_CANCELAR;
+        }else if (mTurno.getTipo() == Turno.TIPO_UPA_MEDICAMENTO){
+            URL = Utils.URL_MEDICAM_CANCELAR;
+        }
         StringRequest requestImage = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -161,125 +298,6 @@ public class InfoTurnoActivity extends AppCompatActivity implements View.OnClick
             e.printStackTrace();
             Utils.showToast(getApplicationContext(), getString(R.string.errorInternoAdmin));
         }
-    }
-
-    private void loadData() {
-
-        txtTitulo.setText(mTurno.getTitulo());
-        txtReceptor.setText(mTurno.getReceptorString());
-        txtHorario.setText(mTurno.getFechaInicio());
-        txtFechaRegistro.setText(mTurno.getFechaRegistro());
-        txtFecha.setText(String.format("%s/%s/%s", mTurno.getDia(), mTurno.getMes(), mTurno.getAnio()));
-        txtEstado.setText(mTurno.getEstado());
-
-        switch (mTurno.getEstado()) {
-            case "PENDIENTE":
-                cardEstado.setCardBackgroundColor(getApplicationContext().getResources().getColor(R.color.colorOrange));
-                break;
-            case "CONFIRMADO":
-                cardEstado.setCardBackgroundColor(getApplicationContext().getResources().getColor(R.color.colorGreen));
-                break;
-            case "AUSENTE":
-                cardEstado.setCardBackgroundColor(getApplicationContext().getResources().getColor(R.color.colorAccent));
-                break;
-            case "CANCELADO":
-                cardEstado.setCardBackgroundColor(getApplicationContext().getResources().getColor(R.color.colorPink));
-                break;
-        }
-
-        if (!mTurno.getEstado().equals("PENDIENTE")) {
-            btnCancelar.setEnabled(false);
-        }
-
-
-    }
-
-    private void loadListener() {
-        btnPDF.setOnClickListener(this);
-        btnCancelar.setOnClickListener(this);
-    }
-
-    private void loadViews() {
-        txtFechaRegistro = findViewById(R.id.txtFechaRegistro);
-        cardEstado = findViewById(R.id.cardEstado);
-        txtTitulo = findViewById(R.id.txtDescripcion);
-        txtEstado = findViewById(R.id.txtEstado);
-        txtFecha = findViewById(R.id.txtFecha);
-        txtHorario = findViewById(R.id.txtHoraIni);
-        txtReceptor = findViewById(R.id.txtReceptor);
-        btnCancelar = findViewById(R.id.btnCancelar);
-        btnPDF = findViewById(R.id.btnPDF);
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.imgFlecha:
-                onBackPressed();
-                break;
-            case R.id.btnCancelar:
-                preguntar();
-                break;
-            case R.id.btnPDF:
-               checkPermission();
-                break;
-        }
-    }
-
-    private void checkPermission() {
-        if ((ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                == PackageManager.PERMISSION_GRANTED)) {
-            downloadPDF();
-        } else if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-            Intent intent = new Intent();
-            intent.setAction(ACTION_APPLICATION_DETAILS_SETTINGS);
-            Uri uri = Uri.fromParts("package", BuildConfig.APPLICATION_ID, null);
-            intent.setData(uri);
-            startActivityForResult(intent, REQUEST_GROUP_PERMISSIONS_LOCATION);
-            Utils.showToast(getApplicationContext(), "Por favor, autoriza el permiso de almacenamiento");
-
-        } else {
-            DialogoGeneral.Builder builder = new DialogoGeneral.Builder(getApplicationContext())
-                    .setTitulo(getString(R.string.permisoNecesario))
-                    .setIcono(R.drawable.ic_advertencia)
-                    .setDescripcion(getString(R.string.permisoAlmacenamiento))
-                    .setTipo(DialogoGeneral.TIPO_ACEPTAR_CANCELAR)
-                    .setListener(new YesNoDialogListener() {
-                        @Override
-                        public void yes() {
-                            ActivityCompat.requestPermissions(InfoTurnoActivity.this,
-                                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                                    PERMISSION_ALL);
-                        }
-
-                        @Override
-                        public void no() {
-                        }
-                    });
-            DialogoGeneral dialogoGeneral = builder.build();
-            dialogoGeneral.show(getSupportFragmentManager(), "dialogo_permiso");
-        }
-    }
-
-    private void preguntar() {
-        DialogoGeneral.Builder builder = new DialogoGeneral.Builder(getApplicationContext())
-                .setTipo(DialogoGeneral.TIPO_SI_NO)
-                .setTitulo(getString(R.string.advertencia))
-                .setDescripcion(getString(R.string.becaTurnoCancelar))
-                .setListener(new YesNoDialogListener() {
-                    @Override
-                    public void yes() {
-                        cancelar();
-                    }
-
-                    @Override
-                    public void no() {
-
-                    }
-                });
-        DialogoGeneral dialogoGeneral = builder.build();
-        dialogoGeneral.show(getSupportFragmentManager(), "dialog");
     }
 
     private void downloadPDF() {

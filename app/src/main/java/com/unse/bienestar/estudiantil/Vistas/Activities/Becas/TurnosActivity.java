@@ -137,6 +137,7 @@ public class TurnosActivity extends AppCompatActivity implements View.OnClickLis
 
 
             }
+            //Medicamento
             if (jsonObject.has("uapu")) {
 
                 if (mList == null)
@@ -148,7 +149,7 @@ public class TurnosActivity extends AppCompatActivity implements View.OnClickLis
 
                     Turno turno = Turno.mapper(object, Turno.UAPU);
                     if (turno != null)
-                        turno.setTipo(Turno.TIPO_UPA);
+                        turno.setTipo(Turno.TIPO_UPA_MEDICAMENTO);
 
                     mList.add(turno);
                 }

@@ -44,9 +44,11 @@ public class TurnosAdapter extends RecyclerView.Adapter<TurnosAdapter.TurnoViewH
         holder.txtTitulo.setText(turno.getTitulo().toUpperCase());
         switch (turno.getEstado()) {
             case "PENDIENTE":
+            case "RESERVADO":
                 holder.txtEstado.setBackgroundColor(mContext.getResources().getColor(R.color.colorOrange));
                 break;
             case "CONFIRMADO":
+            case "RETIRADO":
                 holder.txtEstado.setBackgroundColor(mContext.getResources().getColor(R.color.colorGreen));
                 break;
             case "AUSENTE":
@@ -62,7 +64,7 @@ public class TurnosAdapter extends RecyclerView.Adapter<TurnosAdapter.TurnoViewH
                 holder.txtFecha.setText(String.format("%02d/%02d/%s, %s", turno.getDia(), turno.getMes(), turno.getAnio(),
                         turno.getFechaInicio()));
                 break;
-            case Turno.TIPO_UPA:
+            case Turno.TIPO_UPA_MEDICAMENTO:
                 holder.txtDescripcion.setText("UAPU");
                 holder.txtFecha.setText(Utils.getFechaOrder(Utils.getFechaDateWithHour(turno.getFechaRegistro())));
                 break;

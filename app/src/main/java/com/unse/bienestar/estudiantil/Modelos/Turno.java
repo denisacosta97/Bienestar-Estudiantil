@@ -143,9 +143,9 @@ public class Turno implements Parcelable {
         if (tipo == TIPO_UPA_MEDICAMENTO) {
             return String.format("Retiro Medicamentos: %s", getMedicamentos(Integer.parseInt(descripcion)));
         } else if (tipo == TIPO_UPA_TURNOS) {
-            return descripcion;
+            return descripcion != null ? descripcion : "ERROR";
         }
-        return titulo;
+        return titulo != null ? titulo : "ERROR";
     }
 
     public String getMedicamentos(int i) {
@@ -242,18 +242,26 @@ public class Turno implements Parcelable {
                 case UAPU:
                     id = Integer.parseInt(object.getString("idusuario"));
                     estado = object.getString("descripcion");
+                    dia = Integer.parseInt(object.getString("dia"));
+                    mes = Integer.parseInt(object.getString("mes"));
+                    anio = Integer.parseInt(object.getString("anio"));
                     descripcion = object.getString("tipomedicamento");
                     fechRegistro = object.getString("fecharegistro");
                     turno = new Turno(id, descripcion, estado, fechRegistro);
+                    turno.setDia(dia);
+                    turno.setMes(mes);
+                    turno.setAnio(anio);
                     break;
                 case UAPU_TURNOS:
+                    id = Integer.parseInt(object.getString("idturno"));
                     dia = Integer.parseInt(object.getString("dia"));
                     mes = Integer.parseInt(object.getString("mes"));
                     anio = Integer.parseInt(object.getString("anio"));
                     estado = object.getString("estado");
                     titulo = object.getString("titulo");
                     horario = object.getString("horario");
-                    turno = new Turno(0, titulo, estado, null);
+                    fechRegistro = object.getString("fecharegistro");
+                    turno = new Turno(id, titulo, estado, fechRegistro);
                     turno.setDia(dia);
                     turno.setMes(mes);
                     turno.setAnio(anio);

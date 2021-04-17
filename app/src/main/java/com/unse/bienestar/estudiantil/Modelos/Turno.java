@@ -245,9 +245,11 @@ public class Turno implements Parcelable {
                     dia = Integer.parseInt(object.getString("dia"));
                     mes = Integer.parseInt(object.getString("mes"));
                     anio = Integer.parseInt(object.getString("anio"));
+                    horario = object.getString("horario");
                     descripcion = object.getString("tipomedicamento");
                     fechRegistro = object.getString("fecharegistro");
                     turno = new Turno(id, descripcion, estado, fechRegistro);
+                    turno.setFechaInicio(horario);
                     turno.setDia(dia);
                     turno.setMes(mes);
                     turno.setAnio(anio);

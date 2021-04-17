@@ -227,8 +227,13 @@ public class InfoTurnoActivity extends AppCompatActivity implements View.OnClick
                 param.put("idU", String.valueOf(idLocal));
                 param.put("iu", String.valueOf(idLocal));
                 if (mTurno.getTipo() == Turno.TIPO_UPA_MEDICAMENTO) {
-                    param.put("fr", String.valueOf(mTurno.getFechaRegistro()));
+                    param.put("tipo", String.valueOf(2));
+                    param.put("di", String.valueOf(mTurno.getDia()));
+                    param.put("me", String.valueOf(mTurno.getMes()));
+                    param.put("an", String.valueOf(mTurno.getAnio()));
+                    param.put("ho", String.valueOf(mTurno.getFechaInicio()));
                 } else if (mTurno.getTipo() == Turno.TIPO_UPA_TURNOS) {
+                    param.put("tipo", String.valueOf(3));
                     param.put("it", String.valueOf(mTurno.getId()));
                 } else {
                     param.put("tipo", String.valueOf(1));

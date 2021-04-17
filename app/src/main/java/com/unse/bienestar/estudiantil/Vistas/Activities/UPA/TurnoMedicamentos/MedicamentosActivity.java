@@ -1,6 +1,7 @@
-package com.unse.bienestar.estudiantil.Vistas.Activities.UPA;
+package com.unse.bienestar.estudiantil.Vistas.Activities.UPA.TurnoMedicamentos;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -10,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -29,12 +31,16 @@ import com.unse.bienestar.estudiantil.Herramientas.Utils;
 import com.unse.bienestar.estudiantil.Herramientas.VolleySingleton;
 import com.unse.bienestar.estudiantil.Interfaces.OnClickOptionListener;
 import com.unse.bienestar.estudiantil.Interfaces.YesNoDialogListener;
+import com.unse.bienestar.estudiantil.Modelos.Convocatoria;
 import com.unse.bienestar.estudiantil.Modelos.Deporte;
+import com.unse.bienestar.estudiantil.Modelos.Horario;
 import com.unse.bienestar.estudiantil.Modelos.Medicamento;
 import com.unse.bienestar.estudiantil.Modelos.Opciones;
 import com.unse.bienestar.estudiantil.R;
+import com.unse.bienestar.estudiantil.Vistas.Activities.Becas.ResumenTurnoActivity;
 import com.unse.bienestar.estudiantil.Vistas.Activities.Deportes.InfoDeporteActivity;
 import com.unse.bienestar.estudiantil.Vistas.Activities.Deportes.InscribirDeporteActivity;
+import com.unse.bienestar.estudiantil.Vistas.Activities.UPA.ListMedicamentoActivity;
 import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoGeneral;
 import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoOpciones;
 import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoProcesamiento;
@@ -54,10 +60,14 @@ public class MedicamentosActivity extends AppCompatActivity implements View.OnCl
 
     ArrayAdapter<String> medic;
     Spinner spinner;
-    ImageView imgIcon, btnBack;
-    Button btnSent;
+    Button btnMed;
+    CardView cardContinuar;
     DialogoProcesamiento dialog;
     String med;
+    int[] mCalendar;
+    String horarios;
+
+    public static MedicamentosActivity instance = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,13 +75,21 @@ public class MedicamentosActivity extends AppCompatActivity implements View.OnCl
         setContentView(R.layout.activity_medicamentos);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
+        instance = this;
+
+        if (getIntent().getStringExtra(Utils.DATA_RESERVA) != null) {
+            horarios = getIntent().getStringExtra(Utils.DATA_RESERVA);
+        }
+
+        if (getIntent().getIntArrayExtra(Utils.DATA_FECHA) != null) {
+            mCalendar = getIntent().getIntArrayExtra(Utils.DATA_FECHA);
+        }
+
         loadViews();
 
         loadListener();
 
         loadData();
-
-        setToolbar();
     }
 
     private void loadData() {
@@ -81,7 +99,8 @@ public class MedicamentosActivity extends AppCompatActivity implements View.OnCl
     }
 
     private void loadListener() {
-        btnSent.setOnClickListener(this);
+        cardContinuar.setOnClickListener(this);
+        btnMed.setOnClickListener(this);
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -97,26 +116,19 @@ public class MedicamentosActivity extends AppCompatActivity implements View.OnCl
     }
 
     private void loadViews() {
-        imgIcon = findViewById(R.id.imgvIcon);
-        btnSent = findViewById(R.id.btnSent);
+        cardContinuar = findViewById(R.id.cardContinuar);
         spinner = findViewById(R.id.spinner);
-    }
-
-    private void setToolbar() {
-        ((TextView) findViewById(R.id.txtTitulo)).setText("Medicamentos");
-        ((TextView) findViewById(R.id.txtTitulo)).setTextColor(getResources().getColor(R.color.colorAccent));
-        Utils.changeColorDrawable(((ImageView) findViewById(R.id.imgFlecha)), getApplicationContext(), R.color.colorAccent);
-
+        btnMed = findViewById(R.id.btnMed);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btnSent:
-                sendServer();
+            case R.id.cardContinuar:
+                openFinal();
                 break;
-            case R.id.imgFlecha:
-                onBackPressed();
+            case R.id.btnMed:
+                startActivity(new Intent(getApplicationContext(), ListMedicamentoActivity.class));
                 break;
         }
 
@@ -139,7 +151,6 @@ public class MedicamentosActivity extends AppCompatActivity implements View.OnCl
                 error.printStackTrace();
                 Utils.showToast(getApplicationContext(), getString(R.string.servidorOff));
                 dialog.dismiss();
-
             }
         });
         //Abro dialogo para congelar pantalla
@@ -183,6 +194,14 @@ public class MedicamentosActivity extends AppCompatActivity implements View.OnCl
             e.printStackTrace();
             Utils.showToast(getApplicationContext(), getString(R.string.errorInternoAdmin));
         }
+    }
+
+    private void openFinal() {
+        Intent intent = new Intent(getApplicationContext(), ResumenTurnoMedActivity.class);
+        intent.putExtra(Utils.DATA_FECHA, mCalendar);
+        intent.putExtra(Utils.DATA_RESERVA, horarios);
+        intent.putExtra(Utils.DATA_MEDICAMENTO, med);
+        startActivity(intent);
     }
 
 }

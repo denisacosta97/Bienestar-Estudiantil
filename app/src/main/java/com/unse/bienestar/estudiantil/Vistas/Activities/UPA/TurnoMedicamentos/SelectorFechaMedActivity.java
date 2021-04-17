@@ -1,4 +1,10 @@
-package com.unse.bienestar.estudiantil.Vistas.Activities.UPA;
+package com.unse.bienestar.estudiantil.Vistas.Activities.UPA.TurnoMedicamentos;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -23,11 +29,11 @@ import com.unse.bienestar.estudiantil.Herramientas.Utils;
 import com.unse.bienestar.estudiantil.Herramientas.VolleySingleton;
 import com.unse.bienestar.estudiantil.Modelos.Convocatoria;
 import com.unse.bienestar.estudiantil.Modelos.Horario;
+import com.unse.bienestar.estudiantil.Modelos.Medicamento;
 import com.unse.bienestar.estudiantil.Modelos.ServiciosUPA;
 import com.unse.bienestar.estudiantil.Modelos.Turno;
 import com.unse.bienestar.estudiantil.R;
 import com.unse.bienestar.estudiantil.Vistas.Activities.Becas.ResumenTurnoActivity;
-import com.unse.bienestar.estudiantil.Vistas.Activities.Becas.SelectorReceptoresActivity;
 import com.unse.bienestar.estudiantil.Vistas.Adaptadores.HorariosAdapter;
 
 import org.json.JSONArray;
@@ -40,13 +46,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-public class SelectorFechaUPAActivity extends AppCompatActivity implements View.OnClickListener {
+public class SelectorFechaMedActivity extends AppCompatActivity implements View.OnClickListener {
 
     CalendarView mCalendarView;
     RecyclerView mRecyclerView;
@@ -59,7 +59,6 @@ public class SelectorFechaUPAActivity extends AppCompatActivity implements View.
     HashMap<String, ArrayList<Turno>> turnos;
     HashMap<String, ArrayList<Horario>> horariosPorServicio;
     ArrayList<Vector3> fechas;
-    ServiciosUPA mServicio;
     ArrayList<Turno> horarios;
 
     boolean errorHorario = false;
@@ -68,18 +67,18 @@ public class SelectorFechaUPAActivity extends AppCompatActivity implements View.
 
     CalendarView.OnDateChangeListener calendarListener;
 
-    public static SelectorFechaUPAActivity instance = null;
+    public static SelectorFechaMedActivity instance = null;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_selector_fecha_upa);
+        setContentView(R.layout.activity_selector_fecha_med);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        if (getIntent().getParcelableExtra(Utils.SERVICIO) != null) {
+        /*if (getIntent().getParcelableExtra(Utils.SERVICIO) != null) {
             mServicio = getIntent().getParcelableExtra(Utils.SERVICIO);
-        }
+        }*/
 
         instance = this;
 
@@ -176,18 +175,16 @@ public class SelectorFechaUPAActivity extends AppCompatActivity implements View.
                 }
             }
             return true;
-
         }
         return false;
     }
 
     private void loadHorarios() {
-        String URL = Utils.URL_TURNO_UAPU_HORARIO;
+        String URL = Utils.URL_HORARIOS_MEDICAM;
         StringRequest requestImage = new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 procesarRespuesta(response, 2);
-
             }
         }, new Response.ErrorListener() {
             @Override
@@ -227,7 +224,7 @@ public class SelectorFechaUPAActivity extends AppCompatActivity implements View.
             if (tipo == 2) {
                 mProgressBar.setVisibility(View.GONE);
                 JSONObject jsonObject = new JSONObject(response);
-                int id = mServicio.getIdServicio();
+                int id = 1;
                 JSONObject datos = jsonObject.getJSONObject(String.valueOf(id));
                 JSONArray dias = datos.getJSONArray("d");
                 horariosPorServicio = new HashMap<>();
@@ -334,9 +331,9 @@ public class SelectorFechaUPAActivity extends AppCompatActivity implements View.
     private void checkDay() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.DAY_OF_MONTH, fecha[0]);
-        calendar.set(Calendar.MONTH, fecha[1] -1);
+        calendar.set(Calendar.MONTH, fecha[1] - 1);
         calendar.set(Calendar.YEAR, fecha[2]);
-        if (!isValidDate(calendar)){
+        if (!isValidDate(calendar)) {
             Utils.showToast(getApplicationContext(), getString(R.string.becaTurnoNoDia));
             mProgressBarHorario.setVisibility(View.GONE);
             cardContinuar.setVisibility(View.INVISIBLE);
@@ -464,9 +461,9 @@ public class SelectorFechaUPAActivity extends AppCompatActivity implements View.
         PreferenceManager manager = new PreferenceManager(getApplicationContext());
         String key = manager.getValueString(Utils.TOKEN);
         int idLocal = manager.getValueInt(Utils.MY_ID);
-        String URL = String.format("%s?key=%s&idU=%s&di=%s&me=%s&an=%s&is=%s", Utils.URL_UAPU_HORARIO, key,
+        String URL = String.format("%s?key=%s&idU=%s&di=%s&me=%s&an=%s", Utils.URL_TUNO_HORARIO_MEDICAM, key,
                 idLocal, calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.MONTH) + 1,
-                calendar.get(Calendar.YEAR), mServicio.getIdServicio());
+                calendar.get(Calendar.YEAR));
         StringRequest requestImage = new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -504,13 +501,12 @@ public class SelectorFechaUPAActivity extends AppCompatActivity implements View.
     }
 
     private void openFinal() {
-        Intent intent = new Intent(getApplicationContext(), ResumenTurnoActivity.class);
+        Intent intent = new Intent(getApplicationContext(), MedicamentosActivity.class);
         intent.putExtra(Utils.DATA_FECHA, fecha);
         Horario horario = copiaHorarios.get(posicionHorario);
-        Convocatoria convocatoria = new Convocatoria(mServicio.getIdServicio(),0, mServicio.getName(), null, null);
+        //Convocatoria convocatoria = new Convocatoria(, 0, mServicio.getName(), null, null);
         intent.putExtra(Utils.DATA_RESERVA, horario.getHoraInicio());
-        intent.putExtra(Utils.DATA_CONVOCATORIA, convocatoria);
-        intent.putExtra(Utils.IS_ADMIN_MODE, true);
+        //intent.putExtra(Utils.DATA_CONVOCATORIA, convocatoria);
         startActivity(intent);
     }
 

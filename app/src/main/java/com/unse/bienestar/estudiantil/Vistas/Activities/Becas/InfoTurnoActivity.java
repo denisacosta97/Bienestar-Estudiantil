@@ -22,6 +22,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.unse.bienestar.estudiantil.BuildConfig;
 import com.unse.bienestar.estudiantil.Herramientas.Almacenamiento.PreferenceManager;
 import com.unse.bienestar.estudiantil.Herramientas.PDF.DownloadPDF;
+import com.unse.bienestar.estudiantil.Herramientas.PDF.LoadInfoPDF;
 import com.unse.bienestar.estudiantil.Herramientas.Utils;
 import com.unse.bienestar.estudiantil.Herramientas.VolleySingleton;
 import com.unse.bienestar.estudiantil.Interfaces.YesNoDialogListener;
@@ -56,6 +57,7 @@ public class InfoTurnoActivity extends AppCompatActivity implements View.OnClick
     Button btnCancelar, btnPDF;
     Turno mTurno;
     DialogoProcesamiento dialog;
+    ImageView imgIcono;
     boolean change = false;
     StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
 
@@ -80,6 +82,43 @@ public class InfoTurnoActivity extends AppCompatActivity implements View.OnClick
         StrictMode.setVmPolicy(builder.build());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             builder.detectFileUriExposure();
+        }
+    }
+
+    private void procesarRespuesta(String response) {
+        try {
+            dialog.dismiss();
+            JSONObject jsonObject = new JSONObject(response);
+            int estado = jsonObject.getInt("estado");
+            switch (estado) {
+                case -1:
+                    Utils.showToast(getApplicationContext(), getString(R.string.errorInternoAdmin));
+                    break;
+                case 1:
+                    //Exito
+                    cardEstado.setCardBackgroundColor(getApplicationContext().getResources().getColor(R.color.colorPink));
+                    txtEstado.setText("CANCELADO");
+                    btnCancelar.setEnabled(false);
+                    mTurno.setEstado("CANCELADO");
+                    change = true;
+                    break;
+                case 2:
+                    Utils.showToast(getApplicationContext(), getString(R.string.becaTurnoErrorCancelar));
+                    break;
+                case 3:
+                    Utils.showToast(getApplicationContext(), getString(R.string.tokenInvalido));
+                    break;
+                case 4:
+                    Utils.showToast(getApplicationContext(), getString(R.string.camposInvalidos));
+                    break;
+                case 100:
+                    Utils.showToast(getApplicationContext(), getString(R.string.tokenInexistente));
+                    break;
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Utils.showToast(getApplicationContext(), getString(R.string.errorInternoAdmin));
         }
     }
 
@@ -135,7 +174,6 @@ public class InfoTurnoActivity extends AppCompatActivity implements View.OnClick
 
     private void loadViews() {
         txtFechaRegistro = findViewById(R.id.txtFechaRegistro);
-        txtOpcion = findViewById(R.id.txtOpcion);
         cardEstado = findViewById(R.id.cardEstado);
         txtTitulo = findViewById(R.id.txtDescripcion);
         txtEstado = findViewById(R.id.txtEstado);
@@ -144,6 +182,7 @@ public class InfoTurnoActivity extends AppCompatActivity implements View.OnClick
         txtReceptor = findViewById(R.id.txtReceptor);
         btnCancelar = findViewById(R.id.btnCancelar);
         btnPDF = findViewById(R.id.btnPDF);
+        imgIcono = findViewById(R.id.imgFlecha);
     }
 
     @Override
@@ -391,7 +430,7 @@ public class InfoTurnoActivity extends AppCompatActivity implements View.OnClick
                 getSupportFragmentManager(), new YesNoDialogListener() {
             @Override
             public void yes() {
-                openFile(archivo);
+                //completeFile(archivo);
             }
 
             @Override

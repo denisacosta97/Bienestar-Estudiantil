@@ -67,7 +67,6 @@ public class SelectorFechaActivity extends AppCompatActivity implements View.OnC
 
     public static SelectorFechaActivity instance = null;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,6 +87,7 @@ public class SelectorFechaActivity extends AppCompatActivity implements View.OnC
 
     private void loadData() {
         mList = new ArrayList<>();
+        fecha[0] = -1;
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             Drawable progress = mProgressBar.getIndeterminateDrawable();
@@ -456,7 +456,7 @@ public class SelectorFechaActivity extends AppCompatActivity implements View.OnC
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.cardContinuar:
-                if (posicionHorario == -1)
+                if (posicionHorario == -1 && fecha[0] != -1)
                     Utils.showToast(getApplicationContext(), getString(R.string.becaTurnoSeleccionaHorario));
                 else openReceptor();
                 break;

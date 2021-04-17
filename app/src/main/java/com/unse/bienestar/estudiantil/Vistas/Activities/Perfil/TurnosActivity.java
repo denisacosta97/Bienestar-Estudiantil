@@ -1,4 +1,4 @@
-package com.unse.bienestar.estudiantil.Vistas.Activities.Becas;
+package com.unse.bienestar.estudiantil.Vistas.Activities.Perfil;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -20,6 +20,7 @@ import com.unse.bienestar.estudiantil.Herramientas.Utils;
 import com.unse.bienestar.estudiantil.Herramientas.VolleySingleton;
 import com.unse.bienestar.estudiantil.Modelos.Turno;
 import com.unse.bienestar.estudiantil.R;
+import com.unse.bienestar.estudiantil.Vistas.Activities.Becas.InfoTurnoActivity;
 import com.unse.bienestar.estudiantil.Vistas.Adaptadores.TurnosAdapter;
 import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoProcesamiento;
 
@@ -140,7 +141,6 @@ public class TurnosActivity extends AppCompatActivity implements View.OnClickLis
                     mList.add(turno);
                 }
 
-
             }
             //Medicamento
             if (jsonObject.has("uapu")) {
@@ -228,16 +228,11 @@ public class TurnosActivity extends AppCompatActivity implements View.OnClickLis
 
     private void loadData() {
         mList = new ArrayList<>();
-
         loadInfo();
-
         mLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
-
         latVacio.setVisibility(View.VISIBLE);
-
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setHasFixedSize(true);
-
     }
 
     private void loadListener() {

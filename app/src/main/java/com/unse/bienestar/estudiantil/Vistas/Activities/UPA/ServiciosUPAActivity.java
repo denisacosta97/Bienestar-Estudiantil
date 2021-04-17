@@ -109,26 +109,19 @@ public class ServiciosUPAActivity extends AppCompatActivity implements View.OnCl
         } catch (JSONException e) {
             e.printStackTrace();
             Utils.showToast(getApplicationContext(), getString(R.string.errorInternoAdmin));
-
         }
     }
 
     private void loadInfo(JSONObject jsonObject) {
         try {
             if (jsonObject.has("mensaje")) {
-
                 JSONArray jsonArray = jsonObject.getJSONArray("mensaje");
-
                 mServicios = new ArrayList<>();
 
                 for (int i = 0; i < jsonArray.length(); i++) {
-
                     JSONObject o = jsonArray.getJSONObject(i);
-
                     ServiciosUPA serviciosUPA = ServiciosUPA.mapper(o, ServiciosUPA.BASIC);
-
                     mServicios.add(serviciosUPA);
-
 
                 }
                 if (mServicios.size() > 0) {
@@ -138,14 +131,10 @@ public class ServiciosUPAActivity extends AppCompatActivity implements View.OnCl
                     recycler.setLayoutManager(mLayoutManager);
                     recycler.setAdapter(mAdapter);
                 }
-
-
             }
         } catch (JSONException e) {
             e.printStackTrace();
-
         }
-
     }
 
     private void loadListener() {
@@ -165,7 +154,6 @@ public class ServiciosUPAActivity extends AppCompatActivity implements View.OnCl
         ((TextView) findViewById(R.id.txtTitulo)).setText("Servicios");
         ((TextView) findViewById(R.id.txtTitulo)).setTextColor(getResources().getColor(R.color.colorAccent));
         Utils.changeColorDrawable(((ImageView) findViewById(R.id.imgFlecha)), getApplicationContext(), R.color.colorAccent);
-
     }
 
     private void loadViews() {

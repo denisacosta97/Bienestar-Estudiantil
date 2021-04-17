@@ -38,6 +38,10 @@
             android:id="@+id/item_upa"
             android:icon="@drawable/ic_upa"
             android:title="UAPU"/>
+        <item
+            android:id="@+id/item_conectividad"
+            android:icon="@drawable/ic_wifi"
+            android:title="Puntos de Conectividad"/>
 
     </group>
 

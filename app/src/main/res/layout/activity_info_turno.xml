@@ -60,8 +60,6 @@
                             android:textSize="14sp"
                             android:fontFamily="@font/montserrat_black"/>
 
-
-
                     </androidx.cardview.widget.CardView>
 
 

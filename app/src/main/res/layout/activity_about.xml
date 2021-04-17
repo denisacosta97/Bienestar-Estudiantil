@@ -17,7 +17,6 @@
             android:id="@+id/backgroundAbout"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:background="@color/blackTextColor"
             android:orientation="vertical">
 
             <LinearLayout
@@ -41,7 +40,7 @@
                     android:fontFamily="@font/montserrat_black"
                     android:textSize="18sp"
                     android:gravity="center"
-                    android:textColor="@color/whiteTextColor"/>
+                    android:textColor="@color/blackTextColor"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -51,7 +50,7 @@
                     android:fontFamily="@font/montserrat_black"
                     android:textSize="14sp"
                     android:gravity="center"
-                    android:textColor="@color/whiteTextColor"/>
+                    android:textColor="@color/blackTextColor"/>
 
             </LinearLayout>
 
@@ -71,6 +70,7 @@
             android:layout_marginTop="5dp"
             android:layout_gravity="center"
             android:text="Misión"
+            android:textColor="@color/blackTextColor"
             android:textSize="24sp"
             android:fontFamily="@font/montserrat_black"/>
 
@@ -107,6 +107,7 @@
             android:layout_marginTop="5dp"
             android:layout_gravity="center"
             android:text="Visión"
+            android:textColor="@color/blackTextColor"
             android:textSize="24sp"
             android:fontFamily="@font/montserrat_black"/>
 
@@ -133,6 +134,7 @@
             android:layout_marginTop="5dp"
             android:layout_gravity="center"
             android:text="Información"
+            android:textColor="@color/blackTextColor"
             android:textSize="24sp"
             android:fontFamily="@font/montserrat_black"/>
 
@@ -152,6 +154,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:text="Horarios de atención: "
+                    android:textColor="@color/blackTextColor"
                     android:textSize="16sp"
                     android:fontFamily="@font/montserrat_black"/>
 
@@ -159,6 +162,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:textColor="@color/blackTextColor"
                     android:text="08:00hs. a 13:30hs. - 17:00hs. a 20:30hs."
                     android:textSize="16sp"
                     android:fontFamily="@font/montserrat_regular"/>
@@ -176,6 +180,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="10dp"
                     android:text="Teléfono: "
+                    android:textColor="@color/blackTextColor"
                     android:textSize="16sp"
                     android:fontFamily="@font/montserrat_black"/>
 
@@ -199,6 +204,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="10dp"
+                    android:textColor="@color/blackTextColor"
                     android:text="e-Mail: "
                     android:textSize="16sp"
                     android:fontFamily="@font/montserrat_black"/>

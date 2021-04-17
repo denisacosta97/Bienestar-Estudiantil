@@ -497,12 +497,59 @@ Solo en caso de ser renovante de la beca, se deberá adjuntar el informe de dese
     <string name="inscripcionPerfil"><![CDATA[Ingresa a Perfil -> Inscripciones para visualizarla]]></string>
     <string name="archivosNoSubidos">¡Algunos archivos no se subieron!</string>
     <string name="contraseniaReco">Si pasaron más de 3 minutos e intentaste varias veces, por favor comunicate con la Secretaría de Bienestar Estudiantil</string>
+    <string name="TurnoMedYaReservado">¡Ya tienes un turno pendiente!</string>
 
     <string name="txtRecNo">Cuando vayas a sacar las fotos de la documentación, ten en cuenta las siguientes recomendaciones:\n- NO saques la foto como se muestra en el ejemplo, trata de que no haya ningún elemento al rededor.\n- NO sacar fotos a papeles arrugados o que no se note lo escrito.\n- Evita sacar fotos con la luz directa, eso ocasiona que haya sombra al momento de tomar la foto.</string>
     <string name="txtRecSi">Algunos tips para sacar unas buenas fotos:\n- Usar el flash, puede ser una buena opción, verifica que todo se vea correctamente.\n- Limpiá bien el lente de la cámara del celular.\n- Mantené una distancia considerable del papel, mira siempre que las esquinas cuadren en la foto.\n- Utiliza alguna de las aplicaciones que nombramos más abajo para más calidad.</string>
 
     <string name="txtRecApps">Utiliza alguna de estas apps para sacar las fotos con una mejor calidad y nitidez:\n- CamScanner.\n- Genius Scan.\n- TinyScann.\n- Office Lens.</string>
     <string name="inscripcionFinalizar">Está a punto de enviar la documentación.\nUna vez enviada no podrá editar la misma hasta su evaluación.</string>
+
+    <string name="reqMedicamentos">1 - Para retirar los medicamentos, tener a mano el D.N.I.\n2 - Emitir un certificado de alumno regular desde el SIU Guaraní (no es necesario imprimirlo).\n3 - Receta para el medicamento seleccionado emitida por una UPA o entidad autorizada.</string>
+
+    <string name="txtMedicamentos"> • ÁCIDO FÓLICO\n
+• ÁCIDO FUSÍDICO - Cr. dérmica 2%\n
+• AMLODIPINA Comp. 200 mg\n
+• AMOXICILINA + AC. CLAVIRUBICO – comprimidos – jarabe\n
+• AMOXICILINA 500 – comprimidos – jarabe\n
+• ASPIRINAS Comp. 100 mg\n
+• ATENOLOL Comp. 50 mg\n
+• AZITROMICINA Comp. 500 mg / jarabe\n
+• BETAMETASONA Crema\n
+• BETAMETASONA Gts. 0,5mg/ml\n
+• BUDESONIDE Aer.\n
+• CEFALEXINA Comp. 500mg\n
+• CLOTRIMAZOL Crema 1%\n
+• COTRIMOXAZOL 80 mg.\n
+• DEXAMETASONA Fco. Ampolla 4 mg\n
+• DIFENHIDRAMINA – comprimidos – jarabe\n
+• ENELAPRIL Comp. 10 mg\n
+• ERITROMICINA Comp. ND (*) 500mg\n
+• FUROSEMIDA\n
+• FLUCONAZOL comp.\n
+• GENTAMICINA Fco. Colirio 0,3%\n
+• GLIBENCLAMIDA Comp.\n
+• HIDROCLOROTIAZIDA Comp.25mg\n
+• HIERRO + A. FÓLICO Comp.\n
+• HIERRO Fco. ‐\n
+• IBUPROFENO Comp. 400 mg - Frasco\n
+• MEBENDAZOL Comp. 200mg\n
+• MEBENDAZOL Fco.\n
+• METFORMINA Comp. 500mg / 850 MG\n
+• METRONIDAZOL Comp. / Frasco\n
+• METRONIDAZOL Ovulos. 500mg\n
+• NISTATINA Óvulos / Frasco\n
+• NORFLOXACINA Comp.\n
+• PARACETAMOL Comp. / frasco\n
+• PENICILINA GBENZ. Fco. ES 1200000UL\n
+• PREDISONA – MEPREDNISONA 5mg\n
+• SALBUTAMOL Aerosol 100mcg/dosis + aerocámaras\n
+• SALES DE REHIDRATACIONORAL
+</string>
+
+    <string name="txtSaludSe">• TEST DE EMBARAZO.\n
+• ANTICONCEPTIVOS: ORALES, INYECTABLES, DE EMERGENCIA, PRESERVATIVOS.
+</string>
 
 </resources>
 

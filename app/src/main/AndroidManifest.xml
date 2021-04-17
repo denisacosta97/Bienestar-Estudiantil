@@ -21,7 +21,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Vistas.Activities.UPA.MedicamentosActivity"></activity>
+        <activity android:name=".Vistas.Activities.UPA.TurnoMedicamentos.ResumenTurnoMedActivity"></activity>
+        <activity android:name=".Vistas.Activities.UPA.TurnoMedicamentos.SelectorFechaMedActivity" />
+        <activity android:name=".Vistas.Activities.UPA.ListMedicamentoActivity" />
+        <activity android:name=".Vistas.Activities.PuntosConectividad.NewTurnoConectividadActivity" />
+        <activity android:name=".Vistas.Fragmentos.PConectividadFragment" />
+        <activity android:name=".Vistas.Activities.UPA.TurnoMedicamentos.MedicamentosActivity" />
         <activity android:name=".Vistas.Activities.Becas.RecomendacionesActivity" />
         <activity android:name=".Vistas.Dialogos.DialogoDocumentacionActivity" />
         <activity android:name=".Vistas.Activities.Becas.CargarDocumentacionActivity" />
@@ -99,7 +104,7 @@
             android:name=".Vistas.Activities.Gestion.EstadisticasActivity"
             android:label="Estadisticas" />
         <activity
-            android:name=".Vistas.Activities.Becas.TurnosActivity"
+            android:name=".Vistas.Activities.Perfil.TurnosActivity"
             android:label="Turnos" />
         <activity android:name=".Vistas.Activities.Becas.TipoTurnosActivity" />
         <activity android:name=".Vistas.Activities.Becas.SelectorFechaActivity" />

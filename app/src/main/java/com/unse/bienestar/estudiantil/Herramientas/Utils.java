@@ -124,6 +124,7 @@ public class Utils {
     public static final String COLECTIVO = "cole_info";
     public static final String NOTICIA_INFO = "noticia_info";
     public static final String PASAJERO = "pasajeros";
+    public static final String DATA_MEDICAMENTO = "medicamento";
 
     public static final String IMPRESION = "impresion";
     public static final String CANCHA = "cancha";
@@ -357,6 +358,8 @@ public class Utils {
     public static final String URL_UAPU_HORARIO = "https://" + IP + "/uapu/turno/getTurnoHorarios.php";
     public static final String URL_TURNO_UAPU_NUEVO = "https://" + IP + "/uapu/turno/insertar.php";
     public static final String URL_SERVICIOS = "https://" + IP + "/uapu/servicio/getServicios.php";
+    public static final String URL_HORARIOS_MEDICAM = "https://" + IP + "/uapu/medicamento/horarios.json";
+    public static final String URL_TUNO_HORARIO_MEDICAM = "https://" + IP + "/uapu/medicamento/getTurnoHorarios.php";
     public static final long SECONS_TIMER = 15000;
 
     //CARPETAS
@@ -364,6 +367,7 @@ public class Utils {
     public static final String FOLDER_CREDENCIALES = FOLDER + "CREDENCIALES/";
 
     public static String[] med = {"Clínica Médica", "Salud Sexual y Reproductiva"};
+    public static String[] puntosConect = {"Ciber UNSE", "Parque Industrial", "Residencia (El Zanjón)"};
     public static String[] facultad = {"FAyA", "FCEyT", "FCF", "FCM", "FHCSyS"};
     public static String[] faya = {"Ingeniería Agronómica", "Ingeniería en Alimentos", "Licenciatura en Biotecnología",
             "Licenciatura en Química", "Profesorado en Química", "Tecnicatura en Apicultura"};

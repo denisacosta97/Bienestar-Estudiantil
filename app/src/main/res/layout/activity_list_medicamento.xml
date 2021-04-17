@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include layout="@layout/toolbar_trans" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:elevation="2sp"
+            app:cardCornerRadius="10dp"
+            android:outlineAmbientShadowColor="@color/colorGrey2"
+            android:outlineSpotShadowColor="@color/colorGrey2"
+            card_view:backgroundTint="@color/colorWhite">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/blackTextColor"
+                    android:gravity="center"
+                    android:text="LISTADO DE MEDICAMENTOS DISPONIBLES"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/montserrat_black"/>
+
+                <View
+                    android:layout_width="60dp"
+                    android:layout_height="12dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="15dp"
+                    android:backgroundTint="@color/colorPrimaryDark"
+                    android:background="@drawable/corners_rounded_green" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Clínica Médica"
+                    android:textColor="@color/blackTextColor"
+                    android:gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/montserrat_black"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:textColor="@color/blackTextColor"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:text="@string/txtMedicamentos"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Salud Sexual y Reproductiva"
+                    android:textColor="@color/blackTextColor"
+                    android:layout_marginTop="10dp"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/montserrat_black"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/blackTextColor"
+                    android:layout_marginTop="5dp"
+                    android:textSize="16sp"
+                    android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:text="@string/txtSaludSe"/>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

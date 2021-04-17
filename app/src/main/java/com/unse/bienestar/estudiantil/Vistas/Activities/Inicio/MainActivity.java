@@ -50,6 +50,7 @@ import com.unse.bienestar.estudiantil.Vistas.Fragmentos.CiberFragment;
 import com.unse.bienestar.estudiantil.Vistas.Fragmentos.ComedorFragment;
 import com.unse.bienestar.estudiantil.Vistas.Fragmentos.DeportesFragment;
 import com.unse.bienestar.estudiantil.Vistas.Fragmentos.InicioFragmento;
+import com.unse.bienestar.estudiantil.Vistas.Fragmentos.PConectividadFragment;
 import com.unse.bienestar.estudiantil.Vistas.Fragmentos.PoliFragment;
 import com.unse.bienestar.estudiantil.Vistas.Fragmentos.ResidenciaFragment;
 import com.unse.bienestar.estudiantil.Vistas.Fragmentos.TransporteFragment;
@@ -192,7 +193,6 @@ public class MainActivity extends AppCompatActivity {
                             return false;
                         }
                     }).into(imgPerfil);
-
         }
     }
 
@@ -221,7 +221,6 @@ public class MainActivity extends AppCompatActivity {
             txtNombre.setText(getText(R.string.app_name_shor).toString().toUpperCase());
         }
         updateMenu(isLogin);
-
     }
 
     private void updateMenu(boolean isLogin) {
@@ -287,6 +286,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.item_terminos:
                 isOption = true;
                 startActivity(new Intent(this, TermsActivity.class));
+                break;
+            case R.id.item_conectividad:
+                fragmentoGenerico = new PConectividadFragment();
                 break;
         }
 

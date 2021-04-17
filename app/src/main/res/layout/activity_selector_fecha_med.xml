@@ -58,7 +58,7 @@
                 android:textSize="20sp"
                 android:gravity="center"
                 android:fontFamily="@font/montserrat_black"
-                android:text="¿En qué horario?" />
+                android:text="Horarios disponibles" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -120,6 +120,5 @@
             android:layout_height="10dp" />
 
     </LinearLayout>
-
 
 </androidx.core.widget.NestedScrollView>

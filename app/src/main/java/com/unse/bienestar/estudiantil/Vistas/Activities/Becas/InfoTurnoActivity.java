@@ -56,6 +56,7 @@ public class InfoTurnoActivity extends AppCompatActivity implements View.OnClick
     Button btnCancelar, btnPDF;
     Turno mTurno;
     DialogoProcesamiento dialog;
+    ImageView imgIcono;
     boolean change = false;
     StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
 
@@ -164,7 +165,6 @@ public class InfoTurnoActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void loadData() {
-
         txtTitulo.setText(mTurno.getTitulo());
         txtReceptor.setText(mTurno.getReceptorString());
         txtHorario.setText(mTurno.getFechaInicio());
@@ -174,9 +174,11 @@ public class InfoTurnoActivity extends AppCompatActivity implements View.OnClick
 
         switch (mTurno.getEstado()) {
             case "PENDIENTE":
+            case "RESERVADO":
                 cardEstado.setCardBackgroundColor(getApplicationContext().getResources().getColor(R.color.colorOrange));
                 break;
             case "CONFIRMADO":
+            case "RETIRADO":
                 cardEstado.setCardBackgroundColor(getApplicationContext().getResources().getColor(R.color.colorGreen));
                 break;
             case "AUSENTE":
@@ -190,7 +192,6 @@ public class InfoTurnoActivity extends AppCompatActivity implements View.OnClick
         if (!mTurno.getEstado().equals("PENDIENTE")) {
             btnCancelar.setEnabled(false);
         }
-
 
     }
 
@@ -209,6 +210,7 @@ public class InfoTurnoActivity extends AppCompatActivity implements View.OnClick
         txtReceptor = findViewById(R.id.txtReceptor);
         btnCancelar = findViewById(R.id.btnCancelar);
         btnPDF = findViewById(R.id.btnPDF);
+        imgIcono = findViewById(R.id.imgFlecha);
     }
 
     @Override

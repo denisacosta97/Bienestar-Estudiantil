@@ -33,7 +33,6 @@ import com.unse.bienestar.estudiantil.Modelos.Opciones;
 import com.unse.bienestar.estudiantil.Modelos.Profesor;
 import com.unse.bienestar.estudiantil.Modelos.Usuario;
 import com.unse.bienestar.estudiantil.R;
-import com.unse.bienestar.estudiantil.Vistas.Activities.Becas.TurnosActivity;
 import com.unse.bienestar.estudiantil.Vistas.Activities.Inicio.LoginActivity;
 import com.unse.bienestar.estudiantil.Vistas.Adaptadores.OpcionesAdapter;
 import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoGeneral;

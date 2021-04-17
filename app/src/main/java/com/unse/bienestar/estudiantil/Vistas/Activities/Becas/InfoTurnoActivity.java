@@ -36,6 +36,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -52,7 +53,7 @@ import static com.unse.bienestar.estudiantil.Herramientas.Utils.REQUEST_GROUP_PE
 public class InfoTurnoActivity extends AppCompatActivity implements View.OnClickListener {
 
     CardView cardEstado;
-    TextView txtTitulo, txtEstado, txtHorario, txtReceptor, txtFecha, txtFechaRegistro;
+    TextView txtTitulo, txtEstado, txtHorario, txtReceptor, txtFecha, txtFechaRegistro, txtOpcion;
     Button btnCancelar, btnPDF;
     Turno mTurno;
     DialogoProcesamiento dialog;
@@ -84,92 +85,23 @@ public class InfoTurnoActivity extends AppCompatActivity implements View.OnClick
         }
     }
 
-    private void cancelar() {
-        PreferenceManager manager = new PreferenceManager(getApplicationContext());
-        final String key = manager.getValueString(Utils.TOKEN);
-        final int idLocal = manager.getValueInt(Utils.MY_ID);
-        String URL = Utils.URL_TURNO_CANCELAR;
-        StringRequest requestImage = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                procesarRespuesta(response);
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Utils.showToast(getApplicationContext(), getString(R.string.servidorOff));
-                dialog.dismiss();
-            }
-        }) {
-            @Override
-            public String getBodyContentType() {
-                return "application/x-www-form-urlencoded; charset=UTF-8";
-            }
-
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                HashMap<String, String> param = new HashMap<>();
-                param.put("key", key);
-                param.put("idU", String.valueOf(idLocal));
-                param.put("di", String.valueOf(mTurno.getDia()));
-                param.put("me", String.valueOf(mTurno.getMes()));
-                param.put("re", String.valueOf(mTurno.getReceptor()));
-                param.put("an", String.valueOf(mTurno.getAnio()));
-                param.put("ir", String.valueOf(mTurno.getReceptor()));
-                param.put("ho", mTurno.getFechaInicio());
-                return param;
-            }
-        };
-        dialog = new DialogoProcesamiento();
-        dialog.setCancelable(false);
-        dialog.show(getSupportFragmentManager(), "dialog");
-        VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(requestImage);
-    }
-
-    private void procesarRespuesta(String response) {
-        try {
-            dialog.dismiss();
-            JSONObject jsonObject = new JSONObject(response);
-            int estado = jsonObject.getInt("estado");
-            switch (estado) {
-                case -1:
-                    Utils.showToast(getApplicationContext(), getString(R.string.errorInternoAdmin));
-                    break;
-                case 1:
-                    //Exito
-                    cardEstado.setCardBackgroundColor(getApplicationContext().getResources().getColor(R.color.colorPink));
-                    txtEstado.setText("CANCELADO");
-                    btnCancelar.setEnabled(false);
-                    mTurno.setEstado("CANCELADO");
-                    change = true;
-                    break;
-                case 2:
-                    Utils.showToast(getApplicationContext(), getString(R.string.becaTurnoErrorCancelar));
-                    break;
-                case 3:
-                    Utils.showToast(getApplicationContext(), getString(R.string.tokenInvalido));
-                    break;
-                case 4:
-                    Utils.showToast(getApplicationContext(), getString(R.string.camposInvalidos));
-                    break;
-                case 100:
-                    Utils.showToast(getApplicationContext(), getString(R.string.tokenInexistente));
-                    break;
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-            Utils.showToast(getApplicationContext(), getString(R.string.errorInternoAdmin));
-        }
-    }
-
     private void loadData() {
+
+        if (mTurno.getTipo() == Turno.TIPO_BECA) {
+            txtOpcion.setText("Receptor:");
+            txtReceptor.setText(mTurno.getReceptorString());
+        } else if (mTurno.getTipo() == Turno.TIPO_UPA_MEDICAMENTO) {
+            txtOpcion.setText("Tipo de Medicamento:");
+            txtReceptor.setText(mTurno.getMedicamentos(Integer.parseInt(mTurno.getDescripcion())));
+        } else if (mTurno.getTipo() == Turno.TIPO_UPA_TURNOS) {
+            txtOpcion.setText("Especialidad:");
+            txtReceptor.setText(mTurno.getDescripcion());
+        }
+
         txtTitulo.setText(mTurno.getTitulo());
-        txtReceptor.setText(mTurno.getReceptorString());
         txtHorario.setText(mTurno.getFechaInicio());
         txtFechaRegistro.setText(mTurno.getFechaRegistro());
-        txtFecha.setText(String.format("%s/%s/%s", mTurno.getDia(), mTurno.getMes(), mTurno.getAnio()));
+        txtFecha.setText(String.format("%02d/%02d/%s", mTurno.getDia(), mTurno.getMes(), mTurno.getAnio()));
         txtEstado.setText(mTurno.getEstado());
 
         switch (mTurno.getEstado()) {
@@ -189,9 +121,12 @@ public class InfoTurnoActivity extends AppCompatActivity implements View.OnClick
                 break;
         }
 
-        if (!mTurno.getEstado().equals("PENDIENTE")) {
+        if (mTurno.getEstado().equals("PENDIENTE") || mTurno.getEstado().equals("RESERVADO")) {
+            btnCancelar.setEnabled(true);
+        } else {
             btnCancelar.setEnabled(false);
         }
+
 
     }
 
@@ -210,7 +145,6 @@ public class InfoTurnoActivity extends AppCompatActivity implements View.OnClick
         txtReceptor = findViewById(R.id.txtReceptor);
         btnCancelar = findViewById(R.id.btnCancelar);
         btnPDF = findViewById(R.id.btnPDF);
-        imgIcono = findViewById(R.id.imgFlecha);
     }
 
     @Override
@@ -223,7 +157,7 @@ public class InfoTurnoActivity extends AppCompatActivity implements View.OnClick
                 preguntar();
                 break;
             case R.id.btnPDF:
-               checkPermission();
+                checkPermission();
                 break;
         }
     }
@@ -231,7 +165,7 @@ public class InfoTurnoActivity extends AppCompatActivity implements View.OnClick
     private void checkPermission() {
         if ((ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 == PackageManager.PERMISSION_GRANTED)) {
-            downloadPDF();
+            generatePDF();
         } else if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
             Intent intent = new Intent();
@@ -264,6 +198,56 @@ public class InfoTurnoActivity extends AppCompatActivity implements View.OnClick
         }
     }
 
+    private void generatePDF() {
+        PreferenceManager manager = new PreferenceManager(getApplicationContext());
+        final String key = manager.getValueString(Utils.TOKEN);
+        final int idLocal = manager.getValueInt(Utils.MY_ID);
+        String URL = Utils.URL_GENERATE_PDF;
+        StringRequest requestImage = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                procesarRespuesta(response, 2);
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Utils.showToast(getApplicationContext(), getString(R.string.servidorOff));
+                dialog.dismiss();
+            }
+        }) {
+            @Override
+            public String getBodyContentType() {
+                return "application/x-www-form-urlencoded; charset=UTF-8";
+            }
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String, String> param = new HashMap<>();
+                param.put("key", key);
+                param.put("idU", String.valueOf(idLocal));
+                param.put("iu", String.valueOf(idLocal));
+                if (mTurno.getTipo() == Turno.TIPO_UPA_MEDICAMENTO) {
+                    param.put("fr", String.valueOf(mTurno.getFechaRegistro()));
+                } else if (mTurno.getTipo() == Turno.TIPO_UPA_TURNOS) {
+                    param.put("it", String.valueOf(mTurno.getId()));
+                } else {
+                    param.put("tipo", String.valueOf(1));
+                    param.put("di", String.valueOf(mTurno.getDia()));
+                    param.put("me", String.valueOf(mTurno.getMes()));
+                    param.put("an", String.valueOf(mTurno.getAnio()));
+                    param.put("ho", String.valueOf(mTurno.getFechaInicio()));
+                    param.put("rec", String.valueOf(mTurno.getReceptor()));
+                }
+                return param;
+            }
+        };
+        dialog = new DialogoProcesamiento();
+        dialog.setCancelable(false);
+        dialog.show(getSupportFragmentManager(), "dialog");
+        VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(requestImage);
+    }
+
     private void preguntar() {
         DialogoGeneral.Builder builder = new DialogoGeneral.Builder(getApplicationContext())
                 .setTipo(DialogoGeneral.TIPO_SI_NO)
@@ -284,16 +268,126 @@ public class InfoTurnoActivity extends AppCompatActivity implements View.OnClick
         dialogoGeneral.show(getSupportFragmentManager(), "dialog");
     }
 
-    private void downloadPDF() {
+    private void cancelar() {
+        PreferenceManager manager = new PreferenceManager(getApplicationContext());
+        final String key = manager.getValueString(Utils.TOKEN);
+        final int idLocal = manager.getValueInt(Utils.MY_ID);
+        String URL = "";
+        if (mTurno.getTipo() == Turno.TIPO_BECA) {
+            URL = Utils.URL_TURNO_CANCELAR;
+        } else if (mTurno.getTipo() == Turno.TIPO_UPA_MEDICAMENTO) {
+            URL = Utils.URL_MEDICAM_CANCELAR;
+        } else if (mTurno.getTipo() == Turno.TIPO_UPA_TURNOS) {
+            URL = Utils.URL_TURNO_UPA_CANCELAR;
+        }
+        StringRequest requestImage = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                procesarRespuesta(response,1);
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Utils.showToast(getApplicationContext(), getString(R.string.servidorOff));
+                dialog.dismiss();
+            }
+        }) {
+            @Override
+            public String getBodyContentType() {
+                return "application/x-www-form-urlencoded; charset=UTF-8";
+            }
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String, String> param = new HashMap<>();
+                param.put("key", key);
+                param.put("idU", String.valueOf(idLocal));
+                if (mTurno.getTipo() == Turno.TIPO_UPA_MEDICAMENTO) {
+                    param.put("es", String.valueOf(2));
+                    param.put("iu", String.valueOf(idLocal));
+                    param.put("fr", String.valueOf(mTurno.getFechaRegistro()));
+                } else if (mTurno.getTipo() == Turno.TIPO_UPA_TURNOS) {
+                    param.put("es", String.valueOf(2));
+                    param.put("it", String.valueOf(mTurno.getId()));
+                } else {
+                    param.put("di", String.valueOf(mTurno.getDia()));
+                    param.put("me", String.valueOf(mTurno.getMes()));
+                    param.put("re", String.valueOf(mTurno.getReceptor()));
+                    param.put("an", String.valueOf(mTurno.getAnio()));
+                    param.put("ir", String.valueOf(mTurno.getReceptor()));
+                    param.put("ho", mTurno.getFechaInicio());
+                }
+                return param;
+            }
+        };
+        dialog = new DialogoProcesamiento();
+        dialog.setCancelable(false);
+        dialog.show(getSupportFragmentManager(), "dialog");
+        VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(requestImage);
+    }
+
+    private void procesarRespuesta(String response, int tipo) {
+        try {
+            dialog.dismiss();
+            JSONObject jsonObject = new JSONObject(response);
+            int estado = jsonObject.getInt("estado");
+            switch (estado) {
+                case -1:
+                    Utils.showToast(getApplicationContext(), getString(R.string.errorInternoAdmin));
+                    break;
+                case 1:
+                    //Exito
+                    if (tipo == 1) {
+                        cardEstado.setCardBackgroundColor(getApplicationContext().getResources().getColor(R.color.colorPink));
+                        txtEstado.setText("CANCELADO");
+                        btnCancelar.setEnabled(false);
+                        mTurno.setEstado("CANCELADO");
+                        change = true;
+                    } else if (tipo == 2) {
+                        String name = jsonObject.getString("archivo");
+                        downloadPDF(name);
+                    }
+
+                    break;
+                case 2:
+                    Utils.showToast(getApplicationContext(), getString(R.string.becaTurnoErrorCancelar));
+                    break;
+                case 3:
+                    Utils.showToast(getApplicationContext(), getString(R.string.tokenInvalido));
+                    break;
+                case 4:
+                    Utils.showToast(getApplicationContext(), getString(R.string.camposInvalidos));
+                    break;
+                case 100:
+                    Utils.showToast(getApplicationContext(), getString(R.string.tokenInexistente));
+                    break;
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Utils.showToast(getApplicationContext(), getString(R.string.errorInternoAdmin));
+        }
+    }
+
+    private void downloadPDF(String name) {
         final Archivo archivo = new Archivo();
-        archivo.setNombreArchivo(String.format("COMPROBANTE_TURNO_%s_%s.pdf",
-                mTurno.getTitulo().replaceAll(" ", "_").toUpperCase(),
-                mTurno.getFecha().replaceAll("/", "_")));
+        Date date = new Date(System.currentTimeMillis());
+        String fecha = Utils.getFechaName(date);
+        String nombre = null;
+        if (mTurno.getTipo() == Turno.TIPO_BECA) {
+            nombre = "T_BECAS";
+        } else if (mTurno.getTipo() == Turno.TIPO_UPA_MEDICAMENTO) {
+            nombre = "T_MEDICAM";
+        } else if (mTurno.getTipo() == Turno.TIPO_UPA_TURNOS) {
+            nombre = "T_UAPU";
+        }
+        archivo.setNombreArchivo(String.format("%s_%s",nombre, fecha));
         DownloadPDF downloadPDF = new DownloadPDF(getApplicationContext(), archivo.getNombreArchivo(true),
                 getSupportFragmentManager(), new YesNoDialogListener() {
             @Override
             public void yes() {
-                completeFile(archivo);
+                openFile(archivo);
             }
 
             @Override
@@ -302,25 +396,8 @@ public class InfoTurnoActivity extends AppCompatActivity implements View.OnClick
             }
 
         }, true);
-        String URL = String.format("%s%s", Utils.URL_ARCHIVO_TURNO, "COMPROBANTE_TURNO.pdf");
+        String URL = String.format("%s%s", Utils.URL_PDF_TURNO, name);
         downloadPDF.execute(URL);
-    }
-
-    public void completeFile(final Archivo archivo) {
-        LoadInfoPDF loadInfoPDF = new LoadInfoPDF(getApplicationContext(), archivo, new YesNoDialogListener() {
-            @Override
-            public void yes() {
-                openFile(archivo);
-            }
-
-            @Override
-            public void no() {
-                Utils.showToast(getApplicationContext(), getString(R.string.documentoNoCompletado));
-            }
-
-        }, getSupportFragmentManager());
-        loadInfoPDF.setTurno(mTurno);
-        loadInfoPDF.execute();
     }
 
     private void openFile(Archivo archivo) {

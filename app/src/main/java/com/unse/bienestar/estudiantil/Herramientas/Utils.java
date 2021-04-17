@@ -292,14 +292,16 @@ public class Utils {
     public static final String URL_BECAS_DOCUMENTACION = "https://" + IP + "/becas/inscripcion/documentacion/uploadPDF.php";
     public static final String URL_BECAS_DOCUMENTACION_ELIMINAR = "https://" + IP + "/becas/inscripcion/documentacion/deletePDF.php";
 
-    public static final String URL_FECHAS_VALIDA = "https://" + IP + "/becas/fecha/getFechaInvalidate.php";
-
     //CIBER
     public static final String URL_REGISTRAR_INGRESO = "https://" + IP + "/ciber/maquina/insertar.php";
     //GENERALES
     public static final String URL_ARCHIVOS_LISTA = "https://" + IP + "/general/getArchivos.php";
     public static final String URL_ARCHIVOS = "https://" + IP + "/archivos/";
     public static final String URL_UPLOAD_FILE = "https://" + IP + "/general/uploadFile.php";
+    public static final String URL_GENERATE_PDF = "https://" + IP + "/archivos/generate.php";
+    public static final String URL_FECHAS_VALIDA = "https://" + IP + "/becas/fecha/getFechaInvalidate.php";
+    public static final String URL_PDF_TURNO = "https://" + IP + "/archivos/";
+
 
 
     //TRANSPORTE
@@ -353,13 +355,14 @@ public class Utils {
     public static final String URL_MEDICAM_INSERT = "https://" + IP + "/uapu/medicamento/insertar.php";
     public static final String URL_MEDICAM_DAY  = "https://" + IP + "/uapu/medicamento/getByDay.php";
     public static final String URL_MEDICAM_USER  = "https://" + IP + "/uapu/medicamento/getByUser.php";
-    public static final String URL_MEDICAM_UPDATE  = "https://" + IP + "/uapu/medicamento/actualizar.php";
+    public static final String URL_MEDICAM_CANCELAR  = "https://" + IP + "/uapu/medicamento/actualizar.php";
     public static final String URL_TURNO_UAPU_HORARIO = "https://" + IP + "/uapu/turno/horarios.json";
     public static final String URL_UAPU_HORARIO = "https://" + IP + "/uapu/turno/getTurnoHorarios.php";
     public static final String URL_TURNO_UAPU_NUEVO = "https://" + IP + "/uapu/turno/insertar.php";
     public static final String URL_SERVICIOS = "https://" + IP + "/uapu/servicio/getServicios.php";
     public static final String URL_HORARIOS_MEDICAM = "https://" + IP + "/uapu/medicamento/horarios.json";
     public static final String URL_TUNO_HORARIO_MEDICAM = "https://" + IP + "/uapu/medicamento/getTurnoHorarios.php";
+    public static final String URL_TURNO_UPA_CANCELAR  = "https://" + IP + "/uapu/turno/cancelar.php";
     public static final long SECONS_TIMER = 15000;
 
     //CARPETAS

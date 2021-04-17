@@ -1,8 +1,10 @@
-package com.unse.bienestar.estudiantil.Vistas.Activities.Perfil;
+package com.unse.bienestar.estudiantil.Vistas.Activities.Becas;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -31,6 +33,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -122,7 +125,9 @@ public class TurnosActivity extends AppCompatActivity implements View.OnClickLis
     private void loadInfo(JSONObject jsonObject) {
         try {
             if (jsonObject.has("mensaje")) {
+
                 mList = new ArrayList<>();
+
                 JSONArray datos = jsonObject.getJSONArray("mensaje");
                 for (int i = 0; i < datos.length(); i++) {
                     JSONObject object = datos.getJSONObject(i);
@@ -130,10 +135,15 @@ public class TurnosActivity extends AppCompatActivity implements View.OnClickLis
                     Turno turno = Turno.mapper(object, Turno.MEDIUM);
                     if (turno != null)
                         turno.setTipo(Turno.TIPO_BECA);
+                    else
+                        Log.e("rr", "rfff");
+
                     mList.add(turno);
                 }
 
+
             }
+            //Medicamento
             if (jsonObject.has("uapu")) {
 
                 if (mList == null)
@@ -145,7 +155,10 @@ public class TurnosActivity extends AppCompatActivity implements View.OnClickLis
 
                     Turno turno = Turno.mapper(object, Turno.UAPU);
                     if (turno != null)
-                        turno.setTipo(Turno.TIPO_UPA);
+                        turno.setTipo(Turno.TIPO_UPA_MEDICAMENTO);
+                    else
+                        Log.e("rr", "rfff");
+
                     mList.add(turno);
                 }
 
@@ -162,18 +175,26 @@ public class TurnosActivity extends AppCompatActivity implements View.OnClickLis
                     Turno turno = Turno.mapper(object, Turno.UAPU_TURNOS);
                     if (turno != null)
                         turno.setTipo(Turno.TIPO_UPA_TURNOS);
+                    else
+                        Log.e("rr", "rfff");
+
                     mList.add(turno);
                 }
+
             }
 
             Collections.sort(mList, new Comparator<Turno>() {
                 @Override
                 public int compare(Turno o1, Turno o2) {
-                    Date date1 = Utils.getFechaDateWithHour(o1.getFechaRegistro());
-                    Date date2 = Utils.getFechaDateWithHour(o2.getFechaRegistro());
-                    if (date1 != null && date2 != null)
-                        return date2.compareTo(date1);
-                    else return 0;
+                    if (o1 != null && o2 != null) {
+                        Date date1 = Utils.getFechaDateWithHour(o1.getFechaRegistro());
+                        Date date2 = Utils.getFechaDateWithHour(o2.getFechaRegistro());
+                        if (date1 != null && date2 != null)
+                            return date2.compareTo(date1);
+
+                        else return 0;
+                    }
+                    return 0;
                 }
             });
             if (mList.size() > 0) {
@@ -187,15 +208,37 @@ public class TurnosActivity extends AppCompatActivity implements View.OnClickLis
         } catch (JSONException e) {
 
         }
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 500) {
+            if (resultCode == RESULT_OK) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        loadInfo();
+                    }
+                }, 500);
+
+            }
+        }
     }
 
     private void loadData() {
         mList = new ArrayList<>();
+
         loadInfo();
+
         mLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+
         latVacio.setVisibility(View.VISIBLE);
+
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setHasFixedSize(true);
+
     }
 
     private void loadListener() {

@@ -64,7 +64,7 @@ public class TurnosAdapter extends RecyclerView.Adapter<TurnosAdapter.TurnoViewH
                 holder.txtFecha.setText(String.format("%02d/%02d/%s, %s", turno.getDia(), turno.getMes(), turno.getAnio(),
                         turno.getFechaInicio()));
                 break;
-            case Turno.TIPO_UPA:
+            case Turno.TIPO_UPA_MEDICAMENTO:
                 holder.txtDescripcion.setText("UAPU");
                 holder.txtFecha.setText(Utils.getFechaOrder(Utils.getFechaDateWithHour(turno.getFechaRegistro())));
                 break;

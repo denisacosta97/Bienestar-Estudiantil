@@ -47,6 +47,8 @@ public class UPAFragment extends Fragment implements View.OnClickListener {
     }
 
     private void loadListener() {
+        cardTurnos.setOnClickListener(this);
+        cardTurnos.setVisibility(View.GONE);
         //cardTurnos.setOnClickListener(this);
         cardServ.setOnClickListener(this);
         card_medicamentos.setOnClickListener(this);

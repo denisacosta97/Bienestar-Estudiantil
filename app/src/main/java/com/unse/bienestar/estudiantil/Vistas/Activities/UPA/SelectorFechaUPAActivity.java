@@ -114,7 +114,7 @@ public class SelectorFechaUPAActivity extends AppCompatActivity implements View.
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date(System.currentTimeMillis()));
         mCalendarView.setMinDate(calendar.getTime().getTime());
-        calendar.add(Calendar.DAY_OF_MONTH, 10);
+        calendar.add(Calendar.DAY_OF_MONTH, 2);
         mCalendarView.setMaxDate(calendar.getTime().getTime());
 
         mLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);

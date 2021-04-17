@@ -85,42 +85,6 @@ public class InfoTurnoActivity extends AppCompatActivity implements View.OnClick
         }
     }
 
-    private void procesarRespuesta(String response) {
-        try {
-            dialog.dismiss();
-            JSONObject jsonObject = new JSONObject(response);
-            int estado = jsonObject.getInt("estado");
-            switch (estado) {
-                case -1:
-                    Utils.showToast(getApplicationContext(), getString(R.string.errorInternoAdmin));
-                    break;
-                case 1:
-                    //Exito
-                    cardEstado.setCardBackgroundColor(getApplicationContext().getResources().getColor(R.color.colorPink));
-                    txtEstado.setText("CANCELADO");
-                    btnCancelar.setEnabled(false);
-                    mTurno.setEstado("CANCELADO");
-                    change = true;
-                    break;
-                case 2:
-                    Utils.showToast(getApplicationContext(), getString(R.string.becaTurnoErrorCancelar));
-                    break;
-                case 3:
-                    Utils.showToast(getApplicationContext(), getString(R.string.tokenInvalido));
-                    break;
-                case 4:
-                    Utils.showToast(getApplicationContext(), getString(R.string.camposInvalidos));
-                    break;
-                case 100:
-                    Utils.showToast(getApplicationContext(), getString(R.string.tokenInexistente));
-                    break;
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-            Utils.showToast(getApplicationContext(), getString(R.string.errorInternoAdmin));
-        }
-    }
 
     private void loadData() {
 
@@ -173,6 +137,7 @@ public class InfoTurnoActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void loadViews() {
+        txtOpcion = findViewById(R.id.txtOpcion);
         txtFechaRegistro = findViewById(R.id.txtFechaRegistro);
         cardEstado = findViewById(R.id.cardEstado);
         txtTitulo = findViewById(R.id.txtDescripcion);

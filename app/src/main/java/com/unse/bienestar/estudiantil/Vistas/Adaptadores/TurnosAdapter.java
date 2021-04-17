@@ -46,16 +46,20 @@ public class TurnosAdapter extends RecyclerView.Adapter<TurnosAdapter.TurnoViewH
             case "PENDIENTE":
             case "RESERVADO":
                 holder.txtEstado.setBackgroundColor(mContext.getResources().getColor(R.color.colorOrange));
+                holder.txtEstado.setTextColor(mContext.getResources().getColor(R.color.colorWhite));
                 break;
             case "CONFIRMADO":
             case "RETIRADO":
                 holder.txtEstado.setBackgroundColor(mContext.getResources().getColor(R.color.colorGreen));
+                holder.txtEstado.setTextColor(mContext.getResources().getColor(R.color.colorWhite));
                 break;
             case "AUSENTE":
-                holder.txtEstado.setTextColor(mContext.getResources().getColor(R.color.colorAccent));
+                holder.txtEstado.setBackgroundColor(mContext.getResources().getColor(R.color.colorAccent));
+                holder.txtEstado.setTextColor(mContext.getResources().getColor(R.color.colorWhite));
                 break;
             case "CANCELADO":
-                holder.txtEstado.setTextColor(mContext.getResources().getColor(R.color.colorPink));
+                holder.txtEstado.setBackgroundColor(mContext.getResources().getColor(R.color.colorPink));
+                holder.txtEstado.setTextColor(mContext.getResources().getColor(R.color.colorWhite));
                 break;
         }
         switch (turno.getTipo()){

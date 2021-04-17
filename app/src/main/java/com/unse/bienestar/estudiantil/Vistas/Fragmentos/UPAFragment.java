@@ -21,7 +21,7 @@ import androidx.fragment.app.Fragment;
 public class UPAFragment extends Fragment implements View.OnClickListener {
 
     View view;
-    CardView cardTurnos, cardServ, card_medicamentos;
+    CardView cardServ, card_medicamentos;
     Context mContext;
 
     public UPAFragment() {
@@ -47,15 +47,11 @@ public class UPAFragment extends Fragment implements View.OnClickListener {
     }
 
     private void loadListener() {
-        cardTurnos.setOnClickListener(this);
-        cardTurnos.setVisibility(View.GONE);
-        //cardTurnos.setOnClickListener(this);
         cardServ.setOnClickListener(this);
         card_medicamentos.setOnClickListener(this);
     }
 
     private void loadViews() {
-        //cardTurnos = view.findViewById(R.id.cardTurnos);
         cardServ = view.findViewById(R.id.card_servicios);
         card_medicamentos = view.findViewById(R.id.card_medicamentos);
     }

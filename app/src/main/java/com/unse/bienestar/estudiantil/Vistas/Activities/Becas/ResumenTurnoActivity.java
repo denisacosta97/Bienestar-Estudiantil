@@ -335,6 +335,18 @@ public class ResumenTurnoActivity extends AppCompatActivity implements View.OnCl
                     animateButtonWidth(false);
                     fadeOutInTextProgress();
                     break;
+                case 6:
+                    Utils.showToast(getApplicationContext(), getString(R.string.turnoPrevio));
+                    showProgressDialog(false);
+                    animateButtonWidth(false);
+                    fadeOutInTextProgress();
+                    break;
+                case 7:
+                    Utils.showToast(getApplicationContext(), getString(R.string.soloAlumno));
+                    showProgressDialog(false);
+                    animateButtonWidth(false);
+                    fadeOutInTextProgress();
+                    break;
                 case 100:
                     Utils.showToast(getApplicationContext(), getString(R.string.tokenInexistente));
                     loadError();

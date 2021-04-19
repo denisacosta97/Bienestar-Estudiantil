@@ -220,7 +220,7 @@
     <string name="recorridoError">¡Error al cargar el recorrido!</string>
     <string name="primeroRegistrar">¡No disponible en modo visita!</string>
     <string name="noDisponible">¡No disponible durante la cuarentena!</string>
-    <string name="noTurnoDisponible">¡Turno no disponible o mediante otro medio!</string>
+    <string name="noTurnoDisponible">¡Turnos no disponible!</string>
 
     <string name="slide1">Esta es la nueva aplicación de la Secretaría de Bienestar Estudiantil perteneciente a la Universidad Nacional de Santiago del Estero.\n¡Ahora todas sus áreas en forma de aplicación!</string>
     <string name="slide2">Registrate en la aplicación y comenzá a interactuar con Bienestar Estudiantil de una nueva forma.</string>
@@ -550,6 +550,8 @@ Solo en caso de ser renovante de la beca, se deberá adjuntar el informe de dese
     <string name="txtSaludSe">• TEST DE EMBARAZO.\n
 • ANTICONCEPTIVOS: ORALES, INYECTABLES, DE EMERGENCIA, PRESERVATIVOS.
 </string>
+    <string name="turnoPrevio">Tienes un turno previo</string>
+    <string name="soloAlumno">Solo disponible para alumnos</string>
 
 </resources>
 

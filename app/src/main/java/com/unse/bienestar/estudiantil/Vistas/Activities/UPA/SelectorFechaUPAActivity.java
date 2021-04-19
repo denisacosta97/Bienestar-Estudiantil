@@ -310,6 +310,8 @@ public class SelectorFechaUPAActivity extends AppCompatActivity implements View.
 
                             mRecyclerView.setVisibility(View.VISIBLE);
                             cardContinuar.setVisibility(View.VISIBLE);
+                        } else {
+                            Utils.showToast(getApplicationContext(), getString(R.string.noTurnoDisponible));
                         }
 
                         break;
@@ -334,9 +336,9 @@ public class SelectorFechaUPAActivity extends AppCompatActivity implements View.
     private void checkDay() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.DAY_OF_MONTH, fecha[0]);
-        calendar.set(Calendar.MONTH, fecha[1] -1);
+        calendar.set(Calendar.MONTH, fecha[1] - 1);
         calendar.set(Calendar.YEAR, fecha[2]);
-        if (!isValidDate(calendar)){
+        if (!isValidDate(calendar) && !Utils.isDateHabilited(calendar)) {
             Utils.showToast(getApplicationContext(), getString(R.string.becaTurnoNoDia));
             mProgressBarHorario.setVisibility(View.GONE);
             cardContinuar.setVisibility(View.INVISIBLE);
@@ -412,6 +414,8 @@ public class SelectorFechaUPAActivity extends AppCompatActivity implements View.
                             if (!isReserved)
                                 copiaHorarios.add(horario);
                         }
+                    } else {
+                        Utils.showToast(getApplicationContext(), getString(R.string.noTurnoDisponible));
                     }
 
 
@@ -507,7 +511,7 @@ public class SelectorFechaUPAActivity extends AppCompatActivity implements View.
         Intent intent = new Intent(getApplicationContext(), ResumenTurnoActivity.class);
         intent.putExtra(Utils.DATA_FECHA, fecha);
         Horario horario = copiaHorarios.get(posicionHorario);
-        Convocatoria convocatoria = new Convocatoria(mServicio.getIdServicio(),0, mServicio.getName(), null, null);
+        Convocatoria convocatoria = new Convocatoria(mServicio.getIdServicio(), 0, mServicio.getName(), null, null);
         intent.putExtra(Utils.DATA_RESERVA, horario.getHoraInicio());
         intent.putExtra(Utils.DATA_CONVOCATORIA, convocatoria);
         intent.putExtra(Utils.IS_ADMIN_MODE, true);

@@ -134,6 +134,7 @@ public class InfoTurnoActivity extends AppCompatActivity implements View.OnClick
     private void loadListener() {
         btnPDF.setOnClickListener(this);
         btnCancelar.setOnClickListener(this);
+        imgIcono.setOnClickListener(this);
     }
 
     private void loadViews() {

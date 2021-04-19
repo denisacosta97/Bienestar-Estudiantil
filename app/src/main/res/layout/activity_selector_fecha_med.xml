@@ -41,13 +41,26 @@
             <LinearLayout
                 android:layout_margin="20dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+<!--                <com.unse.bienestar.estudiantil.Herramientas.CalendarViewScrollable
+                    android:id="@+id/cal44"
+                    android:visibility="gone"
+                    android:background="@color/whiteTextColor"
+                    android:layout_width="match_parent"
+                    android:layout_height="240dp"
+                    android:minDate="2016"/> -->
 
                 <CalendarView
                     android:id="@+id/calendario"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/colorWhite" />
+                    android:background="@color/colorWhite"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/create_activity_title"
+                    android:layout_weight="50"
+                    android:minHeight="300dp"/>
 
             </LinearLayout>
 

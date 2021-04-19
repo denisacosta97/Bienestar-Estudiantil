@@ -27,13 +27,9 @@ import com.unse.bienestar.estudiantil.Herramientas.Almacenamiento.PreferenceMana
 import com.unse.bienestar.estudiantil.Herramientas.RecyclerListener.ItemClickSupport;
 import com.unse.bienestar.estudiantil.Herramientas.Utils;
 import com.unse.bienestar.estudiantil.Herramientas.VolleySingleton;
-import com.unse.bienestar.estudiantil.Modelos.Convocatoria;
 import com.unse.bienestar.estudiantil.Modelos.Horario;
-import com.unse.bienestar.estudiantil.Modelos.Medicamento;
-import com.unse.bienestar.estudiantil.Modelos.ServiciosUPA;
 import com.unse.bienestar.estudiantil.Modelos.Turno;
 import com.unse.bienestar.estudiantil.R;
-import com.unse.bienestar.estudiantil.Vistas.Activities.Becas.ResumenTurnoActivity;
 import com.unse.bienestar.estudiantil.Vistas.Adaptadores.HorariosAdapter;
 
 import org.json.JSONArray;
@@ -110,11 +106,23 @@ public class SelectorFechaMedActivity extends AppCompatActivity implements View.
 
         loadFechas();
 
+        /*if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            mCalendar44.setVisibility(View.VISIBLE);
+            mCalendarView.setVisibility(View.GONE);
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(new Date(System.currentTimeMillis()));
+            mCalendar44.setMinDate(calendar.getTime().getTime());
+            calendar.add(Calendar.DAY_OF_MONTH, 2);
+            mCalendar44.setMaxDate(calendar.getTime().getTime());
+        }*/
+
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date(System.currentTimeMillis()));
-        mCalendarView.setMinDate(calendar.getTime().getTime());
+        mCalendarView.setMinDate(calendar.getTime().getTime() - 1000);
         calendar.add(Calendar.DAY_OF_MONTH, 2);
         mCalendarView.setMaxDate(calendar.getTime().getTime());
+
 
         mLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);

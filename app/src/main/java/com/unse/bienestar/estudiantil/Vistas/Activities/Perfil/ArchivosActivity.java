@@ -414,8 +414,8 @@ public class ArchivosActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void loadInfo(int iconError, String text, int iconVacio, String vacio) {
-        ((ImageView) findViewById(R.id.imgIconError)).setBackground(getResources().getDrawable(iconError));
-        ((ImageView) findViewById(R.id.imgIconVacio)).setBackground(getResources().getDrawable(iconVacio));
+        //((ImageView) findViewById(R.id.imgIconError)).setBackground(getResources().getDrawable(iconError));
+        //((ImageView) findViewById(R.id.imgIconVacio)).setBackground(getResources().getDrawable(iconVacio));
         ((TextView) findViewById(R.id.txtError)).setText(text);
         ((TextView) findViewById(R.id.txtVacio)).setText(vacio);
         ((Button) findViewById(R.id.btnError)).setOnClickListener(this);

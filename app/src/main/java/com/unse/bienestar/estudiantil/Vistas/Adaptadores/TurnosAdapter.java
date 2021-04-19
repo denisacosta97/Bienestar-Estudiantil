@@ -25,15 +25,12 @@ public class TurnosAdapter extends RecyclerView.Adapter<TurnosAdapter.TurnoViewH
     public TurnosAdapter(ArrayList<Turno> list, Context context) {
         this.mContext = context;
         this.mList = list;
-
     }
 
     @NonNull
     @Override
     public TurnosAdapter.TurnoViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-        View
-                view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_turnos, viewGroup, false);
-
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_turnos, viewGroup, false);
         return new TurnoViewHolder(view);
     }
 
@@ -54,11 +51,11 @@ public class TurnosAdapter extends RecyclerView.Adapter<TurnosAdapter.TurnoViewH
                 holder.txtEstado.setTextColor(mContext.getResources().getColor(R.color.colorWhite));
                 break;
             case "AUSENTE":
-                holder.txtEstado.setBackgroundColor(mContext.getResources().getColor(R.color.colorAccent));
+                holder.txtEstado.setBackgroundColor(mContext.getResources().getColor(R.color.colorYellow));
                 holder.txtEstado.setTextColor(mContext.getResources().getColor(R.color.colorWhite));
                 break;
             case "CANCELADO":
-                holder.txtEstado.setBackgroundColor(mContext.getResources().getColor(R.color.colorPink));
+                holder.txtEstado.setBackgroundColor(mContext.getResources().getColor(R.color.colorRed));
                 holder.txtEstado.setTextColor(mContext.getResources().getColor(R.color.colorWhite));
                 break;
         }
@@ -104,8 +101,6 @@ public class TurnosAdapter extends RecyclerView.Adapter<TurnosAdapter.TurnoViewH
                     holder.txtEstado.setBackgroundColor(mContext.getResources().getColor(R.color.colorOrange));
                     break;
             }*/
-
-
     }
 
 
@@ -115,7 +110,6 @@ public class TurnosAdapter extends RecyclerView.Adapter<TurnosAdapter.TurnoViewH
     }
 
     static class TurnoViewHolder extends RecyclerView.ViewHolder {
-
         TextView txtTitulo, txtDesc, txtFecha, txtEstado, txtDescripcion;
         ImageView imgIcon;
         CardView mCardView;
@@ -130,9 +124,6 @@ public class TurnosAdapter extends RecyclerView.Adapter<TurnosAdapter.TurnoViewH
             txtFecha = view.findViewById(R.id.txtFecha);
             imgIcon = view.findViewById(R.id.imgIcon);
             txtEstado = view.findViewById(R.id.txtEstado);
-
-
         }
-
     }
 }

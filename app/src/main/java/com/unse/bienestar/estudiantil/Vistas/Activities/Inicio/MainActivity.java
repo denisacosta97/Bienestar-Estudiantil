@@ -122,7 +122,6 @@ public class MainActivity extends AppCompatActivity {
     private void loadListener() {
     }
 
-
     private void loadData() {
         mFragment = new Fragment();
         ids = new HashMap<>();

@@ -47,7 +47,11 @@
                     android:id="@+id/calendario"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/colorWhite" />
+                    android:background="@color/colorWhite"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/create_activity_title"
+                    android:layout_weight="50"
+                    android:minHeight="300dp" />
 
             </LinearLayout>
 

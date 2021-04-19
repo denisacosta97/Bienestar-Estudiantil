@@ -87,7 +87,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".Vistas.Activities.Inicio.RegisterActivity" />
-        <activity android:name=".Vistas.Activities.Inicio.SplashScreenActivity" />
         <activity
             android:name=".Vistas.Activities.Polideportivo.EspaciosActivity"
             android:label="Espacios Disponibles" />

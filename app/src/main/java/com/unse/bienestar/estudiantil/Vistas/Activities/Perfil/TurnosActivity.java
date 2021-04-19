@@ -61,7 +61,6 @@ public class TurnosActivity extends AppCompatActivity implements View.OnClickLis
         loadData();
 
         loadListener();
-
     }
 
     private void loadInfo() {

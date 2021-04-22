@@ -21,7 +21,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Vistas.Activities.UPA.TurnoMedicamentos.ResumenTurnoMedActivity"></activity>
+        <activity android:name=".Vistas.Activities.PuntosConectividad.ResumenTurnoPCActivity"></activity>
+        <activity android:name=".Vistas.Activities.PuntosConectividad.SelectorFechaPCActivity" />
+        <activity android:name=".Vistas.Activities.UPA.TurnoMedicamentos.ResumenTurnoMedActivity" />
         <activity android:name=".Vistas.Activities.UPA.TurnoMedicamentos.SelectorFechaMedActivity" />
         <activity android:name=".Vistas.Activities.UPA.ListMedicamentoActivity" />
         <activity android:name=".Vistas.Activities.PuntosConectividad.NewTurnoConectividadActivity" />

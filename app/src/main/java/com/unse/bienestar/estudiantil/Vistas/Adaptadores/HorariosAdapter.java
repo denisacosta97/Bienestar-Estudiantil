@@ -73,8 +73,6 @@ public class HorariosAdapter extends RecyclerView.Adapter<HorariosAdapter.Opcion
             super(itemView);
             txtTitulo = itemView.findViewById(R.id.txtTitulo);
             mCardView = itemView.findViewById(R.id.card);
-
-
         }
     }
 

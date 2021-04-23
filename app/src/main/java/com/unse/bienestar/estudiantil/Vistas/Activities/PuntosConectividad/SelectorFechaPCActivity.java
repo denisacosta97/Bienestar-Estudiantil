@@ -31,8 +31,6 @@ import com.unse.bienestar.estudiantil.Modelos.Horario;
 import com.unse.bienestar.estudiantil.Modelos.Opciones;
 import com.unse.bienestar.estudiantil.Modelos.Turno;
 import com.unse.bienestar.estudiantil.R;
-import com.unse.bienestar.estudiantil.Vistas.Activities.UPA.TurnoMedicamentos.MedicamentosActivity;
-import com.unse.bienestar.estudiantil.Vistas.Activities.UPA.TurnoMedicamentos.SelectorFechaMedActivity;
 import com.unse.bienestar.estudiantil.Vistas.Adaptadores.HorariosAdapter;
 import com.unse.bienestar.estudiantil.Vistas.Adaptadores.OpcionesSimpleAdapter;
 
@@ -49,13 +47,12 @@ import java.util.HashMap;
 public class SelectorFechaPCActivity extends AppCompatActivity implements View.OnClickListener {
 
     CalendarView mCalendarView;
-    RecyclerView mRecyclerView, mRecyclerViewZonas;
+    RecyclerView mRecyclerView;
     CardView cardContinuar;
     HorariosAdapter adapter;
-    OpcionesSimpleAdapter mSimpleAdapter;
-    RecyclerView.LayoutManager mLayoutManager, mLayoutManager2;
+    RecyclerView.LayoutManager mLayoutManager;
     ArrayList<Horario> copiaHorarios;
-    ArrayList<Opciones> zonas;
+    Opciones zona;
     ProgressBar mProgressBarHorario, mProgressBar;
     LinearLayout latDatos;
     HashMap<String, ArrayList<Turno>> turnos;
@@ -77,9 +74,9 @@ public class SelectorFechaPCActivity extends AppCompatActivity implements View.O
         setContentView(R.layout.activity_selector_fecha_pc);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        /*if (getIntent().getParcelableExtra(Utils.SERVICIO) != null) {
-            mServicio = getIntent().getParcelableExtra(Utils.SERVICIO);
-        }*/
+        if (getIntent().getParcelableExtra(Utils.DATA_OPCION) != null) {
+            zona = getIntent().getParcelableExtra(Utils.DATA_OPCION);
+        }
 
         instance = this;
 
@@ -127,11 +124,6 @@ public class SelectorFechaPCActivity extends AppCompatActivity implements View.O
         mCalendarView.setMinDate(calendar.getTime().getTime() - 1000);
         calendar.add(Calendar.DAY_OF_MONTH, 2);
         mCalendarView.setMaxDate(calendar.getTime().getTime());
-
-        mLayoutManager2 = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
-        mRecyclerViewZonas.setLayoutManager(mLayoutManager2);
-        mRecyclerViewZonas.setHasFixedSize(true);
-        mRecyclerViewZonas.setNestedScrollingEnabled(true);
 
         mLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -197,7 +189,7 @@ public class SelectorFechaPCActivity extends AppCompatActivity implements View.O
     }
 
     private void loadHorarios() {
-        String URL = Utils.URL_HORARIOS_MEDICAM;
+        String URL = Utils.URL_PC_HORARIOS;
         StringRequest requestImage = new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -356,32 +348,31 @@ public class SelectorFechaPCActivity extends AppCompatActivity implements View.O
             cardContinuar.setVisibility(View.INVISIBLE);
             mRecyclerView.setVisibility(View.GONE);
         }
-
-
     }
 
     private void loadInfo(JSONObject jsonObject, int tipo) {
         if (jsonObject.has("mensaje")) {
 
             //modificar esto para las zonas
-            try {
+            /*try {
                 JSONArray jsonArray = jsonObject.getJSONArray("mensaje");
                 zonas = new ArrayList<>();
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject object = jsonArray.getJSONObject(i);
 
-                    /*zonas.add(new Opciones(LinearLayout.VERTICAL, 0,
-                            String.format("%s %s", "", 0, 0, 0));*/
+                    zonas.add(new Opciones(LinearLayout.VERTICAL, 0,
+                            String.format("%s %s", "", 0, 0, 0));
                 }
 
             } catch (JSONException e) {
                 e.printStackTrace();
-            }
+            }*/
 
             if (tipo == 1) {
                 try {
                     JSONArray jsonArray = jsonObject.getJSONArray("mensaje");
                     fechas = new ArrayList<>();
+
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject object = jsonArray.getJSONObject(i);
                         Vector3 vector3 = new Vector3(Integer.parseInt(object.getString("dia")),
@@ -425,9 +416,6 @@ public class SelectorFechaPCActivity extends AppCompatActivity implements View.O
                                 copiaHorarios.add(horario);
                         }
                     }
-
-                    mSimpleAdapter = new OpcionesSimpleAdapter(zonas, getApplicationContext());
-                    mRecyclerViewZonas.setAdapter(mSimpleAdapter);
 
                     adapter = new HorariosAdapter(copiaHorarios, getApplicationContext());
                     mRecyclerView.setAdapter(adapter);
@@ -478,9 +466,9 @@ public class SelectorFechaPCActivity extends AppCompatActivity implements View.O
         PreferenceManager manager = new PreferenceManager(getApplicationContext());
         String key = manager.getValueString(Utils.TOKEN);
         int idLocal = manager.getValueInt(Utils.MY_ID);
-        String URL = String.format("%s?key=%s&idU=%s&di=%s&me=%s&an=%s", Utils.URL_TUNO_HORARIO_MEDICAM, key,
+        String URL = String.format("%s?key=%s&idU=%s&di=%s&me=%s&an=%s&lu=%s", Utils.URL_PC_TURNOSHORARIOS, key,
                 idLocal, calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.MONTH) + 1,
-                calendar.get(Calendar.YEAR));
+                calendar.get(Calendar.YEAR), 1);
         StringRequest requestImage = new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -499,7 +487,6 @@ public class SelectorFechaPCActivity extends AppCompatActivity implements View.O
 
     private void loadViews() {
         mRecyclerView = findViewById(R.id.recycler);
-        mRecyclerViewZonas = findViewById(R.id.recycler2);
         mProgressBarHorario = findViewById(R.id.progresHorario);
         mCalendarView = findViewById(R.id.calendario);
         cardContinuar = findViewById(R.id.cardContinuar);
@@ -519,7 +506,7 @@ public class SelectorFechaPCActivity extends AppCompatActivity implements View.O
     }
 
     private void openFinal() {
-        Intent intent = new Intent(getApplicationContext(), MedicamentosActivity.class);
+        Intent intent = new Intent(getApplicationContext(), ResumenTurnoPCActivity.class);
         intent.putExtra(Utils.DATA_FECHA, fecha);
         Horario horario = copiaHorarios.get(posicionHorario);
         intent.putExtra(Utils.DATA_RESERVA, horario.getHoraInicio());

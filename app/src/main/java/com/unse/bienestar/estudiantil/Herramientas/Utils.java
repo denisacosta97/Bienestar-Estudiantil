@@ -125,6 +125,7 @@ public class Utils {
     public static final String NOTICIA_INFO = "noticia_info";
     public static final String PASAJERO = "pasajeros";
     public static final String DATA_MEDICAMENTO = "medicamento";
+    public static final String DATA_OPCION = "opcion";
 
     public static final String IMPRESION = "impresion";
     public static final String CANCHA = "cancha";
@@ -364,6 +365,14 @@ public class Utils {
     public static final String URL_TUNO_HORARIO_MEDICAM = "https://" + IP + "/uapu/medicamento/getTurnoHorarios.php";
     public static final String URL_TURNO_UPA_CANCELAR  = "https://" + IP + "/uapu/turno/cancelar.php";
     public static final long SECONS_TIMER = 15000;
+
+    //PUNTOS DE CONECTIVIDAD
+    public static final String URL_PC_TURNO  = "https://" + IP + "/general/conectividad/insertar.php";
+    public static final String URL_PC_HORARIOS  = "https://" + IP + "/general/conectividad/horarios.json";
+    public static final String URL_PC_TURNOSHORARIOS  = "https://" + IP + "/general/conectividad/getTurnosHorarios.php";
+    public static final String URL_PC_BYDAY  = "https://" + IP + "/general/conectividad/getByDay.php";
+    public static final String URL_PC_GETALL  = "https://" + IP + "/general/conectividad/getAll.php";
+    public static final String URL_PC_CANCELAR = "https://" + IP + "/general/conectividad/cancelar.php";
 
     //CARPETAS
     public static final String FOLDER = "BIENESTAR_ESTUDIANTIL/";

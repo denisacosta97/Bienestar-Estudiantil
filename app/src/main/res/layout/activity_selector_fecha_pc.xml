@@ -8,7 +8,7 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_gravity="center"
+        android:gravity="center"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -20,43 +20,6 @@
             android:layout_height="wrap_content"
             android:indeterminateTint="@color/colorWhite"
             android:id="@+id/progres" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorWhite"
-            android:textSize="20sp"
-            android:gravity="center"
-            android:fontFamily="@font/montserrat_black"
-            android:text="Seleccione la zona" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_height="50px"
-            android:layout_gravity="right"
-            app:srcCompat="@drawable/ic_flechas_bidireccionales"/>
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_margin="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            </androidx.recyclerview.widget.RecyclerView>
-
-            <ProgressBar
-                android:layout_gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:indeterminateTint="@color/colorWhite"
-                android:id="@+id/progresHorario2" />
-
-        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/latDatos"

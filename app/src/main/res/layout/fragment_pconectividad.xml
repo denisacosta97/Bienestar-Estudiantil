@@ -21,114 +21,64 @@
             android:layout_marginTop="10dp"
             android:text="Puntos de conectividad"
             android:textColor="@color/blackTextColor"
-            android:textSize="26sp"
+            android:textSize="24sp"
             android:textStyle="bold"
             android:fontFamily="@font/montserrat_black"/>
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardTurnos"
-            android:layout_width="fill_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:elevation="100dp"
-            app:cardCornerRadius="20dp"
-            card_view:cardBackgroundColor="@android:color/white">
+            android:layout_margin="10dp"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/blackTextColor"
+            android:text="Puntos de Conectividad es una nueva propuesta por parte de la Secretaría de Bienestar Estudiantil para brindar acceso gratuito a internet en las diferentes zonas habilitadas. "
+            android:textSize="16sp"
+            android:fontFamily="@font/montserrat_regular"/>
 
-            <LinearLayout
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp" />
+
+        <LinearLayout
+            android:id="@+id/layoutError"
+            android:gravity="center"
+            android:layout_margin="20dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imgIconError"
+                android:padding="10dp"
+                android:layout_width="140dp"
+                android:layout_height="140dp"
+                app:srcCompat="@drawable/ic_error" />
+
+            <TextView
+                android:id="@+id/txtError"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:orientation="horizontal">
+                android:text="ERROR AL OBTENER LISTADO DE DEPORTES"
+                android:textColor="@color/colorPrimaryDark"
+                android:fontFamily="@font/montserrat_black"
+                android:textSize="18sp"
+                android:gravity="center" />
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:id="@+id/imgvIconDeporte"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        app:srcCompat="@drawable/ic_calendario" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="20dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/txtTurnos"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="OBTENER TURNO"
-                        android:textColor="@color/blackTextColor"
-                        android:textSize="28sp"
-                        android:textStyle="bold"
-                        android:fontFamily="@font/montserrat_black"/>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:visibility="gone"
-            android:id="@+id/card_infoBecas"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:focusable="true"
-            android:layout_margin="5dp"
-            android:elevation="100dp"
-            app:cardCornerRadius="20dp"
-            card_view:cardBackgroundColor="@android:color/white">
-
-            <LinearLayout
-                android:layout_width="match_parent"
+            <Button
+                android:id="@+id/btnError"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:orientation="horizontal">
+                android:textColor="@color/colorWhite"
+                android:fontFamily="@font/montserrat_black"
+                android:padding="18dp"
+                android:background="@drawable/button_border"
+                android:text="REINTENTAR">
+            </Button>
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        app:srcCompat="@drawable/ic_informacion" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="20dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="INFORMACIÓN"
-                        android:textColor="@color/blackTextColor"
-                        android:textSize="30sp"
-                        android:textStyle="bold"
-                        android:fontFamily="@font/montserrat_black"/>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
+        </LinearLayout>
 
         <View
             android:layout_width="60dp"
@@ -149,7 +99,6 @@
             android:textSize="20sp" />
 
         <LinearLayout
-            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -228,89 +177,6 @@
                     android:text="tehuelche@unse.edu.ar"
                     android:textSize="16sp"
                     android:fontFamily="@font/montserrat_regular"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:layout_marginTop="10dp"
-                android:weightSum="1"
-                android:orientation="horizontal">
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/btnWhats"
-                    app:cardBackgroundColor="@color/whiteTextColor"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:layout_margin="10dp"
-                    android:layout_weight="0.5"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    app:cardCornerRadius="10dp"
-                    app:cardElevation="5dp">
-
-                    <LinearLayout
-                        android:layout_margin="10dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
-                            app:srcCompat="@drawable/ic_whatsapp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="10dp"
-                            android:textSize="14sp"
-                            android:fontFamily="@font/montserrat_black"
-                            android:text="3855198292"/>
-
-                    </LinearLayout>
-
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/btnInsta"
-                    app:cardBackgroundColor="@color/whiteTextColor"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:layout_margin="10dp"
-                    android:layout_weight="0.5"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    app:cardCornerRadius="10dp"
-                    app:cardElevation="5dp">
-
-                    <LinearLayout
-                        android:layout_margin="10dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
-                            app:srcCompat="@drawable/ic_instagram" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="10dp"
-                            android:textSize="14sp"
-                            android:fontFamily="@font/montserrat_black"
-                            android:text="becas_unse"/>
-
-                    </LinearLayout>
-
-                </androidx.cardview.widget.CardView>
 
             </LinearLayout>
 

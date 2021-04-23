@@ -287,7 +287,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(this, TermsActivity.class));
                 break;
             case R.id.item_conectividad:
-                fragmentoGenerico = new PConectividadFragment();
+                fragmentoGenerico = new PConectividadFragment(getSupportFragmentManager());
                 break;
         }
 

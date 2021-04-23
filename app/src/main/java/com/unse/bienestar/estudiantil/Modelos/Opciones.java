@@ -1,6 +1,16 @@
 package com.unse.bienestar.estudiantil.Modelos;
 
-public class Opciones {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import com.unse.bienestar.estudiantil.R;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+public class Opciones implements Parcelable {
+
+    public static final int BASIC = 1;
 
     private String titulo;
     private int icon, orientation;
@@ -65,9 +75,38 @@ public class Opciones {
         this.disponibility = disponibility;
     }
 
+    public Opciones(boolean dis, int id, String titulo) {
+        this.titulo = titulo;
+        this.id = id;
+        this.disponibility = dis;
+    }
+
     public Opciones(String titulo) {
         this.titulo = titulo;
     }
+
+    protected Opciones(Parcel in) {
+        titulo = in.readString();
+        icon = in.readInt();
+        orientation = in.readInt();
+        color = in.readInt();
+        colorText = in.readInt();
+        sizeText = in.readInt();
+        id = in.readInt();
+        disponibility = in.readByte() != 0;
+    }
+
+    public static final Creator<Opciones> CREATOR = new Creator<Opciones>() {
+        @Override
+        public Opciones createFromParcel(Parcel in) {
+            return new Opciones(in);
+        }
+
+        @Override
+        public Opciones[] newArray(int size) {
+            return new Opciones[size];
+        }
+    };
 
     public int getOrientation() {
         return orientation;
@@ -131,5 +170,48 @@ public class Opciones {
 
     public void setColor(int color) {
         this.color = color;
+    }
+
+    public static Opciones mapper(JSONObject o, int tipo) {
+        String titulo;
+        int id, disponibility;
+        boolean disp = false;
+        Opciones opciones = null;
+        try {
+
+            switch (tipo) {
+                case BASIC:
+                    titulo = o.getString("titulo");
+                    id = Integer.parseInt(o.getString("idservicio"));
+                    disponibility = Integer.parseInt(o.getString("disponibility"));
+                    if (disponibility == 1)
+                        disp = true;
+                    else
+                        disp = false;
+                    opciones = new Opciones(disp, id, titulo);
+
+                    break;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return opciones;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(titulo);
+        dest.writeInt(icon);
+        dest.writeInt(orientation);
+        dest.writeInt(color);
+        dest.writeInt(colorText);
+        dest.writeInt(sizeText);
+        dest.writeInt(id);
+        dest.writeByte((byte) (disponibility ? 1 : 0));
     }
 }

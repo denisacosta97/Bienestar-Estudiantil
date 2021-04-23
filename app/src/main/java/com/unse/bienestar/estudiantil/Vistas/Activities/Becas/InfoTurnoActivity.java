@@ -391,11 +391,13 @@ public class InfoTurnoActivity extends AppCompatActivity implements View.OnClick
         } else if (mTurno.getTipo() == Turno.TIPO_UPA_TURNOS) {
             nombre = "T_UAPU";
         }
-        archivo.setNombreArchivo(String.format("%s_%s",nombre, fecha));
+        archivo.setNombreArchivo(String.format("%s_%s.pdf",nombre, fecha).replaceAll(":","")
+                .replaceAll("-","_").replaceAll(" ","_"));
         DownloadPDF downloadPDF = new DownloadPDF(getApplicationContext(), archivo.getNombreArchivo(true),
                 getSupportFragmentManager(), new YesNoDialogListener() {
             @Override
             public void yes() {
+                openFile(archivo);
                 //completeFile(archivo);
             }
 

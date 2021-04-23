@@ -39,9 +39,38 @@
                 android:fontFamily="@font/montserrat_black"/>
 
             <LinearLayout
+                android:orientation="vertical"
                 android:layout_margin="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    app:cardBackgroundColor="@color/colorWhite"
+                    app:cardCornerRadius="10dp"
+                    android:id="@+id/cardFecha"
+                    android:focusable="true"
+                    android:clickable="true"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:layout_gravity="center"
+                    android:layout_margin="3dp"
+                    android:layout_height="85dp">
+
+
+                    <TextView
+                        android:id="@+id/txtFecha"
+                        android:gravity="center"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="SELECCIONAR FECHA"                        android:textSize="20sp"
+                        android:textColor="@color/colorAccent"
+                        android:layout_margin="0dp"
+                        android:fontFamily="@font/montserrat_black"/>
+
+                </androidx.cardview.widget.CardView>
 
                 <CalendarView
                     android:id="@+id/calendario"
@@ -111,7 +140,9 @@
                     android:text="CONTINUAR"
                     android:textSize="20sp"
                     android:textColor="@color/colorAccent"
-                    android:layout_margin="10dp"
+                    android:layout_gravity="center"
+                    android:paddingEnd="5dp"
+                    android:paddingStart="5dp"
                     android:fontFamily="@font/montserrat_black"/>
 
             </androidx.cardview.widget.CardView>

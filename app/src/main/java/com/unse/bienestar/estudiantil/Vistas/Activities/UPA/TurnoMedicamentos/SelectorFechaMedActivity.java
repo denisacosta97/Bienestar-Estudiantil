@@ -6,6 +6,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
@@ -15,8 +16,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CalendarView;
+import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -46,7 +49,8 @@ public class SelectorFechaMedActivity extends AppCompatActivity implements View.
 
     CalendarView mCalendarView;
     RecyclerView mRecyclerView;
-    CardView cardContinuar;
+    TextView txtFecha;
+    CardView cardContinuar, cardSeleccionar;
     HorariosAdapter adapter;
     RecyclerView.LayoutManager mLayoutManager;
     ArrayList<Horario> copiaHorarios;
@@ -97,6 +101,14 @@ public class SelectorFechaMedActivity extends AppCompatActivity implements View.
             mProgressBarHorario.setIndeterminateDrawable(progress2);
         }
 
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT){
+            cardSeleccionar.setVisibility(View.VISIBLE);
+            mCalendarView.setVisibility(View.GONE);
+        }else{
+            cardSeleccionar.setVisibility(View.GONE);
+            mCalendarView.setVisibility(View.VISIBLE);
+        }
+
         latDatos.setVisibility(View.GONE);
         mProgressBar.setVisibility(View.VISIBLE);
         mProgressBarHorario.setVisibility(View.GONE);
@@ -106,20 +118,8 @@ public class SelectorFechaMedActivity extends AppCompatActivity implements View.
 
         loadFechas();
 
-        /*if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            mCalendar44.setVisibility(View.VISIBLE);
-            mCalendarView.setVisibility(View.GONE);
-
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(new Date(System.currentTimeMillis()));
-            mCalendar44.setMinDate(calendar.getTime().getTime());
-            calendar.add(Calendar.DAY_OF_MONTH, 2);
-            mCalendar44.setMaxDate(calendar.getTime().getTime());
-        }*/
-
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date(System.currentTimeMillis()));
-        mCalendarView.setMinDate(calendar.getTime().getTime() - 1000);
         calendar.add(Calendar.DAY_OF_MONTH, 2);
         mCalendarView.setMaxDate(calendar.getTime().getTime());
 
@@ -140,19 +140,19 @@ public class SelectorFechaMedActivity extends AppCompatActivity implements View.
                 posicionHorario = position;
             }
         });
+        cardSeleccionar.setOnClickListener(this);
         cardContinuar.setOnClickListener(this);
         calendarListener = new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
                 Calendar calendar = new GregorianCalendar(year, month, dayOfMonth);
-                if (!Utils.isDateHabilited(calendar) && isValidDate(calendar)) {
-
+                fecha[0] = calendar.get(Calendar.DAY_OF_MONTH);
+                fecha[1] = calendar.get(Calendar.MONTH) + 1;
+                fecha[2] = calendar.get(Calendar.YEAR);
+                if (!Utils.isDateHabilited(calendar) && !isValidDate(calendar)) {
                     getHorarios(calendar);
                 } else {
-                    Utils.showToast(getApplicationContext(), getString(R.string.becaTurnoNoDia));
-                    mProgressBarHorario.setVisibility(View.GONE);
-                    cardContinuar.setVisibility(View.INVISIBLE);
-                    mRecyclerView.setVisibility(View.GONE);
+                    checkDay(calendar);
                 }
             }
         };
@@ -179,10 +179,10 @@ public class SelectorFechaMedActivity extends AppCompatActivity implements View.
                 if (calendar.get(Calendar.DAY_OF_MONTH) == vector3.x
                         && calendar.get(Calendar.MONTH) + 1 == vector3.y
                         && calendar.get(Calendar.YEAR) == vector3.z) {
-                    return false;
+                    return true;
                 }
             }
-            return true;
+            return false;
         }
         return false;
     }
@@ -311,10 +311,12 @@ public class SelectorFechaMedActivity extends AppCompatActivity implements View.
                             adapter = new HorariosAdapter(copiaHorarios, getApplicationContext());
                             mRecyclerView.setAdapter(adapter);
 
-                            checkDay();
+
 
                             mRecyclerView.setVisibility(View.VISIBLE);
                             cardContinuar.setVisibility(View.VISIBLE);
+
+                            checkDay(null);
                         }
 
                         break;
@@ -336,12 +338,18 @@ public class SelectorFechaMedActivity extends AppCompatActivity implements View.
         }
     }
 
-    private void checkDay() {
-        Calendar calendar = Calendar.getInstance();
+    private void checkDay(Calendar calendar) {
+        if (calendar == null) {
+            calendar = Calendar.getInstance();
+            calendar.set(Calendar.DAY_OF_MONTH, fecha[0]);
+            calendar.set(Calendar.MONTH, fecha[1] - 1);
+            calendar.set(Calendar.YEAR, fecha[2]);
+        }
+       /* Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.DAY_OF_MONTH, fecha[0]);
         calendar.set(Calendar.MONTH, fecha[1] - 1);
-        calendar.set(Calendar.YEAR, fecha[2]);
-        if (!isValidDate(calendar)) {
+        calendar.set(Calendar.YEAR, fecha[2]);*/
+        if (!Utils.isDateHabilited(calendar) && isValidDate(calendar)) {
             Utils.showToast(getApplicationContext(), getString(R.string.becaTurnoNoDia));
             mProgressBarHorario.setVisibility(View.GONE);
             cardContinuar.setVisibility(View.INVISIBLE);
@@ -425,7 +433,7 @@ public class SelectorFechaMedActivity extends AppCompatActivity implements View.
                     mRecyclerView.setVisibility(View.VISIBLE);
                     cardContinuar.setVisibility(View.VISIBLE);
 
-                    checkDay();
+                    checkDay(null);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -466,6 +474,7 @@ public class SelectorFechaMedActivity extends AppCompatActivity implements View.
         fecha[0] = calendar.get(Calendar.DAY_OF_MONTH);
         fecha[1] = calendar.get(Calendar.MONTH) + 1;
         fecha[2] = calendar.get(Calendar.YEAR);
+        txtFecha.setText(String.format("SELECCIONAR FECHA\n\n%02d/%02d/%s", fecha[0], fecha[1], fecha[2]));
         PreferenceManager manager = new PreferenceManager(getApplicationContext());
         String key = manager.getValueString(Utils.TOKEN);
         int idLocal = manager.getValueInt(Utils.MY_ID);
@@ -489,6 +498,8 @@ public class SelectorFechaMedActivity extends AppCompatActivity implements View.
     }
 
     private void loadViews() {
+        txtFecha = findViewById(R.id.txtFecha);
+        cardSeleccionar = findViewById(R.id.cardFecha);
         mRecyclerView = findViewById(R.id.recycler);
         mProgressBarHorario = findViewById(R.id.progresHorario);
         mCalendarView = findViewById(R.id.calendario);
@@ -500,6 +511,9 @@ public class SelectorFechaMedActivity extends AppCompatActivity implements View.
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.cardFecha:
+                openDialog();
+                break;
             case R.id.cardContinuar:
                 if (posicionHorario == -1)
                     Utils.showToast(getApplicationContext(), getString(R.string.becaTurnoSeleccionaHorario));
@@ -507,6 +521,34 @@ public class SelectorFechaMedActivity extends AppCompatActivity implements View.
                 break;
         }
     }
+
+    private void openDialog() {
+        final Calendar calendar = Calendar.getInstance();
+        DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                  int dayOfMonth) {
+                Calendar calendar = new GregorianCalendar(year, monthOfYear, dayOfMonth);
+                fecha[0] = calendar.get(Calendar.DAY_OF_MONTH);
+                fecha[1] = calendar.get(Calendar.MONTH) + 1;
+                fecha[2] = calendar.get(Calendar.YEAR);
+                if (!Utils.isDateHabilited(calendar) && !isValidDate(calendar)) {
+                    txtFecha.setText(String.format("SELECCIONAR FECHA\n\n%02d/%02d/%s", dayOfMonth, monthOfYear + 1, year));
+                    getHorarios(calendar);
+                } else {
+                    checkDay(calendar);
+                }
+
+            }
+
+        };
+
+        new DatePickerDialog(this, date, calendar
+                .get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)).show();
+    }
+
 
     private void openFinal() {
         Intent intent = new Intent(getApplicationContext(), MedicamentosActivity.class);

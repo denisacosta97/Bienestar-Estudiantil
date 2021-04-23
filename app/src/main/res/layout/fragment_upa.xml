@@ -226,7 +226,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="08:00hs - 12:00hs y 14:00hs - 18:00hs"
+                    android:text="Con turnos programados"
                     android:textSize="16sp"
                     android:fontFamily="@font/montserrat_regular"/>
 

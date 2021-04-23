@@ -9,8 +9,8 @@ android {
         applicationId "com.unse.bienestar.estudiantil"
         minSdkVersion 16
         targetSdkVersion 29
-        versionCode 11
-        versionName "0.1.9"
+        versionCode 13
+        versionName "0.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled = true
         vectorDrawables.useSupportLibrary = true
@@ -25,7 +25,7 @@ android {
 
     signingConfigs {
         release {
-            storeFile file("E:/Cosas de Denis/BienestarEstudiantilFinal/key_bienestar_2.jks")
+            storeFile file("F:/Cosas de Denis/BienestarEstudiantilFinal/key_bienestar_2.jks")
             storePassword "unse@belgrano"
             keyAlias "BienestarUser"
             keyPassword "unse@belgrano"

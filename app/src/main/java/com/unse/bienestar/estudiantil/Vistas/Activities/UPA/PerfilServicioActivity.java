@@ -10,11 +10,14 @@ import android.widget.TextView;
 
 import com.unse.bienestar.estudiantil.Herramientas.Utils;
 import com.unse.bienestar.estudiantil.Interfaces.YesNoDialogListener;
+import com.unse.bienestar.estudiantil.Modelos.Doctor;
 import com.unse.bienestar.estudiantil.Modelos.ServiciosUPA;
 import com.unse.bienestar.estudiantil.R;
 import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoGeneral;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.ArrayList;
 
 public class PerfilServicioActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -22,6 +25,7 @@ public class PerfilServicioActivity extends AppCompatActivity implements View.On
     Button btnTurno;
     TextView txtName, txtNameDoc, txtDia, txtHorarios, txtDesc;
     ImageView imgIcono;
+    ArrayList<Doctor> mDoctor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +35,10 @@ public class PerfilServicioActivity extends AppCompatActivity implements View.On
 
         if (getIntent().getParcelableExtra(Utils.SERVICIO_NAME) != null) {
             mServicio = getIntent().getParcelableExtra(Utils.SERVICIO_NAME);
+        }
+
+        if (getIntent().getSerializableExtra(Utils.DOCTOR) != null) {
+            mDoctor = (ArrayList<Doctor>) getIntent().getSerializableExtra(Utils.DOCTOR);
         }
 
         if (mServicio != null) {
@@ -56,7 +64,14 @@ public class PerfilServicioActivity extends AppCompatActivity implements View.On
 
     private void loadData() {
         txtName.setText(mServicio.getName());
-        txtNameDoc.setText(mServicio.getNomApMed());
+        StringBuilder doctors = new StringBuilder();
+        if (mDoctor != null){
+            for (Doctor doctor : mDoctor){
+                doctors.append(doctor.getNombre()).append(" ").append(doctor.getApellido()).append("\n");
+            }
+            txtNameDoc.setText(doctors.toString().substring(0, doctors.length()-1));
+        }
+
         txtDia.setText(mServicio.getDias());
         txtHorarios.setText(mServicio.getHora());
         txtDesc.setText(mServicio.getDesc());
@@ -105,7 +120,7 @@ public class PerfilServicioActivity extends AppCompatActivity implements View.On
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnTurno:
-                if (mServicio.getTurnos() == 1) {
+                if (mServicio != null && mServicio.getTurnos() == 1) {
                     Intent intent = new Intent(getApplicationContext(), SelectorFechaUPAActivity.class);
                     intent.putExtra(Utils.SERVICIO, mServicio);
                     startActivity(intent);

@@ -68,7 +68,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="16sp"
-                                android:text="Matías Umañoweieong"
+                                android:text=""
                                 android:fontFamily="@font/montserrat_regular"/>
 
                         </LinearLayout>
@@ -93,7 +93,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:textSize="16sp"
-                                android:text="lunes, miércoles y viernes."
+                                android:text=""
                                 android:fontFamily="@font/montserrat_regular"/>
 
                         </LinearLayout>
@@ -118,7 +118,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:textSize="16sp"
-                                android:text="15:00hs, 16:00hs y 17:00hs."
+                                android:text=""
                                 android:fontFamily="@font/montserrat_regular"/>
 
                         </LinearLayout>
@@ -143,7 +143,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:textSize="16sp"
-                                android:text="Club Dorrego"
+                                android:text=""
                                 android:fontFamily="@font/montserrat_regular"/>
 
                         </LinearLayout>

@@ -15,6 +15,7 @@ import com.unse.bienestar.estudiantil.Herramientas.Almacenamiento.PreferenceMana
 import com.unse.bienestar.estudiantil.Herramientas.RecyclerListener.ItemClickSupport;
 import com.unse.bienestar.estudiantil.Herramientas.Utils;
 import com.unse.bienestar.estudiantil.Herramientas.VolleySingleton;
+import com.unse.bienestar.estudiantil.Modelos.Doctor;
 import com.unse.bienestar.estudiantil.Modelos.ServiciosUPA;
 import com.unse.bienestar.estudiantil.R;
 import com.unse.bienestar.estudiantil.Vistas.Adaptadores.ServiciosUPAAdapter;
@@ -35,6 +36,7 @@ public class ServiciosUPAActivity extends AppCompatActivity implements View.OnCl
     RecyclerView.LayoutManager mLayoutManager;
     RecyclerView recycler;
     ArrayList<ServiciosUPA> mServicios;
+    ArrayList<Doctor> mDoctors;
     ServiciosUPAAdapter mAdapter;
     ImageView imgIcono;
     DialogoProcesamiento dialog;
@@ -114,9 +116,11 @@ public class ServiciosUPAActivity extends AppCompatActivity implements View.OnCl
 
     private void loadInfo(JSONObject jsonObject) {
         try {
-            if (jsonObject.has("mensaje")) {
+            if (jsonObject.has("mensaje") && jsonObject.has("datos")) {
                 JSONArray jsonArray = jsonObject.getJSONArray("mensaje");
+                JSONArray doc = jsonObject.getJSONArray("datos");
                 mServicios = new ArrayList<>();
+                mDoctors = new ArrayList<>();
 
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject o = jsonArray.getJSONObject(i);
@@ -124,6 +128,16 @@ public class ServiciosUPAActivity extends AppCompatActivity implements View.OnCl
                     mServicios.add(serviciosUPA);
 
                 }
+
+                for (int j = 0; j < doc.length(); j++) {
+
+                    JSONObject o = doc.getJSONObject(j);
+
+                    Doctor doctor = Doctor.mapper(o, Doctor.MEDIUM);
+
+                    mDoctors.add(doctor);
+                }
+
                 if (mServicios.size() > 0) {
                     mAdapter = new ServiciosUPAAdapter(mServicios, getApplicationContext());
                     mLayoutManager = new LinearLayoutManager(getApplicationContext(), RecyclerView.VERTICAL, false);
@@ -145,6 +159,14 @@ public class ServiciosUPAActivity extends AppCompatActivity implements View.OnCl
             public void onItemClick(RecyclerView parent, View view, int position, long id) {
                 Intent i = new Intent(getApplicationContext(), PerfilServicioActivity.class);
                 i.putExtra(Utils.SERVICIO_NAME, mServicios.get(position));
+                ArrayList<Doctor> doc = new ArrayList<>();
+                for (Doctor doctor : mDoctors) {
+                    if (doctor.getIdServicio() == mServicios.get(position).getIdServicio()) {
+                        doc.add(doctor);
+                    }
+                }
+                if (doc.size() > 0)
+                    i.putExtra(Utils.DOCTOR, doc);
                 startActivity(i);
             }
         });

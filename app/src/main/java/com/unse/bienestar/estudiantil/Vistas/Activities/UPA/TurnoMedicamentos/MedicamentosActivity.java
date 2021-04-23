@@ -59,11 +59,12 @@ import static com.unse.bienestar.estudiantil.Herramientas.Utils.faya;
 public class MedicamentosActivity extends AppCompatActivity implements View.OnClickListener {
 
     ArrayAdapter<String> medic;
+    String med;
     Spinner spinner;
     Button btnMed;
     CardView cardContinuar;
     DialogoProcesamiento dialog;
-    String med;
+
     int[] mCalendar;
     String horarios;
 

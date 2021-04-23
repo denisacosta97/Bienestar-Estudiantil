@@ -9,6 +9,7 @@ import com.unse.bienestar.estudiantil.Herramientas.Utils;
 import com.unse.bienestar.estudiantil.Interfaces.YesNoDialogListener;
 import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoProcesamiento;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -62,7 +63,15 @@ public class DownloadPDF extends AsyncTask<String, Integer, String> {
 
             // Descargar archivo
             input = connection.getInputStream();
-            output = new FileOutputStream(Utils.getDirectoryPath(isExt, context)+nombreArchivo);
+            /*File folder = new File(Utils.getDirectoryPath(isExt, context));
+            if (!folder.exists()){
+                folder.mkdir();
+            }
+            File file = new File(Utils.getDirectoryPath(isExt, context), nombreArchivo);
+            if (!file.exists()){
+                file.mkdirs();
+            }*/
+            output = new FileOutputStream(Utils.getDirectoryPath(isExt, context) + nombreArchivo);
 
             byte data[] = new byte[4096];
             long total = 0;

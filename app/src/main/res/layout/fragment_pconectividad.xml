@@ -151,6 +151,7 @@
             android:background="@drawable/corners_rounded_green" />
 
         <TextView
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

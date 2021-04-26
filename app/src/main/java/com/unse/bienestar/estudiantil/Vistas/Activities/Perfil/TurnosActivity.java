@@ -181,6 +181,26 @@ public class TurnosActivity extends AppCompatActivity implements View.OnClickLis
 
             }
 
+            if (jsonObject.has("puntos")) {
+
+                if (mList == null)
+                    mList = new ArrayList<>();
+
+                JSONArray datos = jsonObject.getJSONArray("puntos");
+                for (int i = 0; i < datos.length(); i++) {
+                    JSONObject object = datos.getJSONObject(i);
+
+                    Turno turno = Turno.mapper(object, Turno.TIPO_PC_TURNOS);
+                    if (turno != null)
+                        turno.setTipo(Turno.TIPO_PC_TURNOS);
+                    else
+                        Log.e("rr", "rfff");
+
+                    mList.add(turno);
+                }
+
+            }
+
             Collections.sort(mList, new Comparator<Turno>() {
                 @Override
                 public int compare(Turno o1, Turno o2) {

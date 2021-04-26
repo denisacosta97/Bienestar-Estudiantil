@@ -31,9 +31,19 @@
             android:layout_margin="10dp"
             android:layout_marginTop="10dp"
             android:textColor="@color/blackTextColor"
-            android:text="Puntos de Conectividad es una nueva propuesta por parte de la Secretaría de Bienestar Estudiantil para brindar acceso gratuito a internet en las diferentes zonas habilitadas. "
+            android:text="@string/descPC"
             android:textSize="16sp"
             android:fontFamily="@font/montserrat_regular"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/blackTextColor"
+            android:text="Selecciona un punto de conectividad:"
+            android:textSize="16sp"
+            android:fontFamily="@font/montserrat_black"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler"
@@ -60,7 +70,7 @@
                 android:id="@+id/txtError"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="ERROR AL OBTENER LISTADO DE DEPORTES"
+                android:text="ERROR AL OBTENER LISTADO DE PUNTOS"
                 android:textColor="@color/colorPrimaryDark"
                 android:fontFamily="@font/montserrat_black"
                 android:textSize="18sp"
@@ -124,7 +134,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="Sin horarios"
+                    android:textIsSelectable="true"
+                    android:text="08:00hs a 20:00hs"
                     android:textSize="16sp"
                     android:fontFamily="@font/montserrat_regular"/>
 
@@ -149,6 +160,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:textIsSelectable="true"
                     android:text="3854509519"
                     android:textSize="16sp"
                     android:fontFamily="@font/montserrat_regular"/>
@@ -175,7 +187,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:textIsSelectable="true"
-                    android:text="tehuelche@unse.edu.ar"
+                    android:text="appbienestar20@gmail.com"
                     android:textSize="16sp"
                     android:fontFamily="@font/montserrat_regular"/>
 

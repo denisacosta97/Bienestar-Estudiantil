@@ -1,7 +1,6 @@
 package com.unse.bienestar.estudiantil.Vistas.Fragmentos;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -9,8 +8,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,15 +23,9 @@ import com.unse.bienestar.estudiantil.Herramientas.Almacenamiento.PreferenceMana
 import com.unse.bienestar.estudiantil.Herramientas.RecyclerListener.ItemClickSupport;
 import com.unse.bienestar.estudiantil.Herramientas.Utils;
 import com.unse.bienestar.estudiantil.Herramientas.VolleySingleton;
-import com.unse.bienestar.estudiantil.Modelos.Deporte;
 import com.unse.bienestar.estudiantil.Modelos.Opciones;
 import com.unse.bienestar.estudiantil.R;
-import com.unse.bienestar.estudiantil.Vistas.Activities.Becas.InfoBecasActivity;
-import com.unse.bienestar.estudiantil.Vistas.Activities.Becas.TipoTurnosActivity;
-import com.unse.bienestar.estudiantil.Vistas.Activities.Deportes.InfoDeporteActivity;
-import com.unse.bienestar.estudiantil.Vistas.Activities.PuntosConectividad.NewTurnoConectividadActivity;
 import com.unse.bienestar.estudiantil.Vistas.Activities.PuntosConectividad.SelectorFechaPCActivity;
-import com.unse.bienestar.estudiantil.Vistas.Adaptadores.DeportesAdapter;
 import com.unse.bienestar.estudiantil.Vistas.Adaptadores.OpcionesSimpleAdapter;
 import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoProcesamiento;
 
@@ -115,7 +106,7 @@ public class PConectividadFragment extends Fragment {
         int id = manager.getValueInt(Utils.MY_ID);
         if (id == 0)
             id = 1;
-        String URL = String.format("%s?key=%s&idU=%s&iu=%s", Utils.URL_PC_GETALL, isLogin ? key : "1", id, id);
+        String URL = String.format("%s?key=%s&idU=%s&iu=%s", Utils.URL_PC_ZONAS, isLogin ? key : "1", id, id);
         StringRequest request = new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

@@ -62,7 +62,6 @@
 
                     </androidx.cardview.widget.CardView>
 
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -244,11 +243,33 @@
 
                     </LinearLayout>
 
+                    <LinearLayout
+                        android:id="@+id/latQR"
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Tú código QR: "
+                            android:textSize="16sp"
+                            android:textColor="@color/blackTextColor"
+                            android:fontFamily="@font/montserrat_black"/>
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_gravity="center"
+                            android:id="@+id/imgQR"
+                            android:layout_marginTop="10dp"
+                            android:layout_width="200dp"
+                            android:layout_height="200dp"
+                            app:srcCompat="@drawable/ic_qr2"/>
+
+                    </LinearLayout>
 
                 </LinearLayout>
-
-
-
 
             </androidx.cardview.widget.CardView>
 
@@ -293,12 +314,6 @@
 
 
             </LinearLayout>
-
-
-
-
-
-
 
         </LinearLayout>
 

@@ -26,9 +26,9 @@ import com.unse.bienestar.estudiantil.Herramientas.Almacenamiento.PreferenceMana
 import com.unse.bienestar.estudiantil.Herramientas.Utils;
 import com.unse.bienestar.estudiantil.Herramientas.VolleySingleton;
 import com.unse.bienestar.estudiantil.Modelos.Convocatoria;
+import com.unse.bienestar.estudiantil.Modelos.Opciones;
 import com.unse.bienestar.estudiantil.R;
 import com.unse.bienestar.estudiantil.Vistas.Activities.UPA.TurnoMedicamentos.MedicamentosActivity;
-import com.unse.bienestar.estudiantil.Vistas.Activities.UPA.TurnoMedicamentos.ResumenTurnoMedActivity;
 import com.unse.bienestar.estudiantil.Vistas.Activities.UPA.TurnoMedicamentos.SelectorFechaMedActivity;
 
 import org.json.JSONException;
@@ -46,6 +46,7 @@ public class ResumenTurnoPCActivity extends AppCompatActivity implements View.On
     int[] mCalendar;
     String horarios;
     Convocatoria mConvocatoria;
+    Opciones zonas;
 
     public static ResumenTurnoPCActivity instance = null;
 
@@ -65,6 +66,10 @@ public class ResumenTurnoPCActivity extends AppCompatActivity implements View.On
             mCalendar = getIntent().getIntArrayExtra(Utils.DATA_FECHA);
         }
 
+        if (getIntent().getParcelableExtra(Utils.DATA_OPCION) != null) {
+            zonas = getIntent().getParcelableExtra(Utils.DATA_OPCION);
+        }
+
         loadViews();
 
         loadData();
@@ -76,6 +81,7 @@ public class ResumenTurnoPCActivity extends AppCompatActivity implements View.On
         txtFecha.setText(String.format("%s/%s/%s", mCalendar[0]
                 , mCalendar[1], mCalendar[2]));
         txtHora.setText(horarios);
+        txtTipoTurno.setText(zonas.getTitulo());
     }
 
     private void loadListener() {
@@ -222,16 +228,14 @@ public class ResumenTurnoPCActivity extends AppCompatActivity implements View.On
 
     private void sendServer() {
         final HashMap<String, String> map = new HashMap<>();
-        String URL = Utils.URL_MEDICAM_INSERT;
+        String URL = Utils.URL_PC_TURNO;
         PreferenceManager preferenceManager = new PreferenceManager(getApplicationContext());
         final int id = preferenceManager.getValueInt(Utils.MY_ID);
         final String token = preferenceManager.getValueString(Utils.TOKEN);
         StringRequest request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-
                 procesarRespuesta(response);
-
             }
         }, new Response.ErrorListener() {
             @Override
@@ -239,7 +243,6 @@ public class ResumenTurnoPCActivity extends AppCompatActivity implements View.On
                 error.printStackTrace();
                 Utils.showToast(getApplicationContext(), getString(R.string.servidorOff));
                 loadError();
-
             }
         }) {
             @Override
@@ -252,7 +255,7 @@ public class ResumenTurnoPCActivity extends AppCompatActivity implements View.On
                 map.put("key", token);
                 map.put("idU", String.valueOf(id));
                 map.put("iu", String.valueOf(id));
-                //map.put("ti", med);
+                map.put("lu", String.valueOf(zonas.getId()));
                 map.put("ho", horarios);
                 map.put("di", String.valueOf(mCalendar[0]));
                 map.put("me", String.valueOf(mCalendar[1]));
@@ -291,7 +294,7 @@ public class ResumenTurnoPCActivity extends AppCompatActivity implements View.On
                     loadError();
                     break;
                 case 5:
-                    Utils.showToast(getApplicationContext(), getString(R.string.TurnoMedYaReservado));
+                    Utils.showToast(getApplicationContext(), getString(R.string.FueraHora));
                     showProgressDialog(false);
                     animateButtonWidth(false);
                     fadeOutInTextProgress();

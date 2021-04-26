@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.unse.bienestar.estudiantil">
 
     <uses-feature android:name="android.hardware.location.gps" />
@@ -27,7 +28,6 @@
         <activity android:name=".Vistas.Activities.UPA.TurnoMedicamentos.ResumenTurnoMedActivity" />
         <activity android:name=".Vistas.Activities.UPA.TurnoMedicamentos.SelectorFechaMedActivity" />
         <activity android:name=".Vistas.Activities.UPA.ListMedicamentoActivity" />
-        <activity android:name=".Vistas.Activities.PuntosConectividad.NewTurnoConectividadActivity" />
         <activity android:name=".Vistas.Activities.UPA.TurnoMedicamentos.MedicamentosActivity" />
         <activity android:name=".Vistas.Activities.Becas.RecomendacionesActivity" />
         <activity android:name=".Vistas.Activities.Becas.CargarDocumentacionActivity" />

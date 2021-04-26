@@ -5,6 +5,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.os.StrictMode;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
@@ -19,6 +21,12 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.bumptech.glide.Glide;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.common.BitMatrix;
+import com.itextpdf.barcodes.qrcode.WriterException;
+import com.journeyapps.barcodescanner.BarcodeEncoder;
 import com.unse.bienestar.estudiantil.BuildConfig;
 import com.unse.bienestar.estudiantil.Herramientas.Almacenamiento.PreferenceManager;
 import com.unse.bienestar.estudiantil.Herramientas.PDF.DownloadPDF;
@@ -57,9 +65,10 @@ public class InfoTurnoActivity extends AppCompatActivity implements View.OnClick
     Button btnCancelar, btnPDF;
     Turno mTurno;
     DialogoProcesamiento dialog;
-    ImageView imgIcono;
+    ImageView imgIcono, imgQR;
     boolean change = false;
     StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+    LinearLayout latQR;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,7 +106,11 @@ public class InfoTurnoActivity extends AppCompatActivity implements View.OnClick
         } else if (mTurno.getTipo() == Turno.TIPO_UPA_TURNOS) {
             txtOpcion.setText("Especialidad:");
             txtReceptor.setText(mTurno.getDescripcion());
+        } else if (mTurno.getTipo() == Turno.TIPO_PC_TURNOS) {
+            txtOpcion.setText("Zona:");
+            txtReceptor.setText(mTurno.getTitulo());
         }
+
 
         txtTitulo.setText(mTurno.getTitulo());
         txtHorario.setText(mTurno.getFechaInicio());
@@ -109,6 +122,10 @@ public class InfoTurnoActivity extends AppCompatActivity implements View.OnClick
             case "PENDIENTE":
             case "RESERVADO":
                 cardEstado.setCardBackgroundColor(getApplicationContext().getResources().getColor(R.color.colorOrange));
+                latQR.setVisibility(View.VISIBLE);
+                if(mTurno.getTipo() == Turno.TIPO_PC_TURNOS){
+                    generateQR(mTurno);
+                }
                 break;
             case "CONFIRMADO":
             case "RETIRADO":
@@ -149,6 +166,8 @@ public class InfoTurnoActivity extends AppCompatActivity implements View.OnClick
         btnCancelar = findViewById(R.id.btnCancelar);
         btnPDF = findViewById(R.id.btnPDF);
         imgIcono = findViewById(R.id.imgFlecha);
+        latQR = findViewById(R.id.latQR);
+        imgQR = findViewById(R.id.imgQR);
     }
 
     @Override
@@ -211,7 +230,6 @@ public class InfoTurnoActivity extends AppCompatActivity implements View.OnClick
             @Override
             public void onResponse(String response) {
                 procesarRespuesta(response, 2);
-
             }
         }, new Response.ErrorListener() {
             @Override
@@ -240,7 +258,11 @@ public class InfoTurnoActivity extends AppCompatActivity implements View.OnClick
                 } else if (mTurno.getTipo() == Turno.TIPO_UPA_TURNOS) {
                     param.put("tipo", String.valueOf(3));
                     param.put("it", String.valueOf(mTurno.getId()));
-                } else {
+                } else if (mTurno.getTipo() == Turno.TIPO_PC_TURNOS) {
+                    param.put("tipo", String.valueOf(3));
+                    param.put("it", String.valueOf(mTurno.getId()));
+                }
+                else {
                     param.put("tipo", String.valueOf(1));
                     param.put("di", String.valueOf(mTurno.getDia()));
                     param.put("me", String.valueOf(mTurno.getMes()));
@@ -288,7 +310,10 @@ public class InfoTurnoActivity extends AppCompatActivity implements View.OnClick
             URL = Utils.URL_MEDICAM_CANCELAR;
         } else if (mTurno.getTipo() == Turno.TIPO_UPA_TURNOS) {
             URL = Utils.URL_TURNO_UPA_CANCELAR;
+        } else if (mTurno.getTipo() == Turno.TIPO_PC_TURNOS) {
+            URL = Utils.URL_PC_CANCELAR;
         }
+
         StringRequest requestImage = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -319,7 +344,11 @@ public class InfoTurnoActivity extends AppCompatActivity implements View.OnClick
                 } else if (mTurno.getTipo() == Turno.TIPO_UPA_TURNOS) {
                     param.put("es", String.valueOf(2));
                     param.put("it", String.valueOf(mTurno.getId()));
-                } else {
+                } else if (mTurno.getTipo() == Turno.TIPO_PC_TURNOS) {
+                    param.put("it", String.valueOf(mTurno.getId()));
+                    param.put("es", String.valueOf(2));
+                }
+                else {
                     param.put("di", String.valueOf(mTurno.getDia()));
                     param.put("me", String.valueOf(mTurno.getMes()));
                     param.put("re", String.valueOf(mTurno.getReceptor()));
@@ -367,6 +396,9 @@ public class InfoTurnoActivity extends AppCompatActivity implements View.OnClick
                     break;
                 case 4:
                     Utils.showToast(getApplicationContext(), getString(R.string.camposInvalidos));
+                    break;
+                case 6:
+                    Utils.showToast(getApplicationContext(), "Tienes un turno previo");
                     break;
                 case 100:
                     Utils.showToast(getApplicationContext(), getString(R.string.tokenInexistente));
@@ -447,5 +479,36 @@ public class InfoTurnoActivity extends AppCompatActivity implements View.OnClick
         ((TextView) findViewById(R.id.txtTitulo)).setText("Estado del Turno");
         ((TextView) findViewById(R.id.txtTitulo)).setTextColor(getResources().getColor(R.color.colorAccent));
         Utils.changeColorDrawable(((ImageView) findViewById(R.id.imgFlecha)), getApplicationContext(), R.color.colorAccent);
+    }
+
+    private void generateQR(Turno turno) {
+        MultiFormatWriter formatWriter = new MultiFormatWriter();
+        try {
+            StringBuilder builder = new StringBuilder();
+            // builder.append("COMEDOR UNIVERSITARIO - BIENESTAR ESTUDIANTIL");
+            //builder.append("\n");
+            builder.append("¡MUCHAS GRACIAS POR RESERVAR!");
+            builder.append("\n");
+            String[] dni = new String[String.valueOf(turno.getDni()).length()];
+            for (int i = 0; i < dni.length; i++) {
+                char valor = Utils.encode(String.valueOf(turno.getDni()).charAt(i));
+                dni[i] = String.valueOf(valor);
+            }
+            StringBuilder dniModif = new StringBuilder();
+            for (int i = 0; i < dni.length; i++) {
+                dniModif.append(dni[i]);
+            }
+            builder.append(String.format("#%s-%s#", dniModif, turno.getId()));
+            //txtCodigoQR.setText(String.format("COM-%s-%s", dniModif, reserva.getIdReserva()));
+            BitMatrix matrix = formatWriter.encode(builder.toString(), BarcodeFormat.QR_CODE, 300, 300);
+            BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
+            Bitmap bitmap = barcodeEncoder.createBitmap(matrix);
+            if (bitmap != null) {
+                Glide.with(imgQR.getContext()).load(bitmap).into(imgQR);
+            }
+        } catch (com.google.zxing.WriterException e) {
+            e.printStackTrace();
+        }
+
     }
 }

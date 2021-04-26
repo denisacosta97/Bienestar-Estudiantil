@@ -74,6 +74,11 @@ public class TurnosAdapter extends RecyclerView.Adapter<TurnosAdapter.TurnoViewH
                 holder.txtFecha.setText(String.format("%02d/%02d/%s, %s", turno.getDia(), turno.getMes(), turno.getAnio(),
                         turno.getFechaInicio()));
                 break;
+            case Turno.TIPO_PC_TURNOS:
+                holder.txtDescripcion.setText("PUNTOS C.");
+                holder.txtFecha.setText(String.format("%02d/%02d/%s", turno.getDia(),
+                        turno.getMes(), turno.getAnio()));
+                break;
         }
         //Glide.with(holder.imgIcon.getContext()).load(estado).into(holder.imgIcon);
         holder.txtEstado.setText(turno.getEstado());

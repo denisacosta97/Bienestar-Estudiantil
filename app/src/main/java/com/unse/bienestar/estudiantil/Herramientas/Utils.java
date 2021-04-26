@@ -370,10 +370,11 @@ public class Utils {
     //PUNTOS DE CONECTIVIDAD
     public static final String URL_PC_TURNO  = "https://" + IP + "/general/conectividad/insertar.php";
     public static final String URL_PC_HORARIOS  = "https://" + IP + "/general/conectividad/horarios.json";
-    public static final String URL_PC_TURNOSHORARIOS  = "https://" + IP + "/general/conectividad/getTurnosHorarios.php";
+    public static final String URL_PC_TURNOSHORARIOS  = "https://" + IP + "/general/conectividad/getTurnoHorarios.php";
     public static final String URL_PC_BYDAY  = "https://" + IP + "/general/conectividad/getByDay.php";
     public static final String URL_PC_GETALL  = "https://" + IP + "/general/conectividad/getAll.php";
     public static final String URL_PC_CANCELAR = "https://" + IP + "/general/conectividad/cancelar.php";
+    public static final String URL_PC_ZONAS = "https://" + IP + "/general/conectividad/getLugares.php";
 
     //CARPETAS
     public static final String FOLDER = "BIENESTAR_ESTUDIANTIL/";
@@ -1371,6 +1372,27 @@ public class Utils {
         int nameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
         cursor.moveToFirst();
         return cursor.getString(nameIndex);
+    }
+
+    public static char encode(char charAt) {
+        if (charAt % 2 == 0) {
+
+            switch (charAt) {
+                case '0':
+                    return 'M';
+                case '2':
+                    return 'U';
+                case '4':
+                    return 'T';
+                case '6':
+                    return 'W';
+                case '8':
+                    return 'X';
+                default:
+                    return charAt;
+            }
+
+        } else return charAt;
     }
 }
 

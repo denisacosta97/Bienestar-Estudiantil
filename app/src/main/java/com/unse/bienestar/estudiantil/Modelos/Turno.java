@@ -1,5 +1,6 @@
 package com.unse.bienestar.estudiantil.Modelos;
 
+
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -17,12 +18,12 @@ public class Turno implements Parcelable {
     public static final int TIPO_BECA = 1;
     public static final int TIPO_UPA_MEDICAMENTO = 2;
     public static final int TIPO_UPA_TURNOS = 3;
+    public static final int TIPO_PC_TURNOS = 5;
 
-    int id, receptor, dia, mes, anio;
+    int id, receptor, dia, mes, anio, idEstado;
     String titulo, descripcion, nombre, apellido, dni;
-    String estado, fechaInicio, fechaFin, fecha, receptorString, fechaRegistro;
+    String estado, fechaInicio, fechaFin, fecha, receptorString, fechaRegistro, horario;
     int tipo;
-
 
     public Turno(String titulo, String descripcion, String estado, String fechaInicio, String fechaFin,
                  String fecha, String dni, String nombre, String apellido) {
@@ -41,6 +42,52 @@ public class Turno implements Parcelable {
         this.receptor = receptor;
         this.fechaInicio = fechaInicio;
     }
+
+    public Turno(int id, String dni, int idEstado, int dia, int mes, int anio, String horario, String estado, String titulo) {
+        this.id = id;
+        this.dni = dni;
+        this.idEstado = idEstado;
+        this.dia = dia;
+        this.mes = mes;
+        this.anio = anio;
+        this.horario = horario;
+        this.estado = estado;
+        this.titulo = titulo;
+    }
+
+    protected Turno(Parcel in) {
+        id = in.readInt();
+        receptor = in.readInt();
+        dia = in.readInt();
+        mes = in.readInt();
+        anio = in.readInt();
+        idEstado = in.readInt();
+        titulo = in.readString();
+        descripcion = in.readString();
+        nombre = in.readString();
+        apellido = in.readString();
+        dni = in.readString();
+        estado = in.readString();
+        fechaInicio = in.readString();
+        fechaFin = in.readString();
+        fecha = in.readString();
+        receptorString = in.readString();
+        fechaRegistro = in.readString();
+        horario = in.readString();
+        tipo = in.readInt();
+    }
+
+    public static final Creator<Turno> CREATOR = new Creator<Turno>() {
+        @Override
+        public Turno createFromParcel(Parcel in) {
+            return new Turno(in);
+        }
+
+        @Override
+        public Turno[] newArray(int size) {
+            return new Turno[size];
+        }
+    };
 
     public int getTipo() {
         return tipo;
@@ -74,38 +121,7 @@ public class Turno implements Parcelable {
         this.anio = anio;
     }
 
-    protected Turno(Parcel in) {
-        id = in.readInt();
-        receptor = in.readInt();
-        dia = in.readInt();
-        mes = in.readInt();
-        anio = in.readInt();
-        titulo = in.readString();
-        descripcion = in.readString();
-        nombre = in.readString();
-        apellido = in.readString();
-        dni = in.readString();
-        estado = in.readString();
-        fechaInicio = in.readString();
-        fechaFin = in.readString();
-        fecha = in.readString();
-        receptorString = in.readString();
-        fechaRegistro = in.readString();
-        tipo = in.readInt();
-    }
 
-
-    public static final Creator<Turno> CREATOR = new Creator<Turno>() {
-        @Override
-        public Turno createFromParcel(Parcel in) {
-            return new Turno(in);
-        }
-
-        @Override
-        public Turno[] newArray(int size) {
-            return new Turno[size];
-        }
-    };
 
     public int getReceptor() {
         return receptor;
@@ -225,6 +241,22 @@ public class Turno implements Parcelable {
         this.apellido = apellido;
     }
 
+    public String getHorario() {
+        return horario;
+    }
+
+    public void setHorario(String horario) {
+        this.horario = horario;
+    }
+
+    public int getIdEstado() {
+        return idEstado;
+    }
+
+    public void setIdEstado(int idEstado) {
+        this.idEstado = idEstado;
+    }
+
     public Turno(int id, String descripcion, String estado, String fechaRegistro) {
         this.id = id;
         this.descripcion = descripcion;
@@ -235,9 +267,9 @@ public class Turno implements Parcelable {
     public static Turno mapper(JSONObject object, int tipo) {
         Turno turno = null;
         try {
-            int id, receptor, dia, mes, anio;
+            int id, receptor, dia, mes, anio, idEstado;
             String titulo, descripcion, nombre, apellido, dni, horario;
-            String estado, fechaInicio, fechaFin, fecha, fechRegistro;
+            String estado, fechaInicio, fechaFin, fecha, fechRegistro, lugar;
             switch (tipo) {
                 case UAPU:
                     id = Integer.parseInt(object.getString("idusuario"));
@@ -292,6 +324,19 @@ public class Turno implements Parcelable {
                     turno.setReceptor(String.format("Receptor %s", receptor));
                     turno.setFechaRegistro(fechRegistro);
                     break;
+                case TIPO_PC_TURNOS:
+                    id = Integer.parseInt(object.getString("id"));
+                    dni = object.getString("idusuario");
+                    idEstado = Integer.parseInt(object.getString("idestado"));
+                    dia = Integer.parseInt(object.getString("dia"));
+                    mes = Integer.parseInt(object.getString("mes"));
+                    anio = Integer.parseInt(object.getString("anio"));
+                    horario = object.getString("horario");
+                    estado = object.getString("descripcion");
+                    titulo = object.getString("nombrelugar");
+
+                    turno = new Turno(id, dni, idEstado, dia, mes, anio, horario, estado, titulo);
+                    break;
 
             }
         } catch (JSONException e) {
@@ -316,11 +361,13 @@ public class Turno implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+
         dest.writeInt(id);
         dest.writeInt(receptor);
         dest.writeInt(dia);
         dest.writeInt(mes);
         dest.writeInt(anio);
+        dest.writeInt(idEstado);
         dest.writeString(titulo);
         dest.writeString(descripcion);
         dest.writeString(nombre);
@@ -332,6 +379,8 @@ public class Turno implements Parcelable {
         dest.writeString(fecha);
         dest.writeString(receptorString);
         dest.writeString(fechaRegistro);
+        dest.writeString(horario);
         dest.writeInt(tipo);
     }
+
 }

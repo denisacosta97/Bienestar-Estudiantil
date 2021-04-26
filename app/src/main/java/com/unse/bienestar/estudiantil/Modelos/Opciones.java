@@ -75,10 +75,9 @@ public class Opciones implements Parcelable {
         this.disponibility = disponibility;
     }
 
-    public Opciones(boolean dis, int id, String titulo) {
+    public Opciones(int id, String titulo) {
         this.titulo = titulo;
         this.id = id;
-        this.disponibility = dis;
     }
 
     public Opciones(String titulo) {
@@ -181,14 +180,10 @@ public class Opciones implements Parcelable {
 
             switch (tipo) {
                 case BASIC:
-                    titulo = o.getString("titulo");
-                    id = Integer.parseInt(o.getString("idservicio"));
-                    disponibility = Integer.parseInt(o.getString("disponibility"));
-                    if (disponibility == 1)
-                        disp = true;
-                    else
-                        disp = false;
-                    opciones = new Opciones(disp, id, titulo);
+                    titulo = o.getString("descripcion");
+                    id = Integer.parseInt(o.getString("id"));
+
+                    opciones = new Opciones(id, titulo);
 
                     break;
             }

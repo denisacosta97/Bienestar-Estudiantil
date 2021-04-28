@@ -121,8 +121,6 @@ public class MainActivity extends AppCompatActivity {
 
         comprobarNavigationView();
 
-        checkVersion();
-
     }
 
     public void checkVersion() {
@@ -285,6 +283,7 @@ public class MainActivity extends AppCompatActivity {
                     }).into(imgPerfil);
         }
     }
+
 
     @Override
     protected void onRestart() {
@@ -533,6 +532,7 @@ public class MainActivity extends AppCompatActivity {
             isReadyCiber = false;
             registrarUso();
         }
+        checkVersion();
     }
 
     @Override

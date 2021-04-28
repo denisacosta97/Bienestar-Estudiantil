@@ -9,6 +9,7 @@ import android.graphics.drawable.Drawable;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,6 +32,7 @@ import com.bumptech.glide.request.target.Target;
 import com.google.android.material.navigation.NavigationView;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.unse.bienestar.estudiantil.BuildConfig;
 import com.unse.bienestar.estudiantil.Databases.RolViewModel;
 import com.unse.bienestar.estudiantil.Databases.UsuarioViewModel;
 import com.unse.bienestar.estudiantil.Herramientas.Almacenamiento.FileStorageManager;
@@ -38,6 +40,7 @@ import com.unse.bienestar.estudiantil.Herramientas.Almacenamiento.PreferenceMana
 import com.unse.bienestar.estudiantil.Herramientas.Utils;
 import com.unse.bienestar.estudiantil.Herramientas.VolleySingleton;
 import com.unse.bienestar.estudiantil.Interfaces.YesNoDialogListener;
+import com.unse.bienestar.estudiantil.Modelos.PuntoConectividad;
 import com.unse.bienestar.estudiantil.Modelos.Rol;
 import com.unse.bienestar.estudiantil.Modelos.Usuario;
 import com.unse.bienestar.estudiantil.R;
@@ -59,6 +62,7 @@ import com.unse.bienestar.estudiantil.Vistas.Fragmentos.UPAFragment;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.URLEncoder;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -116,6 +120,93 @@ public class MainActivity extends AppCompatActivity {
         checkUser();
 
         comprobarNavigationView();
+
+        checkVersion();
+
+    }
+
+    public void checkVersion() {
+        PreferenceManager manager = new PreferenceManager(getApplicationContext());
+        String key = manager.getValueString(Utils.TOKEN);
+        int id = manager.getValueInt(Utils.MY_ID);
+        String URL = String.format("%s?key=%s&idU=%s&id=%s", Utils.URL_CONFIG, key, id, "version");
+        StringRequest request = new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                procesarRespuesta(response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+        VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
+    }
+
+
+    private void procesarRespuesta(String response) {
+        try {
+            JSONObject jsonObject = new JSONObject(response);
+            int estado = jsonObject.getInt("estado");
+            switch (estado) {
+                case 1:
+                    JSONObject object = jsonObject.getJSONObject("mensaje");
+                    String id = object.getString("descripcion");
+                    check(id);
+                    break;
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void check(String id) {
+        try {
+            if (BuildConfig.VERSION_CODE < Integer.parseInt(id)) {
+                dialogoNewVersion();
+
+            }
+        } catch (NumberFormatException e) {
+
+        }
+
+    }
+
+    private void dialogoNewVersion() {
+        DialogoGeneral.Builder dialogoGeneral = new DialogoGeneral.Builder(getApplicationContext())
+                .setTipo(DialogoGeneral.TIPO_ACEPTAR)
+                .setTitulo(getString(R.string.advertencia))
+                .setIcono(R.drawable.ic_advertencia)
+                .setDescripcion(getString(R.string.versionNueva))
+                .setListener(new YesNoDialogListener() {
+                    @Override
+                    public void yes() {
+                        openStore();
+                    }
+
+                    @Override
+                    public void no() {
+
+                    }
+                });
+        DialogoGeneral dialogo = dialogoGeneral.build();
+        dialogo.setCancelable(false);
+        dialogo.show(getSupportFragmentManager(), "dialog");
+    }
+
+    private void openStore() {
+        try{
+            final String appPackageName = getPackageName();
+            try {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+            } catch (android.content.ActivityNotFoundException anfe) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+            }
+        } catch(Exception e) {
+            Utils.showToast(getApplicationContext(), getString(R.string.errorTienda));
+        }
 
     }
 

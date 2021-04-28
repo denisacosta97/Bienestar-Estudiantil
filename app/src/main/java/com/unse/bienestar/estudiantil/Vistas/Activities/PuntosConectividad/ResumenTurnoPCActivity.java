@@ -192,11 +192,8 @@ public class ResumenTurnoPCActivity extends AppCompatActivity implements View.On
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                MedicamentosActivity.instance.finish();
-                SelectorFechaMedActivity.instance.finish();
-
+                SelectorFechaPCActivity.instance.finish();
                 finish();
-                //Utils.createPDF(getApplicationContext(), "COMPROBANTE_TURNO.pdf");
             }
         }, 1200);
     }
@@ -283,7 +280,7 @@ public class ResumenTurnoPCActivity extends AppCompatActivity implements View.On
                     break;
                 case 2:
                     loadError();
-                    Utils.showToast(getApplicationContext(), getString(R.string.TurnoMedYaReservado));
+                    Utils.showToast(getApplicationContext(), getString(R.string.turnoNoAsignado));
                     break;
                 case 3:
                     Utils.showToast(getApplicationContext(), getString(R.string.tokenInvalido));
@@ -292,12 +289,17 @@ public class ResumenTurnoPCActivity extends AppCompatActivity implements View.On
                 case 4:
                     Utils.showToast(getApplicationContext(), getString(R.string.camposInvalidos));
                     loadError();
-                    break;
                 case 5:
                     Utils.showToast(getApplicationContext(), getString(R.string.FueraHora));
-                    showProgressDialog(false);
-                    animateButtonWidth(false);
-                    fadeOutInTextProgress();
+                    loadError();
+                    break;
+                case 6:
+                    Utils.showToast(getApplicationContext(), getString(R.string.TurnoMedYaReservado));
+                    loadError();
+                    break;
+                case 7:
+                    Utils.showToast(getApplicationContext(), getString(R.string.soloAlumno));
+                    loadError();
                     break;
                 case 100:
                     Utils.showToast(getApplicationContext(), getString(R.string.tokenInexistente));

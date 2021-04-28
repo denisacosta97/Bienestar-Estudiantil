@@ -303,6 +303,7 @@ public class Utils {
     public static final String URL_GENERATE_PDF = "https://" + IP + "/archivos/generate.php";
     public static final String URL_FECHAS_VALIDA = "https://" + IP + "/becas/fecha/getFechaInvalidate.php";
     public static final String URL_PDF_TURNO = "https://" + IP + "/archivos/";
+    public static final String URL_CONFIG = "https://" + IP + "/general/config/getValue.php";
 
 
 
@@ -371,8 +372,6 @@ public class Utils {
     public static final String URL_PC_TURNO  = "https://" + IP + "/general/conectividad/insertar.php";
     public static final String URL_PC_HORARIOS  = "https://" + IP + "/general/conectividad/horarios.json";
     public static final String URL_PC_TURNOSHORARIOS  = "https://" + IP + "/general/conectividad/getTurnoHorarios.php";
-    public static final String URL_PC_BYDAY  = "https://" + IP + "/general/conectividad/getByDay.php";
-    public static final String URL_PC_GETALL  = "https://" + IP + "/general/conectividad/getAll.php";
     public static final String URL_PC_CANCELAR = "https://" + IP + "/general/conectividad/cancelar.php";
     public static final String URL_PC_ZONAS = "https://" + IP + "/general/conectividad/getLugares.php";
 
@@ -396,6 +395,7 @@ public class Utils {
             "Tecnicatura Universitaria en Organización y Control de la Producción"};
     public static String[] fcf = {"Ingeniería Forestal", "Ingeniería en Industrias Forestales",
             "Licenciatura en Ecología y Conservación del Ambiente",
+            "Licenciatura en Biología",
             "Tecnicatura Universitaria Fitosanitarista",
             "Tecnicatura Universitaria en Viveros y Plantaciones Forestales",
             "Tecnicatura Universitaria en Aserraderos y Carpintería Industrial"};
@@ -404,7 +404,7 @@ public class Utils {
 
     public static String[] fhcys = {"Licenciatura en Administración", "Contador Público Nacional",
             "Licenciatura en Letras", "Licenciatura en Sociología", "Licenciatura en Enfermería",
-            "Licenciatura en Educación para la Salud", "Licenciatura en Obstetricia",
+            "Licenciatura en Educación para la Salud", "Obstetricia", "Licenciatura en Obstetricia",
             "Licenciatura en Filosofía", "Licenciatura en Trabajo Social",
             "Licenciatura en Periodismo", "Profesorado en Educación para la Salud",
             "Tecnicatura Sup. Adm. y Gestión Universitaria",

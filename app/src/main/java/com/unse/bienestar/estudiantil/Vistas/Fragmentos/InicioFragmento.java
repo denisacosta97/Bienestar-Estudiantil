@@ -19,6 +19,7 @@ import com.unse.bienestar.estudiantil.Modelos.Categoria;
 import com.unse.bienestar.estudiantil.Modelos.Noticia;
 import com.unse.bienestar.estudiantil.R;
 import com.unse.bienestar.estudiantil.Vistas.Activities.Gestion.GestionNoticias.NoticiaLectorActivity;
+import com.unse.bienestar.estudiantil.Vistas.Activities.Maraton.InscripcionMaratonActivity;
 import com.unse.bienestar.estudiantil.Vistas.Adaptadores.CategoriasAdapter;
 import com.unse.bienestar.estudiantil.Vistas.Adaptadores.NoticiasAdapter;
 import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoProcesamiento;
@@ -30,6 +31,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -46,6 +48,7 @@ public class InicioFragmento extends Fragment {
     ArrayList<Noticia> mListNoticias;
     Context mContext;
     FragmentManager mFragmentManager;
+    CardView cardMaraton;
 
     public void setContext(Context context) {
         mContext = context;
@@ -86,6 +89,7 @@ public class InicioFragmento extends Fragment {
     private void loadViews() {
         recyclerCategorias = view.findViewById(R.id.recyclerCategorias);
         recyclerNoticias = view.findViewById(R.id.recyclerNoticias);
+        cardMaraton = view.findViewById(R.id.cardMaraton);
     }
 
     private void loadDataRecycler() {
@@ -124,6 +128,14 @@ public class InicioFragmento extends Fragment {
                 mCategorias.get(position).setEstado(true);
                 mNoticiasAdapter.filtrarNoticias((int) id);
                 mAdapter.notifyDataSetChanged();
+            }
+        });
+
+        cardMaraton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getContext(), InscripcionMaratonActivity.class);
+                startActivity(i);
             }
         });
     }

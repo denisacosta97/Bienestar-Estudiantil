@@ -42,7 +42,6 @@
             android:id="@+id/item_conectividad"
             android:icon="@drawable/ic_wifi"
             android:title="Puntos de Conectividad"/>
-
     </group>
 
     <item

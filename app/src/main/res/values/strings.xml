@@ -500,6 +500,14 @@ Solo en caso de ser renovante de la beca, se deberá adjuntar el informe de dese
     <string name="TurnoMedYaReservado">¡Ya tienes un turno pendiente!</string>
     <string name="FueraHora">¡Fuera de horario para reservar!</string>
     <string name="descPC">Puntos de Conectividad es una nueva propuesta por parte de la Secretaría de Bienestar Estudiantil para brindar acceso gratuito a internet en las diferentes zonas habilitadas. </string>
+    <string name="descMaraton">La Maratón Virtual Aniversario 48 de la UNSE 2021 es organizada por la Secretaría de Bienestar Estudiantil y es abierta a toda la comunidad de Santiago del Estero. La carrera se puede correr en dos días.\n¡Festejamos nuestro Aniversario corriendo juntos!</string>
+    <string name="descMaraton2">Corres a la hora, en el lugar y el día que eliges (29 o 30 de mayo)\n\n
+Solo debes enviarnos dos fotos:\n
+✅ Una que demuestre el tiempo y distancia que hiciste (captura de pantalla, foto de tu reloj).\n
+✅ Una foto tuya al finalizar el recorrido.\n\n
+❗ Recuerda que la distancia que elijas la puedes realizar caminando, corriendo o combinar las dos.\n
+
+Te recomendamos aplicaciones como: Adidas Running, Nike Running.</string>
 
     <string name="txtRecNo">Cuando vayas a sacar las fotos de la documentación, ten en cuenta las siguientes recomendaciones:\n- NO saques la foto como se muestra en el ejemplo, trata de que no haya ningún elemento al rededor.\n- NO sacar fotos a papeles arrugados o que no se note lo escrito.\n- Evita sacar fotos con la luz directa, eso ocasiona que haya sombra al momento de tomar la foto.</string>
     <string name="txtRecSi">Algunos tips para sacar unas buenas fotos:\n- Usar el flash, puede ser una buena opción, verifica que todo se vea correctamente.\n- Limpiá bien el lente de la cámara del celular.\n- Mantené una distancia considerable del papel, mira siempre que las esquinas cuadren en la foto.\n- Utiliza alguna de las aplicaciones que nombramos más abajo para más calidad.</string>

@@ -17,6 +17,7 @@
     <color name="blackTransparente">#5B000000</color>
     <color name="blackTransparente2">#22000000</color>
     <color name="whiteTransparente">#40FFFFFF</color>
+    <color name="spinnerBack">#f2f2f2</color>
 
     <!--Colores varios-->
     <color name="colorGreen">#32AC37</color>

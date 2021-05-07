@@ -376,12 +376,17 @@ public class Utils {
     public static final String URL_PC_CANCELAR = "https://" + IP + "/general/conectividad/cancelar.php";
     public static final String URL_PC_ZONAS = "https://" + IP + "/general/conectividad/getLugares.php";
 
+    //MARATÓN
+    public static final String URL_INSCRIPCION_MARATON = "https://" + IP + "/deportes/carrera/insertar.php";
+
     //CARPETAS
     public static final String FOLDER = "BIENESTAR_ESTUDIANTIL/";
     public static final String FOLDER_CREDENCIALES = FOLDER + "CREDENCIALES/";
 
     public static String[] med = {"Clínica Médica", "Salud Sexual y Reproductiva"};
     public static String[] puntosConect = {"Ciber UNSE", "Parque Industrial", "Residencia (El Zanjón)"};
+    public static String[] catMaraton = {"3", "10"};
+    public static String[] rangoEdad = {"Menor de 18 años", "19 a 24", "25 a 29", "30 a 34", "35 a 39", "40 a 44", "45 a 49", "50 a 54", "55 a 59", "60 o mas"};
     public static String[] facultad = {"FAyA", "FCEyT", "FCF", "FCM", "FHCSyS"};
     public static String[] faya = {"Ingeniería Agronómica", "Ingeniería en Alimentos", "Licenciatura en Biotecnología",
             "Licenciatura en Química", "Profesorado en Química", "Tecnicatura en Apicultura"};

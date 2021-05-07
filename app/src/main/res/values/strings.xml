@@ -562,6 +562,13 @@ Te recomendamos aplicaciones como: Adidas Running, Nike Running.</string>
 </string>
     <string name="turnoPrevio">Tienes un turno previo</string>
     <string name="soloAlumno">Solo disponible para alumnos</string>
+    <string name="turnoNoAsignado">¡Error al reservar turno!</string>
+    <string name="puntoCNoDisponible">Muy pronto podrás obtener información acerca de este punto de conectividad</string>
+    <string name="wspNoIntalado">¡No tiene Whatsapp instalado!</string>
+    <string name="errorTelefono">¡Error al intentar abrir Whatsapp!</string>
+    <string name="puntoCWsp">Este punto de conectividad funciona bajo la modalidad de turnos por Whatsapp.\nSi presionas aceptar serás redirigido a la aplicación para mandar un mensaje. De lo contrario, el número es %s</string>
+    <string name="versionNueva">Bienestar Estudiantil - UNSE tiene una nueva versión disponible en la tienda. Para continuar usando la aplicación, debe actualizarla.</string>
+    <string name="errorTienda">¡Error al abrir la tienda!</string>
 
 </resources>
 

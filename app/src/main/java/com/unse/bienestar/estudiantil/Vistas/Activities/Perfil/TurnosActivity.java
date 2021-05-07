@@ -134,9 +134,6 @@ public class TurnosActivity extends AppCompatActivity implements View.OnClickLis
                     Turno turno = Turno.mapper(object, Turno.MEDIUM);
                     if (turno != null)
                         turno.setTipo(Turno.TIPO_BECA);
-                    else
-                        Log.e("rr", "rfff");
-
                     mList.add(turno);
                 }
 
@@ -181,6 +178,11 @@ public class TurnosActivity extends AppCompatActivity implements View.OnClickLis
 
             }
 
+            String id = "";
+            if (jsonObject.has("id")) {
+                id = jsonObject.getString("id");
+            }
+
             if (jsonObject.has("puntos")) {
 
                 if (mList == null)
@@ -191,10 +193,10 @@ public class TurnosActivity extends AppCompatActivity implements View.OnClickLis
                     JSONObject object = datos.getJSONObject(i);
 
                     Turno turno = Turno.mapper(object, Turno.TIPO_PC_TURNOS);
-                    if (turno != null)
+                    if (turno != null) {
+                        turno.setEncripted(id);
                         turno.setTipo(Turno.TIPO_PC_TURNOS);
-                    else
-                        Log.e("rr", "rfff");
+                    }
 
                     mList.add(turno);
                 }

@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,20 +21,26 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.unse.bienestar.estudiantil.Databases.UsuarioViewModel;
 import com.unse.bienestar.estudiantil.Herramientas.Almacenamiento.PreferenceManager;
 import com.unse.bienestar.estudiantil.Herramientas.RecyclerListener.ItemClickSupport;
 import com.unse.bienestar.estudiantil.Herramientas.Utils;
 import com.unse.bienestar.estudiantil.Herramientas.VolleySingleton;
+import com.unse.bienestar.estudiantil.Interfaces.YesNoDialogListener;
 import com.unse.bienestar.estudiantil.Modelos.Opciones;
+import com.unse.bienestar.estudiantil.Modelos.PuntoConectividad;
+import com.unse.bienestar.estudiantil.Modelos.Usuario;
 import com.unse.bienestar.estudiantil.R;
 import com.unse.bienestar.estudiantil.Vistas.Activities.PuntosConectividad.SelectorFechaPCActivity;
 import com.unse.bienestar.estudiantil.Vistas.Adaptadores.OpcionesSimpleAdapter;
+import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoGeneral;
 import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoProcesamiento;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 public class PConectividadFragment extends Fragment {
@@ -41,6 +49,7 @@ public class PConectividadFragment extends Fragment {
     RecyclerView.LayoutManager mLayoutManager;
     RecyclerView recicler;
     ArrayList<Opciones> mOpciones;
+    ArrayList<PuntoConectividad> mPuntos;
     OpcionesSimpleAdapter mSimpleAdapter;
     DialogoProcesamiento dialog;
     FragmentManager mFragmentManager;
@@ -86,11 +95,94 @@ public class PConectividadFragment extends Fragment {
         itemClickSupport.setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
             @Override
             public void onItemClick(RecyclerView parent, View view, int position, long id) {
+                processClick(position);
+
+            }
+        });
+    }
+
+    private void processClick(int position) {
+        PuntoConectividad puntoConectividad = mPuntos.get(position);
+        if (puntoConectividad.getId() == mOpciones.get(position).getId()) {
+            if (puntoConectividad.getDisponible() == 0){
+                dialogoPronto();
+            }else if (puntoConectividad.getTurno() == 0){
+                dialogoWsp(position);
+            }else{
                 Intent i = new Intent(getContext(), SelectorFechaPCActivity.class);
                 i.putExtra(Utils.DATA_OPCION, mOpciones.get(position));
                 startActivity(i);
             }
-        });
+        }
+    }
+
+    private void dialogoWsp(final int position) {
+        PuntoConectividad puntoConectividad = mPuntos.get(position);
+        DialogoGeneral.Builder dialogoGeneral = new DialogoGeneral.Builder(getContext())
+                .setTipo(DialogoGeneral.TIPO_ACEPTAR)
+                .setTitulo(getString(R.string.advertencia))
+                .setIcono(R.drawable.ic_advertencia)
+                .setDescripcion(getString(R.string.puntoCWsp, puntoConectividad.getContacto()))
+                .setListener(new YesNoDialogListener() {
+                    @Override
+                    public void yes() {
+                        openWSP(position);
+                    }
+
+                    @Override
+                    public void no() {
+
+                    }
+                });
+        DialogoGeneral dialogo = dialogoGeneral.build();
+        dialogo.show(getFragmentManager(), "dialog");
+    }
+
+    private void openWSP(int position) {
+        try{
+            PackageManager packageManager = getActivity().getPackageManager();
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            UsuarioViewModel usuarioViewModel = new UsuarioViewModel(getContext());
+            PreferenceManager manager = new PreferenceManager(getContext());
+            int id = manager.getValueInt(Utils.MY_ID);
+            Usuario usuario = usuarioViewModel.getById(id);
+            String mensaje = String.format("Hola, soy %s estudiante de la UNSE, solicito información acerca de los turnos del punto de conectividad", usuario != null ? usuario.getNombre() : "nombreAlumno");
+            String url = "https://api.whatsapp.com/send?phone="+ mPuntos.get(position).getContacto() +"&text="
+                    + URLEncoder.encode(mensaje, "UTF-8");
+            i.setPackage("com.whatsapp");
+            i.setData(Uri.parse(url));
+            if (i.resolveActivity(packageManager) != null) {
+                startActivity(i);
+            }else {
+                Utils.showToast(getContext(), getString(R.string.wspNoIntalado));
+            }
+        } catch(Exception e) {
+            Utils.showToast(getContext(), getString(R.string.errorTelefono));
+        }
+
+    }
+
+    private void dialogoPronto() {
+        DialogoGeneral.Builder dialogoGeneral = new DialogoGeneral.Builder(getContext())
+                .setTipo(DialogoGeneral.TIPO_ACEPTAR)
+                .setTitulo(getString(R.string.advertencia))
+                .setIcono(R.drawable.ic_advertencia)
+                .setDescripcion(getString(R.string.puntoCNoDisponible))
+                .setListener(new YesNoDialogListener() {
+                    @Override
+                    public void yes() {
+
+                    }
+
+                    @Override
+                    public void no() {
+
+                    }
+                });
+        DialogoGeneral dialogo = dialogoGeneral.build();
+        dialogo.show(getFragmentManager(), "dialog");
+        
+                
     }
 
     private void loadViews() {
@@ -184,17 +276,17 @@ public class PConectividadFragment extends Fragment {
 
                 mOpciones = new ArrayList<>();
 
+                mPuntos = new ArrayList<>();
+
                 for (int i = 0; i < datos.length(); i++) {
-                    try {
-                        JSONObject o = datos.getJSONObject(i);
 
-                        Opciones op = Opciones.mapper(o, Opciones.BASIC);
-                        mOpciones.add(op);
+                    JSONObject o = datos.getJSONObject(i);
 
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        updateView(1);
-                    }
+                    PuntoConectividad puntoConectividad = PuntoConectividad.mapper(o, PuntoConectividad.LUGAR);
+                    Opciones op = Opciones.mapper(o, Opciones.BASIC);
+                    mOpciones.add(op);
+                    mPuntos.add(puntoConectividad);
+
                 }
                 if (mOpciones.size() > 0) {
                     mSimpleAdapter = new OpcionesSimpleAdapter(mOpciones, getContext());

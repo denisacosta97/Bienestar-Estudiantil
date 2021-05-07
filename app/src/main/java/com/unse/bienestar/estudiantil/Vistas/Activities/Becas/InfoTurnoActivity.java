@@ -57,6 +57,7 @@ import androidx.core.content.FileProvider;
 import static android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS;
 import static com.unse.bienestar.estudiantil.Herramientas.Utils.PERMISSION_ALL;
 import static com.unse.bienestar.estudiantil.Herramientas.Utils.REQUEST_GROUP_PERMISSIONS_LOCATION;
+import static com.unse.bienestar.estudiantil.Herramientas.Utils.getSizeFile;
 
 public class InfoTurnoActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -107,6 +108,7 @@ public class InfoTurnoActivity extends AppCompatActivity implements View.OnClick
             txtOpcion.setText("Especialidad:");
             txtReceptor.setText(mTurno.getDescripcion());
         } else if (mTurno.getTipo() == Turno.TIPO_PC_TURNOS) {
+            btnPDF.setVisibility(View.GONE);
             txtOpcion.setText("Zona:");
             txtReceptor.setText(mTurno.getTitulo());
         }
@@ -122,8 +124,8 @@ public class InfoTurnoActivity extends AppCompatActivity implements View.OnClick
             case "PENDIENTE":
             case "RESERVADO":
                 cardEstado.setCardBackgroundColor(getApplicationContext().getResources().getColor(R.color.colorOrange));
-                latQR.setVisibility(View.VISIBLE);
-                if(mTurno.getTipo() == Turno.TIPO_PC_TURNOS){
+                if (mTurno.getTipo() == Turno.TIPO_PC_TURNOS) {
+                    latQR.setVisibility(View.VISIBLE);
                     generateQR(mTurno);
                 }
                 break;
@@ -261,8 +263,7 @@ public class InfoTurnoActivity extends AppCompatActivity implements View.OnClick
                 } else if (mTurno.getTipo() == Turno.TIPO_PC_TURNOS) {
                     param.put("tipo", String.valueOf(3));
                     param.put("it", String.valueOf(mTurno.getId()));
-                }
-                else {
+                } else {
                     param.put("tipo", String.valueOf(1));
                     param.put("di", String.valueOf(mTurno.getDia()));
                     param.put("me", String.valueOf(mTurno.getMes()));
@@ -317,7 +318,7 @@ public class InfoTurnoActivity extends AppCompatActivity implements View.OnClick
         StringRequest requestImage = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                procesarRespuesta(response,1);
+                procesarRespuesta(response, 1);
 
             }
         }, new Response.ErrorListener() {
@@ -347,8 +348,7 @@ public class InfoTurnoActivity extends AppCompatActivity implements View.OnClick
                 } else if (mTurno.getTipo() == Turno.TIPO_PC_TURNOS) {
                     param.put("it", String.valueOf(mTurno.getId()));
                     param.put("es", String.valueOf(2));
-                }
-                else {
+                } else {
                     param.put("di", String.valueOf(mTurno.getDia()));
                     param.put("me", String.valueOf(mTurno.getMes()));
                     param.put("re", String.valueOf(mTurno.getReceptor()));
@@ -382,6 +382,7 @@ public class InfoTurnoActivity extends AppCompatActivity implements View.OnClick
                         btnCancelar.setEnabled(false);
                         mTurno.setEstado("CANCELADO");
                         change = true;
+                        latQR.setVisibility(View.GONE);
                     } else if (tipo == 2) {
                         String name = jsonObject.getString("archivo");
                         downloadPDF(name);
@@ -398,7 +399,7 @@ public class InfoTurnoActivity extends AppCompatActivity implements View.OnClick
                     Utils.showToast(getApplicationContext(), getString(R.string.camposInvalidos));
                     break;
                 case 6:
-                    Utils.showToast(getApplicationContext(), "Tienes un turno previo");
+                    Utils.showToast(getApplicationContext(), getString(R.string.turnoPrevio));
                     break;
                 case 100:
                     Utils.showToast(getApplicationContext(), getString(R.string.tokenInexistente));
@@ -423,8 +424,8 @@ public class InfoTurnoActivity extends AppCompatActivity implements View.OnClick
         } else if (mTurno.getTipo() == Turno.TIPO_UPA_TURNOS) {
             nombre = "T_UAPU";
         }
-        archivo.setNombreArchivo(String.format("%s_%s.pdf",nombre, fecha).replaceAll(":","")
-                .replaceAll("-","_").replaceAll(" ","_"));
+        archivo.setNombreArchivo(String.format("%s_%s.pdf", nombre, fecha).replaceAll(":", "")
+                .replaceAll("-", "_").replaceAll(" ", "_"));
         DownloadPDF downloadPDF = new DownloadPDF(getApplicationContext(), archivo.getNombreArchivo(true),
                 getSupportFragmentManager(), new YesNoDialogListener() {
             @Override
@@ -485,21 +486,11 @@ public class InfoTurnoActivity extends AppCompatActivity implements View.OnClick
         MultiFormatWriter formatWriter = new MultiFormatWriter();
         try {
             StringBuilder builder = new StringBuilder();
-            // builder.append("COMEDOR UNIVERSITARIO - BIENESTAR ESTUDIANTIL");
-            //builder.append("\n");
+            builder.append("PUNTOS DE CONECTIVIDAD - BIENESTAR ESTUDIANTIL");
+            builder.append("\n");
             builder.append("¡MUCHAS GRACIAS POR RESERVAR!");
             builder.append("\n");
-            String[] dni = new String[String.valueOf(turno.getDni()).length()];
-            for (int i = 0; i < dni.length; i++) {
-                char valor = Utils.encode(String.valueOf(turno.getDni()).charAt(i));
-                dni[i] = String.valueOf(valor);
-            }
-            StringBuilder dniModif = new StringBuilder();
-            for (int i = 0; i < dni.length; i++) {
-                dniModif.append(dni[i]);
-            }
-            builder.append(String.format("#%s-%s#", dniModif, turno.getId()));
-            //txtCodigoQR.setText(String.format("COM-%s-%s", dniModif, reserva.getIdReserva()));
+            builder.append(String.format("#%s-%s#", turno.getEncripted(), turno.getId()));
             BitMatrix matrix = formatWriter.encode(builder.toString(), BarcodeFormat.QR_CODE, 300, 300);
             BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
             Bitmap bitmap = barcodeEncoder.createBitmap(matrix);

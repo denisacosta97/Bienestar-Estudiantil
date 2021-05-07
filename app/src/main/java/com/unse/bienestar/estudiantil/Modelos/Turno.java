@@ -21,7 +21,7 @@ public class Turno implements Parcelable {
     public static final int TIPO_PC_TURNOS = 5;
 
     int id, receptor, dia, mes, anio, idEstado;
-    String titulo, descripcion, nombre, apellido, dni;
+    String titulo, descripcion, nombre, apellido, dni, dniEncripted;
     String estado, fechaInicio, fechaFin, fecha, receptorString, fechaRegistro, horario;
     int tipo;
 
@@ -75,6 +75,7 @@ public class Turno implements Parcelable {
         fechaRegistro = in.readString();
         horario = in.readString();
         tipo = in.readInt();
+        dniEncripted = in.readString();
     }
 
     public static final Creator<Turno> CREATOR = new Creator<Turno>() {
@@ -120,7 +121,6 @@ public class Turno implements Parcelable {
     public void setAnio(int anio) {
         this.anio = anio;
     }
-
 
 
     public int getReceptor() {
@@ -336,6 +336,7 @@ public class Turno implements Parcelable {
                     titulo = object.getString("nombrelugar");
 
                     turno = new Turno(id, dni, idEstado, dia, mes, anio, horario, estado, titulo);
+                    turno.setFechaInicio(horario);
                     break;
 
             }
@@ -343,6 +344,14 @@ public class Turno implements Parcelable {
             e.printStackTrace();
         }
         return turno;
+    }
+
+    public String getEncripted() {
+        return dniEncripted;
+    }
+
+    public void setEncripted(String dniEncripted) {
+        this.dniEncripted = dniEncripted;
     }
 
     public Turno(int dia, int mes, int anio, String titulo, String estado, String fechaInicio) {
@@ -381,6 +390,7 @@ public class Turno implements Parcelable {
         dest.writeString(fechaRegistro);
         dest.writeString(horario);
         dest.writeInt(tipo);
+        dest.writeString(dniEncripted);
     }
 
 }

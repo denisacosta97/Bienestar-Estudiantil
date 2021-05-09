@@ -8,7 +8,8 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -23,7 +24,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Vistas.Activities.PuntosConectividad.ResumenTurnoPCActivity"></activity>
+        <activity android:name=".Vistas.Activities.Maraton.InscripcionMaratonActivity"></activity>
+        <activity android:name=".Vistas.Fragmentos.RunningFragment" />
+        <activity android:name=".Vistas.Activities.PuntosConectividad.ResumenTurnoPCActivity" />
         <activity android:name=".Vistas.Activities.PuntosConectividad.SelectorFechaPCActivity" />
         <activity android:name=".Vistas.Activities.UPA.TurnoMedicamentos.ResumenTurnoMedActivity" />
         <activity android:name=".Vistas.Activities.UPA.TurnoMedicamentos.SelectorFechaMedActivity" />

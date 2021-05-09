@@ -18,6 +18,8 @@ import com.unse.bienestar.estudiantil.Herramientas.VolleySingleton;
 import com.unse.bienestar.estudiantil.Modelos.Categoria;
 import com.unse.bienestar.estudiantil.Modelos.Noticia;
 import com.unse.bienestar.estudiantil.R;
+import com.unse.bienestar.estudiantil.Vistas.Activities.Gestion.GestionNoticias.NoticiaLectorActivity;
+import com.unse.bienestar.estudiantil.Vistas.Activities.Maraton.InscripcionMaratonActivity;
 import com.unse.bienestar.estudiantil.Vistas.Activities.Inicio.NoticiaLectorActivity;
 import com.unse.bienestar.estudiantil.Vistas.Adaptadores.CategoriasAdapter;
 import com.unse.bienestar.estudiantil.Vistas.Adaptadores.NoticiasAdapter;
@@ -46,6 +48,7 @@ public class InicioFragmento extends Fragment {
     ArrayList<Noticia> mListNoticias;
     Context mContext;
     FragmentManager mFragmentManager;
+    CardView cardMaraton;
 
     public void setContext(Context context) {
         mContext = context;
@@ -124,6 +127,14 @@ public class InicioFragmento extends Fragment {
                 mCategorias.get(position).setEstado(true);
                 mNoticiasAdapter.filtrarNoticias((int) id);
                 mAdapter.notifyDataSetChanged();
+            }
+        });
+
+        cardMaraton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getContext(), InscripcionMaratonActivity.class);
+                startActivity(i);
             }
         });
     }

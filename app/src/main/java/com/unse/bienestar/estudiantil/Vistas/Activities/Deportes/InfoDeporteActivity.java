@@ -137,8 +137,8 @@ public class InfoDeporteActivity extends AppCompatActivity implements View.OnCli
         PreferenceManager preferenceManager = new PreferenceManager(getApplicationContext());
         int id = preferenceManager.getValueInt(Utils.MY_ID);
         String token = preferenceManager.getValueString(Utils.TOKEN);
-        String URL = String.format("%s?idU=%s&key=%s&id=%s",
-                Utils.URL_DEPORTE_TEMPORADA, id, token, mDeporte.getIdDep());
+        String URL = String.format("%s?idU=%s&key=%s&id=%s&iu=%s",
+                Utils.URL_DEPORTE_TEMPORADA, id, token, mDeporte.getIdDep(), id);
         StringRequest request = new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

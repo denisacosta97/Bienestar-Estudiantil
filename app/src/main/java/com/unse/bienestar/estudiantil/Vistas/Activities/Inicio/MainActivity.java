@@ -44,7 +44,6 @@ import com.unse.bienestar.estudiantil.Modelos.PuntoConectividad;
 import com.unse.bienestar.estudiantil.Modelos.Rol;
 import com.unse.bienestar.estudiantil.Modelos.Usuario;
 import com.unse.bienestar.estudiantil.R;
-import com.unse.bienestar.estudiantil.Vistas.Activities.Gestion.GestionSistemaActivity;
 import com.unse.bienestar.estudiantil.Vistas.Activities.Perfil.PerfilActivity;
 import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoGeneral;
 import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoProcesamiento;
@@ -195,14 +194,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void openStore() {
-        try{
+        try {
             final String appPackageName = getPackageName();
             try {
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
             } catch (android.content.ActivityNotFoundException anfe) {
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
             }
-        } catch(Exception e) {
+        } catch (Exception e) {
             Utils.showToast(getApplicationContext(), getString(R.string.errorTienda));
         }
 
@@ -215,7 +214,6 @@ public class MainActivity extends AppCompatActivity {
         mFragment = new Fragment();
         ids = new HashMap<>();
         ids.put(getString(R.string.itemPerfil), R.id.item_perfil);
-        ids.put(getString(R.string.itemSistema), R.id.item_sistema);
         ids.put(getString(R.string.itemNosotros), R.id.item_about);
         ids.put(getString(R.string.itemCondiciones), R.id.item_terminos);
         mRolViewModel = new RolViewModel(getApplicationContext());
@@ -314,11 +312,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateMenu(boolean isLogin) {
         Menu menu = navigationView.getMenu();
-        MenuItem item = menu.findItem(R.id.item_sistema);
-        Rol rol = mRolViewModel.getByPermission(10);
-        if (rol != null && rol.getDescripcion().equals("")) {
-            item.setVisible(false);
-        }
+        MenuItem item = null;
         item = menu.findItem(R.id.item_perfil);
         if (!isLogin) {
             item.setVisible(false);
@@ -363,10 +357,6 @@ public class MainActivity extends AppCompatActivity {
             case R.id.item_perfil:
                 isOption = true;
                 startActivity(new Intent(MainActivity.this, PerfilActivity.class));
-                break;
-            case R.id.item_sistema:
-                isOption = true;
-                startActivity(new Intent(this, GestionSistemaActivity.class));
                 break;
             case R.id.item_about:
                 isOption = true;

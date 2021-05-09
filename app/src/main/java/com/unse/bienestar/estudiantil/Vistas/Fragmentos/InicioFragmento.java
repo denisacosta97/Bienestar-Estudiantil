@@ -18,7 +18,7 @@ import com.unse.bienestar.estudiantil.Herramientas.VolleySingleton;
 import com.unse.bienestar.estudiantil.Modelos.Categoria;
 import com.unse.bienestar.estudiantil.Modelos.Noticia;
 import com.unse.bienestar.estudiantil.R;
-import com.unse.bienestar.estudiantil.Vistas.Activities.Gestion.GestionNoticias.NoticiaLectorActivity;
+import com.unse.bienestar.estudiantil.Vistas.Activities.Inicio.NoticiaLectorActivity;
 import com.unse.bienestar.estudiantil.Vistas.Adaptadores.CategoriasAdapter;
 import com.unse.bienestar.estudiantil.Vistas.Adaptadores.NoticiasAdapter;
 import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoProcesamiento;

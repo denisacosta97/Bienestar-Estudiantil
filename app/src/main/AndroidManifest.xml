@@ -34,9 +34,6 @@
         <activity android:name=".Vistas.Activities.UPA.PerfilServicioActivity" />
         <activity android:name=".Vistas.Activities.UPA.ServiciosUPAActivity" />
         <activity android:name=".Vistas.Activities.UPA.TurnosUPAActivity" />
-        <activity android:name=".Vistas.Activities.Gestion.GestionNoticias.ListadoNoticiasActivity" />
-        <activity android:name=".Vistas.Activities.Gestion.GestionNoticias.AddNoticiaActivity" />
-        <activity android:name=".Vistas.Activities.Gestion.GestionNoticiasActivity" />
         <activity android:name=".Vistas.Activities.Polideportivo.GestionReservasInst.InfoReservaInstActivity" />
         <activity android:name=".Vistas.Activities.Polideportivo.GestionReservasInst.ListadoReservasActivity" />
         <activity android:name=".Vistas.Activities.Polideportivo.GestionReservasCanchas.ReservasCanchasActivity" />
@@ -50,15 +47,12 @@
         <activity android:name=".Vistas.Activities.Inicio.TermsActivity" />
         <activity android:name=".Vistas.Activities.Inicio.AboutActivity" />
         <activity android:name=".Vistas.Activities.Perfil.RecuperarContraseniaActivity" />
-        <activity android:name=".Vistas.Activities.Deportes.GestionDeportes.Inscripciones.ListaInscriptosActivity" />
-        <activity android:name=".Vistas.Activities.Deportes.GestionDeportes.Inscripciones.InscripcionesActivity" />
         <activity android:name=".Vistas.Activities.Perfil.ProfilePictureActivity" />
         <activity android:name=".Vistas.Activities.Becas.PerfilBecasActivity" />
         <activity android:name=".Vistas.Activities.Becas.InfoBecasActivity" />
         <activity
             android:name=".Vistas.Activities.Perfil.ArchivosActivity"
             android:label="Gestión de archivos" />
-        <activity android:name=".Vistas.Activities.Gestion.GestionNoticias.NoticiaLectorActivity" />
         <activity android:name=".Vistas.Activities.Inicio.BarcodeActivity" />
         <activity android:name=".Vistas.Activities.Deportes.InfoDeporteActivity" />
         <activity android:name=".Vistas.Activities.Deportes.InscribirDeporteActivity" />
@@ -98,12 +92,6 @@
             android:name=".Vistas.Activities.Polideportivo.GestionReservasInst.GestionReservasActivity"
             android:label="Gestión de Reservas" />
         <activity
-            android:name=".Vistas.Activities.Gestion.GestionSistemaActivity"
-            android:label="Gestión de Sistema" />
-        <activity
-            android:name=".Vistas.Activities.Gestion.EstadisticasActivity"
-            android:label="Estadisticas" />
-        <activity
             android:name=".Vistas.Activities.Perfil.TurnosActivity"
             android:label="Turnos" />
         <activity android:name=".Vistas.Activities.Becas.TipoTurnosActivity" />
@@ -118,11 +106,10 @@
         <activity android:name=".Vistas.Activities.Polideportivo.SelectInstActivity" />
         <activity android:name=".Vistas.Activities.Perfil.InscripcionesActivity" />
         <activity android:name=".Vistas.Activities.Deportes.ModificarInscripcionActivity" />
-        <activity android:name=".Vistas.Activities.Deportes.GestionDeportes.Inscripciones.InscripcionesTemporadasActivity" />
-        <activity android:name=".Vistas.Activities.Deportes.GestionDeportes.GestionDeportesActivity" />
         <activity android:name=".Vistas.Activities.Perfil.UploadPictureActivity" />
         <activity android:name=".Vistas.Activities.Becas.InfoTurnoActivity" />
         <activity android:name=".Vistas.Activities.UPA.SelectorFechaUPAActivity" />
+        <activity android:name=".Vistas.Activities.Inicio.NoticiaLectorActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

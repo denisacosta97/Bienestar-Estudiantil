@@ -127,6 +127,7 @@ public class SelectorFechaUPAActivity extends AppCompatActivity implements View.
         calendar.setTime(new Date(System.currentTimeMillis()));
         calendar.add(Calendar.DAY_OF_MONTH, 2);
         mCalendarView.setMaxDate(calendar.getTime().getTime());
+        mCalendarView.setMinDate(new Date(System.currentTimeMillis()).getTime());
 
         mLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -355,7 +356,7 @@ public class SelectorFechaUPAActivity extends AppCompatActivity implements View.
         calendar.set(Calendar.DAY_OF_MONTH, fecha[0]);
         calendar.set(Calendar.MONTH, fecha[1] - 1);
         calendar.set(Calendar.YEAR, fecha[2]);*/
-        if (!Utils.isDateHabilited(calendar) && isValidDate(calendar)) {
+        if (Utils.isDateHabilited(calendar) || isValidDate(calendar)) {
             Utils.showToast(getApplicationContext(), getString(R.string.becaTurnoNoDia));
             mProgressBarHorario.setVisibility(View.GONE);
             cardContinuar.setVisibility(View.INVISIBLE);

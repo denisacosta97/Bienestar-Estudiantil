@@ -2,6 +2,7 @@ package com.unse.bienestar.estudiantil.Vistas.Activities.Inicio;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +14,12 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.Target;
 import com.unse.bienestar.estudiantil.Databases.AlumnoViewModel;
 import com.unse.bienestar.estudiantil.Databases.EgresadoViewModel;
 import com.unse.bienestar.estudiantil.Databases.ProfesorViewModel;
@@ -36,7 +43,11 @@ import org.json.JSONObject;
 
 import java.util.Calendar;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.core.content.ContextCompat;
+import androidx.core.widget.NestedScrollView;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -45,6 +56,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     DialogoProcesamiento dialog;
     EditText edtUser, edtPass;
     TextView txtWelcome;
+    AppCompatImageView latFondo;
     UsuarioViewModel mUsuarioViewModel;
     int dniNumber = 0;
 
@@ -77,6 +89,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void loadData() {
+        Glide.with(latFondo.getContext()).load(Utils.URL_IMAGEN_INICIO).listener(new RequestListener<Drawable>() {
+            @Override
+            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                latFondo.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.black_alpha_40));
+                return false;
+            }
+
+            @Override
+            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                return false;
+            }
+        }).apply(new RequestOptions().centerCrop())
+                .into(latFondo);
         mUsuarioViewModel = new UsuarioViewModel(getApplicationContext());
         // Uri uri = Uri.parse("android.resource://".concat(getPackageName()).concat("/raw/").concat(String.valueOf(R.raw.video_bacl)));
         //mVideoView.setVideoURI(uri);
@@ -101,6 +126,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void loadViews() {
+        latFondo = findViewById(R.id.imgFondo);
         mInicio = findViewById(R.id.sesionOn);
         edtPass = findViewById(R.id.edtPass);
         edtUser = findViewById(R.id.edtUser);

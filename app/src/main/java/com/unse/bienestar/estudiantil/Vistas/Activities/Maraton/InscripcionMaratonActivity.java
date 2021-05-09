@@ -1,8 +1,11 @@
 package com.unse.bienestar.estudiantil.Vistas.Activities.Maraton;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageView;
 
 import android.content.pm.ActivityInfo;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,10 +18,19 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestBuilder;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.Target;
 import com.unse.bienestar.estudiantil.Herramientas.Almacenamiento.PreferenceManager;
 import com.unse.bienestar.estudiantil.Herramientas.Utils;
 import com.unse.bienestar.estudiantil.Herramientas.VolleySingleton;
 import com.unse.bienestar.estudiantil.R;
+import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoGeneral;
+import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoProcesamiento;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,8 +42,10 @@ public class InscripcionMaratonActivity extends AppCompatActivity implements Vie
 
     ArrayAdapter<String> categ, rango;
     String cat, rang;
+    AppCompatImageView imgMaraton;
     Spinner spinnerCateg, spinnerRango;
     Button btnInsc;
+    DialogoProcesamiento dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +68,20 @@ public class InscripcionMaratonActivity extends AppCompatActivity implements Vie
         rango = new ArrayAdapter<>(getApplicationContext(), R.layout.style_spinner, Utils.rangoEdad);
         rango.setDropDownViewResource(R.layout.style_spinner);
         spinnerRango.setAdapter(rango);
+        Glide.with(imgMaraton.getContext()).load(Utils.URL_IMAGEN_LOGO).listener(new RequestListener<Drawable>() {
+            @Override
+            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                imgMaraton.setVisibility(View.GONE);
+                return false;
+            }
+
+            @Override
+            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                imgMaraton.setVisibility(View.VISIBLE);
+                return false;
+            }
+        }).apply(new RequestOptions().fitCenter())
+                .into(imgMaraton);
     }
 
     private void loadListener() {
@@ -74,7 +102,7 @@ public class InscripcionMaratonActivity extends AppCompatActivity implements Vie
         spinnerRango.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                rang = String.valueOf(position);
+                rang = String.valueOf(position + 1);
             }
 
 
@@ -87,6 +115,7 @@ public class InscripcionMaratonActivity extends AppCompatActivity implements Vie
     }
 
     private void loadViews() {
+        imgMaraton = findViewById(R.id.imgIcon);
         spinnerCateg = findViewById(R.id.spinnerCateg);
         spinnerRango = findViewById(R.id.spinnerRango);
         btnInsc = findViewById(R.id.btnInsc);
@@ -94,7 +123,7 @@ public class InscripcionMaratonActivity extends AppCompatActivity implements Vie
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btnInsc:
                 sendServer();
                 break;
@@ -117,6 +146,7 @@ public class InscripcionMaratonActivity extends AppCompatActivity implements Vie
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
+                dialog.dismiss();
                 Utils.showToast(getApplicationContext(), getString(R.string.servidorOff));
             }
         }) {
@@ -136,11 +166,15 @@ public class InscripcionMaratonActivity extends AppCompatActivity implements Vie
                 return map;
             }
         };
+        dialog = new DialogoProcesamiento();
+        dialog.setCancelable(false);
+        dialog.show(getSupportFragmentManager(), "dialog_process");
         VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
     }
 
     private void procesarRespuesta(String response) {
         try {
+            dialog.dismiss();
             JSONObject jsonObject = new JSONObject(response);
             int estado = jsonObject.getInt("estado");
             switch (estado) {
@@ -149,19 +183,18 @@ public class InscripcionMaratonActivity extends AppCompatActivity implements Vie
                     break;
                 case 1:
                     //Exito
-                    Utils.showToast(getApplicationContext(), "Inscripción correcta");
+                    Utils.showToast(getApplicationContext(), getString(R.string.inscripcionExitosa));
+                    finish();
                     break;
                 case 2:
-                    Utils.showToast(getApplicationContext(), "Ya te inscribiste");
+                case 5:
+                    Utils.showToast(getApplicationContext(), getString(R.string.inscripcionYaRegistrada));
                     break;
                 case 3:
                     Utils.showToast(getApplicationContext(), getString(R.string.tokenInvalido));
                     break;
                 case 4:
                     Utils.showToast(getApplicationContext(), getString(R.string.camposInvalidos));
-                    break;
-                case 5:
-                    Utils.showToast(getApplicationContext(), "Ya te inscribiste5");
                     break;
                 case 100:
                     Utils.showToast(getApplicationContext(), getString(R.string.tokenInexistente));

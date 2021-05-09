@@ -8,16 +8,19 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.unse.bienestar.estudiantil.Herramientas.Almacenamiento.PreferenceManager;
 import com.unse.bienestar.estudiantil.Herramientas.Utils;
 import com.unse.bienestar.estudiantil.R;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageView;
 
 public class EspaciosActivity extends AppCompatActivity implements View.OnClickListener {
 
     Button linearCancha, linearQuincho;
-    ImageView imgIcon;
+    ImageView imgIcon, imgSum;
+    AppCompatImageView imgCancha;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +37,8 @@ public class EspaciosActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void loadData() {
+        Glide.with(imgCancha.getContext()).load(Utils.URL_IMAGEN_CANCHA).into(imgCancha);
+        Glide.with(imgSum.getContext()).load(Utils.URL_IMAGEN_SUM).into(imgSum);
         ((TextView) findViewById(R.id.txtTitulo)).setText(Utils.getAppName(getApplicationContext(), getComponentName()));
     }
 
@@ -44,6 +49,8 @@ public class EspaciosActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void loadViews() {
+        imgSum = findViewById(R.id.imgSum);
+        imgCancha = findViewById(R.id.imgCancha);
         linearCancha = findViewById(R.id.layCancha);
         linearQuincho = findViewById(R.id.laySalon);
         imgIcon = findViewById(R.id.imgFlecha);

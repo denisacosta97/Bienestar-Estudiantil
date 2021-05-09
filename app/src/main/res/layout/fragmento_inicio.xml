@@ -35,6 +35,9 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardMaraton"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
@@ -43,7 +46,7 @@
                 card_view:cardBackgroundColor="@android:color/white">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                   android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:orientation="horizontal">
@@ -73,7 +76,7 @@
                             android:id="@+id/txtNameDeporte"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Inscripción Maratón"
+                            android:text="Inscripción Maratón Virtual"
                             android:textColor="@color/blackTextColor"
                             android:textSize="18sp"
                             android:textStyle="bold"

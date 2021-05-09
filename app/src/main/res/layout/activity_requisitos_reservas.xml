@@ -172,7 +172,7 @@
                     android:layout_width="350dp"
                     android:layout_height="200dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/mappoliborrar"/>
+                    android:src="@drawable/mapa_poli"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -196,7 +196,7 @@
                     android:layout_width="350dp"
                     android:layout_height="200dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/mappoliborrar"/>
+                    android:src="@drawable/mapa_poli"/>
 
             </LinearLayout>
 

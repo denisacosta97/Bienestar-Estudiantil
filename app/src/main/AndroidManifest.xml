@@ -24,8 +24,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Vistas.Activities.Maraton.InscripcionMaratonActivity"></activity>
-        <activity android:name=".Vistas.Fragmentos.RunningFragment" />
+        <activity android:name=".Vistas.Activities.Maraton.InscripcionMaratonActivity" />
         <activity android:name=".Vistas.Activities.PuntosConectividad.ResumenTurnoPCActivity" />
         <activity android:name=".Vistas.Activities.PuntosConectividad.SelectorFechaPCActivity" />
         <activity android:name=".Vistas.Activities.UPA.TurnoMedicamentos.ResumenTurnoMedActivity" />
@@ -37,11 +36,6 @@
         <activity android:name=".Vistas.Activities.UPA.PerfilServicioActivity" />
         <activity android:name=".Vistas.Activities.UPA.ServiciosUPAActivity" />
         <activity android:name=".Vistas.Activities.UPA.TurnosUPAActivity" />
-        <activity android:name=".Vistas.Activities.Polideportivo.GestionReservasInst.InfoReservaInstActivity" />
-        <activity android:name=".Vistas.Activities.Polideportivo.GestionReservasInst.ListadoReservasActivity" />
-        <activity android:name=".Vistas.Activities.Polideportivo.GestionReservasCanchas.ReservasCanchasActivity" />
-        <activity android:name=".Vistas.Activities.Polideportivo.GestionReservasInst.GestionReservasInstActivity" />
-        <activity android:name=".Vistas.Activities.Polideportivo.GestionReservasCanchas.GestionReservasCanchasActivity" />
         <activity android:name=".Vistas.Activities.Polideportivo.CanchasSelectActivity" />
         <activity android:name=".Vistas.Activities.Polideportivo.CanchasActivity" />
         <activity android:name=".Vistas.Activities.Transporte.RecorridoRealActivity" />
@@ -92,9 +86,6 @@
             android:name=".Vistas.Activities.Polideportivo.RequisitosReservasActivity"
             android:label="Requisitos de Reservas" />
         <activity
-            android:name=".Vistas.Activities.Polideportivo.GestionReservasInst.GestionReservasActivity"
-            android:label="Gestión de Reservas" />
-        <activity
             android:name=".Vistas.Activities.Perfil.TurnosActivity"
             android:label="Turnos" />
         <activity android:name=".Vistas.Activities.Becas.TipoTurnosActivity" />
@@ -113,6 +104,7 @@
         <activity android:name=".Vistas.Activities.Becas.InfoTurnoActivity" />
         <activity android:name=".Vistas.Activities.UPA.SelectorFechaUPAActivity" />
         <activity android:name=".Vistas.Activities.Inicio.NoticiaLectorActivity" />
+        <activity android:name=".Vistas.Activities.Maraton.PerfilMaratonActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

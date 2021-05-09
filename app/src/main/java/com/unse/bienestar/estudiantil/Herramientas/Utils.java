@@ -306,7 +306,6 @@ public class Utils {
     public static final String URL_CONFIG = "https://" + IP + "/general/config/getValue.php";
 
 
-
     //TRANSPORTE
     public static final String URL_LINEAS = "https://" + IP + "/transporte/getAllLineas.php";
     public static final String URL_LINEAS_UPDATE = "https://" + IP + "/trasporte/actualizar.php";
@@ -356,27 +355,36 @@ public class Utils {
 
     //UAPU
     public static final String URL_MEDICAM_INSERT = "https://" + IP + "/uapu/medicamento/insertar.php";
-    public static final String URL_MEDICAM_DAY  = "https://" + IP + "/uapu/medicamento/getByDay.php";
-    public static final String URL_MEDICAM_USER  = "https://" + IP + "/uapu/medicamento/getByUser.php";
-    public static final String URL_MEDICAM_CANCELAR  = "https://" + IP + "/uapu/medicamento/actualizar.php";
+    public static final String URL_MEDICAM_DAY = "https://" + IP + "/uapu/medicamento/getByDay.php";
+    public static final String URL_MEDICAM_USER = "https://" + IP + "/uapu/medicamento/getByUser.php";
+    public static final String URL_MEDICAM_CANCELAR = "https://" + IP + "/uapu/medicamento/actualizar.php";
     public static final String URL_TURNO_UAPU_HORARIO = "https://" + IP + "/uapu/turno/horarios.json";
     public static final String URL_UAPU_HORARIO = "https://" + IP + "/uapu/turno/getTurnoHorarios.php";
     public static final String URL_TURNO_UAPU_NUEVO = "https://" + IP + "/uapu/turno/insertar.php";
     public static final String URL_SERVICIOS = "https://" + IP + "/uapu/servicio/getServicios.php";
     public static final String URL_HORARIOS_MEDICAM = "https://" + IP + "/uapu/medicamento/horarios.json";
     public static final String URL_TUNO_HORARIO_MEDICAM = "https://" + IP + "/uapu/medicamento/getTurnoHorarios.php";
-    public static final String URL_TURNO_UPA_CANCELAR  = "https://" + IP + "/uapu/turno/cancelar.php";
+    public static final String URL_TURNO_UPA_CANCELAR = "https://" + IP + "/uapu/turno/cancelar.php";
     public static final long SECONS_TIMER = 15000;
 
     //PUNTOS DE CONECTIVIDAD
-    public static final String URL_PC_TURNO  = "https://" + IP + "/general/conectividad/insertar.php";
-    public static final String URL_PC_HORARIOS  = "https://" + IP + "/general/conectividad/horarios.json";
-    public static final String URL_PC_TURNOSHORARIOS  = "https://" + IP + "/general/conectividad/getTurnoHorarios.php";
+    public static final String URL_PC_TURNO = "https://" + IP + "/general/conectividad/insertar.php";
+    public static final String URL_PC_HORARIOS = "https://" + IP + "/general/conectividad/horarios.json";
+    public static final String URL_PC_TURNOSHORARIOS = "https://" + IP + "/general/conectividad/getTurnoHorarios.php";
     public static final String URL_PC_CANCELAR = "https://" + IP + "/general/conectividad/cancelar.php";
     public static final String URL_PC_ZONAS = "https://" + IP + "/general/conectividad/getLugares.php";
 
+    //IMAGENES
+    public static final String URL_IMAGEN_INICIO = "https://" + IP + "/deportes/img_unse2.jpg";
+    public static final String URL_IMAGEN_CANCHA = "https://" + IP + "/deportes/cancha.jpg";
+    public static final String URL_IMAGEN_SUM = "https://" + IP + "/deportes/sum.jpg";
+    public static final String URL_IMAGEN_REC_SI = "https://" + IP + "/deportes/rec_si.jpg";
+    public static final String URL_IMAGEN_REC_NO = "https://" + IP + "/deportes/rec_no.jpg";
+
     //MARATÓN
     public static final String URL_INSCRIPCION_MARATON = "https://" + IP + "/deportes/carrera/insertar.php";
+    public static final String URL_INSCRIPCION_CHECK = "https://" + IP + "/deportes/carrera/check.php";
+    public static final String URL_IMAGEN_LOGO = "https://" + IP + "/deportes/carrera/logo.png";
 
     //CARPETAS
     public static final String FOLDER = "BIENESTAR_ESTUDIANTIL/";

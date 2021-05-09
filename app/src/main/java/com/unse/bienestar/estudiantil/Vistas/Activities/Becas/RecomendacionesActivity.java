@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.unse.bienestar.estudiantil.Herramientas.Utils;
 import com.unse.bienestar.estudiantil.R;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,8 +33,9 @@ public class RecomendacionesActivity extends AppCompatActivity implements View.O
     }
 
     private void loadData() {
-        Glide.with(getApplicationContext()).load(R.drawable.rec_no).into(imgUno);
-        Glide.with(getApplicationContext()).load(R.drawable.rec_si).into(imgDos);
+        Glide.with(imgUno.getContext()).load(Utils.URL_IMAGEN_REC_NO).into(imgUno);
+        Glide.with(imgDos.getContext()).load(Utils.URL_IMAGEN_REC_SI).into(imgDos);
+
     }
 
     private void loadViews() {

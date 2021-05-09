@@ -1,5 +1,6 @@
 package com.unse.bienestar.estudiantil.Vistas.Fragmentos;
 
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,11 +17,12 @@ import com.unse.bienestar.estudiantil.Herramientas.RecyclerListener.ItemClickSup
 import com.unse.bienestar.estudiantil.Herramientas.Utils;
 import com.unse.bienestar.estudiantil.Herramientas.VolleySingleton;
 import com.unse.bienestar.estudiantil.Modelos.Categoria;
+import com.unse.bienestar.estudiantil.Modelos.Maraton;
 import com.unse.bienestar.estudiantil.Modelos.Noticia;
 import com.unse.bienestar.estudiantil.R;
-import com.unse.bienestar.estudiantil.Vistas.Activities.Gestion.GestionNoticias.NoticiaLectorActivity;
 import com.unse.bienestar.estudiantil.Vistas.Activities.Maraton.InscripcionMaratonActivity;
 import com.unse.bienestar.estudiantil.Vistas.Activities.Inicio.NoticiaLectorActivity;
+import com.unse.bienestar.estudiantil.Vistas.Activities.Maraton.PerfilMaratonActivity;
 import com.unse.bienestar.estudiantil.Vistas.Adaptadores.CategoriasAdapter;
 import com.unse.bienestar.estudiantil.Vistas.Adaptadores.NoticiasAdapter;
 import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoProcesamiento;
@@ -32,6 +34,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -81,17 +84,18 @@ public class InicioFragmento extends Fragment {
 
         loadViews();
 
-        loadDataRecycler();
+        loadData();
 
         return view;
     }
 
     private void loadViews() {
+        cardMaraton = view.findViewById(R.id.cardMaraton);
         recyclerCategorias = view.findViewById(R.id.recyclerCategorias);
         recyclerNoticias = view.findViewById(R.id.recyclerNoticias);
     }
 
-    private void loadDataRecycler() {
+    private void loadData() {
         loadCategorias();
         mAdapter = new CategoriasAdapter(mCategorias, getContext());
         mLayoutManager = new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false);
@@ -133,10 +137,29 @@ public class InicioFragmento extends Fragment {
         cardMaraton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getContext(), InscripcionMaratonActivity.class);
-                startActivity(i);
+                checkInscripcion();
             }
         });
+    }
+
+    private void checkInscripcion() {
+        PreferenceManager preferenceManager = new PreferenceManager(getContext());
+        int id = preferenceManager.getValueInt(Utils.MY_ID);
+        String key = preferenceManager.getValueString(Utils.TOKEN);
+        String URL = String.format("%s?key=%s&idU=%s&iu=%s", Utils.URL_INSCRIPCION_CHECK, key, id, id);
+        StringRequest request = new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                procesarRespuesta(response, 2);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+                Utils.showToast(getContext(), getString(R.string.servidorOff));
+            }
+        });
+        VolleySingleton.getInstance(getContext()).addToRequestQueue(request);
     }
 
     private void resetear() {
@@ -146,7 +169,6 @@ public class InicioFragmento extends Fragment {
     }
 
     private void loadInfo() {
-
         PreferenceManager manager = new PreferenceManager(getContext());
         boolean isLogin = manager.getValue(Utils.IS_LOGIN);
         String key = manager.getValueString(Utils.TOKEN);
@@ -157,7 +179,7 @@ public class InicioFragmento extends Fragment {
         StringRequest request = new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                procesarRespuesta(response);
+                procesarRespuesta(response, 1);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -175,7 +197,7 @@ public class InicioFragmento extends Fragment {
         VolleySingleton.getInstance(getContext()).addToRequestQueue(request);
     }
 
-    private void procesarRespuesta(String response) {
+    private void procesarRespuesta(String response, int tipo) {
         try {
             dialog.dismiss();
             JSONObject jsonObject = new JSONObject(response);
@@ -186,10 +208,15 @@ public class InicioFragmento extends Fragment {
                     break;
                 case 1:
                     //Exito
-                    loadInfo(jsonObject);
+                    loadInfo(jsonObject, tipo);
                     break;
                 case 2:
-                    Utils.showToast(getContext(), getString(R.string.noData));
+                    if (tipo == 1)
+                        Utils.showToast(getContext(), getString(R.string.noData));
+                    else {
+                        Intent i = new Intent(getContext(), InscripcionMaratonActivity.class);
+                        startActivity(i);
+                    }
                     //updateView(0);
                     break;
                 case 3:
@@ -208,27 +235,38 @@ public class InicioFragmento extends Fragment {
         }
     }
 
-    private void loadInfo(JSONObject jsonObject) {
+    private void loadInfo(JSONObject jsonObject, int tipo) {
         try {
             if (jsonObject.has("mensaje")) {
 
-                JSONArray jsonArray = jsonObject.getJSONArray("mensaje");
+                if (tipo == 1) {
+                    JSONArray jsonArray = jsonObject.getJSONArray("mensaje");
 
-                mListNoticias = new ArrayList<>();
+                    mListNoticias = new ArrayList<>();
 
-                for (int i = 0; i < jsonArray.length(); i++) {
+                    for (int i = 0; i < jsonArray.length(); i++) {
 
-                    JSONObject o = jsonArray.getJSONObject(i);
+                        JSONObject o = jsonArray.getJSONObject(i);
 
-                    Noticia noticia = Noticia.mapper(o, Noticia.COMPLETE);
+                        Noticia noticia = Noticia.mapper(o, Noticia.COMPLETE);
 
-                    mListNoticias.add(noticia);
+                        mListNoticias.add(noticia);
 
-                }
-                if (mListNoticias.size() > 0) {
-                    mNoticiasAdapter = new NoticiasAdapter(mListNoticias, getContext(), 0);
-                    recyclerNoticias.setAdapter(mNoticiasAdapter);
-                    recyclerCategorias.setVisibility(View.VISIBLE);
+                    }
+                    if (mListNoticias.size() > 0) {
+                        mNoticiasAdapter = new NoticiasAdapter(mListNoticias, getContext(), 0);
+                        recyclerNoticias.setAdapter(mNoticiasAdapter);
+                        recyclerCategorias.setVisibility(View.VISIBLE);
+                    }
+                } else if (tipo == 2) {
+                    JSONObject jsonArray = jsonObject.getJSONObject("mensaje");
+
+                    if (jsonArray.has("distancia")) {
+                        Maraton maraton = Maraton.mapper(jsonArray, Maraton.BASIC);
+                        Intent intent = new Intent(getContext(), PerfilMaratonActivity.class);
+                        intent.putExtra(Utils.USER_NAME, maraton);
+                        startActivity(intent);
+                    }
                 }
 
 

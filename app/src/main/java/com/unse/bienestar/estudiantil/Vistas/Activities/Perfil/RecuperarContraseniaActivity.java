@@ -2,6 +2,7 @@ package com.unse.bienestar.estudiantil.Vistas.Activities.Perfil;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +14,12 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.Target;
 import com.unse.bienestar.estudiantil.Herramientas.Almacenamiento.PreferenceManager;
 import com.unse.bienestar.estudiantil.Herramientas.Utils;
 import com.unse.bienestar.estudiantil.Herramientas.Validador;
@@ -28,7 +35,10 @@ import org.json.JSONObject;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.core.content.ContextCompat;
 
 public class RecuperarContraseniaActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -37,6 +47,7 @@ public class RecuperarContraseniaActivity extends AppCompatActivity implements V
     EditText edtxMail, edtDNI;
     TextView txtNoLlega;
     DialogoProcesamiento dialog;
+    AppCompatImageView latFondo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,11 +75,26 @@ public class RecuperarContraseniaActivity extends AppCompatActivity implements V
     }
 
     private void loadViews() {
+        latFondo = findViewById(R.id.imgFondo);
         btnEnviar = findViewById(R.id.btnEnviar);
         edtxMail = findViewById(R.id.edtMail);
         edtDNI = findViewById(R.id.edtDNI);
         txtNoLlega = findViewById(R.id.txtNoLlega);
         imgBack = findViewById(R.id.imgFlecha);
+
+        Glide.with(latFondo.getContext()).load(Utils.URL_IMAGEN_INICIO).listener(new RequestListener<Drawable>() {
+            @Override
+            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                latFondo.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.black_alpha_40));
+                return false;
+            }
+
+            @Override
+            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                return false;
+            }
+        }).apply(new RequestOptions().centerCrop())
+                .into(latFondo);
     }
 
     @Override

@@ -320,6 +320,7 @@ public class ResumenTurnoActivity extends AppCompatActivity implements View.OnCl
                     break;
                 case 2:
                     loadError();
+                    Utils.showToast(getApplicationContext(), getString(R.string.turnoHorarioFuera));
                     break;
                 case 3:
                     Utils.showToast(getApplicationContext(), getString(R.string.tokenInvalido));
@@ -361,10 +362,9 @@ public class ResumenTurnoActivity extends AppCompatActivity implements View.OnCl
     }
 
     private void loadError() {
-        showProgressDialog(false);
         animateButtonWidth(false);
         fadeOutInTextProgress();
-        Utils.showToast(getApplicationContext(), getString(R.string.becaTurnoError));
+        showProgressDialog(false);
     }
 
     public void fadeOutInTextProgress() {

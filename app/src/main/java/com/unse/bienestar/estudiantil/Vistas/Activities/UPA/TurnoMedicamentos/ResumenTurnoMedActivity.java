@@ -297,7 +297,7 @@ public class ResumenTurnoMedActivity extends AppCompatActivity implements View.O
                     break;
                 case 2:
                     loadError();
-                    Utils.showToast(getApplicationContext(), getString(R.string.TurnoMedYaReservado));
+                    Utils.showToast(getApplicationContext(), getString(R.string.turnoHorarioFuera));
                     break;
                 case 3:
                     Utils.showToast(getApplicationContext(), getString(R.string.tokenInvalido));

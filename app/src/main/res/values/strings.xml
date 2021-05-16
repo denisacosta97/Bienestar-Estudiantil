@@ -507,7 +507,8 @@ Solo debes enviarnos dos fotos:\n
 ✅ Una foto tuya al finalizar el recorrido.\n\n
 ❗ Recuerda que la distancia que elijas la puedes realizar caminando, corriendo o combinar las dos.\n
 
-Te recomendamos aplicaciones como: Adidas Running, Nike Running.</string>
+El día de la carrera, la aplicación habilitará la opción de registrar tu GPS durante el transcurso de la maratón o,
+        te recomendamos aplicaciones como: Adidas Running, Nike Running.</string>
 
     <string name="txtRecNo">Cuando vayas a sacar las fotos de la documentación, ten en cuenta las siguientes recomendaciones:\n- NO saques la foto como se muestra en el ejemplo, trata de que no haya ningún elemento al rededor.\n- NO sacar fotos a papeles arrugados o que no se note lo escrito.\n- Evita sacar fotos con la luz directa, eso ocasiona que haya sombra al momento de tomar la foto.</string>
     <string name="txtRecSi">Algunos tips para sacar unas buenas fotos:\n- Usar el flash, puede ser una buena opción, verifica que todo se vea correctamente.\n- Limpiá bien el lente de la cámara del celular.\n- Mantené una distancia considerable del papel, mira siempre que las esquinas cuadren en la foto.\n- Utiliza alguna de las aplicaciones que nombramos más abajo para más calidad.</string>
@@ -569,6 +570,7 @@ Te recomendamos aplicaciones como: Adidas Running, Nike Running.</string>
     <string name="puntoCWsp">Este punto de conectividad funciona bajo la modalidad de turnos por Whatsapp.\nSi presionas aceptar serás redirigido a la aplicación para mandar un mensaje. De lo contrario, el número es %s</string>
     <string name="versionNueva">Bienestar Estudiantil - UNSE tiene una nueva versión disponible en la tienda. Para continuar usando la aplicación, debe actualizarla.</string>
     <string name="errorTienda">¡Error al abrir la tienda!</string>
+    <string name="turnoHorarioFuera">¡Fecha o turno ya expirado!</string>
 
 </resources>
 

@@ -225,6 +225,9 @@ public class InicioFragmento extends Fragment {
                 case 100:
                     //No autorizado
                     Utils.showToast(getContext(), getString(R.string.tokenInexistente));
+                    if (tipo == 2){
+
+                    }
                     break;
             }
 

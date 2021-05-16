@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 import com.android.volley.AuthFailureError;
@@ -45,13 +47,20 @@ public class InscripcionMaratonActivity extends AppCompatActivity implements Vie
     AppCompatImageView imgMaraton;
     Spinner spinnerCateg, spinnerRango;
     Button btnInsc;
+    LinearLayout latDatos;
+    EditText edtDNI, edtNombre, edtApellido, edtSexo, edtMail, edtFechaNac, edtPais, edtProvincia;
     DialogoProcesamiento dialog;
+    boolean isRegister = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inscripcion_maraton);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        if (getIntent().getBooleanExtra(Utils.IS_EDIT_MODE, false)) {
+            isRegister = getIntent().getBooleanExtra(Utils.IS_EDIT_MODE, false);
+        }
 
         loadViews();
 
@@ -64,6 +73,11 @@ public class InscripcionMaratonActivity extends AppCompatActivity implements Vie
         categ = new ArrayAdapter<>(getApplicationContext(), R.layout.style_spinner, Utils.catMaraton);
         categ.setDropDownViewResource(R.layout.style_spinner);
         spinnerCateg.setAdapter(categ);
+
+        if (isRegister) {
+            latDatos.setVisibility(View.VISIBLE);
+        } else
+            latDatos.setVisibility(View.GONE);
 
         rango = new ArrayAdapter<>(getApplicationContext(), R.layout.style_spinner, Utils.rangoEdad);
         rango.setDropDownViewResource(R.layout.style_spinner);
@@ -115,7 +129,15 @@ public class InscripcionMaratonActivity extends AppCompatActivity implements Vie
     }
 
     private void loadViews() {
+        latDatos = findViewById(R.id.latDatos);
+        edtApellido = findViewById(R.id.edtApellido);
+        edtDNI = findViewById(R.id.edtDNI);
+        edtFechaNac = findViewById(R.id.edtFecha);
+        edtMail = findViewById(R.id.edtMail);
+        edtSexo = findViewById(R.id.edtSexo);
         imgMaraton = findViewById(R.id.imgIcon);
+        edtPais = findViewById(R.id.edtPais);
+        edtProvincia = findViewById(R.id.edtxProvincia);
         spinnerCateg = findViewById(R.id.spinnerCateg);
         spinnerRango = findViewById(R.id.spinnerRango);
         btnInsc = findViewById(R.id.btnInsc);

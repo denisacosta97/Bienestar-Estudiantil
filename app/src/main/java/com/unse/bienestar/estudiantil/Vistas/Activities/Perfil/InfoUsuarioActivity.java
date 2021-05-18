@@ -79,6 +79,7 @@ import org.json.JSONObject;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -116,8 +117,8 @@ public class InfoUsuarioActivity extends AppCompatActivity implements View.OnCli
     LinearLayout latGeneral, latAlumno, latProfesor, latEgresado, latAdmin, latUser, latRegularidades;
     CardView fabEditar, fabPic;
     AppCompatImageView imgEditar;
-    TextView edtFechaNac, edtProvincia, edtPais, edtLocalidad;
-    EditText edtNombre, edtApellido, edtDNI, edtSexo, edtMail, edtProfesionProf, edtAnioIngresoProf,
+    TextView edtProvincia, edtPais, edtLocalidad;
+    EditText edtFechaNac, edtNombre, edtApellido, edtDNI, edtSexo, edtMail, edtProfesionProf, edtAnioIngresoProf,
             edtProfesionEgre, edtAnioEgresoEgre, edtAnioIngresoAlu, edtLegajoAlu, edtDomicilio, edtTelefono, edtBarrio, edtRegistro, edtModificacion;
     Button btnAltaBaja, btnAgregarReg;
     Spinner spinnerFacultad, spinnerCarrera;
@@ -280,6 +281,70 @@ public class InfoUsuarioActivity extends AppCompatActivity implements View.OnCli
             @Override
             public void onItemClick(RecyclerView parent, View view, int position, long id) {
                 processClick(position);
+            }
+        });
+
+        edtFechaNac.addTextChangedListener(new TextWatcher() {
+
+            private String current = "";
+            private String ddmmyyyy = "DDMMAAAA";
+            private Calendar cal = Calendar.getInstance();
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                if (!s.toString().equals(current)) {
+                    String clean = s.toString().replaceAll("[^\\d.]", "");
+                    String cleanC = current.replaceAll("[^\\d.]", "");
+
+                    int cl = clean.length();
+                    int sel = cl;
+                    for (int i = 2; i <= cl && i < 6; i += 2) {
+                        sel++;
+                    }
+                    //Fix for pressing delete next to a forward slash
+                    if (clean.equals(cleanC)) sel--;
+
+                    if (clean.length() < 8){
+                        clean = clean + ddmmyyyy.substring(clean.length());
+                    }else{
+                        //This part makes sure that when we finish entering numbers
+                        //the date is correct, fixing it otherwise
+                        int day  = Integer.parseInt(clean.substring(0,2));
+                        int mon  = Integer.parseInt(clean.substring(2,4));
+                        int year = Integer.parseInt(clean.substring(4,8));
+
+                        if(mon > 12) mon = 12;
+                        cal.set(Calendar.MONTH, mon-1);
+
+                        year = (year<1900)?1900:(year>2100)?2100:year;
+                        cal.set(Calendar.YEAR, year);
+                        // ^ first set year for the line below to work correctly
+                        //with leap years - otherwise, date e.g. 29/02/2012
+                        //would be automatically corrected to 28/02/2012
+
+                        day = (day > cal.getActualMaximum(Calendar.DATE))? cal.getActualMaximum(Calendar.DATE):day;
+                        clean = String.format("%02d%02d%02d",day, mon, year);
+                    }
+
+                    clean = String.format("%s-%s-%s", clean.substring(0, 2),
+                            clean.substring(2, 4),
+                            clean.substring(4, 8));
+
+                    sel = sel < 0 ? 0 : sel;
+                    current = clean;
+                    edtFechaNac.setText(current);
+                    edtFechaNac.setSelection(sel < current.length() ? sel : current.length());
+                }
+            }
+
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                edtFechaNac.setError(null);
             }
         });
 
@@ -628,9 +693,6 @@ public class InfoUsuarioActivity extends AppCompatActivity implements View.OnCli
                 break;
             case R.id.imgFlecha:
                 onBackPressed();
-                break;
-            case R.id.edtFecha:
-                elegirFechaNacimiento();
                 break;
             case R.id.fab:
                 openModeEditor();
@@ -1255,7 +1317,8 @@ public class InfoUsuarioActivity extends AppCompatActivity implements View.OnCli
     private void save() {
         Validador validador = new Validador(getApplicationContext());
 
-        String fecha = edtFechaNac.getText().toString().trim();
+        String fechaParcial = edtFechaNac.getText().toString().trim();
+        String fecha = Utils.parseDateString(fechaParcial);
         String nombre = edtNombre.getText().toString().trim();
         String apellido = edtApellido.getText().toString().trim();
         String dni = edtDNI.getText().toString().trim();

@@ -39,6 +39,15 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:text="*: Obligatorio."
+            android:textColor="@color/blackTextColor"
+            android:fontFamily="@font/montserrat_regular"/>
+
+        <TextView
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:textColor="@color/blackTextColor"
             android:text="Escanear DNI"
             android:textSize="18sp"
@@ -49,6 +58,7 @@
             android:fontFamily="@font/montserrat_black"/>
 
         <ImageButton
+            android:visibility="gone"
             android:id="@+id/btnScanner"
             android:layout_width="120dp"
             android:layout_height="120dp"
@@ -73,7 +83,7 @@
                     android:id="@+id/edtNombre"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:hint="Nombre completo"
+                    android:hint="Nombre completo*"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginBottom="10dp"
@@ -94,7 +104,7 @@
                 android:id="@+id/edtApellido"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:hint="Apellidos"
+                android:hint="Apellidos*"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginBottom="10dp"
@@ -124,7 +134,7 @@
                         android:id="@+id/edtDNI"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="D.N.I"
+                        android:hint="D.N.I*"
                         android:layout_marginRight="5dp"
                         android:layout_marginBottom="10dp"
                         android:padding="15dp"
@@ -145,7 +155,7 @@
                         android:id="@+id/edtSexo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Sexo"
+                        android:hint="Sexo*"
                         android:layout_marginBottom="10dp"
                         android:layout_marginLeft="5dp"
                         android:padding="15dp"
@@ -163,15 +173,12 @@
                 android:id="@+id/edtFecha"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:hint="Fecha de nacimiento"
+                android:hint="Fecha de nacimiento*"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginBottom="10dp"
                 android:padding="15dp"
                 android:inputType="date"
-                android:focusable="false"
-                android:clickable="true"
-                android:maxLines="1"
                 android:background="@drawable/edit_text_logreg"
                 android:textSize="16sp"
                 android:fontFamily="@font/montserrat_regular"/>
@@ -185,12 +192,54 @@
                     android:id="@+id/edtEmail"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:hint="Email"
+                    android:hint="Email*"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginBottom="10dp"
                     android:padding="15dp"
                     android:inputType="textEmailAddress"
+                    android:background="@drawable/edit_text_logreg"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/montserrat_regular"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilContra"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/edtPass"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:hint="Contraseña*"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:padding="15dp"
+                    android:inputType="textPassword"
+                    android:background="@drawable/edit_text_logreg"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/montserrat_regular"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilRecontra"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/edtRepass"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:hint="Confirmar contraseña*"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:padding="15dp"
+                    android:inputType="textPassword"
                     android:background="@drawable/edit_text_logreg"
                     android:textSize="16sp"
                     android:fontFamily="@font/montserrat_regular"/>
@@ -210,6 +259,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
                     android:padding="15dp"
                     android:inputType="number"
                     android:textCursorDrawable="@drawable/color_cursor"
@@ -325,49 +375,6 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tilContra"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <EditText
-                    android:id="@+id/edtPass"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:hint="Contraseña"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginBottom="10dp"
-                    android:padding="15dp"
-                    android:inputType="textPassword"
-                    android:background="@drawable/edit_text_logreg"
-                    android:textSize="16sp"
-                    android:fontFamily="@font/montserrat_regular"/>
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tilRecontra"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <EditText
-                    android:id="@+id/edtRepass"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:hint="Confirmar contraseña"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:padding="15dp"
-                    android:inputType="textPassword"
-                    android:background="@drawable/edit_text_logreg"
-                    android:textSize="16sp"
-                    android:fontFamily="@font/montserrat_regular"/>
-
-            </com.google.android.material.textfield.TextInputLayout>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -448,7 +455,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Facultad: "
+                        android:text="Facultad*: "
                         android:textColor="@color/blackTextColor"
                         android:textSize="16sp"
                         android:fontFamily="@font/montserrat_black"/>
@@ -472,7 +479,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Carrera: "
+                        android:text="Carrera*: "
                         android:textSize="16sp"
                         android:textColor="@color/blackTextColor"
                         android:fontFamily="@font/montserrat_black"/>
@@ -496,7 +503,7 @@
                         android:id="@+id/edtLegajo"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:hint="Legajo"
+                        android:hint="Legajo*"
                         android:layout_marginTop="10dp"
                         android:padding="15dp"
                         android:inputType="text"

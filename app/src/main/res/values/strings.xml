@@ -233,7 +233,7 @@
     <string name="alert2">Aquí puedes visualizar las gestiones que tienes habilitadas.</string>
     <string name="alert3">Te enviaremos un mensaje a la casilla de correo indicada con tu nueva contraseña.</string>
     <string name="alert4">Sube una foto del rostro en un fondo blanco, sin anteojos, pelo en la cara o algo que pueda obstruir la foto del rostro completo. Ten en cuenta que esta foto podría usarse para trámites importantes, razón por la que debe ser una foto formal.</string>
-    <string name="alert5">Regístrate para poder realizar tus trámites dentro de Bienestar Estudiantíl. Tienes la opción de escanear el código QR de tu DNI para autocompletar datos.</string>
+    <string name="alert5">Regístrate para poder realizar tus trámites dentro de Bienestar Estudiantíl. El DNI solo se solicita para usarlo en el acceso a la aplicación, en ningún momento se utilizará con otro fin.</string>
     <string name="alert6">Para añadir una regularidad, ingrese el año de la misma</string>
     <string name="alert7">Actualmente el Comedor Universitario está funcionando de manera independiente en otra aplicación.</string>
     <string name="alert8">ERROR AL OBTENER CREDENCIALES, POR FAVOR INTENTA NUEVAMENTE.</string>

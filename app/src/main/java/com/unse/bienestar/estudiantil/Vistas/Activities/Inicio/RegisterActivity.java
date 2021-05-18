@@ -55,6 +55,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -208,21 +209,70 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     private void loadListener() {
         edtFechaNac.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-            }
+            private String current = "";
+            private String ddmmyyyy = "DDMMAAAA";
+            private Calendar cal = Calendar.getInstance();
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
+                if (!s.toString().equals(current)) {
+                    String clean = s.toString().replaceAll("[^\\d.]", "");
+                    String cleanC = current.replaceAll("[^\\d.]", "");
+
+                    int cl = clean.length();
+                    int sel = cl;
+                    for (int i = 2; i <= cl && i < 6; i += 2) {
+                        sel++;
+                    }
+                    //Fix for pressing delete next to a forward slash
+                    if (clean.equals(cleanC)) sel--;
+
+                    if (clean.length() < 8){
+                        clean = clean + ddmmyyyy.substring(clean.length());
+                    }else{
+                        //This part makes sure that when we finish entering numbers
+                        //the date is correct, fixing it otherwise
+                        int day  = Integer.parseInt(clean.substring(0,2));
+                        int mon  = Integer.parseInt(clean.substring(2,4));
+                        int year = Integer.parseInt(clean.substring(4,8));
+
+                        if(mon > 12) mon = 12;
+                        cal.set(Calendar.MONTH, mon-1);
+
+                        year = (year<1900)?1900:(year>2100)?2100:year;
+                        cal.set(Calendar.YEAR, year);
+                        // ^ first set year for the line below to work correctly
+                        //with leap years - otherwise, date e.g. 29/02/2012
+                        //would be automatically corrected to 28/02/2012
+
+                        day = (day > cal.getActualMaximum(Calendar.DATE))? cal.getActualMaximum(Calendar.DATE):day;
+                        clean = String.format("%02d%02d%02d",day, mon, year);
+                    }
+
+                    clean = String.format("%s-%s-%s", clean.substring(0, 2),
+                            clean.substring(2, 4),
+                            clean.substring(4, 8));
+
+                    sel = sel < 0 ? 0 : sel;
+                    current = clean;
+                    edtFechaNac.setText(current);
+                    edtFechaNac.setSelection(sel < current.length() ? sel : current.length());
+                }
             }
+
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
             public void afterTextChanged(Editable s) {
                 edtFechaNac.setError(null);
             }
         });
+
+
         ItemClickSupport itemClickSupport = ItemClickSupport.addTo(recyclerTipoUsuario);
         itemClickSupport.setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
             @Override
@@ -259,7 +309,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         edtPais.setOnClickListener(this);
         edtProvincia.setOnClickListener(this);
         edtLocalidad.setOnClickListener(this);
-        edtFechaNac.setOnClickListener(this);
+        //edtFechaNac.setOnClickListener(this);
         mRegister.setOnClickListener(this);
         btnBack.setOnClickListener(this);
         mScanner.setOnClickListener(this);
@@ -561,9 +611,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 tipo = 2;
                 openLocalidad();
                 break;
-            case R.id.edtFecha:
-                selectFechaNac();
-                break;
             case R.id.btnregister:
                 register();
                 break;
@@ -572,6 +619,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 break;
             case R.id.btnScanner:
                 checkPermission();
+                break;
+            case R.id.edtFecha:
+                edtFechaNac.setHint("DD-MM-AAAA");
                 break;
 
         }
@@ -627,7 +677,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private void register() {
         Validador validador = new Validador(getApplicationContext());
 
-        String fecha = edtFechaNac.getText().toString().trim();
+        String fechaParcial = edtFechaNac.getText().toString().trim();
+        String fecha = Utils.parseDateString(fechaParcial);
         String nombre = edtNombre.getText().toString().trim();
         String apellido = edtApellido.getText().toString().trim();
         String dni = edtDNI.getText().toString().trim();
@@ -635,75 +686,97 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         String mail = edtMail.getText().toString().trim();
         String pass = edtContra.getText().toString().trim();
         String profesion = edtProfesionProf.getText().toString().trim();
+        if(validador.noVacio(profesion)){
+            profesion = "n";
+        }
         String anioIngreso = edtAnioIngresoProf.getText().toString().trim();
+        if(validador.noVacio(anioIngreso)){
+            anioIngreso = "n";
+        }
         String faculta = facultad[spinnerFacultad.getSelectedItemPosition()].trim();
         String carrera = getCarrera(spinnerFacultad.getSelectedItemPosition()).trim();
         String anioIngreso2 = edtAnioIngresoAlu.getText().toString().trim();
+        if(validador.noVacio(anioIngreso2)){
+            anioIngreso2 = "n";
+        }
         String profesion2 = edtProfesionEgre.getText().toString().trim();
+        if(validador.noVacio(profesion2)){
+            profesion2 = "n";
+        }
         String anioEgreso = edtAnioEgresoEgre.getText().toString().trim();
+        if(validador.noVacio(anioEgreso)){
+            anioEgreso = "n";
+        }
         String domicilio = edtDomicilio.getText().toString().trim();
+        if(validador.noVacio(domicilio)){
+            domicilio = "n";
+        }
         String telefono = edtTelefono.getText().toString().trim();
+        if(validador.noVacio(telefono)){
+            telefono = "n";
+        }
         String pais = edtPais.getText().toString().trim();
+        if(validador.noVacio(pais)){
+            pais = "n";
+        }
         String provincia = edtProvincia.getText().toString().trim();
+        if(validador.noVacio(provincia)){
+            provincia = "n";
+        }
+        else
+            provincia = String.format("%s - %s", idProvinc, provincia);
         String localidad = edtLocalidad.getText().toString().trim();
+        if(validador.noVacio(localidad)){
+            localidad = "n";
+        }
         String legajo = edtLegajoAlu.getText().toString().trim();
         String barrio = edtBarrio.getText().toString().trim();
+        if(validador.noVacio(barrio)){
+            barrio = "Sin datos";
+        }
 
-        provincia = String.format("%s - %s", idProvinc, provincia);
-
-        if (validador.validarDNI(edtDNI) && validador.validarTelefono(edtTelefono) && validador.validarMail(edtMail)
-                && validador.validarFecha(edtFechaNac) && validador.validarContraseña(edtContra, edtContraConf)
-                && validador.validarDomicilio(edtDomicilio)
-                && validador.validarTexto(edtLocalidad)
-                && validador.validarTexto(edtPais) && validador.validarTexto(edtProvincia)
-                && !validador.validarNombresEdt(edtNombre, edtApellido) && validador.validarTexto(edtBarrio) &&
-                validador.validarTexto(edtLocalidad)) {
+        if (validador.validarDNI(edtDNI) && validador.validarMail(edtMail)
+                && validador.validarContraseña(edtContra, edtContraConf)
+                && !validador.validarNombresEdt(edtNombre, edtApellido)) {
             idDNI = Integer.parseInt(dni);
             switch (tipoUsuario) {
                 case Utils.TIPO_ALUMNO:
                     if (!validador.noVacio(faculta) && !validador.noVacio(carrera) &&
-                            validador.validarAnio(edtAnioIngresoAlu) && validador.validarLegajo(edtLegajoAlu)) {
-                        sendServer(processString(dni, nombre, apellido, fecha, pais, provincia, localidad,
-                                domicilio, barrio, telefono, sexo, "u",
-                                mail, 1, carrera, faculta, anioIngreso2
-                                , legajo, pass, null, null));
+                            validador.validarLegajo(edtLegajoAlu)) {
+                        sendServer(processString(dni, nombre, apellido, fecha, pais, provincia,
+                                localidad, domicilio, barrio, telefono, sexo, "u", mail, 1,
+                                carrera, faculta, anioIngreso2, legajo, pass, null,
+                                null));
                     }
                     break;
                 case Utils.TIPO_PROFESOR:
-                    if (!validador.validarNombresEdt(edtProfesionProf) && validador.validarAnio(edtAnioIngresoProf)) {
-                        sendServer(processString(dni, nombre, apellido, fecha, pais, provincia, localidad,
-                                domicilio, barrio, telefono, sexo, "u", mail,
-                                2, null, null, anioIngreso, null, pass,
-                                profesion, null));
-                    }
+                    sendServer(processString(dni, nombre, apellido, fecha, pais, provincia, localidad,
+                            domicilio, barrio, telefono, sexo, "u", mail, 2, null,
+                            null, anioIngreso, null, pass, profesion, null));
                     return;
                 case Utils.TIPO_EGRESADO:
-                    if (!validador.validarNombresEdt(edtProfesionEgre) && validador.validarAnio(edtAnioEgresoEgre)) {
-                        sendServer(processString(dni, nombre, apellido, fecha, pais, provincia, localidad, domicilio, barrio,
-                                telefono, sexo, "u", mail, 4,
-                                null, null, null, null, pass,
-                                profesion2, anioEgreso));
-                    }
+                    sendServer(processString(dni, nombre, apellido, fecha, pais, provincia, localidad,
+                            domicilio, barrio, telefono, sexo, "u", mail, 4, null,
+                            null, null, null, pass, profesion2, anioEgreso));
+
                     return;
                 case Utils.TIPO_NODOCENTE:
                 case Utils.TIPO_PARTICULAR:
-                    sendServer(processString(dni, nombre, apellido, fecha, pais, provincia, localidad, domicilio,
-                            barrio, telefono, sexo, "u", mail, tipoUsuario,
-                            null, null, null, null, pass,
-                            null, null));
+                    sendServer(processString(dni, nombre, apellido, fecha, pais, provincia, localidad,
+                            domicilio, barrio, telefono, sexo, "u", mail, tipoUsuario, null,
+                            null, null, null, pass, null, null));
                     break;
             }
 
         } else Utils.showToast(getApplicationContext(), getString(R.string.camposInvalidos));
 
-
     }
 
     public String processString(String dni, String nombre, String apellido, String fecha, String pais,
                                 String provincia, String localidad, String domicilio, String barrio,
-                                String telefono, String sexo, String key, String mail,
-                                int tipo, String carrera, String facultad, String anioIng,
-                                String legajo, String contrasenia, String profesion, String anioEgreso) {
+                                String telefono, String sexo, String key, String mail, int tipo,
+                                String carrera, String facultad, String anioIng, String legajo,
+                                String contrasenia, String profesion, String anioEgreso) {
         String resp = "";
         param.put("idU", String.valueOf(dni));
         param.put("nom", nombre);
@@ -774,10 +847,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         StringRequest request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-
                 procesarRespuesta(response);
-
-
             }
         }, new Response.ErrorListener() {
             @Override
@@ -785,7 +855,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 dialog.dismiss();
                 error.printStackTrace();
                 Utils.showToast(getApplicationContext(), getString(R.string.servidorOff));
-
             }
         }) {
             @Override

@@ -61,6 +61,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.Normalizer;
 import java.text.ParseException;
@@ -788,6 +789,23 @@ public class Utils {
             }
 
         return fechaI;
+
+    }
+
+    public static String parseDateString (String fecha) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date fechaI = null;
+        String fechaR = "";
+        if (fecha != null)
+            try {
+                fechaI = simpleDateFormat.parse(fecha);
+                fechaR = dateFormat.format(fechaI);
+            } catch (ParseException e) {
+
+            }
+
+        return fechaR;
 
     }
 

@@ -1,7 +1,5 @@
 package com.unse.bienestar.estudiantil.Modelos;
 
-import com.unse.bienestar.estudiantil.Vistas.Activities.Becas.InfoTurnoActivity;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

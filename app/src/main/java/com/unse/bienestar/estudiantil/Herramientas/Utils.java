@@ -210,6 +210,8 @@ public class Utils {
     public static final String INSCRIPCION_ANIO = "anio_id";
     public static final String TOKEN_FIREBASE = "token_firebase";
     public static final String DOCTOR = "doctor_info";
+    public static final String DATA_INTEG = "dato_integ";
+    public static final String DATA_DOCUM = "dato_docum";
 
 
     private static final String IP = "sis.bienestar.unse.edu.ar/api";

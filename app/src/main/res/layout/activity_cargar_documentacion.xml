@@ -62,7 +62,7 @@
                             android:id="@+id/txtDesc"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="2020"
+                            android:text="2021"
                             android:textColor="@color/blackTextColor"
                             android:textSize="16sp"
                             android:fontFamily="@font/montserrat_regular" />
@@ -103,7 +103,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Ultima modificación: "
+                            android:text="Última modificación: "
                             android:textColor="@color/blackTextColor"
                             android:textSize="16sp"
                             android:fontFamily="@font/montserrat_black" />
@@ -119,64 +119,13 @@
 
                     </LinearLayout>
 
-                    <Button
-                        android:padding="10dp"
-                        android:id="@+id/btnRec"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Ver recomendaciones"
-                        android:layout_marginTop="10dp"
-                        android:layout_gravity="center"
-                        android:background="@drawable/corners_rounded_green"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="16sp"
-                        android:backgroundTint="@color/colorMoney"
-                        android:fontFamily="@font/montserrat_black" />
-
                 </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/latDatos"
-                    android:layout_marginTop="10dp"
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:gravity="center"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Observaciones"
-                        android:textColor="@color/blackTextColor"
-                        android:textSize="16sp"
-                        android:fontFamily="@font/montserrat_black" />
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_marginTop="5dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:cardCornerRadius="10dp"
-                        app:cardBackgroundColor="@color/colorGrey">
-
-                        <TextView
-                            android:layout_margin="10dp"
-                            android:id="@+id/txtObs"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Documentación completa"
-                            android:textColor="@color/blackTextColor"
-                            android:textSize="16sp"
-                            android:fontFamily="@font/montserrat_regular" />
-
-
-                    </androidx.cardview.widget.CardView>
-
-
-                </LinearLayout>
-
+                <!-- Vista oculta -->
                 <LinearLayout
                     android:weightSum="1"
                     android:gravity="center"
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -213,7 +162,6 @@
                                   android:layout_gravity="center"
                                   android:layout_width="40dp"
                                   android:layout_height="40dp" />-->
-
 
                         </LinearLayout>
 
@@ -257,12 +205,102 @@
 
                     </androidx.cardview.widget.CardView>
 
-
                 </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="A continuación, selecciona cada integrante del grupo familiar, realiza la carga de la documentación que debes subir, una vez que esté marcado como completado, debes volver a esta pantalla y presiona en 'Enviar Postulación'."
+                    android:textSize="16sp"
+                    android:textColor="@color/blackTextColor"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/montserrat_regular"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerg"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardAddFamiliar"
+                    android:layout_margin="10dp"
+                    android:layout_gravity="center"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="10dp"
+                    app:cardBackgroundColor="@color/colorAccent">
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_margin="10dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Agregar otro familiar"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="16sp"
+                            android:gravity="center"
+                            android:fontFamily="@font/montserrat_black" />
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <LinearLayout
+                    android:id="@+id/latDatos"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Observaciones"
+                        android:textColor="@color/blackTextColor"
+                        android:textSize="16sp"
+                        android:fontFamily="@font/montserrat_black" />
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_marginTop="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="10dp"
+                        app:cardBackgroundColor="@color/colorGrey">
+
+                        <TextView
+                            android:layout_margin="10dp"
+                            android:id="@+id/txtObs"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Documentación completa"
+                            android:textColor="@color/blackTextColor"
+                            android:textSize="16sp"
+                            android:fontFamily="@font/montserrat_regular" />
+
+                    </androidx.cardview.widget.CardView>
+
+                </LinearLayout>
+
+                <!-- Vista oculta -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
                     android:layout_marginTop="10dp"
                     android:orientation="vertical">
 
@@ -306,8 +344,8 @@
                     android:layout_centerInParent="true"
                     android:textSize="18sp"
                     android:textColor="@android:color/white"
-                    android:text="ENVIAR DOCUMENTACIÓN"
-                    android:fontFamily="@font/montserrat_black" />
+                    android:text="ENVIAR POSTULACIÓN"
+                    android:fontFamily="@font/montserrat_black"/>
 
                 <LinearLayout
                     android:visibility="gone"

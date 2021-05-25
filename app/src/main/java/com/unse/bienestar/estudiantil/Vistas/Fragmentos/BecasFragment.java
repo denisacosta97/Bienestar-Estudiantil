@@ -1,10 +1,12 @@
 package com.unse.bienestar.estudiantil.Vistas.Fragmentos;
 
+import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,10 +22,12 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
+import static android.content.Context.DOWNLOAD_SERVICE;
+
 public class BecasFragment extends Fragment implements View.OnClickListener {
 
     View view;
-    CardView cardTurnos, cardInfo, cardWsp;
+    CardView cardInscr, cardInfo, cardWsp, cardWsp2, cardReglamento;
     Context mContext;
 
     public BecasFragment() {
@@ -36,9 +40,7 @@ public class BecasFragment extends Fragment implements View.OnClickListener {
         mContext = context;
     }
 
-
     CardView cardInsta;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -52,17 +54,21 @@ public class BecasFragment extends Fragment implements View.OnClickListener {
     }
 
     private void loadListener() {
-        cardTurnos.setOnClickListener(this);
+        cardInscr.setOnClickListener(this);
         cardInfo.setOnClickListener(this);
         cardInsta.setOnClickListener(this);
         cardWsp.setOnClickListener(this);
+        cardWsp2.setOnClickListener(this);
+        cardReglamento.setOnClickListener(this);
     }
 
     private void loadViews() {
         cardWsp = view.findViewById(R.id.btnWhats);
-        cardTurnos = view.findViewById(R.id.cardTurnos);
+        cardWsp2 = view.findViewById(R.id.btnWhats2);
+        cardInscr = view.findViewById(R.id.card_inscrip);
         cardInfo = view.findViewById(R.id.card_infoBecas);
         cardInsta = view.findViewById(R.id.btnInsta);
+        cardReglamento = view.findViewById(R.id.cardReglamento);
     }
 
     public static Intent newInstagramProfileIntent(PackageManager pm, String url) {
@@ -90,14 +96,13 @@ public class BecasFragment extends Fragment implements View.OnClickListener {
         boolean isLogin = manager.getValue(Utils.IS_LOGIN);
         switch (v.getId()) {
             case R.id.btnWhats:
-                openWhatsAppConversationUsingUri(mContext, "+5493855198292", "¡Hola!");
+                openWhatsAppConversationUsingUri(mContext, "+5493855198292", "¡Hola Área Becas! Tengo una consulta: ");
                 break;
-            case R.id.cardTurnos:
-                if (isLogin)
-                    startActivity(new Intent(getContext(), TipoTurnosActivity.class));
-                    //Utils.showToast(mContext, getString(R.string.noDisponible));
-                else Utils.showToast(mContext, getString(R.string.primeroRegistrar));
-
+            case R.id.btnWhats2:
+                openWhatsAppConversationUsingUri(mContext, "+5493855198402", "¡Hola Área Becas! Tengo una consulta: ");
+                break;
+            case R.id.card_inscrip:
+                startActivity(new Intent(getContext(), TipoTurnosActivity.class)); //Poner la activity de las inscripciones del usuario nomah
                 break;
             case R.id.card_infoBecas:
                 startActivity(new Intent(getContext(), InfoBecasActivity.class));
@@ -107,17 +112,21 @@ public class BecasFragment extends Fragment implements View.OnClickListener {
                 Intent openInsta = newInstagramProfileIntent(getActivity().getPackageManager(), url);
                 startActivity(openInsta);
                 break;
+            case R.id.cardReglamento:
+                downloadFile();
+                break;
         }
+    }
+
+    private void downloadFile() {
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://bienestar.unse.edu.ar/becas/REGLAMENTO_BECAS_UNSE.pdf")));
     }
 
     public static void openWhatsAppConversationUsingUri(Context context, String numberWithCountryCode,
                                                         String message) {
-
         Uri uri = Uri.parse("https://api.whatsapp.com/send?phone=" + numberWithCountryCode + "&text=" + message);
-
         Intent sendIntent = new Intent(Intent.ACTION_VIEW, uri);
         sendIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
         context.startActivity(sendIntent);
     }
 

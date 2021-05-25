@@ -48,7 +48,7 @@ public class RecomendacionesActivity extends AppCompatActivity implements View.O
         setSupportActionBar(mToolbar);
         findViewById(R.id.imgFlecha).setVisibility(View.VISIBLE);
         findViewById(R.id.imgFlecha).setOnClickListener(this);
-        ((TextView) findViewById(R.id.txtTitulo)).setText("");
+        ((TextView) findViewById(R.id.txtTitulo)).setText("Recomendaciones");
     }
 
     @Override

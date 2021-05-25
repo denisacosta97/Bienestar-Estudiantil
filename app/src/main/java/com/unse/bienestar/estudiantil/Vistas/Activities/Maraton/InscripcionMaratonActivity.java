@@ -48,7 +48,6 @@ public class InscripcionMaratonActivity extends AppCompatActivity implements Vie
     Spinner spinnerCateg, spinnerRango;
     Button btnInsc;
     LinearLayout latDatos;
-    EditText edtDNI, edtNombre, edtApellido, edtSexo, edtMail, edtFechaNac, edtPais, edtProvincia;
     DialogoProcesamiento dialog;
     boolean isRegister = false;
 
@@ -130,14 +129,7 @@ public class InscripcionMaratonActivity extends AppCompatActivity implements Vie
 
     private void loadViews() {
         latDatos = findViewById(R.id.latDatos);
-        edtApellido = findViewById(R.id.edtApellido);
-        edtDNI = findViewById(R.id.edtDNI);
-        edtFechaNac = findViewById(R.id.edtFecha);
-        edtMail = findViewById(R.id.edtMail);
-        edtSexo = findViewById(R.id.edtSexo);
         imgMaraton = findViewById(R.id.imgIcon);
-        edtPais = findViewById(R.id.edtPais);
-        edtProvincia = findViewById(R.id.edtxProvincia);
         spinnerCateg = findViewById(R.id.spinnerCateg);
         spinnerRango = findViewById(R.id.spinnerRango);
         btnInsc = findViewById(R.id.btnInsc);

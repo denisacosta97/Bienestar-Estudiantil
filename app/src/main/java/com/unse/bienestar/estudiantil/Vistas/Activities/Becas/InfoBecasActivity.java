@@ -48,7 +48,7 @@ public class InfoBecasActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void setToolbar() {
-        ((TextView) findViewById(R.id.txtTitulo)).setText("Información de Becas");
+        ((TextView) findViewById(R.id.txtTitulo)).setText("Becas disponibles");
         ((TextView) findViewById(R.id.txtTitulo)).setTextColor(getResources().getColor(R.color.colorAccent));
         Utils.changeColorDrawable(((ImageView) findViewById(R.id.imgFlecha)), getApplicationContext(), R.color.colorAccent);
 
@@ -63,14 +63,14 @@ public class InfoBecasActivity extends AppCompatActivity implements View.OnClick
     private void loadDataRecycler() {
         mInfoBecas = new ArrayList<>();
 
-        mInfoBecas.add(new InfoBecas(1, R.drawable.ic_becas, "Beca Comedor", getString(R.string.desc0), "pdf_comedor", getString(R.string.reqAcad0), getString(R.string.reqGen0)));
-        mInfoBecas.add(new InfoBecas(2, R.drawable.ic_becas, "Beca Estímulo al Deporte", getString(R.string.desc1), "pdf_estimulo_deporte", getString(R.string.reqAcad1), getString(R.string.reqGen1)));
-        mInfoBecas.add(new InfoBecas(3, R.drawable.ic_becas, "Beca Movilidad", getString(R.string.desc2), "pdf_movilidad", getString(R.string.reqAcad2), getString(R.string.reqGen2)));
-        mInfoBecas.add(new InfoBecas(4, R.drawable.ic_becas, "Beca Residencia", getString(R.string.desc3), "pdf_residencia", getString(R.string.reqAcad3), getString(R.string.reqGen3)));
-        mInfoBecas.add(new InfoBecas(5, R.drawable.ic_becas, "Beca Finalización de Estudios de Grado", getString(R.string.desc4), "pdf_finalizacion_estud", getString(R.string.reqAcad4), getString(R.string.reqGen4)));
-        mInfoBecas.add(new InfoBecas(6, R.drawable.ic_becas, "Beca para el Apoyo al Ingreso y Permanencia de los Estudiantes en la UNSE", getString(R.string.desc5), "pdf_apoyo", getString(R.string.reqAcad5), getString(R.string.reqGen5)));
+        //mInfoBecas.add(new InfoBecas(1, R.drawable.ic_becas, "Beca Comedor", getString(R.string.desc0), "pdf_comedor", getString(R.string.reqAcad0), getString(R.string.reqGen0)));
+        //mInfoBecas.add(new InfoBecas(2, R.drawable.ic_becas, "Beca Estímulo al Deporte", getString(R.string.desc1), "pdf_estimulo_deporte", getString(R.string.reqAcad1), getString(R.string.reqGen1)));
+        //mInfoBecas.add(new InfoBecas(3, R.drawable.ic_becas, "Beca Movilidad", getString(R.string.desc2), "pdf_movilidad", getString(R.string.reqAcad2), getString(R.string.reqGen2)));
+        //mInfoBecas.add(new InfoBecas(4, R.drawable.ic_becas, "Beca Residencia", getString(R.string.desc3), "pdf_residencia", getString(R.string.reqAcad3), getString(R.string.reqGen3)));
+        //mInfoBecas.add(new InfoBecas(5, R.drawable.ic_becas, "Beca Finalización de Estudios de Grado", getString(R.string.desc4), "pdf_finalizacion_estud", getString(R.string.reqAcad4), getString(R.string.reqGen4)));
+        //mInfoBecas.add(new InfoBecas(6, R.drawable.ic_becas, "Beca para el Apoyo al Ingreso y Permanencia de los Estudiantes en la UNSE", getString(R.string.desc5), "pdf_apoyo", getString(R.string.reqAcad5), getString(R.string.reqGen5)));
         mInfoBecas.add(new InfoBecas(7, R.drawable.ic_becas, "Beca de Apoyo Económico", getString(R.string.desc6), "pdf_apoyo_econ", getString(R.string.reqAcad6), getString(R.string.reqGen6)));
-        mInfoBecas.add(new InfoBecas(8, R.drawable.ic_becas, "Beca Estímulo al Mérito Académico", getString(R.string.desc7), "pdf_estim_acad", getString(R.string.reqAcad7), getString(R.string.reqGen7)));
+        //mInfoBecas.add(new InfoBecas(8, R.drawable.ic_becas, "Beca Estímulo al Mérito Académico", getString(R.string.desc7), "pdf_estim_acad", getString(R.string.reqAcad7), getString(R.string.reqGen7)));
 
 
         mInfoBecasAdapter = new InfoBecasAdapter(mInfoBecas, getApplicationContext());

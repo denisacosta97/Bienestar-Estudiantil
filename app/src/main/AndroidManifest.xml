@@ -24,6 +24,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".Vistas.Activities.Becas.DocumentacionListaActivity"></activity>
+        <activity android:name=".Vistas.Activities.Becas.DocGrupoActivity" />
         <activity android:name=".Vistas.Activities.Maraton.InscripcionMaratonActivity" />
         <activity android:name=".Vistas.Activities.PuntosConectividad.ResumenTurnoPCActivity" />
         <activity android:name=".Vistas.Activities.PuntosConectividad.SelectorFechaPCActivity" />

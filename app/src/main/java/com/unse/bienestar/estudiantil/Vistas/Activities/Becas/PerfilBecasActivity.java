@@ -122,7 +122,9 @@ public class PerfilBecasActivity extends AppCompatActivity implements View.OnCli
                 onBackPressed();
                 break;
             case R.id.btnCargar:
-                checkDisponibility();
+                //checkDisponibility();
+                Intent intent = new Intent(getApplicationContext(), CargarDocumentacionActivity.class);
+                startActivity(intent);
                 break;
         }
 

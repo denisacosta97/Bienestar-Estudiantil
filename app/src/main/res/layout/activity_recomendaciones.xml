@@ -37,6 +37,14 @@
                     android:textSize="18sp"
                     android:fontFamily="@font/montserrat_black" />
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/blackTextColor"
+                    android:text="DNI: puedes subir una foto donde estén las dos caras del documento o dos fotos, una de cada cara.\nNegativa: puedes subir una captura (donde todo sea legible) o un archivo PDF."
+                    android:textSize="16sp"
+                    android:fontFamily="@font/montserrat_regular" />
+
                 <View
                     android:layout_width="60dp"
                     android:layout_height="12dp"

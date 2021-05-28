@@ -22,7 +22,8 @@
 
         android:focusable="true">
 
-        <RelativeLayout
+        <LinearLayout
+            android:orientation="vertical"
             android:id="@+id/nestedLogin"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -63,12 +64,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:layout_margin="20dp"
+                android:layout_margin="10dp"
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
                     android:layout_margin="20dp"
                     android:layout_gravity="center"
                     android:src="@drawable/logo_app_png" />
@@ -162,40 +163,48 @@
 
                     </LinearLayout>
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp">
+
+                    </LinearLayout>
+
                 </LinearLayout>
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
-                android:background="@color/black_alpha_40"
-                android:orientation="horizontal">
 
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="80dp"
-                    android:layout_gravity="center"
-                    android:layout_weight="0.5"
-                    android:padding="12dp"
-                    app:srcCompat="@drawable/ic_logo_bienestar_01" />
 
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="60dp"
-                    android:layout_gravity="center"
-                    android:layout_weight="0.5"
-                    android:paddingTop="5dp"
-                    app:srcCompat="@drawable/logo_unse_white" />
-
-            </LinearLayout>
-
-        </RelativeLayout>
+        </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:background="@color/black_alpha_40"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:layout_weight="0.5"
+            android:padding="12dp"
+            app:srcCompat="@drawable/ic_logo_bienestar_01" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_weight="0.5"
+            android:paddingTop="5dp"
+            app:srcCompat="@drawable/logo_unse_white" />
+
+    </LinearLayout>
 
 </RelativeLayout>
 

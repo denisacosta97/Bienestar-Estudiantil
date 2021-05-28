@@ -9,8 +9,8 @@ android {
         applicationId "com.unse.bienestar.estudiantil"
         minSdkVersion 16
         targetSdkVersion 29
-        versionCode 17
-        versionName "0.3.1"
+        versionCode 19
+        versionName "0.3.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled = true
         vectorDrawables.useSupportLibrary = true
@@ -107,9 +107,13 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics:17.5.0'
     // Add the SDK for Firebase Cloud Messaging
     implementation 'com.google.firebase:firebase-messaging:17.3.4'
+
+   // implementation 'de.number42:subsampling-pdf-decoder:0.1.0@aar'
+    //implementation 'com.davemorrissey.labs:subsampling-scale-image-view:3.9.0'
     //Facebook
     //implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
     implementation 'com.android.support:exifinterface:25.1.0'
+
 
 
 }

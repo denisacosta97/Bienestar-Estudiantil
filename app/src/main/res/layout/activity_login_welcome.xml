@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black_alpha_40"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Vistas.Activities.Inicio.LoginWelcomeActivity"
     android:fillViewport="true"
@@ -15,103 +16,114 @@
         android:layout_height="match_parent">
     </androidx.appcompat.widget.AppCompatImageView>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/black_alpha_40"
         android:orientation="vertical">
 
-
-
-        <LinearLayout
+        <TextView
+            android:id="@+id/txtWelcome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_margin="10dp"
+            android:text="¡Buenas noches!"
+            android:textColor="@color/whiteTextColor"
+            android:textSize="35sp"
+            android:gravity="center"
+            android:fontFamily="@font/montserrat_black"/>
 
-            <TextView
-                android:id="@+id/txtWelcome"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text="¡Buenas noches!"
-                android:textColor="@color/whiteTextColor"
-                android:textSize="35sp"
-                android:gravity="center"
-                android:fontFamily="@font/montserrat_black"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/welcome"
-                android:textSize="18sp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:textColor="@color/whiteTextColor"
-                android:gravity="center"
-                android:fontFamily="@font/montserrat_regular"/>
-
-        </LinearLayout>
-
-        <LinearLayout
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:translationX="-120dp"
-            android:orientation="vertical">
+            android:text="@string/welcome"
+            android:textSize="18sp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:textColor="@color/whiteTextColor"
+            android:gravity="center"
+            android:fontFamily="@font/montserrat_regular"/>
 
-            <Button
-                android:id="@+id/inisesion"
-                android:layout_width="300dp"
-                android:layout_height="60dp"
-                android:layout_margin="10dp"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:background="@drawable/corners_rounded_green"
-                android:text="                        Iniciar sesión"
-                android:textSize="16sp"
-                android:drawableRight="@drawable/flecha_derecha"
-                android:fontFamily="@font/montserrat_black"/>
+    </LinearLayout>
 
-            <Button
-                android:id="@+id/visit"
-                android:layout_width="300dp"
-                android:layout_height="60dp"
-                android:layout_margin="10dp"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:background="@drawable/corners_rounded_green"
-                android:text="               Visitante"
-                android:textSize="16sp"
-                android:drawableRight="@drawable/flecha_derecha"
-                android:fontFamily="@font/montserrat_black"/>
-
-        </LinearLayout>
-
-        <LinearLayout
+    <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
+
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+
+                <LinearLayout
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/inisesion"
+                        android:paddingLeft="20dp"
+                        android:layout_width="200dp"
+                        android:layout_height="60dp"
+                        android:layout_margin="10dp"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:background="@drawable/corners_rounded_green"
+                        android:text="Iniciar sesión"
+                        android:textSize="16sp"
+                        android:drawableRight="@drawable/flecha_derecha"
+                        android:fontFamily="@font/montserrat_black"/>
+
+                    <Button
+                        android:visibility="gone"
+                        android:id="@+id/visit"
+                        android:paddingLeft="20dp"
+                        android:layout_width="200dp"
+                        android:layout_height="60dp"
+                        android:layout_margin="10dp"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:background="@drawable/corners_rounded_green"
+                        android:text="Visitante"
+                        android:textSize="16sp"
+                        android:drawableRight="@drawable/flecha_derecha"
+                        android:fontFamily="@font/montserrat_black"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </androidx.core.widget.NestedScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:background="@color/black_alpha_40"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:layout_weight="0.5"
+            android:padding="12dp"
+            app:srcCompat="@drawable/ic_logo_bienestar_01" />
+
+        <ImageView
+            android:layout_width="0dp"
             android:layout_height="60dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-            android:background="@color/black_alpha_40"
-            android:orientation="horizontal">
+            android:layout_gravity="center"
+            android:layout_weight="0.5"
+            android:paddingTop="5dp"
+            app:srcCompat="@drawable/logo_unse_white" />
 
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="80dp"
-                android:layout_gravity="center"
-                android:layout_weight="0.5"
-                android:padding="12dp"
-                app:srcCompat="@drawable/ic_logo_bienestar_01" />
-
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="60dp"
-                android:layout_gravity="center"
-                android:layout_weight="0.5"
-                android:paddingTop="5dp"
-                app:srcCompat="@drawable/logo_unse_white" />
-
-        </LinearLayout>
-
-    </RelativeLayout>
+    </LinearLayout>
 
 </RelativeLayout>

@@ -1,6 +1,7 @@
 package com.unse.bienestar.estudiantil.Vistas.Activities.Becas;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -11,8 +12,11 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
@@ -22,12 +26,17 @@ import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.BuildConfig;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.bumptech.glide.Glide;
 import com.unse.bienestar.estudiantil.Herramientas.Almacenamiento.PreferenceManager;
+import com.unse.bienestar.estudiantil.Herramientas.FileUtil;
+import com.unse.bienestar.estudiantil.Herramientas.UploadManager;
 import com.unse.bienestar.estudiantil.Herramientas.Utils;
+import com.unse.bienestar.estudiantil.Herramientas.VolleyMultipartRequest;
 import com.unse.bienestar.estudiantil.Herramientas.VolleySingleton;
 import com.unse.bienestar.estudiantil.Interfaces.OnClickListenerAdapter;
 import com.unse.bienestar.estudiantil.Interfaces.YesNoDialogListener;
@@ -44,9 +53,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
 
 import static android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS;
 import static com.unse.bienestar.estudiantil.Herramientas.Utils.PERMISSION_ALL;
@@ -60,6 +72,7 @@ public class DocGrupoActivity extends AppCompatActivity implements View.OnClickL
     TextView txtDocumentacion;
     ImageView imgAddArchivo, imgArchivo;
     ArrayList<Archivo> mArchivos;
+    LinearLayout latPDF;
     int posicionArchivo = -1;
     Inscripcion mInscripcion;
     HashMap<String, Integer> cantidades = new HashMap<>();
@@ -67,6 +80,9 @@ public class DocGrupoActivity extends AppCompatActivity implements View.OnClickL
     ArrayList<InfoBecas> mInfoBecas;
     LinearLayout layoutUpload, layoutPrevio;
     CardView cardModificar;
+    // SubsamplingScaleImageView imageView;
+    String nombreArchivo = "";
+    Uri uriFile = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +104,7 @@ public class DocGrupoActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void loadViews() {
+        latPDF = findViewById(R.id.latPDF);
         btnRec = findViewById(R.id.btnRec);
         btnBack = findViewById(R.id.imgFlecha);
         btnSubir = findViewById(R.id.btnSubir);
@@ -100,7 +117,7 @@ public class DocGrupoActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void setToolbar() {
-        ((TextView) findViewById(R.id.txtTitulo)).setText("Subir archivos");
+        ((TextView) findViewById(R.id.txtTitulo)).setText("Subir archivo");
         ((TextView) findViewById(R.id.txtTitulo)).setTextColor(getResources().getColor(R.color.colorAccent));
         Utils.changeColorDrawable(((ImageView) findViewById(R.id.imgFlecha)), getApplicationContext(), R.color.colorAccent);
     }
@@ -164,7 +181,7 @@ public class DocGrupoActivity extends AppCompatActivity implements View.OnClickL
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == Utils.REQUEST_CHECK_SETTINGS) {
-            if(resultCode == Activity.RESULT_OK) {
+            if (resultCode == Activity.RESULT_OK) {
                 Uri result = data.getData();
 
                 String extension = "";
@@ -172,32 +189,36 @@ public class DocGrupoActivity extends AppCompatActivity implements View.OnClickL
                     //If scheme is a content
                     final MimeTypeMap mime = MimeTypeMap.getSingleton();
                     extension = mime.getExtensionFromMimeType(getApplicationContext().getContentResolver().getType(result));
-                    if (extension.toLowerCase().equals("pdf")){
-                        updateView();
-                        imgArchivo.setImageResource(R.drawable.ic_pdf);
-                    } else {
-                        updateView();
-                        imgArchivo.setImageURI(result);
-                    }
                 } else { //Aquí pregunta si el archivo está en la memoria externa
                     extension = MimeTypeMap.getFileExtensionFromUrl(Uri.fromFile(new File(result.getPath())).toString());
-                    updateView();
-                    imgArchivo.setImageURI(result);
+                }
 
-                    if (extension.toLowerCase().equals("pdf")){
-                        updateView();
-                        imgArchivo.setImageResource(R.drawable.ic_pdf);
+                extension = extension.toLowerCase();
+                nombreArchivo = FileUtil.getFileName(getApplicationContext(), result);
+               // nombreArchivo = FileUtil.splitFileName(fileName)[0];
+                uriFile = result;
+                if (extension.equals("pdf") || extension.equals("jpg") | extension.equals("jpeg")
+                        || extension.equals("png")) {
+                    updateView();
+                    if (extension.equals("pdf")) {
+                        Glide.with(imgArchivo.getContext()).load(R.drawable.ic_pdf).into(imgArchivo);
+                    } else {
+                        //layoutPrevio.findViewById(R.id.imgArchivo).setVisibility(View.VISIBLE);
+                        //latPDF.setVisibility(View.GONE);
+                        Glide.with(imgArchivo.getContext()).load(result).into(imgArchivo);
                     }
+
+                } else {
+                    Utils.showToast(getApplicationContext(), getString(R.string.imagenNoFormat));
+
                 }
 
             }
-            if (resultCode == Activity.RESULT_CANCELED) {
-                // Write your code if there's no result
-            }
         }
-    } //onActivityResult
+    }
 
-    private void updateView(){
+
+    private void updateView() {
         layoutUpload.setVisibility(View.GONE);
         layoutPrevio.setVisibility(View.VISIBLE);
     }
@@ -219,6 +240,8 @@ public class DocGrupoActivity extends AppCompatActivity implements View.OnClickL
                         mInscripcion.setEstadoDescripcion("EN EVALUACIÓN");
                         Utils.showToast(getApplicationContext(), getString(R.string.inscripcionExitosa));
                         //updateView();
+                    }else if (tipo == 3){
+                        Utils.showToast(getApplicationContext(), getString(R.string.documentoSubido));
                     }
                     break;
                 case 2:
@@ -249,153 +272,46 @@ public class DocGrupoActivity extends AppCompatActivity implements View.OnClickL
         return isReady;
     }
 
-    private void chequear() {
-        boolean isReady = true, noLoad = false;
-        for (Archivo a : mArchivos) {
-            if (a.getValidez() == 0) {
-                noLoad = true;
-                if (a.getFile() == null)
-                    isReady = false;
-            }
-        }
-        if (noLoad) {
-            if (isReady) {
-                //Aqui envio
-                DialogoGeneral.Builder builder = new DialogoGeneral.Builder(getApplicationContext())
-                        .setTitulo(getString(R.string.advertencia))
-                        .setDescripcion(getString(R.string.archivosEnviar))
-                        .setTipo(DialogoGeneral.TIPO_ACEPTAR_CANCELAR)
-                        .setIcono(R.drawable.ic_advertencia)
-                        .setListener(new YesNoDialogListener() {
-                            @Override
-                            public void yes() {
-                                sendFiles();
-                            }
-
-                            @Override
-                            public void no() {
-
-                            }
-                        });
-                DialogoGeneral dialogoGeneral = builder.build();
-                dialogoGeneral.show(getSupportFragmentManager(), "dialog");
-
-            } else {
-                Utils.showToast(getApplicationContext(), getString(R.string.archivoNoSeleccionados));
-            }
-
-        } else {
-            //Finaliza documentacion
-            dialogoFin();
-            //enviar();
-        }
-
-    }
-
-    private void dialogoFin() {
-        DialogoGeneral.Builder builder = new DialogoGeneral.Builder(getApplicationContext())
-                .setTitulo(getString(R.string.advertencia))
-                .setDescripcion(getString(R.string.inscripcionFinalizar))
-                .setTipo(DialogoGeneral.TIPO_ACEPTAR_CANCELAR)
-                .setIcono(R.drawable.ic_advertencia)
-                .setListener(new YesNoDialogListener() {
+    private void send() {
+        HashMap<String, String> datos = new HashMap<>();
+        datos.put("iu", String.valueOf(39986583));
+        datos.put("if", String.valueOf(1));
+        datos.put("de", "Postulante");
+        datos.put("ia", String.valueOf(46));
+        datos.put("ib", String.valueOf(7));
+        datos.put("an", String.valueOf(2021));
+        datos.put("na", "DNI_FRONTAL_");
+        VolleyMultipartRequest.DataPart dataPart = new VolleyMultipartRequest.DataPart(
+                nombreArchivo,
+                Utils.getFileDataFromUri(getApplicationContext(), uriFile)
+        );
+        VolleyMultipartRequest volleyMultipartRequest = new UploadManager.Builder(getApplicationContext())
+                .setMetodo(Request.Method.POST)
+                .setURL(Utils.URL_BECAS_DOCUMENTACION)
+                .setOkListener(new Response.Listener<NetworkResponse>() {
                     @Override
-                    public void yes() {
-                        enviar();
+                    public void onResponse(NetworkResponse response) {
+                        procesarRespuesta(new String(response.data), 3);
                     }
-
+                })
+                .setErrorListener(new Response.ErrorListener() {
                     @Override
-                    public void no() {
-
+                    public void onErrorResponse(VolleyError error) {
+                        dialog.dismiss();
+                        error.printStackTrace();
+                        Utils.showToast(getApplicationContext(), getString(R.string.servidorOff));
                     }
-                });
-        DialogoGeneral dialogoGeneral = builder.build();
-        dialogoGeneral.show(getSupportFragmentManager(), "dialog");
-    }
-
-    private void enviar() {
-        PreferenceManager manager = new PreferenceManager(getApplicationContext());
-        final String key = manager.getValueString(Utils.TOKEN);
-        final int idLocal = manager.getValueInt(Utils.MY_ID);
-        String URL = Utils.URL_BECAS_INSCRIPCION_ACTUALIZAR;
-        StringRequest request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                procesarRespuesta(response, 2);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                dialog.dismiss();
-                error.printStackTrace();
-                Utils.showToast(getApplicationContext(), getString(R.string.servidorOff));
-
-            }
-        }) {
-            @Override
-            public String getBodyContentType() {
-                return "application/x-www-form-urlencoded; charset=UTF-8";
-            }
-
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                HashMap<String, String> param = new HashMap<>();
-                param.put("key", key);
-                param.put("idU", String.valueOf(idLocal));
-                param.put("ib", String.valueOf(mInscripcion.getIdBeca()));
-                param.put("iu", String.valueOf(idLocal));
-                param.put("an", String.valueOf(mInscripcion.getAnio()));
-                param.put("de", "");
-                param.put("es", String.valueOf(1));
-                return param;
-            }
-        };
-        //Abro dialogo para congelar pantalla
+                })
+                .setDato(dataPart)
+                .setTipoDato(UploadManager.FILE)
+                .setParams(datos)
+                .build();
         dialog = new DialogoProcesamiento();
         dialog.setCancelable(false);
         dialog.show(getSupportFragmentManager(), "dialog_process");
-        VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
+        VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(volleyMultipartRequest);
     }
 
-    private void sendFiles() {
-        DialogoEnvioArchivos dialogoEnvioArchivos = new DialogoEnvioArchivos(new OnClickListenerAdapter() {
-            @Override
-            public void onClick(Object id) {
-                if (!isReady()) {
-                    Utils.showToast(getApplicationContext(), getString(R.string.archivosNoSubidos));
-                }
-                //checkFiles();
-            }
-        }, mArchivos, getApplicationContext(), this);
-        dialogoEnvioArchivos.setInscripcion(mInscripcion);
-        dialogoEnvioArchivos.show(getSupportFragmentManager(), "dialog");
-    }
-
-    /*private void checkFiles() {
-        if (mArchivos.size() > 0) {
-            btnCargar.setEnabled(true);
-            txtNoData.setVisibility(View.GONE);
-        } else {
-            btnCargar.setEnabled(false);
-            txtNoData.setVisibility(View.VISIBLE);
-        }
-
-        if (isReady() && mArchivos.size() > 0) {
-            btnCargar.setText("FINALIZAR INSCRIPCIÓN");
-        } else {
-            btnCargar.setText("GUARDAR INSCRIPCIÓN");
-        }
-
-    }*/
-
-    /*@Override
-    public void onBackPressed() {
-        //Verifico si hay doc sin cargar
-        if (!isReady()) {
-            Utils.showToast(getApplicationContext(), getString(R.string.archivosPendiente));
-        } else
-            super.onBackPressed();
-    }*/
 
     @Override
     public void onClick(View v) {
@@ -411,9 +327,52 @@ public class DocGrupoActivity extends AppCompatActivity implements View.OnClickL
                 checkPermission();
                 break;
             case R.id.btnSubir:
-
+                send();
                 break;
         }
     }
+
+    /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            latPDF.removeView(imageView);
+                            File file = null;
+                            try {
+                                file = FileUtil.from(getApplicationContext(), result);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            final File f = file;
+                            imageView = new SubsamplingScaleImageView(getApplicationContext());
+                            imageView.setMinimumTileDpi(120);
+                            try{
+                                imageView.setBitmapDecoderFactory(new DecoderFactory<ImageDecoder>() {
+                                    @Override
+                                    public ImageDecoder make() throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
+                                        return new PDFDecoder(1, f, 8);
+                                    }
+                                });
+                                imageView.setRegionDecoderFactory(new DecoderFactory<ImageRegionDecoder>() {
+                                    @Override
+                                    public ImageRegionDecoder make() throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
+                                        return new PDFRegionDecoder(1, f, 8);
+                                    }
+                                });
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+
+
+                            ImageSource source = ImageSource.uri(file.getAbsolutePath());
+                            imageView.setImage(source);
+
+                            latPDF.invalidate();
+                            latPDF.addView(imageView);
+
+                            //layoutPrevio.findViewById(R.id.imgArchivo).setVisibility(View.GONE);
+                        } else {
+                            layoutPrevio.findViewById(R.id.imgArchivo).setVisibility(View.VISIBLE);
+                            latPDF.setVisibility(View.GONE);
+                            Glide.with(imgArchivo.getContext()).load(R.drawable.ic_pdf).into(imgArchivo);
+                        }*/
+
 
 }

@@ -119,7 +119,7 @@
                         android:visibility="gone"
                         android:id="@+id/layoutPrevio"
                         android:layout_width="match_parent"
-                        android:layout_height="fill_parent"
+                        android:layout_height="match_parent"
                         android:orientation="vertical">
 
                         <ImageView
@@ -127,6 +127,15 @@
                             android:layout_width="match_parent"
                             android:layout_margin="10dp"
                             android:layout_height="@dimen/width2" />
+
+                        <LinearLayout
+                            android:visibility="gone"
+                            android:orientation="vertical"
+                            android:id="@+id/latPDF"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/width2">
+
+                        </LinearLayout>
 
                         <androidx.cardview.widget.CardView
                             android:id="@+id/cardModificar"

@@ -16,6 +16,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
+    <uses-sdk tools:overrideLibrary="de.number42.subsampling_pdf_decoder" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -24,7 +25,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Vistas.Activities.Becas.DocumentacionListaActivity"></activity>
+        <activity android:name=".Vistas.Activities.Becas.DocumentacionListaActivity" />
         <activity android:name=".Vistas.Activities.Becas.DocGrupoActivity" />
         <activity android:name=".Vistas.Activities.Maraton.InscripcionMaratonActivity" />
         <activity android:name=".Vistas.Activities.PuntosConectividad.ResumenTurnoPCActivity" />

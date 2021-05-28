@@ -571,6 +571,8 @@ El día de la carrera, la aplicación habilitará la opción de registrar tu GPS
     <string name="versionNueva">Bienestar Estudiantil - UNSE tiene una nueva versión disponible en la tienda. Para continuar usando la aplicación, debe actualizarla.</string>
     <string name="errorTienda">¡Error al abrir la tienda!</string>
     <string name="turnoHorarioFuera">¡Fecha o turno ya expirado!</string>
+    <string name="imagenNoFormat">¡Solo PDF, JPG, JPEG o PNG!</string>
+    <string name="documentoSubido">¡Documento subido!</string>
 
 </resources>
 

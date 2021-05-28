@@ -17,6 +17,33 @@
         android:layout_margin="10dp">
 
         <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/layoutBorrar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/ic_borrar"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Borrar"
+                android:textColor="@color/blackTextColor"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:fontFamily="@font/montserrat_regular" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.8"
@@ -53,8 +80,8 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:layout_gravity="center"
                 android:src="@drawable/flecha_derecha"/>
 

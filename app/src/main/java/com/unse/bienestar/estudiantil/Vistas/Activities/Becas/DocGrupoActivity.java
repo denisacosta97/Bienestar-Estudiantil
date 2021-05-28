@@ -371,23 +371,6 @@ public class DocGrupoActivity extends AppCompatActivity implements View.OnClickL
         dialogoEnvioArchivos.show(getSupportFragmentManager(), "dialog");
     }
 
-    /*private void checkFiles() {
-        if (mArchivos.size() > 0) {
-            btnCargar.setEnabled(true);
-            txtNoData.setVisibility(View.GONE);
-        } else {
-            btnCargar.setEnabled(false);
-            txtNoData.setVisibility(View.VISIBLE);
-        }
-
-        if (isReady() && mArchivos.size() > 0) {
-            btnCargar.setText("FINALIZAR INSCRIPCIÓN");
-        } else {
-            btnCargar.setText("GUARDAR INSCRIPCIÓN");
-        }
-
-    }*/
-
     /*@Override
     public void onBackPressed() {
         //Verifico si hay doc sin cargar

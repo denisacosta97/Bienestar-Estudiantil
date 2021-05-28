@@ -40,7 +40,6 @@ public class InfoBecasActivity extends AppCompatActivity implements View.OnClick
         loadDataRecycler();
 
         setToolbar();
-
     }
 
     private void loadListener() {
@@ -51,7 +50,6 @@ public class InfoBecasActivity extends AppCompatActivity implements View.OnClick
         ((TextView) findViewById(R.id.txtTitulo)).setText("Becas disponibles");
         ((TextView) findViewById(R.id.txtTitulo)).setTextColor(getResources().getColor(R.color.colorAccent));
         Utils.changeColorDrawable(((ImageView) findViewById(R.id.imgFlecha)), getApplicationContext(), R.color.colorAccent);
-
     }
 
     private void loadViews() {

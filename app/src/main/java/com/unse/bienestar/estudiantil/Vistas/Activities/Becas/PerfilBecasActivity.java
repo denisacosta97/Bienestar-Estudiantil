@@ -25,6 +25,7 @@ import com.unse.bienestar.estudiantil.Modelos.InfoBecas;
 import com.unse.bienestar.estudiantil.Modelos.Inscripcion;
 import com.unse.bienestar.estudiantil.Modelos.Opciones;
 import com.unse.bienestar.estudiantil.R;
+import com.unse.bienestar.estudiantil.Vistas.Activities.Perfil.InscripcionesActivity;
 import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoGeneral;
 import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoOpciones;
 import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoProcesamiento;
@@ -122,9 +123,7 @@ public class PerfilBecasActivity extends AppCompatActivity implements View.OnCli
                 onBackPressed();
                 break;
             case R.id.btnCargar:
-                //checkDisponibility();
-                Intent intent = new Intent(getApplicationContext(), CargarDocumentacionActivity.class);
-                startActivity(intent);
+                openInscripcion();
                 break;
         }
 
@@ -139,9 +138,7 @@ public class PerfilBecasActivity extends AppCompatActivity implements View.OnCli
         StringRequest request = new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-
                 procesarRespuesta(response, 1);
-
 
             }
         }, new Response.ErrorListener() {
@@ -171,37 +168,11 @@ public class PerfilBecasActivity extends AppCompatActivity implements View.OnCli
                     break;
                 case 1:
                     //Exito
-                    if (tipo == 1) {
-                        JSONArray jsonArray = jsonObject.getJSONArray("id");
-                        final ArrayList<Opciones> anios = new ArrayList<>();
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            anios.add(new Opciones(String.format("%s", jsonArray.getJSONObject(i).getInt("anio"))));
-                        }
-                        DialogoOpciones opciones = new DialogoOpciones(new OnClickOptionListener() {
-                            @Override
-                            public void onClick(int pos) {
-                                anio = anios.get(pos).getTitulo();
-                                openInscripcion();
-                            }
-                        }, anios, getApplicationContext());
-                        opciones.show(getSupportFragmentManager(), "dialogo");
-
-                    } else {
-                        ArrayList<Documentacion> docs = new ArrayList<>();
-                        JSONArray tipoDocumentos = jsonObject.getJSONArray("archivo");
-                        for (int i = 0; i < tipoDocumentos.length(); i++) {
-                            JSONObject object = tipoDocumentos.getJSONObject(i);
-                            Documentacion documentacion = Documentacion.toMapper(object, Documentacion.LOW);
-                            docs.add(documentacion);
-                        }
-                        Inscripcion inscripcion = Inscripcion.mapper(jsonObject.getJSONObject("datos"), Inscripcion.HIGH);
-                        Intent intent = new Intent(getApplicationContext(), CargarDocumentacionActivity.class);
-                        intent.putExtra(Utils.INFO_EXTRA, inscripcion);
-                        intent.putExtra(Utils.INFO_EXTRA_2, new ArrayList<Archivo>());
-                        intent.putExtra(Utils.NOTICIA_INFO, docs);
-                        startActivity(intent);
-                    }
-
+                    Inscripcion inscripcion = Inscripcion.mapper(jsonObject.getJSONObject("datos"), Inscripcion.HIGH);
+                    Intent intent = new Intent(getApplicationContext(), CargarDocumentacionActivity.class);
+                    intent.putExtra(Utils.INFO_EXTRA, inscripcion);
+                    //intent.putExtra(Utils.INFO_EXTRA_2, new ArrayList<Archivo>());
+                    startActivity(intent);
                     break;
                 case 2:
                     if (tipo == 1)
@@ -218,8 +189,8 @@ public class PerfilBecasActivity extends AppCompatActivity implements View.OnCli
                     break;
                 case 5:
                     Utils.showToast(getApplicationContext(), getString(R.string.inscripcionYaRegistrada));
-                    Utils.showToast(getApplicationContext(), getString(R.string.inscripcionPerfil));
-
+                    //Utils.showToast(getApplicationContext(), getString(R.string.inscripcionPerfil));
+                    startActivity(new Intent(getApplicationContext(), InscripcionesActivity.class));
                     break;
                 case 6:
                     Utils.showToast(getApplicationContext(), getString(R.string.deporteYaInscripto));
@@ -268,9 +239,7 @@ public class PerfilBecasActivity extends AppCompatActivity implements View.OnCli
         StringRequest request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-
                 procesarRespuesta(response, 2);
-
 
             }
         }, new Response.ErrorListener() {
@@ -292,7 +261,7 @@ public class PerfilBecasActivity extends AppCompatActivity implements View.OnCli
                 HashMap<String, String> param = new HashMap<>();
                 param.put("idU", String.valueOf(id));
                 param.put("ib", String.valueOf(mInfoBecas.getId()));
-                param.put("an", String.valueOf(anio));
+                param.put("an", "2021");
                 param.put("iu", String.valueOf(id));
                 param.put("key", token);
                 return param;

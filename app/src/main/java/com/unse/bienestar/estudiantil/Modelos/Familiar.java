@@ -3,7 +3,12 @@ package com.unse.bienestar.estudiantil.Modelos;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Familiar implements Parcelable {
+
+    public static final int LOW = 1;
 
     private int dni, validez;
     private String nombre, apellido, relacion;
@@ -102,7 +107,6 @@ public class Familiar implements Parcelable {
     public int describeContents() {
         return 0;
     }
-
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {

@@ -13,15 +13,32 @@ import android.widget.TextView;
 
 import com.unse.bienestar.estudiantil.Herramientas.RecyclerListener.ItemClickSupport;
 import com.unse.bienestar.estudiantil.Herramientas.Utils;
+import com.unse.bienestar.estudiantil.Interfaces.OnClickListenerAdapter;
+import com.unse.bienestar.estudiantil.Interfaces.OnClickOptionListener;
+import com.unse.bienestar.estudiantil.Interfaces.YesNoDialogListener;
 import com.unse.bienestar.estudiantil.Modelos.Archivo;
+import com.unse.bienestar.estudiantil.Modelos.Documentacion;
+import com.unse.bienestar.estudiantil.Modelos.Familiar;
 import com.unse.bienestar.estudiantil.Modelos.GFamiliar;
+import com.unse.bienestar.estudiantil.Modelos.InfoBecas;
+import com.unse.bienestar.estudiantil.Modelos.Inscripcion;
+import com.unse.bienestar.estudiantil.Modelos.Opciones;
 import com.unse.bienestar.estudiantil.R;
+import com.unse.bienestar.estudiantil.Vistas.Adaptadores.DocumentacionAdapter;
 import com.unse.bienestar.estudiantil.Vistas.Adaptadores.GFamiliarAdapter;
+import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoAgregarFamiliarBeca;
+import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoBuscaUsuario;
+import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoGeneral;
+import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoOpciones;
 import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoProcesamiento;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -33,22 +50,49 @@ public class CargarDocumentacionActivity extends AppCompatActivity implements Vi
 
     ImageView btnBack;
     ArrayList<GFamiliar> mGFamiliars;
+    ArrayList<Documentacion> mDocumentacions;
+    ArrayList<GFamiliar> listadoFamilia;
     ArrayList<Archivo> mArchivos;
+    ArrayList<Opciones> tipos;
     TextView txtEstado, txtAnio, txtFecha, txtNoData, txtObservacion, txtTipoBeca;
     LinearLayout latDatos;
+    ArrayList<InfoBecas> mInfoBecas;
+    HashMap<String, Integer> cantidades = new HashMap<>();
+    CardView addFamiliar;
 
     int posicionArchivo = -1;
+    Inscripcion mInscripcion;
 
     RecyclerView.LayoutManager mLayoutManager;
     RecyclerView recycler;
     GFamiliarAdapter mAdapter;
     DialogoProcesamiento dialog;
+    Inscripcion inscripcion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cargar_documentacion);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        if (getIntent().getParcelableExtra(Utils.INFO_EXTRA) != null) {
+            inscripcion = getIntent().getParcelableExtra(Utils.INFO_EXTRA);
+        }
+
+        if (getIntent().getSerializableExtra(Utils.DATA_FAMILIAR) != null) {
+            listadoFamilia = (ArrayList<GFamiliar>) getIntent().getSerializableExtra(Utils.DATA_FAMILIAR);
+        }
+
+        if (getIntent().getSerializableExtra(Utils.DATA_DOCUM) != null) {
+            mDocumentacions = (ArrayList<Documentacion>) getIntent().getSerializableExtra(Utils.DATA_DOCUM);
+        }
+
+        /*if (getIntent().getParcelableExtra(Utils.INFO_EXTRA) != null) {
+            mInscripcion = getIntent().getParcelableExtra(Utils.INFO_EXTRA);
+        }
+        if (getIntent().getSerializableExtra(Utils.INFO_EXTRA_2) != null) {
+            mArchivos = (ArrayList<Archivo>) getIntent().getSerializableExtra(Utils.INFO_EXTRA_2);
+        }*/
 
         loadViews();
 
@@ -69,6 +113,7 @@ public class CargarDocumentacionActivity extends AppCompatActivity implements Vi
         txtEstado = findViewById(R.id.txtEstado);
         txtFecha = findViewById(R.id.txtFecha);
         recycler = findViewById(R.id.recyclerg);
+        addFamiliar = findViewById(R.id.cardAddFamiliar);
     }
 
     private void setToolbar() {
@@ -79,10 +124,12 @@ public class CargarDocumentacionActivity extends AppCompatActivity implements Vi
 
     private void loadData(){
         mGFamiliars = new ArrayList<>();
-        mGFamiliars.add(new GFamiliar(0, 0, "Postulante", "Incompleto"));
+        for(Documentacion doc : mDocumentacions){
+            mGFamiliars.add(new GFamiliar(doc.getIdFamiliar(), doc.getDescripcion()));
+        }
+        /*mGFamiliars.add(new GFamiliar(0, 0, "Postulante", "Incompleto"));
         mGFamiliars.add(new GFamiliar(1, 0, "Madre", "Incompleto"));
-        mGFamiliars.add(new GFamiliar(2, 0, "Padre", "Incompleto"));
-        mGFamiliars.add(new GFamiliar(3, 0, "Grupo familiar", "Incompleto"));
+        mGFamiliars.add(new GFamiliar(2, 0, "Padre", "Incompleto"));*/
 
         mLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         recycler.setLayoutManager(mLayoutManager);
@@ -102,6 +149,7 @@ public class CargarDocumentacionActivity extends AppCompatActivity implements Vi
         });
 
         btnBack.setOnClickListener(this);
+        addFamiliar.setOnClickListener(this);
     }
 
 
@@ -152,6 +200,38 @@ public class CargarDocumentacionActivity extends AppCompatActivity implements Vi
         }
     }
 
+    private void openDialogArchivos() {
+        tipos = new ArrayList<>();
+        for (GFamiliar d : listadoFamilia) {
+            tipos.add(new Opciones(d.getNombre()));
+        }
+        DialogoOpciones dialogoOpciones = new DialogoOpciones(new OnClickOptionListener() {
+            @Override
+            public void onClick(int pos) {
+                //BASE DE DATOS SI O SI...
+                GFamiliar familiar = listadoFamilia.get(pos);
+                DialogoAgregarFamiliarBeca beca = new DialogoAgregarFamiliarBeca();
+                beca.setContext(getApplicationContext());
+                beca.setListener(new OnClickListenerAdapter() {
+                    @Override
+                    public void onClick(Object id) {
+                        GFamiliar f = (GFamiliar) id;
+                        mGFamiliars.add(new GFamiliar(f.getId(), f.getNombre()));
+                        mAdapter.notifyDataSetChanged();
+                    }
+                });
+                beca.setFragmentManager(getSupportFragmentManager());
+                beca.setFamiliar(familiar);
+                beca.setInscripcion(inscripcion);
+                beca.show(getSupportFragmentManager(), "dialog");
+
+
+
+            }
+        }, tipos, getApplicationContext());
+        dialogoOpciones.show(getSupportFragmentManager(), "archivos");
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -160,6 +240,9 @@ public class CargarDocumentacionActivity extends AppCompatActivity implements Vi
                 break;
             case R.id.btnRec:
                 startActivity(new Intent(getApplicationContext(), RecomendacionesActivity.class));
+                break;
+            case R.id.cardAddFamiliar:
+                openDialogArchivos();
                 break;
         }
 

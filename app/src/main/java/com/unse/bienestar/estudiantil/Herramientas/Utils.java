@@ -127,6 +127,7 @@ public class Utils {
     public static final String PASAJERO = "pasajeros";
     public static final String DATA_MEDICAMENTO = "medicamento";
     public static final String DATA_OPCION = "opcion";
+    public static final String DATA_FAMILIAR = "data_familiar";
 
     public static final String IMPRESION = "impresion";
     public static final String CANCHA = "cancha";
@@ -296,6 +297,7 @@ public class Utils {
     public static final String URL_BECAS_INSCRIPCION_ACTUALIZAR = "https://" + IP + "/becas/inscripcion/actualizar.php";
     public static final String URL_BECAS_DOCUMENTACION = "https://" + IP + "/becas/inscripcion/documentacion/uploadPDF.php";
     public static final String URL_BECAS_DOCUMENTACION_ELIMINAR = "https://" + IP + "/becas/inscripcion/documentacion/deletePDF.php";
+    public static final String URL_INSERT_FAMILIAR = "https://" + IP + "/becas/inscripcion/insertarFamiliar.php";
 
     //CIBER
     public static final String URL_REGISTRAR_INGRESO = "https://" + IP + "/ciber/maquina/insertar.php";

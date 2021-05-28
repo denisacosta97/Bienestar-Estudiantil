@@ -21,6 +21,8 @@ import com.unse.bienestar.estudiantil.Modelos.Alumno;
 import com.unse.bienestar.estudiantil.Modelos.Archivo;
 import com.unse.bienestar.estudiantil.Modelos.CredencialDeporte;
 import com.unse.bienestar.estudiantil.Modelos.Documentacion;
+import com.unse.bienestar.estudiantil.Modelos.Familiar;
+import com.unse.bienestar.estudiantil.Modelos.GFamiliar;
 import com.unse.bienestar.estudiantil.Modelos.Inscripcion;
 import com.unse.bienestar.estudiantil.Modelos.ItemBase;
 import com.unse.bienestar.estudiantil.Modelos.ItemDato;
@@ -197,8 +199,27 @@ public class InscripcionesActivity extends AppCompatActivity implements View.OnC
                     JSONArray documentos = jsonObject.getJSONArray("docs");
                     for (int i = 0; i < documentos.length(); i++) {
                         JSONObject object = documentos.getJSONObject(i);
-                        Documentacion documentacion = Documentacion.toMapper(object, Documentacion.LOW);
+                        Documentacion documentacion = Documentacion.mapper(object, Documentacion.LOW);
                         docs.add(documentacion);
+
+                    }
+                }
+                ArrayList<GFamiliar> familiars = new ArrayList<>();
+                if (jsonObject.has("familia")) {
+                    JSONArray arch = jsonObject.getJSONArray("familia");
+                    for (int i = 0; i < arch.length(); i++) {
+                        JSONObject object = arch.getJSONObject(i);
+                        GFamiliar archivo = GFamiliar.toMapper(object, GFamiliar.LOW);
+                        familiars.add(archivo);
+                    }
+                }
+                ArrayList<Documentacion> documentacions = new ArrayList<>();
+                if (jsonObject.has("documentacion")) {
+                    JSONArray arch = jsonObject.getJSONArray("documentacion");
+                    for (int i = 0; i < arch.length(); i++) {
+                        JSONObject object = arch.getJSONObject(i);
+                        Documentacion archivo = Documentacion.mapper(object, Documentacion.BECAS);
+                        documentacions.add(archivo);
 
                     }
                 }
@@ -223,6 +244,8 @@ public class InscripcionesActivity extends AppCompatActivity implements View.OnC
                 intent.putExtra(Utils.INFO_EXTRA, inscripcion);
                 intent.putExtra(Utils.INFO_EXTRA_2, archivos);
                 intent.putExtra(Utils.NOTICIA_INFO, docs);
+                intent.putExtra(Utils.DATA_FAMILIAR, familiars);
+                intent.putExtra(Utils.DATA_DOCUM, documentacions);
                 startActivity(intent);
 
             } catch (JSONException e) {

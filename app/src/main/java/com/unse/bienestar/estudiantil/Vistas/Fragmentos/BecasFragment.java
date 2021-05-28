@@ -16,6 +16,7 @@ import com.unse.bienestar.estudiantil.Herramientas.Utils;
 import com.unse.bienestar.estudiantil.R;
 import com.unse.bienestar.estudiantil.Vistas.Activities.Becas.InfoBecasActivity;
 import com.unse.bienestar.estudiantil.Vistas.Activities.Becas.TipoTurnosActivity;
+import com.unse.bienestar.estudiantil.Vistas.Activities.Perfil.InscripcionesActivity;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -102,7 +103,7 @@ public class BecasFragment extends Fragment implements View.OnClickListener {
                 openWhatsAppConversationUsingUri(mContext, "+5493855198402", "¡Hola Área Becas! Tengo una consulta: ");
                 break;
             case R.id.card_inscrip:
-                startActivity(new Intent(getContext(), TipoTurnosActivity.class)); //Poner la activity de las inscripciones del usuario nomah
+                startActivity(new Intent(getContext(), InscripcionesActivity.class));
                 break;
             case R.id.card_infoBecas:
                 startActivity(new Intent(getContext(), InfoBecasActivity.class));

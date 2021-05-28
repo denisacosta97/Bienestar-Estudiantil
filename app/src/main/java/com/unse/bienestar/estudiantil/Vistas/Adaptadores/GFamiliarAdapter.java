@@ -4,16 +4,15 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.unse.bienestar.estudiantil.Herramientas.Utils;
+import com.unse.bienestar.estudiantil.Interfaces.OnClickOptionListener;
 import com.unse.bienestar.estudiantil.Modelos.GFamiliar;
-import com.unse.bienestar.estudiantil.Modelos.Turno;
 import com.unse.bienestar.estudiantil.R;
 
 import java.util.ArrayList;
@@ -40,7 +39,7 @@ public class GFamiliarAdapter extends RecyclerView.Adapter<GFamiliarAdapter.Turn
 
         GFamiliar grupo = mList.get(i);
         holder.txtNombre.setText(grupo.getNombre());
-        holder.txtDesc.setText(grupo.getDescripcion());
+        /*holder.txtDesc.setText(grupo.getDescripcion());
         switch (grupo.getDescripcion()) {
             case "Incompleto":
                 holder.txtDesc.setTextColor(mContext.getResources().getColor(R.color.colorRed));
@@ -48,10 +47,9 @@ public class GFamiliarAdapter extends RecyclerView.Adapter<GFamiliarAdapter.Turn
             case "Completo":
                 holder.txtDesc.setTextColor(mContext.getResources().getColor(R.color.colorGreen));
                 break;
-        }
+        }*/
 
     }
-
 
     @Override
     public int getItemCount() {
@@ -64,7 +62,6 @@ public class GFamiliarAdapter extends RecyclerView.Adapter<GFamiliarAdapter.Turn
 
         TurnoViewHolder(View view) {
             super(view);
-
             mCardView = view.findViewById(R.id.card);
             txtNombre = view.findViewById(R.id.txtNombre);
             txtDesc = view.findViewById(R.id.txtDescripcion);

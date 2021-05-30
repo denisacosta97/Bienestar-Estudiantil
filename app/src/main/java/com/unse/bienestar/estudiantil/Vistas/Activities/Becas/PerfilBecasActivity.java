@@ -17,17 +17,16 @@ import com.android.volley.toolbox.StringRequest;
 import com.unse.bienestar.estudiantil.Herramientas.Almacenamiento.PreferenceManager;
 import com.unse.bienestar.estudiantil.Herramientas.Utils;
 import com.unse.bienestar.estudiantil.Herramientas.VolleySingleton;
-import com.unse.bienestar.estudiantil.Interfaces.OnClickOptionListener;
 import com.unse.bienestar.estudiantil.Interfaces.YesNoDialogListener;
 import com.unse.bienestar.estudiantil.Modelos.Archivo;
 import com.unse.bienestar.estudiantil.Modelos.Documentacion;
+import com.unse.bienestar.estudiantil.Modelos.Familiar;
+import com.unse.bienestar.estudiantil.Modelos.TipoFamiliar;
 import com.unse.bienestar.estudiantil.Modelos.InfoBecas;
 import com.unse.bienestar.estudiantil.Modelos.Inscripcion;
-import com.unse.bienestar.estudiantil.Modelos.Opciones;
 import com.unse.bienestar.estudiantil.R;
 import com.unse.bienestar.estudiantil.Vistas.Activities.Perfil.InscripcionesActivity;
 import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoGeneral;
-import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoOpciones;
 import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoProcesamiento;
 
 import org.json.JSONArray;
@@ -71,12 +70,14 @@ public class PerfilBecasActivity extends AppCompatActivity implements View.OnCli
             loadListener();
 
             loadData();
+
+            setToolbar();
         } else {
             Utils.showToast(getApplicationContext(), getString(R.string.errorInternoAdmin));
             finish();
         }
 
-        setToolbar();
+
     }
 
     private void setToolbar() {
@@ -129,34 +130,6 @@ public class PerfilBecasActivity extends AppCompatActivity implements View.OnCli
 
     }
 
-    private void checkDisponibility() {
-        PreferenceManager preferenceManager = new PreferenceManager(getApplicationContext());
-        int id = preferenceManager.getValueInt(Utils.MY_ID);
-        String token = preferenceManager.getValueString(Utils.TOKEN);
-        String URL = String.format("%s?idU=%s&key=%s&iu=%s&ib=%s",
-                Utils.URL_BECAS_DISPONIBILIDAD, id, token, id, mInfoBecas.getId());
-        StringRequest request = new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                procesarRespuesta(response, 1);
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-                Utils.showToast(getApplicationContext(), getString(R.string.servidorOff));
-                dialog.dismiss();
-
-            }
-        });
-        //Abro dialogo para congelar pantalla
-        dialog = new DialogoProcesamiento();
-        dialog.setCancelable(false);
-        dialog.show(getSupportFragmentManager(), "dialog_process");
-        VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
-    }
-
     private void procesarRespuesta(String response, int tipo) {
         try {
             dialog.dismiss();
@@ -168,16 +141,12 @@ public class PerfilBecasActivity extends AppCompatActivity implements View.OnCli
                     break;
                 case 1:
                     //Exito
-                    Inscripcion inscripcion = Inscripcion.mapper(jsonObject.getJSONObject("datos"), Inscripcion.HIGH);
-                    Intent intent = new Intent(getApplicationContext(), CargarDocumentacionActivity.class);
-                    intent.putExtra(Utils.INFO_EXTRA, inscripcion);
-                    //intent.putExtra(Utils.INFO_EXTRA_2, new ArrayList<Archivo>());
-                    startActivity(intent);
+                    loadInfo(jsonObject);
                     break;
                 case 2:
                     if (tipo == 1)
                         Utils.showToast(getApplicationContext(), getString(R.string.becaConvocatoriaNo));
-                    else {
+                    else if (tipo == 2) {
                         Utils.showToast(getApplicationContext(), getString(R.string.inscripcionErronea));
                     }
                     break;
@@ -189,8 +158,8 @@ public class PerfilBecasActivity extends AppCompatActivity implements View.OnCli
                     break;
                 case 5:
                     Utils.showToast(getApplicationContext(), getString(R.string.inscripcionYaRegistrada));
-                    //Utils.showToast(getApplicationContext(), getString(R.string.inscripcionPerfil));
-                    startActivity(new Intent(getApplicationContext(), InscripcionesActivity.class));
+                    if (tipo == 2)
+                        startActivity(new Intent(getApplicationContext(), InscripcionesActivity.class));
                     break;
                 case 6:
                     Utils.showToast(getApplicationContext(), getString(R.string.deporteYaInscripto));
@@ -207,6 +176,76 @@ public class PerfilBecasActivity extends AppCompatActivity implements View.OnCli
         } catch (JSONException e) {
             e.printStackTrace();
             Utils.showToast(getApplicationContext(), getString(R.string.errorInternoAdmin));
+        }
+    }
+
+    private void loadInfo(JSONObject jsonObject) {
+        try {
+
+            Inscripcion inscripcion = null;
+            if (jsonObject.has("mensaje")) {
+
+                JSONObject object = jsonObject.getJSONObject("mensaje");
+                inscripcion = Inscripcion.mapper(object, Inscripcion.HIGH);
+
+            }
+
+            ArrayList<Archivo> archivos = new ArrayList<>();
+            if (jsonObject.has("archivos")) {
+
+                JSONArray arch = jsonObject.getJSONArray("archivos");
+
+                for (int i = 0; i < arch.length(); i++) {
+                    JSONObject object = arch.getJSONObject(i);
+                    Archivo archivo = Archivo.toMapper(object, Archivo.LOW);
+                    archivos.add(archivo);
+
+                }
+            }
+
+            ArrayList<TipoFamiliar> tipoFamiliars = new ArrayList<>();
+            if (jsonObject.has("tipofamilia")) {
+                JSONArray arch = jsonObject.getJSONArray("tipofamilia");
+                for (int i = 0; i < arch.length(); i++) {
+                    JSONObject object = arch.getJSONObject(i);
+                    TipoFamiliar archivo = TipoFamiliar.toMapper(object, TipoFamiliar.LOW);
+                    tipoFamiliars.add(archivo);
+                }
+            }
+
+            ArrayList<Familiar> familiar = new ArrayList<>();
+            if (jsonObject.has("familia")) {
+                JSONArray documentos = jsonObject.getJSONArray("familia");
+                for (int i = 0; i < documentos.length(); i++) {
+                    JSONObject object = documentos.getJSONObject(i);
+                    Familiar f = Familiar.mapper(object, Familiar.LOW);
+                    familiar.add(f);
+
+                }
+            }
+
+            ArrayList<Documentacion> documentacions = new ArrayList<>();
+            if (jsonObject.has("documentacion")) {
+                JSONArray arch = jsonObject.getJSONArray("documentacion");
+                for (int i = 0; i < arch.length(); i++) {
+                    JSONObject object = arch.getJSONObject(i);
+                    Documentacion archivo = Documentacion.mapper(object, Documentacion.BECAS_NUEVO);
+                    documentacions.add(archivo);
+
+                }
+            }
+
+
+            Intent intent = new Intent(getApplicationContext(), CargarDocumentacionActivity.class);
+            intent.putExtra(Utils.INSCRIPCION_ID, inscripcion);
+            intent.putExtra(Utils.TIPO_ARCHIVOS, archivos);
+            intent.putExtra(Utils.DATA_FAMILIAR, familiar);
+            intent.putExtra(Utils.TIPO_FAMILIA, tipoFamiliars);
+            intent.putExtra(Utils.DATA_DOCUM, documentacions);
+            startActivity(intent);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 

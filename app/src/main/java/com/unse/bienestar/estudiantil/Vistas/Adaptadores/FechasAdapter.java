@@ -103,7 +103,7 @@ public class FechasAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                                 case "EN PROCESO":
                                     i = R.color.colorPink;
                                     break;
-                                case "EN EVALUACIÓN":
+                                case "RECIBIDO":
                                     i = R.color.colorFCEyT;
                                     break;
                             }

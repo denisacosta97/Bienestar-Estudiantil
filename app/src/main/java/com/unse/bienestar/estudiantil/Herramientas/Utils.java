@@ -1,5 +1,6 @@
 package com.unse.bienestar.estudiantil.Herramientas;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
@@ -54,6 +55,7 @@ import com.unse.bienestar.estudiantil.Herramientas.Almacenamiento.FileStorageMan
 import com.unse.bienestar.estudiantil.Modelos.Archivo;
 import com.unse.bienestar.estudiantil.Modelos.Noticia;
 import com.unse.bienestar.estudiantil.R;
+import com.unse.bienestar.estudiantil.Vistas.Activities.Becas.SubirDocumentacionFamiliarActivity;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -142,6 +144,8 @@ public class Utils {
     public static final int REQUEST_LOCATION = 9096;
     public static final int REQUEST_CHECK_SETTINGS = 9097;
     public static final int GET_FROM_GALLERY = 9096;
+    public static final int UPLOAD_DOC = 9098;
+    public static final int UPDATE_POST = 9099;
     //Constantes para tipos de usuario
     public static final int TIPO_USUARIO = 1;
     public static final int TIPO_ESTUDIANTE = 2;
@@ -208,6 +212,8 @@ public class Utils {
     public static final int LIST_DNI = 2;
     public static final int LIST_NOMBRE = 3;
     public static final String INSCRIPCION_ID = "inscripcion_id";
+    public static final String TIPO_ARCHIVOS = "tipo_archivos";
+    public static final String TIPO_FAMILIA = "tipo_familia";
     public static final String INSCRIPCION_ANIO = "anio_id";
     public static final String TOKEN_FIREBASE = "token_firebase";
     public static final String DOCTOR = "doctor_info";
@@ -1428,6 +1434,12 @@ public class Utils {
             }
 
         } else return charAt;
+    }
+
+    public static void showPermission(Activity activity) {
+        ActivityCompat.requestPermissions(activity,
+                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                PERMISSION_ALL);
     }
 }
 

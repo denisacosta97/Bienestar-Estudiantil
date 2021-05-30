@@ -4,51 +4,50 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.unse.bienestar.estudiantil.Interfaces.OnClickOptionListener;
-import com.unse.bienestar.estudiantil.Modelos.GFamiliar;
+import com.unse.bienestar.estudiantil.Modelos.Familiar;
 import com.unse.bienestar.estudiantil.R;
 
 import java.util.ArrayList;
 
-public class GFamiliarAdapter extends RecyclerView.Adapter<GFamiliarAdapter.TurnoViewHolder> {
+public class FamiliarAdapter extends RecyclerView.Adapter<FamiliarAdapter.TurnoViewHolder> {
 
-    private ArrayList<GFamiliar> mList;
+    private ArrayList<Familiar> mList;
     private Context mContext;
 
-    public GFamiliarAdapter(ArrayList<GFamiliar> list, Context context) {
+    public FamiliarAdapter(ArrayList<Familiar> list, Context context) {
         this.mContext = context;
         this.mList = list;
     }
 
     @NonNull
     @Override
-    public GFamiliarAdapter.TurnoViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
+    public FamiliarAdapter.TurnoViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_gfamiliar, viewGroup, false);
-        return new GFamiliarAdapter.TurnoViewHolder(view);
+        return new FamiliarAdapter.TurnoViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull GFamiliarAdapter.TurnoViewHolder holder, int i) {
+    public void onBindViewHolder(@NonNull FamiliarAdapter.TurnoViewHolder holder, int i) {
 
-        GFamiliar grupo = mList.get(i);
-        holder.txtNombre.setText(grupo.getNombre());
-        /*holder.txtDesc.setText(grupo.getDescripcion());
-        switch (grupo.getDescripcion()) {
-            case "Incompleto":
-                holder.txtDesc.setTextColor(mContext.getResources().getColor(R.color.colorRed));
-                break;
-            case "Completo":
-                holder.txtDesc.setTextColor(mContext.getResources().getColor(R.color.colorGreen));
-                break;
-        }*/
-
+        Familiar grupo = mList.get(i);
+        holder.txtNombre.setText(grupo.getDescripcion());
+        if (grupo.getCantidad() > 0) {
+            holder.txtDesc.setTextColor(mContext.getResources().getColor(R.color.colorGreen));
+        } else {
+            holder.txtDesc.setTextColor(mContext.getResources().getColor(R.color.colorRed));
+        }
+        String format = "";
+        if (grupo.getCantidad() != 1)
+            format = "%s archivos cargados";
+        else
+            format = "%s archivo cargado";
+        holder.txtDesc.setText(String.format(format, grupo.getCantidad()));
     }
 
     @Override
@@ -68,5 +67,5 @@ public class GFamiliarAdapter extends RecyclerView.Adapter<GFamiliarAdapter.Turn
 
         }
     }
-    
+
 }

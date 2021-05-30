@@ -11,7 +11,6 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -22,18 +21,13 @@ import com.unse.bienestar.estudiantil.Herramientas.Almacenamiento.PreferenceMana
 import com.unse.bienestar.estudiantil.Herramientas.Utils;
 import com.unse.bienestar.estudiantil.Herramientas.VolleySingleton;
 import com.unse.bienestar.estudiantil.Interfaces.OnClickListenerAdapter;
-import com.unse.bienestar.estudiantil.Modelos.Familiar;
-import com.unse.bienestar.estudiantil.Modelos.GFamiliar;
+import com.unse.bienestar.estudiantil.Modelos.TipoFamiliar;
 import com.unse.bienestar.estudiantil.Modelos.Inscripcion;
-import com.unse.bienestar.estudiantil.Modelos.Rol;
-import com.unse.bienestar.estudiantil.Modelos.Usuario;
 import com.unse.bienestar.estudiantil.R;
-import com.unse.bienestar.estudiantil.Vistas.Adaptadores.UsuariosAdapter;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,8 +35,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 public class DialogoAgregarFamiliarBeca extends DialogFragment {
 
@@ -53,7 +45,7 @@ public class DialogoAgregarFamiliarBeca extends DialogFragment {
     Context mContext;
     DialogoProcesamiento dialog;
     FragmentManager mFragmentManager;
-    GFamiliar familiar;
+    TipoFamiliar familiar;
     OnClickListenerAdapter mListener;
     Inscripcion mInscripcion;
 
@@ -73,12 +65,12 @@ public class DialogoAgregarFamiliarBeca extends DialogFragment {
         mInscripcion = inscripcion;
     }
 
-    public GFamiliar getFamiliar() {
+    public TipoFamiliar getFamiliar() {
         return familiar;
     }
 
-    public void setFamiliar(GFamiliar familiar) {
-        GFamiliar fam = new GFamiliar(familiar.getId(), familiar.getNombre());
+    public void setFamiliar(TipoFamiliar familiar) {
+        TipoFamiliar fam = new TipoFamiliar(familiar.getId(), familiar.getNombre());
         this.familiar = fam;
     }
 

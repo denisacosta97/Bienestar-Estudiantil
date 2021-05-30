@@ -178,9 +178,9 @@ public class Archivo implements Parcelable {
                 case LOW:
                     id = Integer.parseInt(object.getString("idarchivo"));
                     nombreArchivo = object.getString("nombrearchivo");
-                    fechaModificacion = object.getString("fecharegistro");
+                    fechaModificacion = object.has("fecharegistro") ? object.getString("fecharegistro") : "";
                     descripcion = object.getString("descripcion");
-                    nombre = object.getString("nombre");
+                    nombre = object.has("nombre") ? object.getString("nombre") : "";
                     archivo = new Archivo(id, nombreArchivo, descripcion);
                     archivo.setFechaCreacion(fechaModificacion);
                     archivo.setDescripcion(nombre);

@@ -10,28 +10,30 @@ public class Familiar implements Parcelable {
 
     public static final int LOW = 1;
 
-    private int dni, validez;
-    private String nombre, apellido, relacion;
-    private String fechaNac, fechaRegistro;
+    private int idUsuario, idFamiliar, idBeca, anio, validez, cantidad;
+    private String descripcion;
 
-    public Familiar(int dni, String nombre, String apellido, String relacion, String fechaNac, String fechaRegistro, int validez) {
-        this.dni = dni;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.relacion = relacion;
-        this.fechaNac = fechaNac;
-        this.fechaRegistro = fechaRegistro;
+    public Familiar(int idUsuario, int idFamiliar, int idBeca, int anio, int validez, String descripcion) {
+        this.idUsuario = idUsuario;
+        this.idFamiliar = idFamiliar;
+        this.idBeca = idBeca;
+        this.anio = anio;
         this.validez = validez;
+        this.descripcion = descripcion;
+    }
+
+    public Familiar() {
+
     }
 
     protected Familiar(Parcel in) {
-        dni = in.readInt();
+        idUsuario = in.readInt();
+        idFamiliar = in.readInt();
+        idBeca = in.readInt();
+        anio = in.readInt();
         validez = in.readInt();
-        nombre = in.readString();
-        apellido = in.readString();
-        relacion = in.readString();
-        fechaNac = in.readString();
-        fechaRegistro = in.readString();
+        descripcion = in.readString();
+        cantidad = in.readInt();
     }
 
     public static final Creator<Familiar> CREATOR = new Creator<Familiar>() {
@@ -46,6 +48,69 @@ public class Familiar implements Parcelable {
         }
     };
 
+    public static Familiar mapper(JSONObject object, int tipo) {
+        int idUsuario, idFamiliar, idBeca, anio, validez;
+        String descripcion;
+        Familiar familiar = null;
+        try {
+            switch (tipo) {
+                case LOW:
+                    idUsuario = Integer.parseInt(object.getString("idusuario"));
+                    idFamiliar = Integer.parseInt(object.getString("id"));
+                    idBeca = Integer.parseInt(object.getString("idbeca"));
+                    anio = Integer.parseInt(object.getString("anio"));
+                    validez = Integer.parseInt(object.getString("validez"));
+                    descripcion = object.getString("descripcion");
+                    familiar = new Familiar(idUsuario, idFamiliar, idBeca, anio, validez, descripcion);
+                    break;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return familiar;
+
+    }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
+    public int getIdFamiliar() {
+        return idFamiliar;
+    }
+
+    public void setIdFamiliar(int idFamiliar) {
+        this.idFamiliar = idFamiliar;
+    }
+
+    public int getIdBeca() {
+        return idBeca;
+    }
+
+    public void setIdBeca(int idBeca) {
+        this.idBeca = idBeca;
+    }
+
+    public int getAnio() {
+        return anio;
+    }
+
+    public void setAnio(int anio) {
+        this.anio = anio;
+    }
+
     public int getValidez() {
         return validez;
     }
@@ -54,54 +119,13 @@ public class Familiar implements Parcelable {
         this.validez = validez;
     }
 
-    public int getDni() {
-        return dni;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setDni(int dni) {
-        this.dni = dni;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getApellido() {
-        return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
-    public String getRelacion() {
-        return relacion;
-    }
-
-    public void setRelacion(String relacion) {
-        this.relacion = relacion;
-    }
-
-    public String getFechaNac() {
-        return fechaNac;
-    }
-
-    public void setFechaNac(String fechaNac) {
-        this.fechaNac = fechaNac;
-    }
-
-    public String getFechaRegistro() {
-        return fechaRegistro;
-    }
-
-    public void setFechaRegistro(String fechaRegistro) {
-        this.fechaRegistro = fechaRegistro;
-    }
-
 
     @Override
     public int describeContents() {
@@ -110,12 +134,12 @@ public class Familiar implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(dni);
+        dest.writeInt(idUsuario);
+        dest.writeInt(idFamiliar);
+        dest.writeInt(idBeca);
+        dest.writeInt(anio);
         dest.writeInt(validez);
-        dest.writeString(nombre);
-        dest.writeString(apellido);
-        dest.writeString(relacion);
-        dest.writeString(fechaNac);
-        dest.writeString(fechaRegistro);
+        dest.writeString(descripcion);
+        dest.writeInt(cantidad);
     }
 }

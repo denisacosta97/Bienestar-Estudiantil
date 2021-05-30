@@ -576,6 +576,7 @@ El día de la carrera, la aplicación habilitará la opción de registrar tu GPS
     <string name="yaExisteFamiliar">¡Ya existe!</string>
     <string name="imagenNoFormat">¡Solo PDF, JPG, JPEG o PNG!</string>
     <string name="documentoSubido">¡Documento subido!</string>
+    <string name="archivoMalo">¡El archivo está corrupto!</string>
 
 </resources>
 

@@ -210,9 +210,7 @@ public class DocGrupoActivity extends AppCompatActivity implements View.OnClickL
 
                 } else {
                     Utils.showToast(getApplicationContext(), getString(R.string.imagenNoFormat));
-
                 }
-
             }
         }
     }
@@ -273,10 +271,12 @@ public class DocGrupoActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void send() {
+        PreferenceManager preferenceManager = new PreferenceManager(getApplicationContext());
+        int id = preferenceManager.getValueInt(Utils.MY_ID);
         HashMap<String, String> datos = new HashMap<>();
-        datos.put("iu", String.valueOf(39986583));
-        datos.put("if", String.valueOf(1));
-        datos.put("de", "Postulante");
+        datos.put("iu", String.valueOf(id));
+        datos.put("if", String.valueOf(mGFamiliar.getId()));
+        datos.put("de", mGFamiliar.getDescripcion()); //falta aquí
         datos.put("ia", String.valueOf(46));
         datos.put("ib", String.valueOf(7));
         datos.put("an", String.valueOf(2021));

@@ -429,13 +429,9 @@ public class InscripcionesActivity extends AppCompatActivity implements View.OnC
 
     private void loadInfo(JSONObject jsonObject) {
         try {
-
             if (jsonObject.has("deportes")) {
-
                 JSONArray jsonArray = jsonObject.isNull("deportes") ? null : jsonObject.getJSONArray("deportes");
-
                 for (int i = 0; jsonArray != null && i < jsonArray.length(); i++) {
-
                     JSONObject o = jsonArray.getJSONObject(i);
 
                     Inscripcion inscripcion = Inscripcion.mapper(o, Inscripcion.PARCIAL);
@@ -445,7 +441,6 @@ public class InscripcionesActivity extends AppCompatActivity implements View.OnC
                     dato.setTipo(ItemDato.TIPO_INSCRIPCION);
 
                     mList.add(dato);
-
                 }
 
             }

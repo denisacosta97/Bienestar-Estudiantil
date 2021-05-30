@@ -287,20 +287,14 @@
     <!--  Beca Comedor  -->
     <string name="desc0">Servicio de almuerzo para los estudiantes de la UNSE, tiene por finalidad cubrir una necesidad inmediata y a la vez fomentar un ambiente de camaradería, solidaridad y respeto entre los estudiantes.\n\nBeneficiarios\nAlumnos Ingresantes y Reinscriptos (Renovantes o no).\nEl beneficio establece las siguientes categorías:\n a) Beca Completa Comedor Universitario (cobertura del 100 % por parte de la Universidad)\n
         b) Beca Parcial Comedor Universitario. (Aporte del 30% por parte de los alumnos y 70% por parte de la Universidad, del precio fijado por el concesionario correspondiente).</string>
-    <string name="reqGen0"> - Ser alumno regular en el año académico 2020 al momento de la inscripción y otorgamiento del beneficio.\n
+    <string name="reqGen0"> - Ser alumno regular en el año académico 2021 al momento de la inscripción y otorgamiento del beneficio.\n
  - Realizar la postulación a la convocatoria de becas correspondiente, en tiempo y forma.\n
- - Poseer una situación socioeconómica que justifique el otorgamiento del beneficio.\n</string>
-    <string name="reqAcad0">Requisitos Académicos para el OTORGAMIENTO PROVISORIO del beneficio\n
- - Estudiantes ingresantes del año 2020, solo deberán ser alumnos regulares en el 2020.\n
- - Estudiantes avanzados que fueron o no becarios en el año 2020, deberán ser alumnos regulares durante el año académico 2020.\n\n
+ - Poseer una situación socioeconómica que justifique el otorgamiento del beneficio.\n\n
 
- Requisitos Académicos para la ASIGNACIÓN DEFINITIVA del beneficio\n\n
-Una vez otorgado el beneficio con la condición de alumno regular 2020 e iniciado el ciclo lectivo 2021, los beneficiarios deberán cumplir las siguientes condiciones académicas para continuar con el beneficio:\n
-
- - Estudiantes ingresantes del año 2020, deberán ser alumnos regulares en el año académico 2021.\n
- - Estudiantes avanzados que fueron o no becarios en el año 2020, deberán ser alumnos regulares 2021 y tener aprobado 1 (una) materia durante el año académico 2020.\n
-
- \n- Foto del DNI (ambos lados) del postulante y de TODO el grupo familiar y/o conviviente.\n
+La información académica no deberá ser adjuntada ya que la misma será solicitada por el Área a la oficina del SIU.
+    </string>
+    <string name="reqAcad0"> La documentación solicitada deberá tener formato digital (imagen o PDF) y ser adjuntada luego de haber completado el formulario de inscripción. Se recomienda resguardar la documentación en formato papel que se adjuntó de forma digital en el formulario de postulación ya que ésta deberá ser entregada cuando se habilite la atención presencial en el área Becas.\n\n
+ - Foto del DNI (ambos lados) del postulante y de TODO el grupo familiar y/o conviviente.\n
  - Certificación negativa de ANSES o denegatoria: del postulante y de TODO el grupo familiar/convivientes mayores de 18 años inclusive.\n
 - Constancias de ingresos de cada integrante del grupo familiar y del postulante si tuviera, posterior a septiembre de 2020, según corresponda:\n
  - Trabajadores/as en relación de dependencia: último recibo de sueldo mensual o quincenal (ambas quincenas), según el caso.\n
@@ -438,11 +432,18 @@ Solo en caso de ser renovante de la beca, se deberá adjuntar el informe de dese
 
     <!--  Beca Apoyo Económico  -->
     <string name="desc6">Es una contribución monetaria al estudiante para cubrir los gastos originados en los estudios superiores.\n\n
-        Beneficiarios:\n
-        Alumnos Ingresantes y Reinscriptos (Renovantes o no).\n
-        Las becas de Apoyo Económico Comprenden 2 (dos) categorías.\n
-        •  Becas de Apoyo Económico Completa.\n
-        •  Medias Becas de Apoyo Económico.</string>
+        Sistema de compatibilidad de beneficios\n
+        Las categorías de becas de Apoyo económico y comedor completa serán compatibles entre ellas.\n\n
+        Para Becas de Apoyo Económico u otro beneficio de similar carácter cualquiera sea su origen nacional provincial municipal, de entidades públicas o privadas; así como con pasantías rentadas, ayudantías estudiantiles y de investigación; Becas EVC CIN y de investigación y tutorías de estudiantes pares rentadas; será evaluado según el siguiente criterio de prioridad:\n
+        - En primer orden tendrán prioridad los postulantes que no posean ningún tipo de beneficio.\n
+        - En segundo orden los postulantes que posean algún tipo de beneficio dando prioridad a los de menor remuneración.\n\n
+        Destinatarios de la convocatoria\n
+        Todos los estudiantes ingresantes a una carrera de grado y pregrado no aranceladas de la UNSE en el 2021, que posean una situación socioeconómica que justifique el otorgamiento del beneficio.\n\n
+        Criterios para la asignación de los beneficios\n
+        Para la asignación de una beca se tomará en cuenta los criterios establecidos en el Reglamento General de Becas Res. HCS N° 167/17.\n\n
+        Respecto a la evaluación socioeconómica y la evaluación académica se realizará según lo expresado anteriormente.\n
+        En función a estos criterios se establecerá un estricto orden de mérito para la adjudicación de los beneficios.
+    </string>
     <string name="reqGen6">@string/reqGen0</string>
     <string name="reqAcad6">@string/reqAcad0</string>
 

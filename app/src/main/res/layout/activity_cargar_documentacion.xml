@@ -210,7 +210,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="A continuación, selecciona cada integrante del grupo familiar, realiza la carga de la documentación que debes subir, una vez que esté marcado como completado, debes volver a esta pantalla y presiona en 'Enviar Postulación'."
+                    android:text="A continuación, selecciona cada integrante del grupo familiar, realiza la carga de la documentación, una vez que hayas subido todo lo necesario, presiona en 'Enviar Postulación'."
                     android:textSize="16sp"
                     android:textColor="@color/blackTextColor"
                     android:layout_marginTop="10dp"
@@ -249,7 +249,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Agregar otro familiar"
+                            android:text="Agregar familiar"
                             android:textColor="@color/colorWhite"
                             android:textSize="16sp"
                             android:gravity="center"

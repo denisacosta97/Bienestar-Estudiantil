@@ -88,7 +88,7 @@ public class DocumentacionAdapter extends RecyclerView.Adapter<DocumentacionAdap
                     holder.txtDesc.setText("Archivo cargado");
                 } else {
                     holder.txtDesc.setTextColor(context.getResources().getColor(R.color.colorRed));
-                    holder.txtDesc.setText("Sin archivo cargado");
+                    holder.txtDesc.setText("Archivo no cargado");
                 }
             }
         }

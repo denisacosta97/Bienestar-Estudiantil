@@ -250,13 +250,13 @@ public class CargarDocumentacionActivity extends AppCompatActivity implements Vi
                 openDialogArchivos();
                 break;
             case R.id.btnCargar:
-                finalizar();
+               // finalizar();
                 break;
         }
 
     }
 
-    private void finalizar() {
+    /*private void finalizar() {
         final HashMap<String, String> map = new HashMap<>();
         String URL = null;
         if (!isUPA)
@@ -311,6 +311,6 @@ public class CargarDocumentacionActivity extends AppCompatActivity implements Vi
             }
         };
         VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
-    }
+    }*/
 
 }

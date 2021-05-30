@@ -10,37 +10,46 @@ public class Documentacion implements Parcelable {
 
     public static final int LOW = 1;
     public static final int BECAS = 2;
+    public static final int BECAS_NUEVO = 3;
 
-    private String nombre, nombreArchivo, descripcion;
-    private int codigo, idFamiliar, idBeca, anio, validez, idUsuario;
+    private String nombre, nombreArchivo, descripcion, url, observacion;
+    private int idArchivo, codigo, idFamiliar, idBeca, anio, validez, idUsuario;
 
-
-    public Documentacion(String nombre, String nombreArchivo, int codigo) {
-        this.nombre = nombre;
-        this.nombreArchivo = nombreArchivo;
-        this.codigo = codigo;
-    }
-
-    public Documentacion(int idFamiliar, int idUsuario, int idBeca, int anio, String descripcion,
-                         int validez) {
-        this.descripcion = descripcion;
-        this.idFamiliar = idFamiliar;
-        this.idBeca = idBeca;
-        this.anio = anio;
-        this.validez = validez;
-        this.idUsuario = idUsuario;
-    }
 
     protected Documentacion(Parcel in) {
         nombre = in.readString();
         nombreArchivo = in.readString();
         descripcion = in.readString();
+        url = in.readString();
+        idArchivo = in.readInt();
         codigo = in.readInt();
         idFamiliar = in.readInt();
         idBeca = in.readInt();
         anio = in.readInt();
         validez = in.readInt();
         idUsuario = in.readInt();
+        observacion = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(nombre);
+        dest.writeString(nombreArchivo);
+        dest.writeString(descripcion);
+        dest.writeString(url);
+        dest.writeInt(idArchivo);
+        dest.writeInt(codigo);
+        dest.writeInt(idFamiliar);
+        dest.writeInt(idBeca);
+        dest.writeInt(anio);
+        dest.writeInt(validez);
+        dest.writeInt(idUsuario);
+        dest.writeString(observacion);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public static final Creator<Documentacion> CREATOR = new Creator<Documentacion>() {
@@ -55,12 +64,75 @@ public class Documentacion implements Parcelable {
         }
     };
 
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public int getIdArchivo() {
+        return idArchivo;
+    }
+
+    public void setIdArchivo(int idArchivo) {
+        this.idArchivo = idArchivo;
+    }
+
+    public Documentacion(String nombre, String nombreArchivo, int codigo) {
+        this.nombre = nombre;
+        this.nombreArchivo = nombreArchivo;
+        this.codigo = codigo;
+    }
+
+    public String getObservacion() {
+        return observacion;
+    }
+
+    public void setObservacion(String observacion) {
+        this.observacion = observacion;
+    }
+
+    public Documentacion(int idFamiliar, int idUsuario, int idBeca, int anio, String descripcion,
+                         int validez) {
+        this.descripcion = descripcion;
+        this.idFamiliar = idFamiliar;
+        this.idBeca = idBeca;
+        this.anio = anio;
+        this.validez = validez;
+        this.idUsuario = idUsuario;
+    }
+
+
+
+
+    public Documentacion(String nombreArchivo, String descripcion, String url, int idArchivo, int idFamiliar) {
+        this.nombreArchivo = nombreArchivo;
+        this.descripcion = descripcion;
+        this.url = url;
+        this.idArchivo = idArchivo;
+        this.idFamiliar = idFamiliar;
+    }
+
     public static Documentacion mapper(JSONObject object, int tipo) {
-         String nombre, nombreArchivo, descripcion;
-         int codigo, idFamiliar, idBeca, anio, validez, idUsuario;
-         Documentacion documentacion = null;
+        String nombre, nombreArchivo, descripcion, url, obs;
+        int codigo, idArchivo, idFamiliar, idBeca, anio, validez, idUsuario;
+        Documentacion documentacion = null;
         try {
             switch (tipo) {
+                case BECAS_NUEVO:
+                    idFamiliar = Integer.parseInt(object.getString("id"));
+                    idArchivo = Integer.parseInt(object.getString("idarchivo"));
+                    descripcion = object.getString("descripcion");
+                    url = object.getString("urlimage");
+                    nombreArchivo = object.getString("nombrearchivo");
+                    anio = Integer.parseInt(object.getString("anio"));
+                    obs = object.getString("observacion");
+                    documentacion = new Documentacion(nombreArchivo, descripcion, url, idArchivo, idFamiliar);
+                    documentacion.setAnio(anio);
+                    documentacion.setObservacion(obs);
+                    break;
                 case LOW:
                     codigo = Integer.parseInt(object.getString("idarchivo"));
                     nombreArchivo = object.getString("nombrearchivo");
@@ -162,21 +234,5 @@ public class Documentacion implements Parcelable {
         this.idUsuario = idUsuario;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(nombre);
-        dest.writeString(nombreArchivo);
-        dest.writeString(descripcion);
-        dest.writeInt(codigo);
-        dest.writeInt(idFamiliar);
-        dest.writeInt(idBeca);
-        dest.writeInt(anio);
-        dest.writeInt(validez);
-        dest.writeInt(idUsuario);
-    }
 }

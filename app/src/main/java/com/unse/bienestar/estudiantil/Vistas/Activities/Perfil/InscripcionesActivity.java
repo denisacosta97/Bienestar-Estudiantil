@@ -22,7 +22,7 @@ import com.unse.bienestar.estudiantil.Modelos.Archivo;
 import com.unse.bienestar.estudiantil.Modelos.CredencialDeporte;
 import com.unse.bienestar.estudiantil.Modelos.Documentacion;
 import com.unse.bienestar.estudiantil.Modelos.Familiar;
-import com.unse.bienestar.estudiantil.Modelos.GFamiliar;
+import com.unse.bienestar.estudiantil.Modelos.TipoFamiliar;
 import com.unse.bienestar.estudiantil.Modelos.Inscripcion;
 import com.unse.bienestar.estudiantil.Modelos.ItemBase;
 import com.unse.bienestar.estudiantil.Modelos.ItemDato;
@@ -190,11 +190,68 @@ public class InscripcionesActivity extends AppCompatActivity implements View.OnC
 
         if (tipo == Inscripcion.TIPO_BECA) {
             try {
-                Usuario usuario = null;
-                if (jsonObject.has("datos")) {
-                    usuario = Usuario.mapper(jsonObject.getJSONObject("mensaje"), Usuario.BASIC);
+                Inscripcion inscripcion = null;
+                if (jsonObject.has("mensaje")) {
+
+                    JSONObject object = jsonObject.getJSONObject("mensaje");
+                    inscripcion = Inscripcion.mapper(object, Inscripcion.HIGH);
+
                 }
-                ArrayList<Documentacion> docs = new ArrayList<>();
+
+                ArrayList<Archivo> archivos = new ArrayList<>();
+                if (jsonObject.has("archivos")) {
+
+                    JSONArray arch = jsonObject.getJSONArray("archivos");
+
+                    for (int i = 0; i < arch.length(); i++) {
+                        JSONObject object = arch.getJSONObject(i);
+                        Archivo archivo = Archivo.toMapper(object, Archivo.LOW);
+                        archivos.add(archivo);
+
+                    }
+                }
+
+                ArrayList<TipoFamiliar> tipoFamiliars = new ArrayList<>();
+                if (jsonObject.has("tipofamilia")) {
+                    JSONArray arch = jsonObject.getJSONArray("tipofamilia");
+                    for (int i = 0; i < arch.length(); i++) {
+                        JSONObject object = arch.getJSONObject(i);
+                        TipoFamiliar archivo = TipoFamiliar.toMapper(object, TipoFamiliar.LOW);
+                        tipoFamiliars.add(archivo);
+                    }
+                }
+
+                ArrayList<Familiar> familiar = new ArrayList<>();
+                if (jsonObject.has("familia")) {
+                    JSONArray documentos = jsonObject.getJSONArray("familia");
+                    for (int i = 0; i < documentos.length(); i++) {
+                        JSONObject object = documentos.getJSONObject(i);
+                        Familiar f = Familiar.mapper(object, Familiar.LOW);
+                        familiar.add(f);
+
+                    }
+                }
+
+                ArrayList<Documentacion> documentacions = new ArrayList<>();
+                if (jsonObject.has("documentacion")) {
+                    JSONArray arch = jsonObject.getJSONArray("documentacion");
+                    for (int i = 0; i < arch.length(); i++) {
+                        JSONObject object = arch.getJSONObject(i);
+                        Documentacion archivo = Documentacion.mapper(object, Documentacion.BECAS_NUEVO);
+                        documentacions.add(archivo);
+
+                    }
+                }
+
+
+                Intent intent = new Intent(getApplicationContext(), CargarDocumentacionActivity.class);
+                intent.putExtra(Utils.INSCRIPCION_ID, inscripcion);
+                intent.putExtra(Utils.TIPO_ARCHIVOS, archivos);
+                intent.putExtra(Utils.DATA_FAMILIAR, familiar);
+                intent.putExtra(Utils.TIPO_FAMILIA, tipoFamiliars);
+                intent.putExtra(Utils.DATA_DOCUM, documentacions);
+                startActivity(intent);
+                /*ArrayList<Documentacion> docs = new ArrayList<>();
                 if (jsonObject.has("docs")) {
                     JSONArray documentos = jsonObject.getJSONArray("docs");
                     for (int i = 0; i < documentos.length(); i++) {
@@ -204,12 +261,12 @@ public class InscripcionesActivity extends AppCompatActivity implements View.OnC
 
                     }
                 }
-                ArrayList<GFamiliar> familiars = new ArrayList<>();
+                ArrayList<TipoFamiliar> familiars = new ArrayList<>();
                 if (jsonObject.has("familia")) {
                     JSONArray arch = jsonObject.getJSONArray("familia");
                     for (int i = 0; i < arch.length(); i++) {
                         JSONObject object = arch.getJSONObject(i);
-                        GFamiliar archivo = GFamiliar.toMapper(object, GFamiliar.LOW);
+                        TipoFamiliar archivo = TipoFamiliar.toMapper(object, TipoFamiliar.LOW);
                         familiars.add(archivo);
                     }
                 }
@@ -246,7 +303,7 @@ public class InscripcionesActivity extends AppCompatActivity implements View.OnC
                 intent.putExtra(Utils.NOTICIA_INFO, docs);
                 intent.putExtra(Utils.DATA_FAMILIAR, familiars);
                 intent.putExtra(Utils.DATA_DOCUM, documentacions);
-                startActivity(intent);
+                startActivity(intent);*/
 
             } catch (JSONException e) {
                 e.printStackTrace();

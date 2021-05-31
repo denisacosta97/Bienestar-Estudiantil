@@ -1,6 +1,7 @@
 package com.unse.bienestar.estudiantil.Vistas.Activities.Becas;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;

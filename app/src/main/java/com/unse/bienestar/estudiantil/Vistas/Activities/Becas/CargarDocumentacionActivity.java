@@ -1,7 +1,9 @@
 package com.unse.bienestar.estudiantil.Vistas.Activities.Becas;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -20,6 +22,7 @@ import com.unse.bienestar.estudiantil.Herramientas.Utils;
 import com.unse.bienestar.estudiantil.Herramientas.VolleySingleton;
 import com.unse.bienestar.estudiantil.Interfaces.OnClickListenerAdapter;
 import com.unse.bienestar.estudiantil.Interfaces.OnClickOptionListener;
+import com.unse.bienestar.estudiantil.Interfaces.YesNoDialogListener;
 import com.unse.bienestar.estudiantil.Modelos.Archivo;
 import com.unse.bienestar.estudiantil.Modelos.Documentacion;
 import com.unse.bienestar.estudiantil.Modelos.Familiar;
@@ -30,6 +33,7 @@ import com.unse.bienestar.estudiantil.Modelos.Opciones;
 import com.unse.bienestar.estudiantil.R;
 import com.unse.bienestar.estudiantil.Vistas.Adaptadores.FamiliarAdapter;
 import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoAgregarFamiliarBeca;
+import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoGeneral;
 import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoOpciones;
 import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoProcesamiento;
 
@@ -44,6 +48,9 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class CargarDocumentacionActivity extends AppCompatActivity implements View.OnClickListener {
 
     ImageView btnBack;
@@ -53,7 +60,7 @@ public class CargarDocumentacionActivity extends AppCompatActivity implements Vi
     ArrayList<Archivo> mArchivos;
     ArrayList<Opciones> tipos;
     TextView txtEstado, txtAnio, txtFecha, txtNoData, txtObservacion, txtTipoBeca;
-    LinearLayout latDatos;
+    LinearLayout latDatos, latModificacion;
     CardView addFamiliar;
     Button btnEnviar;
 
@@ -100,6 +107,7 @@ public class CargarDocumentacionActivity extends AppCompatActivity implements Vi
     }
 
     private void loadViews() {
+        latModificacion = findViewById(R.id.latModificacion);
         btnEnviar = findViewById(R.id.btnCargar);
         txtTipoBeca = findViewById(R.id.txtTipoBeca);
         btnBack = findViewById(R.id.imgFlecha);
@@ -120,6 +128,26 @@ public class CargarDocumentacionActivity extends AppCompatActivity implements Vi
     }
 
     private void loadData() {
+        if (inscripcion.getEstado() == 9) {
+            txtEstado.setText(inscripcion.getEstadoDescripcion());
+            latModificacion.setVisibility(View.GONE);
+            PreferenceManager preferenceManager = new PreferenceManager(getApplicationContext());
+            preferenceManager.setValue(Utils.IS_EDIT_MODE, 1);
+            addFamiliar.setVisibility(View.VISIBLE);
+            btnEnviar.setEnabled(true);
+        } else {
+            addFamiliar.setVisibility(View.GONE);
+            btnEnviar.setEnabled(false);
+            txtEstado.setText(inscripcion.getEstadoDescripcion());
+            latModificacion.setVisibility(View.VISIBLE);
+            txtFecha.setText(Utils.getFechaFormat(inscripcion.getFechaModificacion()));
+        }
+        if (inscripcion.getDescripcion() != null && !inscripcion.getDescripcion().equals("")) {
+            latDatos.setVisibility(View.VISIBLE);
+            txtObservacion.setText(String.format("%s\n%s", inscripcion.getDescripcion(), inscripcion.getEstado() == 1 ? "" : Utils.getFechaOrder(Utils.getFechaDateWithHour(inscripcion.getFechaModificacion()))));
+
+        } else latDatos.setVisibility(View.GONE);
+        txtTipoBeca.setText(inscripcion.getIdBeca() == 7 ? "Beca de Apoyo Económico" : "");
         mLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         recycler.setLayoutManager(mLayoutManager);
         updateFamiliars();
@@ -250,19 +278,37 @@ public class CargarDocumentacionActivity extends AppCompatActivity implements Vi
                 openDialogArchivos();
                 break;
             case R.id.btnCargar:
-               // finalizar();
+                showDialogoFinalizar();
                 break;
         }
 
     }
 
-    /*private void finalizar() {
+    public void showDialogoFinalizar() {
+        DialogoGeneral.Builder builder = new DialogoGeneral.Builder(getApplicationContext())
+                .setTitulo(getString(R.string.advertencia))
+                .setDescripcion(getString(R.string.inscripcionFinalizar))
+                .setListener(new YesNoDialogListener() {
+                    @Override
+                    public void yes() {
+                        finalizar();
+                    }
+
+                    @Override
+                    public void no() {
+
+                    }
+                })
+                .setTipo(DialogoGeneral.TIPO_ACEPTAR_CANCELAR)
+                .setIcono(R.drawable.ic_advertencia);
+        DialogoGeneral dialogoGeneral = builder.build();
+        dialogoGeneral.show(getSupportFragmentManager(), "dialogo");
+    }
+
+
+    private void finalizar() {
         final HashMap<String, String> map = new HashMap<>();
-        String URL = null;
-        if (!isUPA)
-            URL = Utils.URL_TURNO_NUEVO;
-        else
-            URL = Utils.URL_TURNO_UAPU_NUEVO;
+        String URL = Utils.URL_BECAS_INSCRIPCION_ACTUALIZAR;
         PreferenceManager preferenceManager = new PreferenceManager(getApplicationContext());
         final int id = preferenceManager.getValueInt(Utils.MY_ID);
         final String token = preferenceManager.getValueString(Utils.TOKEN);
@@ -278,7 +324,6 @@ public class CargarDocumentacionActivity extends AppCompatActivity implements Vi
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
                 Utils.showToast(getApplicationContext(), getString(R.string.servidorOff));
-                loadError();
 
             }
         }) {
@@ -291,26 +336,76 @@ public class CargarDocumentacionActivity extends AppCompatActivity implements Vi
             protected Map<String, String> getParams() throws AuthFailureError {
                 map.put("key", token);
                 map.put("idU", String.valueOf(id));
-                map.put("di", String.valueOf(mCalendar[0]));
-                map.put("me", String.valueOf(mCalendar[1]));
-                map.put("an", String.valueOf(mCalendar[2]));
-                map.put("ho", horarios);
-                map.put("iu", String.valueOf(id));
-                if (isUPA) {
-                    map.put("is", String.valueOf(mConvocatoria.getIdBeca()));
-                } else {
-                    map.put("ib", String.valueOf(mConvocatoria.getIdBeca()));
-                    Pattern pattern = Pattern.compile("[0-9]");
-                    Matcher matcher = pattern.matcher(receptores);
-                    String num = "";
-                    if (matcher.find())
-                        num = matcher.group();
-                    map.put("ir", num);
-                }
+                map.put("ib", String.valueOf(inscripcion.getIdBeca()));
+                map.put("iu", String.valueOf(inscripcion.getIdUsuario()));
+                map.put("an", String.valueOf(inscripcion.getAnio()));
+                map.put("es", String.valueOf(1));
                 return map;
             }
         };
+        dialog = new DialogoProcesamiento();
+        dialog.setCancelable(false);
+        dialog.show(getSupportFragmentManager(), "dialog_process");
         VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
-    }*/
+    }
+
+    private void procesarRespuesta(String response) {
+        try {
+            dialog.dismiss();
+            JSONObject jsonObject = new JSONObject(response);
+            int estado = jsonObject.getInt("estado");
+            switch (estado) {
+                case 1:
+                    //Exito
+                    Utils.showToast(getApplicationContext(), getString(R.string.inscripcionEnviada));
+                    isFinish();
+                    break;
+                case 2:
+                    Utils.showToast(getApplicationContext(), getString(R.string.inscripcionNoActualizada));
+                    break;
+                case 3:
+                    Utils.showToast(getApplicationContext(), getString(R.string.tokenInvalido));
+                    break;
+                case 4:
+                    Utils.showToast(getApplicationContext(), getString(R.string.camposInvalidos));
+                    break;
+                case 5:
+                    Utils.showToast(getApplicationContext(), getString(R.string.inscripcionAceptada));
+                    break;
+                case 6:
+                    Utils.showToast(getApplicationContext(), getString(R.string.inscripcionReenviada));
+                    break;
+                case 7:
+                    Utils.showToast(getApplicationContext(), getString(R.string.inscripcionRecibido));
+                    break;
+                case 8:
+                    Utils.showToast(getApplicationContext(), getString(R.string.inscripcionNoEditable));
+                    break;
+                case 9:
+                    Utils.showToast(getApplicationContext(), getString(R.string.inscripcionNoEvaluada));
+                    break;
+                case 10:
+                    Utils.showToast(getApplicationContext(), getString(R.string.inscripcionCancelada));
+                    break;
+                case 11:
+                    Utils.showToast(getApplicationContext(), getString(R.string.inscripcionAdministrador));
+                    break;
+                case 100:
+                    Utils.showToast(getApplicationContext(), getString(R.string.tokenInexistente));
+                    break;
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Utils.showToast(getApplicationContext(), getString(R.string.errorInternoAdmin));
+        }
+    }
+
+    private void isFinish() {
+        addFamiliar.setVisibility(View.GONE);
+        btnEnviar.setEnabled(false);
+        PreferenceManager preferenceManager = new PreferenceManager(getApplicationContext());
+        preferenceManager.setValue(Utils.IS_EDIT_MODE, 0);
+    }
 
 }

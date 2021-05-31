@@ -31,6 +31,7 @@ import com.android.volley.VolleyError;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
+import com.unse.bienestar.estudiantil.Herramientas.Almacenamiento.PreferenceManager;
 import com.unse.bienestar.estudiantil.Herramientas.FileUtil;
 import com.unse.bienestar.estudiantil.Herramientas.UploadManager;
 import com.unse.bienestar.estudiantil.Herramientas.Utils;
@@ -145,6 +146,17 @@ public class SubirDocumentacionFamiliarActivity extends AppCompatActivity implem
         }
         txtDocumentacion.setText(String.format("%s - %S", archivo.getNombre(), documentacion.getDescripcion()));
         updateButton();
+        PreferenceManager preferenceManager = new PreferenceManager(getApplicationContext());
+        int edit = preferenceManager.getValueInt(Utils.IS_EDIT_MODE);
+        if (edit == 0) {
+            btnSubir.setEnabled(false);
+            cardModificar.setVisibility(View.GONE);
+            cardModificar.setEnabled(false);
+            edtDescripcion.setEnabled(false);
+            imgAddArchivo.setEnabled(false);
+            imgArchivo.setEnabled(false);
+        }
+
     }
 
     private void loadListener() {

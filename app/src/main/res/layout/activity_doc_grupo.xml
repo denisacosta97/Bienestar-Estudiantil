@@ -57,7 +57,6 @@
                     android:text="Mirá las recomendaciones para sacar mejores fotos de tus papeles."
                     android:textColor="@color/blackTextColor"
                     android:textSize="16sp" />
-
                 <Button
                     android:padding="10dp"
                     android:id="@+id/btnRec"
@@ -66,10 +65,9 @@
                     android:text="Ver recomendaciones"
                     android:layout_marginTop="10dp"
                     android:layout_gravity="center"
-                    android:background="@drawable/corners_rounded_green"
                     android:textColor="@color/colorWhite"
                     android:textSize="16sp"
-                    android:backgroundTint="@color/colorMoney"
+                    android:background="@drawable/button_border"
                     android:fontFamily="@font/montserrat_black" />
 
                 <LinearLayout
@@ -98,6 +96,8 @@
                             android:layout_margin="10dp"
                             android:layout_width="match_parent"
                             android:layout_height="150dp">
+
+
 
                             <View
                                 android:layout_width="match_parent"

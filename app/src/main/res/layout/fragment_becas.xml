@@ -120,7 +120,7 @@
                         android:layout_height="wrap_content"
                         android:text="BECAS"
                         android:textColor="@color/blackTextColor"
-                        android:textSize="26sp"
+                        android:textSize="22sp"
                         android:textStyle="bold"
                         android:fontFamily="@font/montserrat_black"/>
 
@@ -172,7 +172,7 @@
                         android:layout_height="wrap_content"
                         android:text="MIS INSCRIPCIONES"
                         android:textColor="@color/blackTextColor"
-                        android:textSize="24sp"
+                        android:textSize="22sp"
                         android:textStyle="bold"
                         android:fontFamily="@font/montserrat_black"/>
 

@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:weightSum="1"
-        android:layout_margin="10dp"
+        android:layout_margin="5dp"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -64,11 +64,9 @@
                 android:gravity="center"
                 android:text="ACTIVO "
                 android:textColor="@color/blackTextColor"
-                android:paddingEnd="5dp"
-                android:textStyle="italic|bold"
+                android:textStyle="bold"
                 android:textSize="14sp"
-                android:fontFamily="@font/montserrat_regular"
-                android:paddingRight="5dp" />
+                android:fontFamily="@font/montserrat_black"/>
 
             <ImageView
                 android:layout_marginStart="5dp"

@@ -30,7 +30,6 @@ import com.unse.bienestar.estudiantil.Modelos.ServiciosUPA;
 import com.unse.bienestar.estudiantil.Modelos.Turno;
 import com.unse.bienestar.estudiantil.R;
 import com.unse.bienestar.estudiantil.Vistas.Activities.Becas.ResumenTurnoActivity;
-import com.unse.bienestar.estudiantil.Vistas.Activities.Becas.SelectorReceptoresActivity;
 import com.unse.bienestar.estudiantil.Vistas.Adaptadores.HorariosAdapter;
 
 import org.json.JSONArray;
@@ -52,7 +51,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class SelectorFechaUPAActivity extends AppCompatActivity implements View.OnClickListener {
 
     CalendarView mCalendarView;
-    TextView txtFecha;
+    TextView txtFecha, txtTurnosDisp;
     RecyclerView mRecyclerView;
     CardView cardContinuar, cardSeleccionar;
     HorariosAdapter adapter;
@@ -315,11 +314,15 @@ public class SelectorFechaUPAActivity extends AppCompatActivity implements View.
                             copiaHorarios.addAll(horariosPorServicio.get(dia));
                             turnos = new HashMap<>();
                             reset();
-                            adapter = new HorariosAdapter(copiaHorarios, getApplicationContext());
-                            mRecyclerView.setAdapter(adapter);
+                            if (copiaHorarios.size() != 0) {
+                                adapter = new HorariosAdapter(copiaHorarios, getApplicationContext());
+                                mRecyclerView.setAdapter(adapter);
 
-                            mRecyclerView.setVisibility(View.VISIBLE);
-                            cardContinuar.setVisibility(View.VISIBLE);
+                                mRecyclerView.setVisibility(View.VISIBLE);
+                                cardContinuar.setVisibility(View.VISIBLE);
+                            }
+                            else
+                                txtTurnosDisp.setVisibility(View.VISIBLE);
 
                             checkDay(null);
                         } else {
@@ -435,12 +438,13 @@ public class SelectorFechaUPAActivity extends AppCompatActivity implements View.
                     } else {
                         Utils.showToast(getApplicationContext(), getString(R.string.noTurnoDisponible));
                     }
-
-
-                    adapter = new HorariosAdapter(copiaHorarios, getApplicationContext());
-                    mRecyclerView.setAdapter(adapter);
-                    mRecyclerView.setVisibility(View.VISIBLE);
-                    cardContinuar.setVisibility(View.VISIBLE);
+                    if (copiaHorarios.size() != 0) {
+                        adapter = new HorariosAdapter(copiaHorarios, getApplicationContext());
+                        mRecyclerView.setAdapter(adapter);
+                        mRecyclerView.setVisibility(View.VISIBLE);
+                        cardContinuar.setVisibility(View.VISIBLE);
+                    } else
+                        txtTurnosDisp.setVisibility(View.VISIBLE);
 
                     checkDay(null);
 
@@ -448,7 +452,6 @@ public class SelectorFechaUPAActivity extends AppCompatActivity implements View.
                     e.printStackTrace();
                 }
             }
-
 
         }
     }
@@ -516,6 +519,7 @@ public class SelectorFechaUPAActivity extends AppCompatActivity implements View.
         cardContinuar = findViewById(R.id.cardContinuar);
         latDatos = findViewById(R.id.latDatos);
         mProgressBar = findViewById(R.id.progres);
+        txtTurnosDisp = findViewById(R.id.txtTurnosDisp);
     }
 
     @Override

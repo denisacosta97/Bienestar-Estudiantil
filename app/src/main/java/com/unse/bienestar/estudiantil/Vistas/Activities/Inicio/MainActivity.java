@@ -40,8 +40,6 @@ import com.unse.bienestar.estudiantil.Herramientas.Almacenamiento.PreferenceMana
 import com.unse.bienestar.estudiantil.Herramientas.Utils;
 import com.unse.bienestar.estudiantil.Herramientas.VolleySingleton;
 import com.unse.bienestar.estudiantil.Interfaces.YesNoDialogListener;
-import com.unse.bienestar.estudiantil.Modelos.PuntoConectividad;
-import com.unse.bienestar.estudiantil.Modelos.Rol;
 import com.unse.bienestar.estudiantil.Modelos.Usuario;
 import com.unse.bienestar.estudiantil.R;
 import com.unse.bienestar.estudiantil.Vistas.Activities.Perfil.PerfilActivity;
@@ -61,7 +59,6 @@ import com.unse.bienestar.estudiantil.Vistas.Fragmentos.UPAFragment;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.net.URLEncoder;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -348,7 +345,6 @@ public class MainActivity extends AppCompatActivity {
                 ((TransporteFragment) fragmentoGenerico).setActivity(MainActivity.this);
                 break;
             case R.id.item_comedor:
-
                 fragmentoGenerico = new ComedorFragment();
                 break;
             case R.id.item_resi:
@@ -370,7 +366,6 @@ public class MainActivity extends AppCompatActivity {
                 fragmentoGenerico = new PConectividadFragment(getSupportFragmentManager());
                 break;
         }
-
 
         /*if (!(fragmentoGenerico instanceof InicioFragmento)) {
             boolean isLogin = manager.getValue(Utils.IS_LOGIN);

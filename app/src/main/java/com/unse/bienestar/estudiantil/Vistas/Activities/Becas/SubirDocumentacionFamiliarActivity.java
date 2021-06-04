@@ -289,8 +289,7 @@ public class SubirDocumentacionFamiliarActivity extends AppCompatActivity implem
                         documentacion.setValidez(1);
                         intent.putExtra(Utils.DATA_DOCUM, documentacion);
                         setResult(Activity.RESULT_OK, intent);
-                        Utils.showToast(getApplicationContext(), getString(R.string.documentoSubido));
-                        finish();
+                        showDialogoFinalizar();
                     }
                     break;
                 case 2:
@@ -310,6 +309,29 @@ public class SubirDocumentacionFamiliarActivity extends AppCompatActivity implem
             e.printStackTrace();
             Utils.showToast(getApplicationContext(), getString(R.string.errorInternoAdmin));
         }
+    }
+
+
+    public void showDialogoFinalizar() {
+        DialogoGeneral.Builder builder = new DialogoGeneral.Builder(getApplicationContext())
+                .setTitulo(getString(R.string.advertencia))
+                .setDescripcion(getString(R.string.archivoEnviado))
+                .setListener(new YesNoDialogListener() {
+                    @Override
+                    public void yes() {
+                        finish();
+                    }
+
+                    @Override
+                    public void no() {
+
+                    }
+                })
+                .setTipo(DialogoGeneral.TIPO_ACEPTAR)
+                .setIcono(R.drawable.ic_chek);
+        DialogoGeneral dialogoGeneral = builder.build();
+        dialogoGeneral.setCancelable(false);
+        dialogoGeneral.show(getSupportFragmentManager(), "dialogo");
     }
 
     private void send() {

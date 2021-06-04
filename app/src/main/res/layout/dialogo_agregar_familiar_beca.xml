@@ -65,7 +65,7 @@
                 android:gravity="center"
                 android:hint="NOMBRE"
                 android:inputType="text"
-                android:digits="qwertzuiopasdfghjklyxcvbnñm "
+                android:digits="QWERTYUIOPASDFGHJKLÑZXCVBNMqwertzuiopasdfghjklyxcvbnñm "
                 android:fontFamily="@font/montserrat_regular"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp" />

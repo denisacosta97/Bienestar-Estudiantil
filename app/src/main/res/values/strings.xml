@@ -584,6 +584,7 @@ Solo debes enviarnos dos fotos:\n
     <string name="inscripcionRecibido">¡Inscripción recibida!</string>
     <string name="inscripcionNoEditable">¡inscripcion no editable!</string>
     <string name="inscripcionNoActualizada">¡Error al enviar la inscripción!</string>
+    <string name="archivoEnviado">¡Archivo enviado correctamente!</string>
 
 </resources>
 

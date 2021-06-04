@@ -116,6 +116,27 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilDni"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/edtDNI"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="D.N.I*"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:padding="15dp"
+                    android:inputType="number"
+                    android:background="@drawable/edit_text_logreg"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/montserrat_regular"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -124,32 +145,23 @@
                 android:weightSum="1"
                 android:orientation="horizontal">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/tilDni"
+                <EditText
+                    android:id="@+id/edtFecha"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.7">
-
-                    <EditText
-                        android:id="@+id/edtDNI"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="D.N.I*"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginBottom="10dp"
-                        android:padding="15dp"
-                        android:inputType="number"
-                        android:background="@drawable/edit_text_logreg"
-                        android:textSize="16sp"
-                        android:fontFamily="@font/montserrat_regular"/>
-
-                </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_height="50dp"
+                    android:layout_weight="0.6"
+                    android:hint="Fecha de nacimiento*"
+                    android:padding="15dp"
+                    android:inputType="date"
+                    android:background="@drawable/edit_text_logreg"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/montserrat_regular"/>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tilSexo"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.3">
+                    android:layout_weight="0.4">
 
                     <EditText
                         android:id="@+id/edtSexo"
@@ -168,20 +180,6 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
-
-            <EditText
-                android:id="@+id/edtFecha"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:hint="Fecha de nacimiento*"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginBottom="10dp"
-                android:padding="15dp"
-                android:inputType="date"
-                android:background="@drawable/edit_text_logreg"
-                android:textSize="16sp"
-                android:fontFamily="@font/montserrat_regular"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilMail"
@@ -207,7 +205,8 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilContra"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:passwordToggleEnabled="true">
 
                 <EditText
                     android:id="@+id/edtPass"
@@ -229,7 +228,8 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilRecontra"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:passwordToggleEnabled="true">
 
                 <EditText
                     android:id="@+id/edtRepass"

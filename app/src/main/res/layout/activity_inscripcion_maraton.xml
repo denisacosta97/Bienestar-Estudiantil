@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:card_view="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <LinearLayout
@@ -57,7 +56,7 @@
             android:gravity="center"
             android:textColor="@color/blackTextColor"
             android:fontFamily="@font/montserrat_black"
-            android:text="¿Como participo en la maratón virtual unse?"
+            android:text="¿Cómo participo en la maratón virtual unse?"
             android:textSize="18sp" />
 
         <LinearLayout
@@ -167,7 +166,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -185,7 +184,8 @@
                     android:layout_marginTop="10dp"
                     android:textColor="@color/blackTextColor"
                     android:textIsSelectable="true"
-                    android:text="Sábado 29 y domingo 30 de mayo"
+                    android:text="miércoles 09, jueves 10 y viernes 11 de junio"
+                    android:layout_marginLeft="10dp"
                     android:textSize="16sp"
                     android:fontFamily="@font/montserrat_regular"/>
 

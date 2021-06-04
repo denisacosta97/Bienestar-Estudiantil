@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 
@@ -21,7 +20,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
@@ -31,7 +29,6 @@ import com.unse.bienestar.estudiantil.Herramientas.Almacenamiento.PreferenceMana
 import com.unse.bienestar.estudiantil.Herramientas.Utils;
 import com.unse.bienestar.estudiantil.Herramientas.VolleySingleton;
 import com.unse.bienestar.estudiantil.R;
-import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoGeneral;
 import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoProcesamiento;
 
 import org.json.JSONException;
@@ -49,17 +46,12 @@ public class InscripcionMaratonActivity extends AppCompatActivity implements Vie
     Button btnInsc;
     LinearLayout latDatos;
     DialogoProcesamiento dialog;
-    boolean isRegister = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inscripcion_maraton);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
-        if (getIntent().getBooleanExtra(Utils.IS_EDIT_MODE, false)) {
-            isRegister = getIntent().getBooleanExtra(Utils.IS_EDIT_MODE, false);
-        }
 
         loadViews();
 
@@ -72,11 +64,6 @@ public class InscripcionMaratonActivity extends AppCompatActivity implements Vie
         categ = new ArrayAdapter<>(getApplicationContext(), R.layout.style_spinner, Utils.catMaraton);
         categ.setDropDownViewResource(R.layout.style_spinner);
         spinnerCateg.setAdapter(categ);
-
-        if (isRegister) {
-            latDatos.setVisibility(View.VISIBLE);
-        } else
-            latDatos.setVisibility(View.GONE);
 
         rango = new ArrayAdapter<>(getApplicationContext(), R.layout.style_spinner, Utils.rangoEdad);
         rango.setDropDownViewResource(R.layout.style_spinner);

@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:text="Paro de colectivos a partir de las 12hs"
                 android:textColor="#000"
-                android:textSize="32sp"
+                android:textSize="24sp"
                 android:fontFamily="@font/montserrat_black"/>
 
             <LinearLayout
@@ -84,6 +84,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:textSize="18sp"
+                android:textIsSelectable="true"
+                android:textColor="@color/blackTextColor"
                 android:text="@string/lorem"
                 android:fontFamily="@font/montserrat_regular"/>
 
@@ -94,7 +96,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="end"
-            android:layout_margin="10dp"
+            android:layout_margin="15dp"
             android:orientation="horizontal">
 
             <TextView

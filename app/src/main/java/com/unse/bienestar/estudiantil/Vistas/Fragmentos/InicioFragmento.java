@@ -1,6 +1,5 @@
 package com.unse.bienestar.estudiantil.Vistas.Fragmentos;
 
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,12 +16,9 @@ import com.unse.bienestar.estudiantil.Herramientas.RecyclerListener.ItemClickSup
 import com.unse.bienestar.estudiantil.Herramientas.Utils;
 import com.unse.bienestar.estudiantil.Herramientas.VolleySingleton;
 import com.unse.bienestar.estudiantil.Modelos.Categoria;
-import com.unse.bienestar.estudiantil.Modelos.Maraton;
 import com.unse.bienestar.estudiantil.Modelos.Noticia;
 import com.unse.bienestar.estudiantil.R;
-import com.unse.bienestar.estudiantil.Vistas.Activities.Maraton.InscripcionMaratonActivity;
 import com.unse.bienestar.estudiantil.Vistas.Activities.Inicio.NoticiaLectorActivity;
-import com.unse.bienestar.estudiantil.Vistas.Activities.Maraton.PerfilMaratonActivity;
 import com.unse.bienestar.estudiantil.Vistas.Adaptadores.CategoriasAdapter;
 import com.unse.bienestar.estudiantil.Vistas.Adaptadores.NoticiasAdapter;
 import com.unse.bienestar.estudiantil.Vistas.Dialogos.DialogoProcesamiento;
@@ -34,7 +30,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -51,7 +46,6 @@ public class InicioFragmento extends Fragment {
     ArrayList<Noticia> mListNoticias;
     Context mContext;
     FragmentManager mFragmentManager;
-    CardView cardMaraton;
 
     public void setContext(Context context) {
         mContext = context;
@@ -90,7 +84,6 @@ public class InicioFragmento extends Fragment {
     }
 
     private void loadViews() {
-        cardMaraton = view.findViewById(R.id.cardMaraton);
         recyclerCategorias = view.findViewById(R.id.recyclerCategorias);
         recyclerNoticias = view.findViewById(R.id.recyclerNoticias);
     }
@@ -134,12 +127,6 @@ public class InicioFragmento extends Fragment {
             }
         });
 
-        cardMaraton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                checkInscripcion();
-            }
-        });
     }
 
     private void checkInscripcion() {
@@ -211,12 +198,7 @@ public class InicioFragmento extends Fragment {
                     loadInfo(jsonObject, tipo);
                     break;
                 case 2:
-                    if (tipo == 1)
-                        Utils.showToast(getContext(), getString(R.string.noData));
-                    else {
-                        Intent i = new Intent(getContext(), InscripcionMaratonActivity.class);
-                        startActivity(i);
-                    }
+                    Utils.showToast(getContext(), getString(R.string.noData));
                     //updateView(0);
                     break;
                 case 3:
@@ -225,9 +207,6 @@ public class InicioFragmento extends Fragment {
                 case 100:
                     //No autorizado
                     Utils.showToast(getContext(), getString(R.string.tokenInexistente));
-                    if (tipo == 2){
-
-                    }
                     break;
             }
 
@@ -261,26 +240,13 @@ public class InicioFragmento extends Fragment {
                         recyclerNoticias.setAdapter(mNoticiasAdapter);
                         recyclerCategorias.setVisibility(View.VISIBLE);
                     }
-                } else if (tipo == 2) {
-                    JSONObject jsonArray = jsonObject.getJSONObject("mensaje");
-
-                    if (jsonArray.has("distancia")) {
-                        Maraton maraton = Maraton.mapper(jsonArray, Maraton.BASIC);
-                        Intent intent = new Intent(getContext(), PerfilMaratonActivity.class);
-                        intent.putExtra(Utils.USER_NAME, maraton);
-                        startActivity(intent);
-                    }
                 }
-
-
             }
         } catch (JSONException e) {
             e.printStackTrace();
             //updateView(2);
         }
-
     }
-
 
     private void loadCategorias() {
         mCategorias = new ArrayList<>();

@@ -71,7 +71,7 @@ public class NoticiaLectorActivity extends AppCompatActivity implements View.OnC
     private void setToolbar() {
         Toolbar mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
-        ((TextView) findViewById(R.id.txtTitulo)).setText("");
+        ((TextView) findViewById(R.id.txtTitulo)).setText("Noticia");
     }
 
     private void loadListener() {

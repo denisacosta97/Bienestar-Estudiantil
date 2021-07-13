@@ -575,6 +575,16 @@ Solo debes enviarnos dos fotos:\n
     <string name="imagenNoFormat">¡Solo PDF, JPG, JPEG o PNG!</string>
     <string name="documentoSubido">¡Documento subido!</string>
     <string name="archivoMalo">¡El archivo está corrupto!</string>
+    <string name="inscripcionEnviada">¡Inscripción enviada!</string>
+    <string name="inscripcionAdministrador">¡Debe habilitarse por el administrador!</string>
+    <string name="inscripcionCancelada">¡Inscripción cancelada!</string>
+    <string name="inscripcionNoEvaluada">¡Inscripcion nunca evaluada!</string>
+    <string name="inscripcionAceptada">¡Inscripcion aceptada!</string>
+    <string name="inscripcionReenviada">¡Inscripción nuevamente recibida!</string>
+    <string name="inscripcionRecibido">¡Inscripción recibida!</string>
+    <string name="inscripcionNoEditable">¡inscripcion no editable!</string>
+    <string name="inscripcionNoActualizada">¡Error al enviar la inscripción!</string>
+    <string name="archivoEnviado">¡Archivo enviado correctamente!</string>
 
 </resources>
 

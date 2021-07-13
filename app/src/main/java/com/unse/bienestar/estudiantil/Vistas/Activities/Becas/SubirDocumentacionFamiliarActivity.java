@@ -32,6 +32,7 @@ import com.android.volley.VolleyError;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
+import com.unse.bienestar.estudiantil.Herramientas.Almacenamiento.PreferenceManager;
 import com.unse.bienestar.estudiantil.Herramientas.FileUtil;
 import com.unse.bienestar.estudiantil.Herramientas.UploadManager;
 import com.unse.bienestar.estudiantil.Herramientas.Utils;
@@ -146,6 +147,17 @@ public class SubirDocumentacionFamiliarActivity extends AppCompatActivity implem
         }
         txtDocumentacion.setText(String.format("%s - %S", archivo.getNombre(), documentacion.getDescripcion()));
         updateButton();
+        PreferenceManager preferenceManager = new PreferenceManager(getApplicationContext());
+        int edit = preferenceManager.getValueInt(Utils.IS_EDIT_MODE);
+        if (edit == 0) {
+            btnSubir.setEnabled(false);
+            cardModificar.setVisibility(View.GONE);
+            cardModificar.setEnabled(false);
+            edtDescripcion.setEnabled(false);
+            imgAddArchivo.setEnabled(false);
+            imgArchivo.setEnabled(false);
+        }
+
     }
 
     private void loadListener() {
@@ -277,8 +289,7 @@ public class SubirDocumentacionFamiliarActivity extends AppCompatActivity implem
                         documentacion.setValidez(1);
                         intent.putExtra(Utils.DATA_DOCUM, documentacion);
                         setResult(Activity.RESULT_OK, intent);
-                        Utils.showToast(getApplicationContext(), getString(R.string.documentoSubido));
-                        finish();
+                        showDialogoFinalizar();
                     }
                     break;
                 case 2:
@@ -298,6 +309,29 @@ public class SubirDocumentacionFamiliarActivity extends AppCompatActivity implem
             e.printStackTrace();
             Utils.showToast(getApplicationContext(), getString(R.string.errorInternoAdmin));
         }
+    }
+
+
+    public void showDialogoFinalizar() {
+        DialogoGeneral.Builder builder = new DialogoGeneral.Builder(getApplicationContext())
+                .setTitulo(getString(R.string.advertencia))
+                .setDescripcion(getString(R.string.archivoEnviado))
+                .setListener(new YesNoDialogListener() {
+                    @Override
+                    public void yes() {
+                        finish();
+                    }
+
+                    @Override
+                    public void no() {
+
+                    }
+                })
+                .setTipo(DialogoGeneral.TIPO_ACEPTAR)
+                .setIcono(R.drawable.ic_chek);
+        DialogoGeneral dialogoGeneral = builder.build();
+        dialogoGeneral.setCancelable(false);
+        dialogoGeneral.show(getSupportFragmentManager(), "dialogo");
     }
 
     private void send() {
